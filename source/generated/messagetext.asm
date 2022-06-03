@@ -10,6 +10,7 @@ ErrorIDTable:
 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
 	.dw	ErrText_memory & $FFFF,ErrText_memory >> 16
 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
+	.dw	ErrText_nolbracket & $FFFF,ErrText_nolbracket >> 16
 	.dw	ErrText_norbracket & $FFFF,ErrText_norbracket >> 16
 	.dw	ErrText_notref & $FFFF,ErrText_notref >> 16
 	.dw	ErrText_stop & $FFFF,ErrText_stop >> 16
@@ -33,6 +34,8 @@ ErrText_memory:
 	.db "Out of memory",0
 ErrText_nocomma:
 	.db "Missing Comma",0
+ErrText_nolbracket:
+	.db "Missing Left Bracket",0
 ErrText_norbracket:
 	.db "Missing Right Bracket",0
 ErrText_notref:

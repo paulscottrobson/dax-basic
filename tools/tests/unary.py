@@ -57,7 +57,7 @@ class UnaryOperators(TestObject):
 			print("assert len(\"{0}\") = {1}".format(s1,len(s1)))
 
 		if op == "asc":
-			print("assert asc(\"{0}\") = {1}".format(s1,ord(s1[0]) if s1 != "" else 0))
+			print("assert asc(\"{0}\") = {1}".format(s1,ord(s1[0]) if s1 != "" else 13))
 
 		if op == "abs":
 			print("assert abs({0}) = {1}".format(n1,abs(n1)))
@@ -83,7 +83,7 @@ class UnaryOperators(TestObject):
 		return True 
 
 	def getOperatorList(self):
-		return "-"
+		return "-,&,not,?,!,abs,len,asc,sgn,val"
 
 if __name__ == "__main__":
 	UnaryOperators().create()

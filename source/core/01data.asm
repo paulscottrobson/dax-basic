@@ -56,7 +56,7 @@ StandardIntegers: 							; address of standard A-Z variables. On a 128 byte page
 LowAllocMemory: 							; lowest free memory byte.
 		.dw 	0,0
 		
-TopAddress: 								; first free location after PAGE.
+TopMemory: 									; first free location after PAGE.
 		.dw 	0,0
 
 ; ***************************************************************************************

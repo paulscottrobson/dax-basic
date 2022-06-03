@@ -109,7 +109,7 @@ _ETNotUnaryFunction0:
 		;
 		; 		- term
 		;
-		call 	EvaluateTerm 				; evaluate term
+		call 	EvaluateIntegerTerm 		; evaluate term
 		call 	NegateHLHL 					; negate HLHL type defpendent.
 		ret
 		;

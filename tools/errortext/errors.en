@@ -18,6 +18,7 @@ BadValue: 	Bad Value
 DivZero: 	Division by Zero
 Disabled:	Functionality not enabled
 ToDo: 		Code not written
+NoLBracket: Missing Left Bracket
 NoRBracket: Missing Right Bracket
 NoComma: 	Missing Comma
 Memory: 	Out of memory

@@ -1,51 +1,31 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		charcheck.asm
+;		Name : 		val.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	Check next character type functions.
+;		Purpose :	String->Integer conversion.
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
 ; ***************************************************************************************
 ;
-; 		Common Macro, can create for any token. Use for common ones like ) and ,
+;								val( unary function
 ;
 ; ***************************************************************************************
 
-#macro 	checknext(ch,errorid)
-		ld 		a,(ix+0) 					; get next character and skip it
-		inc 	ix
-		cp 		ch 							; exit if matches
-		ret 	z
-		ld  	a,errorid					; otherwise error (nesting macros doesn't work)
-		jp 		ErrorHandler
-#endmacro
+Unary_Val:	;; [val]
+		call 	EvaluateStringTerm 			; get the string into UHL
+		push 	hl 							; copy to BC
+		pop 	bc
+		ld 		a,-10 						; base 10, signed.
+		call 	Int32FromString 			; get the integer part.
+		ld 		c,XTYPE_INTEGER 			; it's an integer 
+		ret		z 							; okay
+		ERR_BADVALUE
 
-CheckLeftBracket:
-		checknext(KWD_LPAREN,ERRID_NOLBRACKET)
-
-CheckRightBracket:
-		checknext(KWD_RPAREN,ERRID_NORBRACKET)
-
-CheckComma:
-		checknext(KWD_COMMA,ERRID_NOCOMMA)		
-
-; ***************************************************************************************
-;
-; 							Check A, gives Syntax Error
-;
-; ***************************************************************************************
-
-CheckNextA:
-		cp 		a,(ix+0) 					; match ?
-		inc 	ix 							; skip character
-		ret 	z 							; yes, okay
-		ERR_SYNTAX 							; no, syntax error.
-		
 ; ***************************************************************************************
 ;
 ;									Changes and Updates

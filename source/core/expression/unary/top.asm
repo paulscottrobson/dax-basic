@@ -1,51 +1,29 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		charcheck.asm
+;		Name : 		top.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	Check next character type functions.
+;		Purpose :	Various constants.
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
 ; ***************************************************************************************
 ;
-; 		Common Macro, can create for any token. Use for common ones like ) and ,
+;							page unary function (no bracket)
 ;
 ; ***************************************************************************************
 
-#macro 	checknext(ch,errorid)
-		ld 		a,(ix+0) 					; get next character and skip it
-		inc 	ix
-		cp 		ch 							; exit if matches
-		ret 	z
-		ld  	a,errorid					; otherwise error (nesting macros doesn't work)
-		jp 		ErrorHandler
-#endmacro
+Unary_Top:	;; [top]
+			ld 		hl,(TopMemory) 			; get address of code
+			exx
+			ld 		hl,(TopMemory+2)
+			exx
+			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
+			ret
 
-CheckLeftBracket:
-		checknext(KWD_LPAREN,ERRID_NOLBRACKET)
-
-CheckRightBracket:
-		checknext(KWD_RPAREN,ERRID_NORBRACKET)
-
-CheckComma:
-		checknext(KWD_COMMA,ERRID_NOCOMMA)		
-
-; ***************************************************************************************
-;
-; 							Check A, gives Syntax Error
-;
-; ***************************************************************************************
-
-CheckNextA:
-		cp 		a,(ix+0) 					; match ?
-		inc 	ix 							; skip character
-		ret 	z 							; yes, okay
-		ERR_SYNTAX 							; no, syntax error.
-		
 ; ***************************************************************************************
 ;
 ;									Changes and Updates
@@ -56,4 +34,4 @@ CheckNextA:
 ;		==== 			=====
 ;
 ; ***************************************************************************************
-		
+			

@@ -88,7 +88,7 @@ _I32FSExit:
 		pop 	de
 		exx
 		pop 	bc
-		or 		a 							; set Z flag if zero.
+		cp 		$0D 						; ends in CR ?
 		ret				
 
 ; ***************************************************************************************

@@ -57,42 +57,49 @@ ERRID_NOCOMMA = 7
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 8
+ERRID_NOLBRACKET = 8
+
+#macro ERR_NOLBRACKET
+	ld a,ERRID_NOLBRACKET
+	jp ErrorHandler
+#endmacro
+
+ERRID_NORBRACKET = 9
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 9
+ERRID_NOTREF = 10
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 10
+ERRID_STOP = 11
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 11
+ERRID_SYNTAX = 12
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 12
+ERRID_TODO = 13
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 13
+ERRID_UNKNOWNVAR = 14
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR

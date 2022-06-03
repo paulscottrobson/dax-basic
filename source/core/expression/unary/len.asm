@@ -1,51 +1,33 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		charcheck.asm
+;		Name : 		len.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
-;		Reviewed :	No
-;		Purpose :	Check next character type functions.
+;		Reviewed :	None
+;		Purpose :	String Length
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
 ; ***************************************************************************************
 ;
-; 		Common Macro, can create for any token. Use for common ones like ) and ,
+;								Len unary function
 ;
 ; ***************************************************************************************
 
-#macro 	checknext(ch,errorid)
-		ld 		a,(ix+0) 					; get next character and skip it
-		inc 	ix
-		cp 		ch 							; exit if matches
-		ret 	z
-		ld  	a,errorid					; otherwise error (nesting macros doesn't work)
-		jp 		ErrorHandler
-#endmacro
+Unary_Len:	;; [len]
+		call	EvaluateStringTerm			; Get string address into UHL
+		ex 		de,hl 						; put in DE
+		call 	UnaryInt32False 			; zero HL'HL
+_ULCount:
+		ld 		a,(de) 						; next char
+		cp 		$20 						; if < space return.
+		ret 	c
+		inc 	hl 							; bump count and pointer
+		inc 	de
+		jr 		_ULCount 					; go round again.
 
-CheckLeftBracket:
-		checknext(KWD_LPAREN,ERRID_NOLBRACKET)
-
-CheckRightBracket:
-		checknext(KWD_RPAREN,ERRID_NORBRACKET)
-
-CheckComma:
-		checknext(KWD_COMMA,ERRID_NOCOMMA)		
-
-; ***************************************************************************************
-;
-; 							Check A, gives Syntax Error
-;
-; ***************************************************************************************
-
-CheckNextA:
-		cp 		a,(ix+0) 					; match ?
-		inc 	ix 							; skip character
-		ret 	z 							; yes, okay
-		ERR_SYNTAX 							; no, syntax error.
-		
 ; ***************************************************************************************
 ;
 ;									Changes and Updates

@@ -1,51 +1,29 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		charcheck.asm
+;		Name : 		abs.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	Check next character type functions.
+;		Purpose :	Absolute value 
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
 ; ***************************************************************************************
 ;
-; 		Common Macro, can create for any token. Use for common ones like ) and ,
+;								abs( unary function
 ;
 ; ***************************************************************************************
 
-#macro 	checknext(ch,errorid)
-		ld 		a,(ix+0) 					; get next character and skip it
-		inc 	ix
-		cp 		ch 							; exit if matches
-		ret 	z
-		ld  	a,errorid					; otherwise error (nesting macros doesn't work)
-		jp 		ErrorHandler
-#endmacro
+Unary_Abs:	;; [abs]	
+		call	EvaluateIntegerTerm 		; get int term
+		exx 								; test MSB
+		bit 	7,h
+		exx
+		call 	nz,NegateHLHL 				; negate HLHL if -ve
+		ret
 
-CheckLeftBracket:
-		checknext(KWD_LPAREN,ERRID_NOLBRACKET)
-
-CheckRightBracket:
-		checknext(KWD_RPAREN,ERRID_NORBRACKET)
-
-CheckComma:
-		checknext(KWD_COMMA,ERRID_NOCOMMA)		
-
-; ***************************************************************************************
-;
-; 							Check A, gives Syntax Error
-;
-; ***************************************************************************************
-
-CheckNextA:
-		cp 		a,(ix+0) 					; match ?
-		inc 	ix 							; skip character
-		ret 	z 							; yes, okay
-		ERR_SYNTAX 							; no, syntax error.
-		
 ; ***************************************************************************************
 ;
 ;									Changes and Updates
