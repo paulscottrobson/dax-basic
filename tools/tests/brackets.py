@@ -3,7 +3,7 @@
 #
 #		Name : 		brackets.py
 #		Purpose :	Test bracketed expression.
-#		Date :		9th May 2022
+#		Date :		3rd June 2022
 #		Author : 	Paul Robson (paul@robsons.org.uk)
 #
 # *******************************************************************************************
@@ -38,7 +38,7 @@ class Parenthesis(TestObject):
 		return eval(expr)
 	#
 	def basicFormat(self,expr):
-		expr = expr.replace("&","and").replace("|","or").replace("^","xor")
+		expr = expr.replace("&","and").replace("|","or").replace("^","eor")
 		return expr
 	#
 	def createValidExpression(self,level):

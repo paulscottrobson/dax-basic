@@ -107,6 +107,7 @@ StringCompare:
 		inc 	hl
 		cp 		' '
 		jr 		nc,StringCompare
+		xor 	a 							; return 0.
 		ret
 
 _SCLess:

@@ -28,8 +28,9 @@ _CCFindLow:
 		ld 		a,e
 		or 		a
 		jr 		nz,_CCFindLow
-		inc 	hl 							; one past the last $00, one for luck
-		inc 	hl
+		inc 	hl 							; one past the last $00
+		ld 		(TopMemory),hl 				; save TOP
+		inc 	hl 							; one for luck
 		ld 		(LowAllocMemory),hl
 		;
 		; 	 		Reset the language stack
@@ -54,6 +55,9 @@ _CCFindLow:
 		; 		TODO:Seed the RNG incase the seeds were all zero which gives bad results
 		;
 
+		;
+		;		TODO:RESTORE the Data Pointer.
+		;
 		ret
 
 ; ***************************************************************************************

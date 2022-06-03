@@ -1,4 +1,11 @@
 TODO:
-	Test &hex works.
-	Test ! ? operators (unary)
-	No $ (unary or assignment function), $ should be unary.
+	No $ (unary or assignment function), $ should be unary function casting integer to string.
+	Implement rest of unary.
+	PRINT
+	Variables A-Z
+	LET (also allow for LET $A and $A)
+	Variables rest of.
+
+Pass:
+	Unary (after modification)
+	

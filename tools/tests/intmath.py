@@ -3,7 +3,7 @@
 #
 #		Name : 		intmath.py
 #		Purpose :	Integer Mathematics testing.
-#		Date :		3rd May 2022
+#		Date :		3rd June 2022
 #		Author : 	Paul Robson (paul@robsons.org.uk)
 #
 # *******************************************************************************************

@@ -26,7 +26,7 @@
 
 ::FIRST_BINARY
 {6} 	! ?  											// Indirection operators
-{5} 	* / mod 	 									// Scalars
+{5} 	* / mod div	 									// Scalars
 {4} 	+ -  											// Additives
 {3}		>= <= > < = <> 									// Comparisons
 {2}		and  											// Binary operators
@@ -34,7 +34,8 @@
 
 ::FIRST_UNARY
 	&		( 		$
-	rnd 	len 	abs 	sgn 	int 	str$ 	asc 	page
+	rnd 	len 	abs 	sgn 	int 	str		chr 	asc 	not 	page 
+	string	time	top	
 	
 ::FIRST_NORMAL
 		) 		, 		: 		; 		' 		

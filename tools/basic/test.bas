@@ -1,2 +1,2 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-assert $42
+assert ("khgOccJj" <> "khgOccJj") = 0
