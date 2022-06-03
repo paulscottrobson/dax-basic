@@ -1,0 +1,3 @@
+TODO:
+	Test &hex works.
+	Test $ ! ? operators (unary)

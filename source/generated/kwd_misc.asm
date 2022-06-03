@@ -18,5 +18,5 @@ PrecedenceTable:
 	.db	3	; $008f <>
 	.db	2	; $0090 and
 	.db	1	; $0091 or
-	.db	1	; $0092 xor
+	.db	1	; $0092 eor
 

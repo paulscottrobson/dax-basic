@@ -31,7 +31,9 @@ class TestObject(object):
 		print('rem "Seed = {0}"'.format(self.seed))
 
 	def footer(self):
-		print('print "Ok Seed {0}"'.format(self.seed))
+		#print('print "Ok Seed {0}"'.format(self.seed))
+		pass
+
 	def create(self):
 		self.header()
 		count = 200
@@ -55,5 +57,3 @@ class TestObject(object):
 		roundup = 1000
 		return int(r * roundup+0.5)/roundup
 
-	def checkFloatNear(self,v1,v2):
-		print("assert abs({0}-{1}) <= 0.01".format(v1,self.makeReal(v2)))

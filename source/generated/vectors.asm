@@ -5,24 +5,24 @@ VectorsSet0:
 	addr(EOLHandler)                 ; $0080 [[eol]]
 	addr(Unimplemented)              ; $0081 [[shift1]]
 	addr(Unimplemented)              ; $0082 [[shift2]]
-	addr(Unimplemented)              ; $0083 !
-	addr(Unimplemented)              ; $0084 ?
-	addr(Unimplemented)              ; $0085 *
-	addr(Unimplemented)              ; $0086 /
-	addr(Unimplemented)              ; $0087 mod
-	addr(Unimplemented)              ; $0088 +
-	addr(Unimplemented)              ; $0089 -
-	addr(Unimplemented)              ; $008a >=
-	addr(Unimplemented)              ; $008b <=
-	addr(Unimplemented)              ; $008c >
-	addr(Unimplemented)              ; $008d <
-	addr(Unimplemented)              ; $008e =
-	addr(Unimplemented)              ; $008f <>
-	addr(Unimplemented)              ; $0090 and
-	addr(Unimplemented)              ; $0091 or
-	addr(Unimplemented)              ; $0092 xor
-	addr(Unimplemented)              ; $0093 &
-	addr(Unimplemented)              ; $0094 (
+	addr(ALULongReference)           ; $0083 !
+	addr(ALUByteReference)           ; $0084 ?
+	addr(ALUMultiply)                ; $0085 *
+	addr(ALUDivide)                  ; $0086 /
+	addr(ALUModulus)                 ; $0087 mod
+	addr(ALUAdd)                     ; $0088 +
+	addr(ALUSubtract)                ; $0089 -
+	addr(ALUCompareGreaterEqual)     ; $008a >=
+	addr(ALUCompareLessEqual)        ; $008b <=
+	addr(ALUCompareGreater)          ; $008c >
+	addr(ALUCompareLess)             ; $008d <
+	addr(ALUCompareEqual)            ; $008e =
+	addr(ALUCompareNotEqual)         ; $008f <>
+	addr(ALUAnd)                     ; $0090 and
+	addr(ALUOr)                      ; $0091 or
+	addr(ALUXor)                     ; $0092 eor
+	addr(Unary_Ampersand)            ; $0093 &
+	addr(Unary_Brackets)             ; $0094 (
 	addr(Unimplemented)              ; $0095 $
 	addr(Unimplemented)              ; $0096 rnd
 	addr(Unimplemented)              ; $0097 len
@@ -31,7 +31,7 @@ VectorsSet0:
 	addr(Unimplemented)              ; $009a int
 	addr(Unimplemented)              ; $009b str$
 	addr(Unimplemented)              ; $009c asc
-	addr(Unimplemented)              ; $009d page
+	addr(Unary_Page)                 ; $009d page
 	addr(BadCmd_RBracket)            ; $009e )
 	addr(BadCmd_Comma)               ; $009f ,
 	addr(Command_Colon)              ; $00a0 :
@@ -63,7 +63,7 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00ba read
 	addr(Unimplemented)              ; $00bb data
 	addr(Unimplemented)              ; $00bc restore
-	addr(Unimplemented)              ; $00bd assert
+	addr(Command_ASSERT)             ; $00bd assert
 	addr(Command_CLEAR)              ; $00be clear
 	addr(Command_END)                ; $00bf end
 	addr(Command_STOP)               ; $00c0 stop

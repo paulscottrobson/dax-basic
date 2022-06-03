@@ -24,7 +24,7 @@
 #define KWD_LESSGREATER                     	$008f ; <>
 #define KWD_AND                             	$0090 ; and
 #define KWD_OR                              	$0091 ; or
-#define KWD_XOR                             	$0092 ; xor
+#define KWD_EOR                             	$0092 ; eor
 #define KWD_AMPERSAND                       	$0093 ; &
 #define KWD_LPAREN                          	$0094 ; (
 #define KWD_DOLLAR                          	$0095 ; $

@@ -30,7 +30,7 @@
 {4} 	+ -  											// Additives
 {3}		>= <= > < = <> 									// Comparisons
 {2}		and  											// Binary operators
-{1} 	or xor  										
+{1} 	or eor  										
 
 ::FIRST_UNARY
 	&		( 		$

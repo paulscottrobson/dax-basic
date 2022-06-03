@@ -1,29 +1,28 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		constants.inc
+;		Name : 		page.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	Constants
+;		Purpose :	Various constants.
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
-IDENTIFIER_END = $26 						; 00 .. 25 is an identifier
-STRING_MARKER = $3F 						; marker for string.
+; ***************************************************************************************
 ;
-;		Normally, type information is in C
-;				  if reference or string, then address is in (U)HL
-;				  if integer, then data (32 bit) is in HL'HL
+;							page unary function (no bracket)
 ;
+; ***************************************************************************************
 
-CIsReference = 7 							; Bit 7 set if reference
-CIsByteReference = 6 						; Bit 6 set if byte reference
-CIsString = 0 								; Bit 0 set if data is string
-
-XTYPE_INTEGER = 0 							; Integer, value in HL'HL
-XTYPE_STRING = 1 							; String, address in UHL
+Unary_Page:	;; [page]
+			ld 		hl,(CodeAddress) 		; get address of code
+			exx
+			ld 		hl,(CodeAddress+2)
+			exx
+			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
+			ret
 
 ; ***************************************************************************************
 ;
@@ -35,3 +34,4 @@ XTYPE_STRING = 1 							; String, address in UHL
 ;		==== 			=====
 ;
 ; ***************************************************************************************
+			
