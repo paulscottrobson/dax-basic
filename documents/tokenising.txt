@@ -1,0 +1,32 @@
+Line structure
+==============
+
+<Offset to next or $00> 	<Low byte> <High byte> 	<Tokenised program> $80
+
+Tokenising
+==========
+00-25 			A-Z 0-9 . ($24) and _ ($25) in identifiers 
+
+STRING_CONSTANT:
+3F 				String constant inline.
+				Format is <3F> <length> <string (20-7F)> 0D
+			
+CONSTANT_SHIFT:
+40-7F 			Constant shift (6 bit)
+				can be prefixed by & indicating hex encoding.
+
+EOL_MARKER:
+	80 			End of line marker
+SHIFT_1:
+	81 			Shift #1 (extra keywords, no structures)
+SHIFT_2:
+	82 			Shift #2 (all assembler mnemonics)
+FIRST_BINARY_OPERATOR:
+	83 			<Binary operators>, each has an associate precedence.
+FIRST_UNARY_OPERATOR:
+				<Unary operators>
+FIRST_STRUCTURE_KEYWORD:
+				<Structure keywords>
+FIRST_STANDARD_KEYWORD:				
+				<Other keywords>
+

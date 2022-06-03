@@ -1,0 +1,25 @@
+# *******************************************************************************************
+# *******************************************************************************************
+#
+#		Name : 		errors.en
+#		Purpose :	Error messages (English)
+#		Date :		3rd June 2022
+#		Author : 	Paul Robson (paul@robsons.org.uk)
+#
+# *******************************************************************************************
+# *******************************************************************************************
+
+@WarmStart: Ready
+Assert:		Assertion failed
+Syntax:  	Syntax Error
+Stop:		Stop
+BadType:	Type Mismatch
+BadValue: 	Bad Value
+DivZero: 	Division by Zero
+Disabled:	Functionality not enabled
+ToDo: 		Code not written
+NoRBracket: Missing Right Bracket
+NoComma: 	Missing Comma
+Memory: 	Out of memory
+UnknownVar:	Unknown Variable
+NotRef:		Cannot assign
