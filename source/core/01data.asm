@@ -89,6 +89,12 @@ s; *****************************************************************************
 _USBuffer: 									; buffer space for STR$()
 		.block 	16
 
+_UCBuffer: 									; buffer space for CHR$()
+		.dw 	0
+
+ConvertBuffer: 								; general usage
+		.block 	64
+
 ; ***************************************************************************************
 ;
 ;									Changes and Updates

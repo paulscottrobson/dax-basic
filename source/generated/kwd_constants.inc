@@ -3,7 +3,7 @@
 ;
 #define KWC_EOL_MARKER                      	$80
 #define KWC_FIRST_BINARY                    	$83
-#define KWC_FIRST_NORMAL                    	$a5
+#define KWC_FIRST_NORMAL                    	$a3
 #define KWC_FIRST_UNARY                     	$94
 #define KWC_SHIFT_1                         	$81
 #define KWC_SHIFT_2                         	$82
@@ -33,48 +33,46 @@
 #define KWD_LEN                             	$0098 ; len
 #define KWD_ABS                             	$0099 ; abs
 #define KWD_SGN                             	$009a ; sgn
-#define KWD_INT                             	$009b ; int
-#define KWD_STR                             	$009c ; str
-#define KWD_CHR                             	$009d ; chr
-#define KWD_ASC                             	$009e ; asc
-#define KWD_NOT                             	$009f ; not
-#define KWD_PAGE                            	$00a0 ; page
-#define KWD_STRING                          	$00a1 ; string
-#define KWD_TIME                            	$00a2 ; time
-#define KWD_TOP                             	$00a3 ; top
-#define KWD_VAL                             	$00a4 ; val
-#define KWD_RPAREN                          	$00a5 ; )
-#define KWD_COMMA                           	$00a6 ; ,
-#define KWD_COLON                           	$00a7 ; :
-#define KWD_SEMICOLON                       	$00a8 ; ;
-#define KWD_SQUOTE                          	$00a9 ; '
-#define KWD_REPEAT                          	$00aa ; repeat
-#define KWD_UNTIL                           	$00ab ; until
-#define KWD_IF                              	$00ac ; if
-#define KWD_THEN                            	$00ad ; then
-#define KWD_ELSE                            	$00ae ; else
-#define KWD_FOR                             	$00af ; for
-#define KWD_TO                              	$00b0 ; to
-#define KWD_STEP                            	$00b1 ; step
-#define KWD_NEXT                            	$00b2 ; next
-#define KWD_DEF                             	$00b3 ; def
-#define KWD_PROC                            	$00b4 ; proc
-#define KWD_ENDPROC                         	$00b5 ; endproc
-#define KWD_LOCAL                           	$00b6 ; local
-#define KWD_DIM                             	$00b7 ; dim
-#define KWD_REM                             	$00b8 ; rem
-#define KWD_LET                             	$00b9 ; let
-#define KWD_VDU                             	$00ba ; vdu
-#define KWD_PRINT                           	$00bb ; print
-#define KWD_LOAD                            	$00bc ; load
-#define KWD_SAVE                            	$00bd ; save
-#define KWD_LIST                            	$00be ; list
-#define KWD_NEW                             	$00bf ; new
-#define KWD_RUN                             	$00c0 ; run
-#define KWD_READ                            	$00c1 ; read
-#define KWD_DATA                            	$00c2 ; data
-#define KWD_RESTORE                         	$00c3 ; restore
-#define KWD_ASSERT                          	$00c4 ; assert
-#define KWD_CLEAR                           	$00c5 ; clear
-#define KWD_END                             	$00c6 ; end
-#define KWD_STOP                            	$00c7 ; stop
+#define KWD_STR                             	$009b ; str
+#define KWD_CHR                             	$009c ; chr
+#define KWD_ASC                             	$009d ; asc
+#define KWD_NOT                             	$009e ; not
+#define KWD_PAGE                            	$009f ; page
+#define KWD_TIME                            	$00a0 ; time
+#define KWD_TOP                             	$00a1 ; top
+#define KWD_VAL                             	$00a2 ; val
+#define KWD_RPAREN                          	$00a3 ; )
+#define KWD_COMMA                           	$00a4 ; ,
+#define KWD_COLON                           	$00a5 ; :
+#define KWD_SEMICOLON                       	$00a6 ; ;
+#define KWD_SQUOTE                          	$00a7 ; '
+#define KWD_REPEAT                          	$00a8 ; repeat
+#define KWD_UNTIL                           	$00a9 ; until
+#define KWD_IF                              	$00aa ; if
+#define KWD_THEN                            	$00ab ; then
+#define KWD_ELSE                            	$00ac ; else
+#define KWD_FOR                             	$00ad ; for
+#define KWD_TO                              	$00ae ; to
+#define KWD_STEP                            	$00af ; step
+#define KWD_NEXT                            	$00b0 ; next
+#define KWD_DEF                             	$00b1 ; def
+#define KWD_PROC                            	$00b2 ; proc
+#define KWD_ENDPROC                         	$00b3 ; endproc
+#define KWD_LOCAL                           	$00b4 ; local
+#define KWD_DIM                             	$00b5 ; dim
+#define KWD_REM                             	$00b6 ; rem
+#define KWD_LET                             	$00b7 ; let
+#define KWD_VDU                             	$00b8 ; vdu
+#define KWD_PRINT                           	$00b9 ; print
+#define KWD_LOAD                            	$00ba ; load
+#define KWD_SAVE                            	$00bb ; save
+#define KWD_LIST                            	$00bc ; list
+#define KWD_NEW                             	$00bd ; new
+#define KWD_RUN                             	$00be ; run
+#define KWD_READ                            	$00bf ; read
+#define KWD_DATA                            	$00c0 ; data
+#define KWD_RESTORE                         	$00c1 ; restore
+#define KWD_ASSERT                          	$00c2 ; assert
+#define KWD_CLEAR                           	$00c3 ; clear
+#define KWD_END                             	$00c4 ; end
+#define KWD_STOP                            	$00c5 ; stop

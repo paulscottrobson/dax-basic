@@ -1,29 +1,30 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		str.asm
+;		Name : 		chr.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	str$() implementation ; int -> string
+;		Purpose :	chr$() implementation ; char code -> string
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
 ; ***************************************************************************************
 ;
-;								Str$() unary function
+;								Chr$() unary function
 ;
 ; ***************************************************************************************
 
-Unary_Str:	;; [str]
+Unary_Chr:	;; [chr]
 		call 	CheckDollar
-		call 	EvaluateIntegerTerm 		; get an integer
-		ld 		bc,_USBuffer 				; point to buffer.
-		ld 		a,-10 						; convert signed base 10 int32
-		call 	Int32ToString 				
-		ld 		hl,_USBuffer 				; string address.
+		call 	EvaluateIntegerTerm
+		ld 		a,l 						; get character
 		ld 		c,XTYPE_STRING				; return string at physical address HL
+		ld 		hl,_UCBuffer+1 				; write EOS out
+		ld 		(hl),13
+		dec 	hl
+		ld 		(hl),a
 		ret
 
 ; ***************************************************************************************

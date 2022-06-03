@@ -43,7 +43,7 @@ Int32ToString:
 _I32TSNotNegative:	
 		call 	_I32RecursiveConvert 		; convert the integer to a string		
 _I32TSExit:
-		xor 	a  							; write the end of string code
+		ld 		a,13 						; write the end of string code
 		ld 		(bc),a 
 
 		exx 								; restore registers and exit.

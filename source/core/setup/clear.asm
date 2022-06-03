@@ -54,7 +54,7 @@ _CCFindLow:
 		;
 		; 		TODO:Seed the RNG incase the seeds were all zero which gives bad results
 		;
-
+		call 	UnaryRandomInitialise
 		;
 		;		TODO:RESTORE the Data Pointer.
 		;

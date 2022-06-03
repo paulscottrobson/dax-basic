@@ -34,8 +34,8 @@
 
 ::FIRST_UNARY
 	&		( 		$
-	rnd 	len 	abs 	sgn 	int 	str		chr 	asc 	not 	page 
-	string	time	top		val
+	rnd 	len 	abs 	sgn 	str		chr 	asc 	not 	page 
+	time	top		val
 	
 ::FIRST_NORMAL
 		) 		, 		: 		; 		' 		

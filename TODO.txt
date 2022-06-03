@@ -1,6 +1,5 @@
 TODO:
-	No $ (unary or assignment function), $ should be unary function casting integer to string.
-	Implement rest of unary.
+	TIME
 	PRINT
 	Variables A-Z
 	LET (also allow for LET $A and $A)
