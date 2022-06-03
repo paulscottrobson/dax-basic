@@ -28,7 +28,7 @@
 ;			<integer> 			42 						not negative
 ;			&<hex-integer 		&2A 					unary function, but done by hand.
 ; 			"<text>"			"Hello, world!"			ASCIIZ string.
-; 			$ ? ! - <term> 		!42 ?a -7 				special cases - unary functions which have
+; 			? ! - <term> 		!42 ?a -7 				special cases - unary functions which have
 ; 														binary equivalents so are handled differently
 ; 			<unary> 			len("Hello")			unary functions. Note that ( itself is a 
 ;														unary function, returning the value in parenthesis.
@@ -113,32 +113,32 @@ _ETNotUnaryFunction0:
 		call 	NegateHLHL 					; negate HLHL type defpendent.
 		ret
 		;
-		;		! ? $ indirection check
+		;		! ? indirection check
 		;
 _ETCheckIndirection:	
-		cp 		KWD_QMARK 					; check if ? ! $
-		jr 		z,_ETIndirection
-		cp 		KWD_DOLLAR
+		cp 		KWD_QMARK 					; check if ? !
 		jr 		z,_ETIndirection
 		cp 		KWD_PLING
 		jp 		nz,SyntaxError 				; give up otherwise.
 		;
-		; 		! ? $ indirection
+		; 		! ? indirection
 		;
 _ETIndirection:
 		push 	af 							; check type of indirection.
 		call 	EvaluateTerm 				; get reference value to HL'HL
+		call 	Dereference 				; dereference it so it's a value.
+		bit 	CIsString,c 				; check it is an integer.
+		jr 		nz,_ETStringIndirect
 		call 	DRConvertHLHLtoAddress 		; make it a real physical address in UHL.
 		pop 	af 							; get type back
 		ld 		c,XTYPE_INTEGER 			; integer ?
 		set 	CIsReference,c
 		cp 		KWD_PLING
 		ret 	z
-		set 	CIsByteReference,c 			; byte ?
-		cp 		KWD_QMARK
-		ret 	z
-		ld 		c,XTYPE_STRING 				; otherwise string address.
+		set 	CIsByteReference,c 			; otherwise it's a byte reference
 		ret
+_ETStringIndirect:
+		ERR_BADTYPE 						; tried to do !?<string>		
 		;
 		; 		Found an identifier.
 		;

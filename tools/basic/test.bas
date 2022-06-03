@@ -1,2 +1,2 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-assert 3*3=9
+assert $42

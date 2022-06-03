@@ -1,3 +1,4 @@
 TODO:
 	Test &hex works.
-	Test $ ! ? operators (unary)
+	Test ! ? operators (unary)
+	No $ (unary or assignment function), $ should be unary.

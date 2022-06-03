@@ -5,7 +5,7 @@
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		3rd June 2022
 ;		Reviewed :	No
-;		Purpose :	Binary reference operators $ ! ?
+;		Purpose :	Binary reference operators ! ?
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
