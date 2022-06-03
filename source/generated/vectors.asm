@@ -34,7 +34,7 @@ VectorsSet0:
 	addr(Unary_Asc)                  ; $009d asc
 	addr(Unary_Not)                  ; $009e not
 	addr(Unary_Page)                 ; $009f page
-	addr(Unimplemented)              ; $00a0 time
+	addr(Unary_Time)                 ; $00a0 time
 	addr(Unary_Top)                  ; $00a1 top
 	addr(Unary_Val)                  ; $00a2 val
 	addr(BadCmd_RBracket)            ; $00a3 )

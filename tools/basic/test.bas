@@ -1,1 +1,2 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
+assert time

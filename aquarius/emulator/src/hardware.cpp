@@ -11,6 +11,7 @@
 
 #include "sys_processor.h"
 #include "hardware.h"
+#include "gfx.h"
 #include "gfxkeys.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -61,6 +62,11 @@ void HWSync(void) {
 BYTE8 HWReadPort(WORD16 addr) {
 	BYTE8 v = 0xFF;
 	BYTE8 port = addr & 0xFF;
+
+	if (port < 4) {  							// 0-3 gets the 0,1,2 and 3rd byte of the time in ms.
+		int n = GFXTimer();
+		v = (n >> (port * 8)) & 0xFF;
+	}
 
 	if (port == 0xFD) {
 		v = CPUInVerticalSync() ? 1 : 0;

@@ -39,6 +39,7 @@
 #include "core/expression/unary/sgn.asm"
 #include "core/expression/unary/simple.asm"
 #include "core/expression/unary/str.asm"
+#include "core/expression/unary/time.asm"
 #include "core/expression/unary/top.asm"
 #include "core/expression/unary/val.asm"
 #include "core/setup/clear.asm"

@@ -655,8 +655,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    42 D1:A881             #endif
    43 D1:A881 CD 42 B5 D1 		call 	SYSInitialise
    44 D1:A885 11 00 B8 D1 		ld 		de,TestInstance
-   45 D1:A889 21 44 D8 D1 		ld 		hl,EndTestInstance
-   46 D1:A88D CD 8C AF D1 		call 	SetCurrentInstance
+   45 D1:A889 21 D4 D8 D1 		ld 		hl,EndTestInstance
+   46 D1:A88D CD 9B AF D1 		call 	SetCurrentInstance
    47 D1:A891 -  -  -  -  
    48 D1:A891 3E C3 -  -  		ld 		a,$C3 				; the code for JP
    49 D1:A893 32 D9 A8 D1 		ld 		(JumpCode),a 		; so we can do a CALL indirect.
@@ -1079,7 +1079,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/run.asm"
    17 D1:A997 -  -  -  -  ; ***************************************************************************************
    18 D1:A997 -  -  -  -  
    19 D1:A997 -  -  -  -  Command_RUN: 	;; [run]
-   20 D1:A997 CD 51 AF D1 		call 	Command_CLEAR 				; clear all variables, stack
+   20 D1:A997 CD 60 AF D1 		call 	Command_CLEAR 				; clear all variables, stack
    21 D1:A99B -  -  -  -  
    22 D1:A99B DD 2A B9 A8 
               D1 -  -  -  		ld 		ix,(CodeAddress) 			; start from this line, e.g. the first line.
@@ -1306,7 +1306,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    27 D1:AA59 19 -  -  -  		add 	hl,de
    28 D1:AA5A ED 27 -  -  		ld_ind_hl 						; load hl,(hl) to get address in HL.
 Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
-   29 D1:AA5C CD AB AF D1 		call 	PrintStringAtHL
+   29 D1:AA5C CD BA AF D1 		call 	PrintStringAtHL
    30 D1:AA60 -  -  -  -  		;
    31 D1:AA60 F1 -  -  -  		pop 	af 						; restore error ID
    32 D1:AA61 B7 -  -  -  		or 		a 						; no line # if error #zero (warmstart)
@@ -1319,7 +1319,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    38 D1:AA6D 28 24 -  -  		jr 		z,_EHExit
    39 D1:AA6F -  -  -  -  
    40 D1:AA6F 21 9B AA D1 		ld 		hl,_EHAtText 			; print "at line"
-   41 D1:AA73 CD AB AF D1 		call 	PrintStringAtHL 
+   41 D1:AA73 CD BA AF D1 		call 	PrintStringAtHL 
    42 D1:AA77 -  -  -  -  		
    43 D1:AA77 D9 -  -  -  		exx								; HL'HL = line number
    44 D1:AA78 21 00 00 00 		ld 		hl,$0000 		
@@ -1331,7 +1331,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    50 D1:AA89 CD F5 B4 D1 		call 	Int32ToString
    51 D1:AA8D C5 -  -  -  		push 	bc
    52 D1:AA8E E1 -  -  -  		pop 	hl
-   53 D1:AA8F CD AB AF D1 		call 	PrintStringAtHL			; print error line number.
+   53 D1:AA8F CD BA AF D1 		call 	PrintStringAtHL			; print error line number.
    54 D1:AA93 -  -  -  -  _EHExit:		
    55 D1:AA93 CD 90 B5 D1 		call 	SYSPrintCRLF 			; print carriage return
    56 D1:AA97 C3 9B A8 D1 		jp 		WarmStart
@@ -2826,409 +2826,445 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/st
    37 D1:AF2F -  -  -  -  ;
    38 D1:AF2F -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   42 D1:AF2F -  -  -  -  #include "core/expression/unary/top.asm"
-Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/top.asm"
+   42 D1:AF2F -  -  -  -  #include "core/expression/unary/time.asm"
+Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/time.asm"
     1 D1:AF2F -  -  -  -  ; ***************************************************************************************
     2 D1:AF2F -  -  -  -  ; ***************************************************************************************
     3 D1:AF2F -  -  -  -  ;
-    4 D1:AF2F -  -  -  -  ;		Name : 		top.asm
+    4 D1:AF2F -  -  -  -  ;		Name : 		time.asm
     5 D1:AF2F -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
     6 D1:AF2F -  -  -  -  ;		Date : 		3rd June 2022
     7 D1:AF2F -  -  -  -  ;		Reviewed :	No
-    8 D1:AF2F -  -  -  -  ;		Purpose :	Various constants.
+    8 D1:AF2F -  -  -  -  ;		Purpose :	Get time in ms.
     9 D1:AF2F -  -  -  -  ;
    10 D1:AF2F -  -  -  -  ; ***************************************************************************************
    11 D1:AF2F -  -  -  -  ; ***************************************************************************************
    12 D1:AF2F -  -  -  -  
    13 D1:AF2F -  -  -  -  ; ***************************************************************************************
    14 D1:AF2F -  -  -  -  ;
-   15 D1:AF2F -  -  -  -  ;							page unary function (no bracket)
+   15 D1:AF2F -  -  -  -  ;							Get system time in ms
    16 D1:AF2F -  -  -  -  ;
    17 D1:AF2F -  -  -  -  ; ***************************************************************************************
    18 D1:AF2F -  -  -  -  
-   19 D1:AF2F -  -  -  -  Unary_Top:	;; [top]
-   20 D1:AF2F 2A CD A8 D1 			ld 		hl,(TopMemory) 			; get address of code
-   21 D1:AF33 D9 -  -  -  			exx
-   22 D1:AF34 2A CF A8 D1 			ld 		hl,(TopMemory+2)
-   23 D1:AF38 D9 -  -  -  			exx
-   24 D1:AF39 0E 00 -  -  			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
-   25 D1:AF3B C9 -  -  -  			ret
-   26 D1:AF3C -  -  -  -  
-   27 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   28 D1:AF3C -  -  -  -  ;
-   29 D1:AF3C -  -  -  -  ;									Changes and Updates
-   30 D1:AF3C -  -  -  -  ;
-   31 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   32 D1:AF3C -  -  -  -  ;
-   33 D1:AF3C -  -  -  -  ;		Date			Notes
-   34 D1:AF3C -  -  -  -  ;		==== 			=====
-   35 D1:AF3C -  -  -  -  ;
-   36 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   37 D1:AF3C -  -  -  -  			
+   19 D1:AF2F -  -  -  -  Unary_Time:	;; [time]
+   20 D1:AF2F CD B8 B5 D1 			call 	SYSGetTimer
+   21 D1:AF33 F5 3E 02 32 
+              FF FF FF F1 			debug
+Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/time.asm"
+   22 D1:AF3B 0E 00 -  -  			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
+   23 D1:AF3D C9 -  -  -  			ret
+   24 D1:AF3E -  -  -  -  
+   25 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   26 D1:AF3E -  -  -  -  ;
+   27 D1:AF3E -  -  -  -  ;									Changes and Updates
+   28 D1:AF3E -  -  -  -  ;
+   29 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   30 D1:AF3E -  -  -  -  ;
+   31 D1:AF3E -  -  -  -  ;		Date			Notes
+   32 D1:AF3E -  -  -  -  ;		==== 			=====
+   33 D1:AF3E -  -  -  -  ;
+   34 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   35 D1:AF3E -  -  -  -  			
 Listing for file "_build.asm"
-   43 D1:AF3C -  -  -  -  #include "core/expression/unary/val.asm"
+   43 D1:AF3E -  -  -  -  #include "core/expression/unary/top.asm"
+Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/top.asm"
+    1 D1:AF3E -  -  -  -  ; ***************************************************************************************
+    2 D1:AF3E -  -  -  -  ; ***************************************************************************************
+    3 D1:AF3E -  -  -  -  ;
+    4 D1:AF3E -  -  -  -  ;		Name : 		top.asm
+    5 D1:AF3E -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:AF3E -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:AF3E -  -  -  -  ;		Reviewed :	No
+    8 D1:AF3E -  -  -  -  ;		Purpose :	Various constants.
+    9 D1:AF3E -  -  -  -  ;
+   10 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   11 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   12 D1:AF3E -  -  -  -  
+   13 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   14 D1:AF3E -  -  -  -  ;
+   15 D1:AF3E -  -  -  -  ;							page unary function (no bracket)
+   16 D1:AF3E -  -  -  -  ;
+   17 D1:AF3E -  -  -  -  ; ***************************************************************************************
+   18 D1:AF3E -  -  -  -  
+   19 D1:AF3E -  -  -  -  Unary_Top:	;; [top]
+   20 D1:AF3E 2A CD A8 D1 			ld 		hl,(TopMemory) 			; get address of code
+   21 D1:AF42 D9 -  -  -  			exx
+   22 D1:AF43 2A CF A8 D1 			ld 		hl,(TopMemory+2)
+   23 D1:AF47 D9 -  -  -  			exx
+   24 D1:AF48 0E 00 -  -  			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
+   25 D1:AF4A C9 -  -  -  			ret
+   26 D1:AF4B -  -  -  -  
+   27 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   28 D1:AF4B -  -  -  -  ;
+   29 D1:AF4B -  -  -  -  ;									Changes and Updates
+   30 D1:AF4B -  -  -  -  ;
+   31 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   32 D1:AF4B -  -  -  -  ;
+   33 D1:AF4B -  -  -  -  ;		Date			Notes
+   34 D1:AF4B -  -  -  -  ;		==== 			=====
+   35 D1:AF4B -  -  -  -  ;
+   36 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   37 D1:AF4B -  -  -  -  			
+Listing for file "_build.asm"
+   44 D1:AF4B -  -  -  -  #include "core/expression/unary/val.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/val.asm"
-    1 D1:AF3C -  -  -  -  ; ***************************************************************************************
-    2 D1:AF3C -  -  -  -  ; ***************************************************************************************
-    3 D1:AF3C -  -  -  -  ;
-    4 D1:AF3C -  -  -  -  ;		Name : 		val.asm
-    5 D1:AF3C -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:AF3C -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:AF3C -  -  -  -  ;		Reviewed :	No
-    8 D1:AF3C -  -  -  -  ;		Purpose :	String->Integer conversion.
-    9 D1:AF3C -  -  -  -  ;
-   10 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   11 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   12 D1:AF3C -  -  -  -  
-   13 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   14 D1:AF3C -  -  -  -  ;
-   15 D1:AF3C -  -  -  -  ;								val( unary function
-   16 D1:AF3C -  -  -  -  ;
-   17 D1:AF3C -  -  -  -  ; ***************************************************************************************
-   18 D1:AF3C -  -  -  -  
-   19 D1:AF3C -  -  -  -  Unary_Val:	;; [val]
-   20 D1:AF3C CD 69 AC D1 		call 	EvaluateStringTerm 			; get the string into UHL
-   21 D1:AF40 E5 -  -  -  		push 	hl 							; copy to BC
-   22 D1:AF41 C1 -  -  -  		pop 	bc
-   23 D1:AF42 3E F6 -  -  		ld 		a,-10 						; base 10, signed.
-   24 D1:AF44 CD D3 B3 D1 		call 	Int32FromString 			; get the integer part.
-   25 D1:AF48 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer 
-   26 D1:AF4A C8 -  -  -  		ret		z 							; okay
-   27 D1:AF4B 3E 03 C3 4D 
+    1 D1:AF4B -  -  -  -  ; ***************************************************************************************
+    2 D1:AF4B -  -  -  -  ; ***************************************************************************************
+    3 D1:AF4B -  -  -  -  ;
+    4 D1:AF4B -  -  -  -  ;		Name : 		val.asm
+    5 D1:AF4B -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:AF4B -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:AF4B -  -  -  -  ;		Reviewed :	No
+    8 D1:AF4B -  -  -  -  ;		Purpose :	String->Integer conversion.
+    9 D1:AF4B -  -  -  -  ;
+   10 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   11 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   12 D1:AF4B -  -  -  -  
+   13 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   14 D1:AF4B -  -  -  -  ;
+   15 D1:AF4B -  -  -  -  ;								val( unary function
+   16 D1:AF4B -  -  -  -  ;
+   17 D1:AF4B -  -  -  -  ; ***************************************************************************************
+   18 D1:AF4B -  -  -  -  
+   19 D1:AF4B -  -  -  -  Unary_Val:	;; [val]
+   20 D1:AF4B CD 69 AC D1 		call 	EvaluateStringTerm 			; get the string into UHL
+   21 D1:AF4F E5 -  -  -  		push 	hl 							; copy to BC
+   22 D1:AF50 C1 -  -  -  		pop 	bc
+   23 D1:AF51 3E F6 -  -  		ld 		a,-10 						; base 10, signed.
+   24 D1:AF53 CD D3 B3 D1 		call 	Int32FromString 			; get the integer part.
+   25 D1:AF57 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer 
+   26 D1:AF59 C8 -  -  -  		ret		z 							; okay
+   27 D1:AF5A 3E 03 C3 4D 
               AA D1 -  -  		ERR_BADVALUE
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/val.asm"
-   28 D1:AF51 -  -  -  -  
-   29 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   30 D1:AF51 -  -  -  -  ;
-   31 D1:AF51 -  -  -  -  ;									Changes and Updates
-   32 D1:AF51 -  -  -  -  ;
-   33 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   34 D1:AF51 -  -  -  -  ;
-   35 D1:AF51 -  -  -  -  ;		Date			Notes
-   36 D1:AF51 -  -  -  -  ;		==== 			=====
-   37 D1:AF51 -  -  -  -  ;
-   38 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   39 D1:AF51 -  -  -  -  		
+   28 D1:AF60 -  -  -  -  
+   29 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   30 D1:AF60 -  -  -  -  ;
+   31 D1:AF60 -  -  -  -  ;									Changes and Updates
+   32 D1:AF60 -  -  -  -  ;
+   33 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   34 D1:AF60 -  -  -  -  ;
+   35 D1:AF60 -  -  -  -  ;		Date			Notes
+   36 D1:AF60 -  -  -  -  ;		==== 			=====
+   37 D1:AF60 -  -  -  -  ;
+   38 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   39 D1:AF60 -  -  -  -  		
 Listing for file "_build.asm"
-   44 D1:AF51 -  -  -  -  #include "core/setup/clear.asm"
+   45 D1:AF60 -  -  -  -  #include "core/setup/clear.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/clear.asm"
-    1 D1:AF51 -  -  -  -  ; ***************************************************************************************
-    2 D1:AF51 -  -  -  -  ; ***************************************************************************************
-    3 D1:AF51 -  -  -  -  ;
-    4 D1:AF51 -  -  -  -  ;		Name : 		clear.asm
-    5 D1:AF51 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:AF51 -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:AF51 -  -  -  -  ;		Reviewed :	No
-    8 D1:AF51 -  -  -  -  ;		Purpose :	Clear command.
-    9 D1:AF51 -  -  -  -  ;
-   10 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   11 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   12 D1:AF51 -  -  -  -  
-   13 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   14 D1:AF51 -  -  -  -  ;
-   15 D1:AF51 -  -  -  -  ;										CLEAR command
-   16 D1:AF51 -  -  -  -  ;
-   17 D1:AF51 -  -  -  -  ; ***************************************************************************************
-   18 D1:AF51 -  -  -  -  
-   19 D1:AF51 -  -  -  -  Command_CLEAR: 	;; [clear]
-   20 D1:AF51 -  -  -  -  		;
-   21 D1:AF51 -  -  -  -  		;			Reset the low free memory pointer (e.g. just above the program space.)
-   22 D1:AF51 -  -  -  -  		;
-   23 D1:AF51 2A B1 A8 D1 		ld 		hl,(LowMemory) 				; base memory
-   24 D1:AF55 -  -  -  -  _CCFindLow:
-   25 D1:AF55 11 00 00 00 		ld 		de,0 						; keep adding [hl] till [hl] was zero.
-   26 D1:AF59 5E -  -  -  		ld 		e,(hl)		
-   27 D1:AF5A 19 -  -  -  		add 	hl,de
-   28 D1:AF5B 7B -  -  -  		ld 		a,e
-   29 D1:AF5C B7 -  -  -  		or 		a
-   30 D1:AF5D 20 F6 -  -  		jr 		nz,_CCFindLow
-   31 D1:AF5F 23 -  -  -  		inc 	hl 							; one past the last $00
-   32 D1:AF60 22 CD A8 D1 		ld 		(TopMemory),hl 				; save TOP
-   33 D1:AF64 23 -  -  -  		inc 	hl 							; one for luck
-   34 D1:AF65 22 C9 A8 D1 		ld 		(LowAllocMemory),hl
-   35 D1:AF69 -  -  -  -  		;
-   36 D1:AF69 -  -  -  -  		; 	 		Reset the language stack
-   37 D1:AF69 -  -  -  -  		;
-   38 D1:AF69 2A B5 A8 D1 		ld 		hl,(HighMemory) 			; this is high memory, also top of stack
-   39 D1:AF6D -  -  -  -  		;
-   40 D1:AF6D 36 FF -  -  		ld 		(hl),$FF 					; top of stack marker.
-   41 D1:AF6F 22 BD A8 D1 		ld 		(LanguageStack),hl 			; going down from here		
-   42 D1:AF73 11 00 F8 FF 		ld 		de,-LanguageStackSize 		; allocate space for language stack.
-   43 D1:AF77 19 -  -  -  		add 	hl,de
-   44 D1:AF78 2E 00 -  -  		ld 		l,$00 						; put on page boundary.
-   45 D1:AF7A 22 C1 A8 D1 		ld 		(LanguageStackEnd),hl 		; where it runs out.
-   46 D1:AF7E -  -  -  -  		;
-   47 D1:AF7E 11 80 FF FF 		ld 		de,-128 					; allow 128 bytes for the 26 x 4 integer variables.
-   48 D1:AF82 19 -  -  -  		add 	hl,de
-   49 D1:AF83 22 C5 A8 D1 		ld 		(StandardIntegers),hl
-   50 D1:AF87 -  -  -  -  		;
-   51 D1:AF87 -  -  -  -  		; 		TODO:Allocate space for, and erase all hash table pointers, 
-   52 D1:AF87 -  -  -  -  		;
-   53 D1:AF87 -  -  -  -  
-   54 D1:AF87 -  -  -  -  		;
-   55 D1:AF87 -  -  -  -  		; 		TODO:Seed the RNG incase the seeds were all zero which gives bad results
-   56 D1:AF87 -  -  -  -  		;
-   57 D1:AF87 CD 95 AE D1 		call 	UnaryRandomInitialise
-   58 D1:AF8B -  -  -  -  		;
-   59 D1:AF8B -  -  -  -  		;		TODO:RESTORE the Data Pointer.
-   60 D1:AF8B -  -  -  -  		;
-   61 D1:AF8B C9 -  -  -  		ret
-   62 D1:AF8C -  -  -  -  
-   63 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   64 D1:AF8C -  -  -  -  ;
-   65 D1:AF8C -  -  -  -  ;									Changes and Updates
-   66 D1:AF8C -  -  -  -  ;
-   67 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   68 D1:AF8C -  -  -  -  ;
-   69 D1:AF8C -  -  -  -  ;		Date			Notes
-   70 D1:AF8C -  -  -  -  ;		==== 			=====
-   71 D1:AF8C -  -  -  -  ;
-   72 D1:AF8C -  -  -  -  ; ***************************************************************************************
+    1 D1:AF60 -  -  -  -  ; ***************************************************************************************
+    2 D1:AF60 -  -  -  -  ; ***************************************************************************************
+    3 D1:AF60 -  -  -  -  ;
+    4 D1:AF60 -  -  -  -  ;		Name : 		clear.asm
+    5 D1:AF60 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:AF60 -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:AF60 -  -  -  -  ;		Reviewed :	No
+    8 D1:AF60 -  -  -  -  ;		Purpose :	Clear command.
+    9 D1:AF60 -  -  -  -  ;
+   10 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   11 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   12 D1:AF60 -  -  -  -  
+   13 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   14 D1:AF60 -  -  -  -  ;
+   15 D1:AF60 -  -  -  -  ;										CLEAR command
+   16 D1:AF60 -  -  -  -  ;
+   17 D1:AF60 -  -  -  -  ; ***************************************************************************************
+   18 D1:AF60 -  -  -  -  
+   19 D1:AF60 -  -  -  -  Command_CLEAR: 	;; [clear]
+   20 D1:AF60 -  -  -  -  		;
+   21 D1:AF60 -  -  -  -  		;			Reset the low free memory pointer (e.g. just above the program space.)
+   22 D1:AF60 -  -  -  -  		;
+   23 D1:AF60 2A B1 A8 D1 		ld 		hl,(LowMemory) 				; base memory
+   24 D1:AF64 -  -  -  -  _CCFindLow:
+   25 D1:AF64 11 00 00 00 		ld 		de,0 						; keep adding [hl] till [hl] was zero.
+   26 D1:AF68 5E -  -  -  		ld 		e,(hl)		
+   27 D1:AF69 19 -  -  -  		add 	hl,de
+   28 D1:AF6A 7B -  -  -  		ld 		a,e
+   29 D1:AF6B B7 -  -  -  		or 		a
+   30 D1:AF6C 20 F6 -  -  		jr 		nz,_CCFindLow
+   31 D1:AF6E 23 -  -  -  		inc 	hl 							; one past the last $00
+   32 D1:AF6F 22 CD A8 D1 		ld 		(TopMemory),hl 				; save TOP
+   33 D1:AF73 23 -  -  -  		inc 	hl 							; one for luck
+   34 D1:AF74 22 C9 A8 D1 		ld 		(LowAllocMemory),hl
+   35 D1:AF78 -  -  -  -  		;
+   36 D1:AF78 -  -  -  -  		; 	 		Reset the language stack
+   37 D1:AF78 -  -  -  -  		;
+   38 D1:AF78 2A B5 A8 D1 		ld 		hl,(HighMemory) 			; this is high memory, also top of stack
+   39 D1:AF7C -  -  -  -  		;
+   40 D1:AF7C 36 FF -  -  		ld 		(hl),$FF 					; top of stack marker.
+   41 D1:AF7E 22 BD A8 D1 		ld 		(LanguageStack),hl 			; going down from here		
+   42 D1:AF82 11 00 F8 FF 		ld 		de,-LanguageStackSize 		; allocate space for language stack.
+   43 D1:AF86 19 -  -  -  		add 	hl,de
+   44 D1:AF87 2E 00 -  -  		ld 		l,$00 						; put on page boundary.
+   45 D1:AF89 22 C1 A8 D1 		ld 		(LanguageStackEnd),hl 		; where it runs out.
+   46 D1:AF8D -  -  -  -  		;
+   47 D1:AF8D 11 80 FF FF 		ld 		de,-128 					; allow 128 bytes for the 26 x 4 integer variables.
+   48 D1:AF91 19 -  -  -  		add 	hl,de
+   49 D1:AF92 22 C5 A8 D1 		ld 		(StandardIntegers),hl
+   50 D1:AF96 -  -  -  -  		;
+   51 D1:AF96 -  -  -  -  		; 		TODO:Allocate space for, and erase all hash table pointers, 
+   52 D1:AF96 -  -  -  -  		;
+   53 D1:AF96 -  -  -  -  
+   54 D1:AF96 -  -  -  -  		;
+   55 D1:AF96 -  -  -  -  		; 		TODO:Seed the RNG incase the seeds were all zero which gives bad results
+   56 D1:AF96 -  -  -  -  		;
+   57 D1:AF96 CD 95 AE D1 		call 	UnaryRandomInitialise
+   58 D1:AF9A -  -  -  -  		;
+   59 D1:AF9A -  -  -  -  		;		TODO:RESTORE the Data Pointer.
+   60 D1:AF9A -  -  -  -  		;
+   61 D1:AF9A C9 -  -  -  		ret
+   62 D1:AF9B -  -  -  -  
+   63 D1:AF9B -  -  -  -  ; ***************************************************************************************
+   64 D1:AF9B -  -  -  -  ;
+   65 D1:AF9B -  -  -  -  ;									Changes and Updates
+   66 D1:AF9B -  -  -  -  ;
+   67 D1:AF9B -  -  -  -  ; ***************************************************************************************
+   68 D1:AF9B -  -  -  -  ;
+   69 D1:AF9B -  -  -  -  ;		Date			Notes
+   70 D1:AF9B -  -  -  -  ;		==== 			=====
+   71 D1:AF9B -  -  -  -  ;
+   72 D1:AF9B -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   45 D1:AF8C -  -  -  -  #include "core/setup/instance.asm"
+   46 D1:AF9B -  -  -  -  #include "core/setup/instance.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/instance.asm"
-    1 D1:AF8C -  -  -  -  ; ***************************************************************************************
-    2 D1:AF8C -  -  -  -  ; ***************************************************************************************
-    3 D1:AF8C -  -  -  -  ;
-    4 D1:AF8C -  -  -  -  ;		Name : 		instance.asm
-    5 D1:AF8C -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:AF8C -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:AF8C -  -  -  -  ;		Reviewed :	No
-    8 D1:AF8C -  -  -  -  ;		Purpose :	Instance handling
-    9 D1:AF8C -  -  -  -  ;
-   10 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   11 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   12 D1:AF8C -  -  -  -  
-   13 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   14 D1:AF8C -  -  -  -  ;
-   15 D1:AF8C -  -  -  -  ;				Switch to instance beginning at DE and ending at HL
-   16 D1:AF8C -  -  -  -  ;
-   17 D1:AF8C -  -  -  -  ; ***************************************************************************************
-   18 D1:AF8C -  -  -  -  
-   19 D1:AF8C -  -  -  -  SetCurrentInstance:
-   20 D1:AF8C ED 53 B1 A8 
-              D1 -  -  -  		ld 		(LowMemory),de 				; set low and high memory
-   21 D1:AF91 22 B5 A8 D1 		ld 		(HighMemory),hl 
-   22 D1:AF95 ED 53 B9 A8 
-              D1 -  -  -  		ld 		(CodeAddress),de 			; program code is at the start.
-   23 D1:AF9A -  -  -  -  
-   24 D1:AF9A C9 -  -  -  		ret
-   25 D1:AF9B -  -  -  -  
-   26 D1:AF9B -  -  -  -  
-   27 D1:AF9B -  -  -  -  ; ***************************************************************************************
-   28 D1:AF9B -  -  -  -  ;
-   29 D1:AF9B -  -  -  -  ;									Changes and Updates
-   30 D1:AF9B -  -  -  -  ;
-   31 D1:AF9B -  -  -  -  ; ***************************************************************************************
-   32 D1:AF9B -  -  -  -  ;
-   33 D1:AF9B -  -  -  -  ;		Date			Notes
-   34 D1:AF9B -  -  -  -  ;		==== 			=====
-   35 D1:AF9B -  -  -  -  ;
-   36 D1:AF9B -  -  -  -  ; ***************************************************************************************
-Listing for file "_build.asm"
-   46 D1:AF9B -  -  -  -  #include "core/setup/new.asm"
-Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/new.asm"
     1 D1:AF9B -  -  -  -  ; ***************************************************************************************
     2 D1:AF9B -  -  -  -  ; ***************************************************************************************
     3 D1:AF9B -  -  -  -  ;
-    4 D1:AF9B -  -  -  -  ;		Name : 		new.asm
+    4 D1:AF9B -  -  -  -  ;		Name : 		instance.asm
     5 D1:AF9B -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
     6 D1:AF9B -  -  -  -  ;		Date : 		3rd June 2022
     7 D1:AF9B -  -  -  -  ;		Reviewed :	No
-    8 D1:AF9B -  -  -  -  ;		Purpose :	New command.
+    8 D1:AF9B -  -  -  -  ;		Purpose :	Instance handling
     9 D1:AF9B -  -  -  -  ;
    10 D1:AF9B -  -  -  -  ; ***************************************************************************************
    11 D1:AF9B -  -  -  -  ; ***************************************************************************************
    12 D1:AF9B -  -  -  -  
    13 D1:AF9B -  -  -  -  ; ***************************************************************************************
    14 D1:AF9B -  -  -  -  ;
-   15 D1:AF9B -  -  -  -  ;										NEW command
+   15 D1:AF9B -  -  -  -  ;				Switch to instance beginning at DE and ending at HL
    16 D1:AF9B -  -  -  -  ;
    17 D1:AF9B -  -  -  -  ; ***************************************************************************************
    18 D1:AF9B -  -  -  -  
-   19 D1:AF9B -  -  -  -  Command_NEW: 	;; [new]
-   20 D1:AF9B 2A B9 A8 D1 		ld 		hl,(CodeAddress) 			; write $00 at start of code erasing program
-   21 D1:AF9F 36 00 -  -  		ld 		(hl),0
-   22 D1:AFA1 CD 51 AF D1 		call 	Command_CLEAR 				; clear all variables
-   23 D1:AFA5 3E 00 C3 4D 
+   19 D1:AF9B -  -  -  -  SetCurrentInstance:
+   20 D1:AF9B ED 53 B1 A8 
+              D1 -  -  -  		ld 		(LowMemory),de 				; set low and high memory
+   21 D1:AFA0 22 B5 A8 D1 		ld 		(HighMemory),hl 
+   22 D1:AFA4 ED 53 B9 A8 
+              D1 -  -  -  		ld 		(CodeAddress),de 			; program code is at the start.
+   23 D1:AFA9 -  -  -  -  
+   24 D1:AFA9 C9 -  -  -  		ret
+   25 D1:AFAA -  -  -  -  
+   26 D1:AFAA -  -  -  -  
+   27 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   28 D1:AFAA -  -  -  -  ;
+   29 D1:AFAA -  -  -  -  ;									Changes and Updates
+   30 D1:AFAA -  -  -  -  ;
+   31 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   32 D1:AFAA -  -  -  -  ;
+   33 D1:AFAA -  -  -  -  ;		Date			Notes
+   34 D1:AFAA -  -  -  -  ;		==== 			=====
+   35 D1:AFAA -  -  -  -  ;
+   36 D1:AFAA -  -  -  -  ; ***************************************************************************************
+Listing for file "_build.asm"
+   47 D1:AFAA -  -  -  -  #include "core/setup/new.asm"
+Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/new.asm"
+    1 D1:AFAA -  -  -  -  ; ***************************************************************************************
+    2 D1:AFAA -  -  -  -  ; ***************************************************************************************
+    3 D1:AFAA -  -  -  -  ;
+    4 D1:AFAA -  -  -  -  ;		Name : 		new.asm
+    5 D1:AFAA -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:AFAA -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:AFAA -  -  -  -  ;		Reviewed :	No
+    8 D1:AFAA -  -  -  -  ;		Purpose :	New command.
+    9 D1:AFAA -  -  -  -  ;
+   10 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   11 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   12 D1:AFAA -  -  -  -  
+   13 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   14 D1:AFAA -  -  -  -  ;
+   15 D1:AFAA -  -  -  -  ;										NEW command
+   16 D1:AFAA -  -  -  -  ;
+   17 D1:AFAA -  -  -  -  ; ***************************************************************************************
+   18 D1:AFAA -  -  -  -  
+   19 D1:AFAA -  -  -  -  Command_NEW: 	;; [new]
+   20 D1:AFAA 2A B9 A8 D1 		ld 		hl,(CodeAddress) 			; write $00 at start of code erasing program
+   21 D1:AFAE 36 00 -  -  		ld 		(hl),0
+   22 D1:AFB0 CD 60 AF D1 		call 	Command_CLEAR 				; clear all variables
+   23 D1:AFB4 3E 00 C3 4D 
               AA D1 -  -  		ERR_WARMSTART 						; warm start.		
 Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/new.asm"
-   24 D1:AFAB -  -  -  -  
-   25 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   26 D1:AFAB -  -  -  -  ;
-   27 D1:AFAB -  -  -  -  ;									Changes and Updates
-   28 D1:AFAB -  -  -  -  ;
-   29 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   30 D1:AFAB -  -  -  -  ;
-   31 D1:AFAB -  -  -  -  ;		Date			Notes
-   32 D1:AFAB -  -  -  -  ;		==== 			=====
-   33 D1:AFAB -  -  -  -  ;
-   34 D1:AFAB -  -  -  -  ; ***************************************************************************************
+   24 D1:AFBA -  -  -  -  
+   25 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   26 D1:AFBA -  -  -  -  ;
+   27 D1:AFBA -  -  -  -  ;									Changes and Updates
+   28 D1:AFBA -  -  -  -  ;
+   29 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   30 D1:AFBA -  -  -  -  ;
+   31 D1:AFBA -  -  -  -  ;		Date			Notes
+   32 D1:AFBA -  -  -  -  ;		==== 			=====
+   33 D1:AFBA -  -  -  -  ;
+   34 D1:AFBA -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   47 D1:AFAB -  -  -  -  #include "core/utility/utility.asm"
+   48 D1:AFBA -  -  -  -  #include "core/utility/utility.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/utility/utility.asm"
-    1 D1:AFAB -  -  -  -  ; ***************************************************************************************
-    2 D1:AFAB -  -  -  -  ; ***************************************************************************************
-    3 D1:AFAB -  -  -  -  ;
-    4 D1:AFAB -  -  -  -  ;		Name : 		utility.asm
-    5 D1:AFAB -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:AFAB -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:AFAB -  -  -  -  ;		Reviewed :	No
-    8 D1:AFAB -  -  -  -  ;		Purpose :	Utility routines
-    9 D1:AFAB -  -  -  -  ;
-   10 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   11 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   12 D1:AFAB -  -  -  -  
-   13 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   14 D1:AFAB -  -  -  -  ;
-   15 D1:AFAB -  -  -  -  ;							Print ASCIIZ string at HL
-   16 D1:AFAB -  -  -  -  ;
-   17 D1:AFAB -  -  -  -  ; ***************************************************************************************
-   18 D1:AFAB -  -  -  -  
-   19 D1:AFAB -  -  -  -  PrintStringAtHL:
-   20 D1:AFAB 7E -  -  -  		ld 		a,(hl)
-   21 D1:AFAC B7 -  -  -  		or 		a
-   22 D1:AFAD C8 -  -  -  		ret 	z
-   23 D1:AFAE CD 68 B5 D1 		call 	SYSPrintChar
-   24 D1:AFB2 23 -  -  -  		inc 	hl
-   25 D1:AFB3 18 F6 -  -  		jr 		PrintStringAtHL
-   26 D1:AFB5 -  -  -  -  
-   27 D1:AFB5 -  -  -  -  ; ***************************************************************************************
-   28 D1:AFB5 -  -  -  -  ;
-   29 D1:AFB5 -  -  -  -  ;									Changes and Updates
-   30 D1:AFB5 -  -  -  -  ;
-   31 D1:AFB5 -  -  -  -  ; ***************************************************************************************
-   32 D1:AFB5 -  -  -  -  ;
-   33 D1:AFB5 -  -  -  -  ;		Date			Notes
-   34 D1:AFB5 -  -  -  -  ;		==== 			=====
-   35 D1:AFB5 -  -  -  -  ;
-   36 D1:AFB5 -  -  -  -  ; ***************************************************************************************
-   37 D1:AFB5 -  -  -  -  		
+    1 D1:AFBA -  -  -  -  ; ***************************************************************************************
+    2 D1:AFBA -  -  -  -  ; ***************************************************************************************
+    3 D1:AFBA -  -  -  -  ;
+    4 D1:AFBA -  -  -  -  ;		Name : 		utility.asm
+    5 D1:AFBA -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:AFBA -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:AFBA -  -  -  -  ;		Reviewed :	No
+    8 D1:AFBA -  -  -  -  ;		Purpose :	Utility routines
+    9 D1:AFBA -  -  -  -  ;
+   10 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   11 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   12 D1:AFBA -  -  -  -  
+   13 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   14 D1:AFBA -  -  -  -  ;
+   15 D1:AFBA -  -  -  -  ;							Print ASCIIZ string at HL
+   16 D1:AFBA -  -  -  -  ;
+   17 D1:AFBA -  -  -  -  ; ***************************************************************************************
+   18 D1:AFBA -  -  -  -  
+   19 D1:AFBA -  -  -  -  PrintStringAtHL:
+   20 D1:AFBA 7E -  -  -  		ld 		a,(hl)
+   21 D1:AFBB B7 -  -  -  		or 		a
+   22 D1:AFBC C8 -  -  -  		ret 	z
+   23 D1:AFBD CD 68 B5 D1 		call 	SYSPrintChar
+   24 D1:AFC1 23 -  -  -  		inc 	hl
+   25 D1:AFC2 18 F6 -  -  		jr 		PrintStringAtHL
+   26 D1:AFC4 -  -  -  -  
+   27 D1:AFC4 -  -  -  -  ; ***************************************************************************************
+   28 D1:AFC4 -  -  -  -  ;
+   29 D1:AFC4 -  -  -  -  ;									Changes and Updates
+   30 D1:AFC4 -  -  -  -  ;
+   31 D1:AFC4 -  -  -  -  ; ***************************************************************************************
+   32 D1:AFC4 -  -  -  -  ;
+   33 D1:AFC4 -  -  -  -  ;		Date			Notes
+   34 D1:AFC4 -  -  -  -  ;		==== 			=====
+   35 D1:AFC4 -  -  -  -  ;
+   36 D1:AFC4 -  -  -  -  ; ***************************************************************************************
+   37 D1:AFC4 -  -  -  -  		
 Listing for file "_build.asm"
-   48 D1:AFB5 -  -  -  -  #include "generated/kwd_keywords.asm"
+   49 D1:AFC4 -  -  -  -  #include "generated/kwd_keywords.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_keywords.asm"
-    1 D1:AFB5 -  -  -  -  ;
-    2 D1:AFB5 -  -  -  -  ;	This file is automatically generated.
-    3 D1:AFB5 -  -  -  -  ;
-    4 D1:AFB5 -  -  -  -  ;
-    5 D1:AFB5 -  -  -  -  ;	Keywords for set 0
-    6 D1:AFB5 -  -  -  -  ;
-    7 D1:AFB5 -  -  -  -  KeywordsSet0:
-    8 D1:AFB5 01 20 -  -  	.db	1," "              ; $0080
-    9 D1:AFB7 01 20 -  -  	.db	1," "              ; $0081
-   10 D1:AFB9 01 20 -  -  	.db	1," "              ; $0082
-   11 D1:AFBB 01 21 -  -  	.db	1,"!"              ; $0083
-   12 D1:AFBD 01 3F -  -  	.db	1,"?"              ; $0084
-   13 D1:AFBF 01 2A -  -  	.db	1,"*"              ; $0085
-   14 D1:AFC1 01 2F -  -  	.db	1,"/"              ; $0086
-   15 D1:AFC3 03 4D 4F 44 	.db	3,"MOD"            ; $0087
-   16 D1:AFC7 03 44 49 56 	.db	3,"DIV"            ; $0088
-   17 D1:AFCB 01 2B -  -  	.db	1,"+"              ; $0089
-   18 D1:AFCD 01 2D -  -  	.db	1,"-"              ; $008a
-   19 D1:AFCF 02 3E 3D -  	.db	2,">="             ; $008b
-   20 D1:AFD2 02 3C 3D -  	.db	2,"<="             ; $008c
-   21 D1:AFD5 01 3E -  -  	.db	1,">"              ; $008d
-   22 D1:AFD7 01 3C -  -  	.db	1,"<"              ; $008e
-   23 D1:AFD9 01 3D -  -  	.db	1,"="              ; $008f
-   24 D1:AFDB 02 3C 3E -  	.db	2,"<>"             ; $0090
-   25 D1:AFDE 03 41 4E 44 	.db	3,"AND"            ; $0091
-   26 D1:AFE2 02 4F 52 -  	.db	2,"OR"             ; $0092
-   27 D1:AFE5 03 45 4F 52 	.db	3,"EOR"            ; $0093
-   28 D1:AFE9 01 26 -  -  	.db	1,"&"              ; $0094
-   29 D1:AFEB 01 28 -  -  	.db	1,"("              ; $0095
-   30 D1:AFED 01 24 -  -  	.db	1,"$"              ; $0096
-   31 D1:AFEF 03 52 4E 44 	.db	3,"RND"            ; $0097
-   32 D1:AFF3 03 4C 45 4E 	.db	3,"LEN"            ; $0098
-   33 D1:AFF7 03 41 42 53 	.db	3,"ABS"            ; $0099
-   34 D1:AFFB 03 53 47 4E 	.db	3,"SGN"            ; $009a
-   35 D1:AFFF 03 53 54 52 	.db	3,"STR"            ; $009b
-   36 D1:B003 03 43 48 52 	.db	3,"CHR"            ; $009c
-   37 D1:B007 03 41 53 43 	.db	3,"ASC"            ; $009d
-   38 D1:B00B 03 4E 4F 54 	.db	3,"NOT"            ; $009e
-   39 D1:B00F 04 50 41 47 
+    1 D1:AFC4 -  -  -  -  ;
+    2 D1:AFC4 -  -  -  -  ;	This file is automatically generated.
+    3 D1:AFC4 -  -  -  -  ;
+    4 D1:AFC4 -  -  -  -  ;
+    5 D1:AFC4 -  -  -  -  ;	Keywords for set 0
+    6 D1:AFC4 -  -  -  -  ;
+    7 D1:AFC4 -  -  -  -  KeywordsSet0:
+    8 D1:AFC4 01 20 -  -  	.db	1," "              ; $0080
+    9 D1:AFC6 01 20 -  -  	.db	1," "              ; $0081
+   10 D1:AFC8 01 20 -  -  	.db	1," "              ; $0082
+   11 D1:AFCA 01 21 -  -  	.db	1,"!"              ; $0083
+   12 D1:AFCC 01 3F -  -  	.db	1,"?"              ; $0084
+   13 D1:AFCE 01 2A -  -  	.db	1,"*"              ; $0085
+   14 D1:AFD0 01 2F -  -  	.db	1,"/"              ; $0086
+   15 D1:AFD2 03 4D 4F 44 	.db	3,"MOD"            ; $0087
+   16 D1:AFD6 03 44 49 56 	.db	3,"DIV"            ; $0088
+   17 D1:AFDA 01 2B -  -  	.db	1,"+"              ; $0089
+   18 D1:AFDC 01 2D -  -  	.db	1,"-"              ; $008a
+   19 D1:AFDE 02 3E 3D -  	.db	2,">="             ; $008b
+   20 D1:AFE1 02 3C 3D -  	.db	2,"<="             ; $008c
+   21 D1:AFE4 01 3E -  -  	.db	1,">"              ; $008d
+   22 D1:AFE6 01 3C -  -  	.db	1,"<"              ; $008e
+   23 D1:AFE8 01 3D -  -  	.db	1,"="              ; $008f
+   24 D1:AFEA 02 3C 3E -  	.db	2,"<>"             ; $0090
+   25 D1:AFED 03 41 4E 44 	.db	3,"AND"            ; $0091
+   26 D1:AFF1 02 4F 52 -  	.db	2,"OR"             ; $0092
+   27 D1:AFF4 03 45 4F 52 	.db	3,"EOR"            ; $0093
+   28 D1:AFF8 01 26 -  -  	.db	1,"&"              ; $0094
+   29 D1:AFFA 01 28 -  -  	.db	1,"("              ; $0095
+   30 D1:AFFC 01 24 -  -  	.db	1,"$"              ; $0096
+   31 D1:AFFE 03 52 4E 44 	.db	3,"RND"            ; $0097
+   32 D1:B002 03 4C 45 4E 	.db	3,"LEN"            ; $0098
+   33 D1:B006 03 41 42 53 	.db	3,"ABS"            ; $0099
+   34 D1:B00A 03 53 47 4E 	.db	3,"SGN"            ; $009a
+   35 D1:B00E 03 53 54 52 	.db	3,"STR"            ; $009b
+   36 D1:B012 03 43 48 52 	.db	3,"CHR"            ; $009c
+   37 D1:B016 03 41 53 43 	.db	3,"ASC"            ; $009d
+   38 D1:B01A 03 4E 4F 54 	.db	3,"NOT"            ; $009e
+   39 D1:B01E 04 50 41 47 
               45 -  -  -  	.db	4,"PAGE"           ; $009f
-   40 D1:B014 04 54 49 4D 
+   40 D1:B023 04 54 49 4D 
               45 -  -  -  	.db	4,"TIME"           ; $00a0
-   41 D1:B019 03 54 4F 50 	.db	3,"TOP"            ; $00a1
-   42 D1:B01D 03 56 41 4C 	.db	3,"VAL"            ; $00a2
-   43 D1:B021 01 29 -  -  	.db	1,")"              ; $00a3
-   44 D1:B023 01 2C -  -  	.db	1,","              ; $00a4
-   45 D1:B025 01 3A -  -  	.db	1,":"              ; $00a5
-   46 D1:B027 01 3B -  -  	.db	1,";"              ; $00a6
-   47 D1:B029 01 27 -  -  	.db	1,"'"              ; $00a7
-   48 D1:B02B 06 52 45 50 
+   41 D1:B028 03 54 4F 50 	.db	3,"TOP"            ; $00a1
+   42 D1:B02C 03 56 41 4C 	.db	3,"VAL"            ; $00a2
+   43 D1:B030 01 29 -  -  	.db	1,")"              ; $00a3
+   44 D1:B032 01 2C -  -  	.db	1,","              ; $00a4
+   45 D1:B034 01 3A -  -  	.db	1,":"              ; $00a5
+   46 D1:B036 01 3B -  -  	.db	1,";"              ; $00a6
+   47 D1:B038 01 27 -  -  	.db	1,"'"              ; $00a7
+   48 D1:B03A 06 52 45 50 
               45 41 54 -  	.db	6,"REPEAT"         ; $00a8
-   49 D1:B032 05 55 4E 54 
+   49 D1:B041 05 55 4E 54 
               49 4C -  -  	.db	5,"UNTIL"          ; $00a9
-   50 D1:B038 02 49 46 -  	.db	2,"IF"             ; $00aa
-   51 D1:B03B 04 54 48 45 
+   50 D1:B047 02 49 46 -  	.db	2,"IF"             ; $00aa
+   51 D1:B04A 04 54 48 45 
               4E -  -  -  	.db	4,"THEN"           ; $00ab
-   52 D1:B040 04 45 4C 53 
+   52 D1:B04F 04 45 4C 53 
               45 -  -  -  	.db	4,"ELSE"           ; $00ac
-   53 D1:B045 03 46 4F 52 	.db	3,"FOR"            ; $00ad
-   54 D1:B049 02 54 4F -  	.db	2,"TO"             ; $00ae
-   55 D1:B04C 04 53 54 45 
+   53 D1:B054 03 46 4F 52 	.db	3,"FOR"            ; $00ad
+   54 D1:B058 02 54 4F -  	.db	2,"TO"             ; $00ae
+   55 D1:B05B 04 53 54 45 
               50 -  -  -  	.db	4,"STEP"           ; $00af
-   56 D1:B051 04 4E 45 58 
+   56 D1:B060 04 4E 45 58 
               54 -  -  -  	.db	4,"NEXT"           ; $00b0
-   57 D1:B056 03 44 45 46 	.db	3,"DEF"            ; $00b1
-   58 D1:B05A 04 50 52 4F 
+   57 D1:B065 03 44 45 46 	.db	3,"DEF"            ; $00b1
+   58 D1:B069 04 50 52 4F 
               43 -  -  -  	.db	4,"PROC"           ; $00b2
-   59 D1:B05F 07 45 4E 44 
+   59 D1:B06E 07 45 4E 44 
               50 52 4F 43 	.db	7,"ENDPROC"        ; $00b3
-   60 D1:B067 05 4C 4F 43 
+   60 D1:B076 05 4C 4F 43 
               41 4C -  -  	.db	5,"LOCAL"          ; $00b4
-   61 D1:B06D 03 44 49 4D 	.db	3,"DIM"            ; $00b5
-   62 D1:B071 03 52 45 4D 	.db	3,"REM"            ; $00b6
-   63 D1:B075 03 4C 45 54 	.db	3,"LET"            ; $00b7
-   64 D1:B079 03 56 44 55 	.db	3,"VDU"            ; $00b8
-   65 D1:B07D 05 50 52 49 
+   61 D1:B07C 03 44 49 4D 	.db	3,"DIM"            ; $00b5
+   62 D1:B080 03 52 45 4D 	.db	3,"REM"            ; $00b6
+   63 D1:B084 03 4C 45 54 	.db	3,"LET"            ; $00b7
+   64 D1:B088 03 56 44 55 	.db	3,"VDU"            ; $00b8
+   65 D1:B08C 05 50 52 49 
               4E 54 -  -  	.db	5,"PRINT"          ; $00b9
-   66 D1:B083 04 4C 4F 41 
+   66 D1:B092 04 4C 4F 41 
               44 -  -  -  	.db	4,"LOAD"           ; $00ba
-   67 D1:B088 04 53 41 56 
+   67 D1:B097 04 53 41 56 
               45 -  -  -  	.db	4,"SAVE"           ; $00bb
-   68 D1:B08D 04 4C 49 53 
+   68 D1:B09C 04 4C 49 53 
               54 -  -  -  	.db	4,"LIST"           ; $00bc
-   69 D1:B092 03 4E 45 57 	.db	3,"NEW"            ; $00bd
-   70 D1:B096 03 52 55 4E 	.db	3,"RUN"            ; $00be
-   71 D1:B09A 04 52 45 41 
+   69 D1:B0A1 03 4E 45 57 	.db	3,"NEW"            ; $00bd
+   70 D1:B0A5 03 52 55 4E 	.db	3,"RUN"            ; $00be
+   71 D1:B0A9 04 52 45 41 
               44 -  -  -  	.db	4,"READ"           ; $00bf
-   72 D1:B09F 04 44 41 54 
+   72 D1:B0AE 04 44 41 54 
               41 -  -  -  	.db	4,"DATA"           ; $00c0
-   73 D1:B0A4 07 52 45 53 
+   73 D1:B0B3 07 52 45 53 
               54 4F 52 45 	.db	7,"RESTORE"        ; $00c1
-   74 D1:B0AC 06 41 53 53 
+   74 D1:B0BB 06 41 53 53 
               45 52 54 -  	.db	6,"ASSERT"         ; $00c2
-   75 D1:B0B3 05 43 4C 45 
+   75 D1:B0C2 05 43 4C 45 
               41 52 -  -  	.db	5,"CLEAR"          ; $00c3
-   76 D1:B0B9 03 45 4E 44 	.db	3,"END"            ; $00c4
-   77 D1:B0BD 04 53 54 4F 
+   76 D1:B0C8 03 45 4E 44 	.db	3,"END"            ; $00c4
+   77 D1:B0CC 04 53 54 4F 
               50 -  -  -  	.db	4,"STOP"           ; $00c5
-   78 D1:B0C2 00 -  -  -  	.db	0
-   79 D1:B0C3 -  -  -  -  ;
-   80 D1:B0C3 -  -  -  -  ;	Keywords for set 1
-   81 D1:B0C3 -  -  -  -  ;
-   82 D1:B0C3 -  -  -  -  KeywordsSet1:
-   83 D1:B0C3 00 -  -  -  	.db	0
-   84 D1:B0C4 -  -  -  -  ;
-   85 D1:B0C4 -  -  -  -  ;	Keywords for set 2
-   86 D1:B0C4 -  -  -  -  ;
-   87 D1:B0C4 -  -  -  -  KeywordsSet2:
-   88 D1:B0C4 00 -  -  -  	.db	0
+   78 D1:B0D1 00 -  -  -  	.db	0
+   79 D1:B0D2 -  -  -  -  ;
+   80 D1:B0D2 -  -  -  -  ;	Keywords for set 1
+   81 D1:B0D2 -  -  -  -  ;
+   82 D1:B0D2 -  -  -  -  KeywordsSet1:
+   83 D1:B0D2 00 -  -  -  	.db	0
+   84 D1:B0D3 -  -  -  -  ;
+   85 D1:B0D3 -  -  -  -  ;	Keywords for set 2
+   86 D1:B0D3 -  -  -  -  ;
+   87 D1:B0D3 -  -  -  -  KeywordsSet2:
+   88 D1:B0D3 00 -  -  -  	.db	0
 Listing for file "_build.asm"
-   49 D1:B0C5 -  -  -  -  #include "generated/kwd_misc.asm"
+   50 D1:B0D4 -  -  -  -  #include "generated/kwd_misc.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_misc.asm"
-    1 D1:B0C5 -  -  -  -  ;
-    2 D1:B0C5 -  -  -  -  ;	This file is automatically generated.
-    3 D1:B0C5 -  -  -  -  ;
-    4 D1:B0C5 00 00 00 00 
+    1 D1:B0D4 -  -  -  -  ;
+    2 D1:B0D4 -  -  -  -  ;	This file is automatically generated.
+    3 D1:B0D4 -  -  -  -  ;
+    4 D1:B0D4 00 00 00 00 
               00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 -  	.block	$20-($ & $1F)
+              00 00 00 00 	.block	$20-($ & $1F)
     5 D1:B0E0 -  -  -  -  PrecedenceTable:
     6 D1:B0E0 06 -  -  -  	.db	6	; $0083 !
     7 D1:B0E1 06 -  -  -  	.db	6	; $0084 ?
@@ -3249,7 +3285,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_misc.asm"
    22 D1:B0F0 01 -  -  -  	.db	1	; $0093 eor
    23 D1:B0F1 -  -  -  -  
 Listing for file "_build.asm"
-   50 D1:B0F1 -  -  -  -  #include "generated/messagetext.asm"
+   51 D1:B0F1 -  -  -  -  #include "generated/messagetext.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/messagetext.asm"
     1 D1:B0F1 -  -  -  -  ;
     2 D1:B0F1 -  -  -  -  ;	This is automatically generated.
@@ -3358,7 +3394,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/messagetext.as
               61 62 6C 65 
               00 -  -  -  	.db "Unknown Variable",0
 Listing for file "_build.asm"
-   51 D1:B21E -  -  -  -  #include "generated/vectors.asm"
+   52 D1:B21E -  -  -  -  #include "generated/vectors.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
     1 D1:B21E -  -  -  -  ;
     2 D1:B21E -  -  -  -  ;	Vectors for set 0
@@ -3397,9 +3433,9 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    34 D1:B292 F3 AD D1 00 	addr(Unary_Asc)                  ; $009d asc
    35 D1:B296 2C AE D1 00 	addr(Unary_Not)                  ; $009e not
    36 D1:B29A 41 AE D1 00 	addr(Unary_Page)                 ; $009f page
-   37 D1:B29E A5 A8 D1 00 	addr(Unimplemented)              ; $00a0 time
-   38 D1:B2A2 2F AF D1 00 	addr(Unary_Top)                  ; $00a1 top
-   39 D1:B2A6 3C AF D1 00 	addr(Unary_Val)                  ; $00a2 val
+   37 D1:B29E 2F AF D1 00 	addr(Unary_Time)                 ; $00a0 time
+   38 D1:B2A2 3E AF D1 00 	addr(Unary_Top)                  ; $00a1 top
+   39 D1:B2A6 4B AF D1 00 	addr(Unary_Val)                  ; $00a2 val
    40 D1:B2AA 58 A9 D1 00 	addr(BadCmd_RBracket)            ; $00a3 )
    41 D1:B2AE 58 A9 D1 00 	addr(BadCmd_Comma)               ; $00a4 ,
    42 D1:B2B2 5C A9 D1 00 	addr(Command_Colon)              ; $00a5 :
@@ -3426,13 +3462,13 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    63 D1:B306 A5 A8 D1 00 	addr(Unimplemented)              ; $00ba load
    64 D1:B30A A5 A8 D1 00 	addr(Unimplemented)              ; $00bb save
    65 D1:B30E A5 A8 D1 00 	addr(Unimplemented)              ; $00bc list
-   66 D1:B312 9B AF D1 00 	addr(Command_NEW)                ; $00bd new
+   66 D1:B312 AA AF D1 00 	addr(Command_NEW)                ; $00bd new
    67 D1:B316 97 A9 D1 00 	addr(Command_RUN)                ; $00be run
    68 D1:B31A A5 A8 D1 00 	addr(Unimplemented)              ; $00bf read
    69 D1:B31E A5 A8 D1 00 	addr(Unimplemented)              ; $00c0 data
    70 D1:B322 A5 A8 D1 00 	addr(Unimplemented)              ; $00c1 restore
    71 D1:B326 47 A9 D1 00 	addr(Command_ASSERT)             ; $00c2 assert
-   72 D1:B32A 51 AF D1 00 	addr(Command_CLEAR)              ; $00c3 clear
+   72 D1:B32A 60 AF D1 00 	addr(Command_CLEAR)              ; $00c3 clear
    73 D1:B32E 5D A9 D1 00 	addr(Command_END)                ; $00c4 end
    74 D1:B332 03 AA D1 00 	addr(Command_STOP)               ; $00c5 stop
    75 D1:B336 -  -  -  -  ;
@@ -3444,7 +3480,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    81 D1:B336 -  -  -  -  ;
    82 D1:B336 -  -  -  -  VectorsSet2:
 Listing for file "_build.asm"
-   52 D1:B336 -  -  -  -  #include "int32/idivide.asm"
+   53 D1:B336 -  -  -  -  #include "int32/idivide.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/idivide.asm"
     1 D1:B336 -  -  -  -  ; ***************************************************************************************
     2 D1:B336 -  -  -  -  ; ***************************************************************************************
@@ -3626,7 +3662,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/int32/idivide.asm"
   178 D1:B3D3 -  -  -  -  ; ***************************************************************************************
   179 D1:B3D3 -  -  -  -  		
 Listing for file "_build.asm"
-   53 D1:B3D3 -  -  -  -  #include "int32/ifromstring.asm"
+   54 D1:B3D3 -  -  -  -  #include "int32/ifromstring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/ifromstring.asm"
     1 D1:B3D3 -  -  -  -  ; ***************************************************************************************
     2 D1:B3D3 -  -  -  -  ; ***************************************************************************************
@@ -3732,7 +3768,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/int32/ifromstring.asm"
   102 D1:B43B -  -  -  -  ;
   103 D1:B43B -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   54 D1:B43B -  -  -  -  #include "int32/imultiply.asm"
+   55 D1:B43B -  -  -  -  #include "int32/imultiply.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/imultiply.asm"
     1 D1:B43B -  -  -  -  ; ***************************************************************************************
     2 D1:B43B -  -  -  -  ; ***************************************************************************************
@@ -3804,7 +3840,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/int32/imultiply.asm"
    68 D1:B474 -  -  -  -  ;
    69 D1:B474 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   55 D1:B474 -  -  -  -  #include "int32/isimple.asm"
+   56 D1:B474 -  -  -  -  #include "int32/isimple.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
     1 D1:B474 -  -  -  -  ; ***************************************************************************************
     2 D1:B474 -  -  -  -  ; ***************************************************************************************
@@ -3992,7 +4028,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
   183 D1:B4F5 -  -  -  -  ; ***************************************************************************************
   184 D1:B4F5 -  -  -  -  		
 Listing for file "_build.asm"
-   56 D1:B4F5 -  -  -  -  #include "int32/itostring.asm"
+   57 D1:B4F5 -  -  -  -  #include "int32/itostring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/itostring.asm"
     1 D1:B4F5 -  -  -  -  ; ***************************************************************************************
     2 D1:B4F5 -  -  -  -  ; ***************************************************************************************
@@ -4077,7 +4113,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/int32/itostring.asm"
    81 D1:B542 -  -  -  -  ;
    82 D1:B542 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   57 D1:B542 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
+   58 D1:B542 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_aquarius/aquarius_io.asm"
     1 D1:B542 -  -  -  -  ; ***************************************************************************************
     2 D1:B542 -  -  -  -  ; ***************************************************************************************
@@ -4158,20 +4194,39 @@ Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_aquarius
    77 D1:B542             	pop 	af
    78 D1:B542             	ret
    79 D1:B542             
-   80 D1:B542             #endif
-   81 D1:B542 -  -  -  -  
-   82 D1:B542 -  -  -  -  ; ***************************************************************************************
-   83 D1:B542 -  -  -  -  ;
-   84 D1:B542 -  -  -  -  ;									Changes and Updates
-   85 D1:B542 -  -  -  -  ;
-   86 D1:B542 -  -  -  -  ; ***************************************************************************************
-   87 D1:B542 -  -  -  -  ;
-   88 D1:B542 -  -  -  -  ;		Date			Notes
-   89 D1:B542 -  -  -  -  ;		==== 			=====
-   90 D1:B542 -  -  -  -  ;
-   91 D1:B542 -  -  -  -  ; ***************************************************************************************
+   80 D1:B542             ; ***************************************************************************************
+   81 D1:B542             ;
+   82 D1:B542             ;									Get time into HL'HL
+   83 D1:B542             ;
+   84 D1:B542             ; ***************************************************************************************
+   85 D1:B542             
+   86 D1:B542             SYSGetTimer:
+   87 D1:B542              	in 		a,($00)
+   88 D1:B542              	ld 		l,a
+   89 D1:B542              	in 		a,($01)
+   90 D1:B542              	ld 		h,a
+   91 D1:B542              	exx
+   92 D1:B542              	in 		a,($02)
+   93 D1:B542              	ld 		l,a
+   94 D1:B542              	in 		a,($03)
+   95 D1:B542              	ld 		h,a
+   96 D1:B542              	exx
+   97 D1:B542             	ret 	
+   98 D1:B542             	
+   99 D1:B542             #endif
+  100 D1:B542 -  -  -  -  
+  101 D1:B542 -  -  -  -  ; ***************************************************************************************
+  102 D1:B542 -  -  -  -  ;
+  103 D1:B542 -  -  -  -  ;									Changes and Updates
+  104 D1:B542 -  -  -  -  ;
+  105 D1:B542 -  -  -  -  ; ***************************************************************************************
+  106 D1:B542 -  -  -  -  ;
+  107 D1:B542 -  -  -  -  ;		Date			Notes
+  108 D1:B542 -  -  -  -  ;		==== 			=====
+  109 D1:B542 -  -  -  -  ;
+  110 D1:B542 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   58 D1:B542 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
+   59 D1:B542 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_dummy/dummy_io.asm"
     1 D1:B542 -  -  -  -  ; ***************************************************************************************
     2 D1:B542 -  -  -  -  ; ***************************************************************************************
@@ -4223,20 +4278,29 @@ Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_dummy/du
    48 D1:B542             SYSPrintCRLF:
    49 D1:B542             	ret
    50 D1:B542             
-   51 D1:B542             #endif
-   52 D1:B542 -  -  -  -  
-   53 D1:B542 -  -  -  -  ; ***************************************************************************************
-   54 D1:B542 -  -  -  -  ;
-   55 D1:B542 -  -  -  -  ;									Changes and Updates
-   56 D1:B542 -  -  -  -  ;
-   57 D1:B542 -  -  -  -  ; ***************************************************************************************
-   58 D1:B542 -  -  -  -  ;
-   59 D1:B542 -  -  -  -  ;		Date			Notes
-   60 D1:B542 -  -  -  -  ;		==== 			=====
-   61 D1:B542 -  -  -  -  ;
+   51 D1:B542             ; ***************************************************************************************
+   52 D1:B542             ;
+   53 D1:B542             ;									Get time into HL'HL
+   54 D1:B542             ;
+   55 D1:B542             ; ***************************************************************************************
+   56 D1:B542             
+   57 D1:B542             SYSGetTimer:
+   58 D1:B542             	ret
+   59 D1:B542             
+   60 D1:B542             #endif
+   61 D1:B542 -  -  -  -  
    62 D1:B542 -  -  -  -  ; ***************************************************************************************
+   63 D1:B542 -  -  -  -  ;
+   64 D1:B542 -  -  -  -  ;									Changes and Updates
+   65 D1:B542 -  -  -  -  ;
+   66 D1:B542 -  -  -  -  ; ***************************************************************************************
+   67 D1:B542 -  -  -  -  ;
+   68 D1:B542 -  -  -  -  ;		Date			Notes
+   69 D1:B542 -  -  -  -  ;		==== 			=====
+   70 D1:B542 -  -  -  -  ;
+   71 D1:B542 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   59 D1:B542 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
+   60 D1:B542 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_ti84/ti_84io.asm"
     1 D1:B542 -  -  -  -  ; ***************************************************************************************
     2 D1:B542 -  -  -  -  ; ***************************************************************************************
@@ -4361,34 +4425,47 @@ Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_ti84/ti_
   113 D1:B5B6 F1 -  -  -  	pop 	af
   114 D1:B5B7 C9 -  -  -  	ret
   115 D1:B5B8 -  -  -  -  
-  116 D1:B5B8 -  -  -  -  #endif
-  117 D1:B5B8 -  -  -  -  
-  118 D1:B5B8 -  -  -  -  ; ***************************************************************************************
+  116 D1:B5B8 -  -  -  -  ; ***************************************************************************************
+  117 D1:B5B8 -  -  -  -  ;
+  118 D1:B5B8 -  -  -  -  ;									Get time into HL'HL
   119 D1:B5B8 -  -  -  -  ;
-  120 D1:B5B8 -  -  -  -  ;									Changes and Updates
-  121 D1:B5B8 -  -  -  -  ;
-  122 D1:B5B8 -  -  -  -  ; ***************************************************************************************
-  123 D1:B5B8 -  -  -  -  ;
-  124 D1:B5B8 -  -  -  -  ;		Date			Notes
-  125 D1:B5B8 -  -  -  -  ;		==== 			=====
-  126 D1:B5B8 -  -  -  -  ;
-  127 D1:B5B8 -  -  -  -  ; ***************************************************************************************
+  120 D1:B5B8 -  -  -  -  ; ***************************************************************************************
+  121 D1:B5B8 -  -  -  -  
+  122 D1:B5B8 -  -  -  -  SYSGetTimer:
+  123 D1:B5B8 21 34 12 00 	ld 		hl,$1234
+  124 D1:B5BC D9 -  -  -  	exx
+  125 D1:B5BD 21 78 56 00 	ld 		hl,$5678
+  126 D1:B5C1 D9 -  -  -  	exx
+  127 D1:B5C2 C9 -  -  -  	ret
+  128 D1:B5C3 -  -  -  -  
+  129 D1:B5C3 -  -  -  -  #endif
+  130 D1:B5C3 -  -  -  -  
+  131 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+  132 D1:B5C3 -  -  -  -  ;
+  133 D1:B5C3 -  -  -  -  ;									Changes and Updates
+  134 D1:B5C3 -  -  -  -  ;
+  135 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+  136 D1:B5C3 -  -  -  -  ;
+  137 D1:B5C3 -  -  -  -  ;		Date			Notes
+  138 D1:B5C3 -  -  -  -  ;		==== 			=====
+  139 D1:B5C3 -  -  -  -  ;
+  140 D1:B5C3 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   60 D1:B5B8 -  -  -  -  #include "testprogram/basic.asm"
+   61 D1:B5C3 -  -  -  -  #include "testprogram/basic.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-    1 D1:B5B8 -  -  -  -  ; ***************************************************************************************
-    2 D1:B5B8 -  -  -  -  ; ***************************************************************************************
-    3 D1:B5B8 -  -  -  -  ;
-    4 D1:B5B8 -  -  -  -  ;		Name : 		basic.asm
-    5 D1:B5B8 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B5B8 -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:B5B8 -  -  -  -  ;		Reviewed :	No
-    8 D1:B5B8 -  -  -  -  ;		Purpose :	Main program.
-    9 D1:B5B8 -  -  -  -  ;
-   10 D1:B5B8 -  -  -  -  ; ***************************************************************************************
-   11 D1:B5B8 -  -  -  -  ; ***************************************************************************************
-   12 D1:B5B8 -  -  -  -  
-   13 D1:B5B8 00 00 00 00 
+    1 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+    2 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+    3 D1:B5C3 -  -  -  -  ;
+    4 D1:B5C3 -  -  -  -  ;		Name : 		basic.asm
+    5 D1:B5C3 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B5C3 -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:B5C3 -  -  -  -  ;		Reviewed :	No
+    8 D1:B5C3 -  -  -  -  ;		Purpose :	Main program.
+    9 D1:B5C3 -  -  -  -  ;
+   10 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+   11 D1:B5C3 -  -  -  -  ; ***************************************************************************************
+   12 D1:B5C3 -  -  -  -  
+   13 D1:B5C3 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -4531,9 +4608,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 		.block 		$400-($ & $3FF)
+              00 -  -  -  		.block 		$400-($ & $3FF)
    14 D1:B800 -  -  -  -  TestInstance:
    15 D1:B800 -  -  -  -  		#include 	"testprogram/testprogram.dat"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.dat"
@@ -4552,489 +4627,267 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
               0D 80 14 02 
               00 B6 3F 0C 
               53 65 65 64 
-              20 3D 20 37 
-              38 34 33 34 
+              20 3D 20 34 
+              35 30 32 34 
               0D 80 10 03 
-              00 C2 9D 95 
-              3F 02 64 4A 
-              0D A3 8F 41 
-              64 80 13 04 
-              00 C2 94 42 
-              66 49 5F 42 
-              5A 8F 42 66 
-              49 5F 42 5A 
-              80 13 05 00 
-              C2 94 43 41 
-              41 78 66 77 
-              8F 43 41 41 
-              78 66 77 80 
-              13 06 00 C2 
-              94 42 58 5B 
-              6F 75 4A 8F 
-              42 58 5B 6F 
-              75 4A 80 15 
-              07 00 C2 99 
-              95 41 74 7F 
-              7A 4F 74 A3 
-              8F 41 74 7F 
-              7A 4F 74 80 
-              13 08 00 C2 
-              94 42 7B 7F 
-              60 42 47 8F 
-              42 7B 7F 60 
-              42 47 80 10 
-              09 00 C2 9C 
-              96 95 41 46 
-              A3 8F 3F 01 
-              46 0D 80 13 
-              0A 00 C2 83 
-              95 9F 89 50 
-              A3 8F 94 41 
-              4E 53 54 71 
-              4B 80 10 0B 
-              00 C2 9C 96 
-              95 41 40 A3 
-              8F 3F 01 40 
-              0D 80 13 0C 
-              00 C2 83 95 
-              9F 89 4C A3 
-              8F 94 41 4A 
-              52 54 61 47 
-              80 16 0D 00 
-              C2 9D 95 3F 
-              08 44 72 45 
-              74 47 6A 64 
-              41 0D A3 8F 
-              41 44 80 0D 
-              0E 00 C2 98 
-              95 3F 00 0D 
-              A3 8F 40 80 
-              20 0F 00 C2 
-              96 95 9F 89 
-              4F A3 8F 3F 
-              11 4A 4B 4C 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              15 10 00 C2 
-              99 95 41 4F 
-              4E 67 7D 6D 
-              A3 8F 41 4F 
-              4E 67 7D 6D 
-              80 10 11 00 
-              C2 9C 96 95 
-              41 4C A3 8F 
-              3F 01 4C 0D 
-              80 15 12 00 
-              C2 99 95 41 
-              45 6D 5F 5C 
-              6D A3 8F 41 
-              45 6D 5F 5C 
-              6D 80 13 13 
-              00 C2 83 95 
-              9F 89 53 A3 
-              8F 94 41 51 
-              54 44 7D 4E 
-              80 0D 14 00 
-              C2 98 95 3F 
-              00 0D A3 8F 
-              40 80 0E 15 
-              00 C2 84 95 
-              9F 89 4A A3 
-              8F 41 45 80 
-              1E 16 00 C2 
-              96 95 9F 89 
-              51 A3 8F 3F 
-              0F 4C 4D 4E 
-              4F 50 51 52 
-              53 54 55 56 
-              57 58 59 5A 
-              0D 80 13 17 
-              00 C2 99 95 
-              51 57 6C 5C 
-              6E A3 8F 51 
-              57 6C 5C 6E 
-              80 23 18 00 
-              C2 96 95 9F 
-              89 4C A3 8F 
-              3F 14 47 48 
-              49 4A 4B 4C 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              12 19 00 C2 
-              8A 8A 71 68 
-              51 5C 5D 8F 
-              71 68 51 5C 
-              5D 80 14 1A 
-              00 C2 8A 8A 
-              41 72 7D 6B 
-              5A 63 8F 41 
-              72 7D 6B 5A 
-              63 80 1E 1B 
-              00 C2 A2 95 
-              3F 0B 2D 32 
-              30 35 36 33 
-              31 31 38 31 
-              34 0D A3 8F 
-              8A 41 7A 64 
-              4D 50 46 80 
-              0E 1C 00 C2 
-              84 95 9F 89 
-              50 A3 8F 41 
-              4B 80 27 1D 
-              00 C2 96 95 
-              9F 89 48 A3 
-              8F 3F 18 43 
-              44 45 46 47 
-              48 49 4A 4B 
-              4C 4D 4E 4F 
-              50 51 52 53 
-              54 55 56 57 
-              58 59 5A 0D 
-              80 1B 1E 00 
-              C2 A2 95 3F 
-              0A 31 30 34 
-              37 39 37 30 
-              37 34 39 0D 
-              A3 8F 7E 5D 
-              6C 4E 7D 80 
-              14 1F 00 C2 
-              8A 8A 41 51 
-              7C 66 78 5C 
-              8F 41 51 7C 
-              66 78 5C 80 
-              0E 20 00 C2 
-              84 95 9F 89 
-              4B A3 8F 41 
-              46 80 11 21 
               00 C2 9A 95 
-              8A 6A 4C 76 
-              5A 56 A3 8F 
-              8A 41 80 14 
-              22 00 C2 99 
-              95 8A 6C 41 
-              58 63 74 A3 
-              8F 6C 41 58 
-              63 74 80 13 
-              23 00 C2 83 
-              95 9F 89 4F 
-              A3 8F 94 41 
-              4D 53 44 6D 
-              4A 80 11 24 
-              00 C2 9A 95 
-              8A 59 6C 41 
-              6C 6E A3 8F 
-              8A 41 80 15 
-              25 00 C2 9D 
-              95 3F 07 44 
-              56 71 49 69 
-              6C 79 0D A3 
-              8F 41 44 80 
-              13 26 00 C2 
-              98 95 3F 06 
-              4C 55 47 4F 
-              71 6E 0D A3 
-              8F 46 80 0F 
-              27 00 C2 9D 
-              95 3F 01 77 
-              0D A3 8F 41 
-              77 80 1C 28 
-              00 C2 A2 95 
-              3F 0A 31 35 
-              32 32 39 30 
-              31 37 35 32 
-              0D A3 8F 41 
-              5A 71 5A 4B 
-              78 80 13 29 
-              00 C2 83 95 
-              9F 89 46 A3 
-              8F 94 41 44 
-              50 74 49 41 
-              80 13 2A 00 
-              C2 83 95 9F 
-              89 4A A3 8F 
-              94 41 48 51 
-              74 59 45 80 
-              11 2B 00 C2 
-              94 43 43 55 
-              69 7A 8F 43 
-              43 55 69 7A 
-              80 23 2C 00 
-              C2 96 95 9F 
-              89 4C A3 8F 
-              3F 14 47 48 
-              49 4A 4B 4C 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              20 2D 00 C2 
-              96 95 9F 89 
-              4F A3 8F 3F 
-              11 4A 4B 4C 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              10 2E 00 C2 
-              9A 95 41 4E 
-              65 7B 58 65 
-              A3 8F 41 80 
-              10 2F 00 C2 
-              9C 96 95 41 
-              56 A3 8F 3F 
-              01 56 0D 80 
-              1C 30 00 C2 
-              96 95 9F 89 
-              53 A3 8F 3F 
-              0D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              0F 31 00 C2 
-              9A 95 50 48 
-              4C 6E 7F A3 
-              8F 41 80 1D 
-              32 00 C2 9B 
-              96 95 41 73 
-              70 75 67 48 
+              41 6B 52 70 
+              43 45 A3 8F 
+              41 80 15 04 
+              00 C2 9E 95 
+              41 5D 4D 47 
+              5D 56 A3 8F 
+              42 62 72 78 
+              62 69 80 1D 
+              05 00 C2 9B 
+              96 95 41 59 
+              52 60 43 40 
               A3 8F 3F 0A 
-              31 39 34 32 
-              31 38 32 33 
-              34 34 0D 80 
-              0E 33 00 C2 
-              84 95 9F 89 
-              54 A3 8F 41 
-              4F 80 0E 34 
-              00 C2 84 95 
-              9F 89 47 A3 
-              8F 41 42 80 
-              27 35 00 C2 
-              96 95 9F 89 
-              48 A3 8F 3F 
-              18 43 44 45 
-              46 47 48 49 
-              4A 4B 4C 4D 
-              4E 4F 50 51 
-              52 53 54 55 
-              56 57 58 59 
-              5A 0D 80 0E 
-              36 00 C2 84 
-              95 9F 89 49 
-              A3 8F 41 44 
-              80 11 37 00 
-              C2 94 51 6A 
-              6E 73 4C 8F 
-              51 6A 6E 73 
-              4C 80 0F 38 
-              00 C2 9D 95 
-              3F 01 64 0D 
-              A3 8F 41 64 
-              80 15 39 00 
-              C2 9E 95 42 
-              5B 7E 65 46 
-              58 A3 8F 41 
-              64 41 5A 79 
-              67 80 14 3A 
-              00 C2 99 95 
-              8A 74 59 4A 
-              59 45 A3 8F 
-              74 59 4A 59 
-              45 80 13 3B 
+              31 34 39 38 
+              30 32 32 30 
+              38 30 0D 80 
+              15 06 00 C2 
+              9E 95 41 4B 
+              45 4E 46 7F 
+              A3 8F 42 74 
+              7A 71 79 40 
+              80 12 07 00 
+              C2 9A 95 8A 
+              41 40 7D 76 
+              45 6C A3 8F 
+              8A 41 80 13 
+              08 00 C2 83 
+              95 9F 89 47 
+              A3 8F 94 41 
+              45 51 44 4D 
+              42 80 13 09 
               00 C2 83 95 
-              9F 89 49 A3 
-              8F 94 41 47 
-              51 64 55 44 
-              80 1D 3C 00 
-              C2 96 95 9F 
-              89 52 A3 8F 
-              3F 0E 4D 4E 
+              9F 89 4D A3 
+              8F 94 41 4B 
+              52 64 65 48 
+              80 0F 0A 00 
+              C2 9A 95 58 
+              77 54 4B 7F 
+              A3 8F 41 80 
+              0E 0B 00 C2 
+              84 95 9F 89 
+              4C A3 8F 41 
+              47 80 13 0C 
+              00 C2 98 95 
+              3F 06 66 72 
+              77 64 73 63 
+              0D A3 8F 46 
+              80 11 0D 00 
+              C2 94 55 47 
+              43 45 77 8F 
+              55 47 43 45 
+              77 80 1C 0E 
+              00 C2 A2 95 
+              3F 0A 31 37 
+              39 32 34 39 
+              31 33 39 30 
+              0D A3 8F 41 
+              6A 75 73 7D 
+              7E 80 1A 0F 
+              00 C2 A2 95 
+              3F 09 34 31 
+              30 33 37 39 
+              38 39 33 0D 
+              A3 8F 58 5D 
+              5E 59 75 80 
+              13 10 00 C2 
+              99 95 6A 6F 
+              67 42 78 A3 
+              8F 6A 6F 67 
+              42 78 80 1B 
+              11 00 C2 96 
+              95 9F 89 54 
+              A3 8F 3F 0C 
               4F 50 51 52 
               53 54 55 56 
               57 58 59 5A 
-              0D 80 11 3D 
-              00 C2 94 76 
-              5E 7E 5B 74 
-              8F 76 5E 7E 
-              5B 74 80 15 
-              3E 00 C2 9E 
-              95 42 4A 66 
-              74 43 57 A3 
-              8F 41 75 59 
-              4B 7C 68 80 
-              1B 3F 00 C2 
-              96 95 9F 89 
-              54 A3 8F 3F 
-              0C 4F 50 51 
-              52 53 54 55 
-              56 57 58 59 
-              5A 0D 80 10 
-              40 00 C2 9C 
-              96 95 41 44 
+              0D 80 16 12 
+              00 C2 99 95 
+              8A 41 4C 7D 
+              4D 56 50 A3 
+              8F 41 4C 7D 
+              4D 56 50 80 
+              10 13 00 C2 
+              9C 96 95 41 
+              4C A3 8F 3F 
+              01 4C 0D 80 
+              13 14 00 C2 
+              83 95 9F 89 
+              48 A3 8F 94 
+              41 46 51 54 
+              51 43 80 1C 
+              15 00 C2 A2 
+              95 3F 0A 2D 
+              34 37 38 37 
+              35 35 33 39 
+              34 0D A3 8F 
+              8A 5C 62 53 
+              69 42 80 14 
+              16 00 C2 9E 
+              95 51 42 47 
+              79 4F A3 8F 
+              43 6E 7D 78 
+              46 70 80 10 
+              17 00 C2 9C 
+              96 95 41 57 
               A3 8F 3F 01 
-              44 0D 80 1B 
-              41 00 C2 9B 
-              96 95 60 6C 
-              63 57 7C A3 
-              8F 3F 09 35 
-              34 38 35 35 
-              30 31 34 30 
-              0D 80 26 42 
-              00 C2 96 95 
-              9F 89 49 A3 
-              8F 3F 17 44 
-              45 46 47 48 
-              49 4A 4B 4C 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              1F 43 00 C2 
-              9B 96 95 8A 
-              41 4C 66 70 
-              6F 7F A3 8F 
-              3F 0B 2D 31 
-              32 38 35 32 
-              32 39 35 36 
+              57 0D 80 1D 
+              18 00 C2 9B 
+              96 95 8A 60 
+              7F 58 41 41 
+              A3 8F 3F 0A 
+              2D 35 35 33 
+              34 38 34 33 
+              35 33 0D 80 
+              1B 19 00 C2 
+              9B 96 95 74 
+              6C 7C 6F 4B 
+              A3 8F 3F 09 
+              38 38 34 31 
+              39 38 33 34 
               37 0D 80 12 
-              44 00 C2 8A 
-              8A 61 43 4E 
-              5C 66 8F 61 
-              43 4E 5C 66 
-              80 14 45 00 
-              C2 99 95 8A 
-              71 7F 54 54 
-              6D A3 8F 71 
-              7F 54 54 6D 
-              80 14 46 00 
-              C2 99 95 8A 
-              43 50 7F 6E 
-              65 A3 8F 43 
-              50 7F 6E 65 
-              80 14 47 00 
-              C2 9E 95 72 
-              5F 41 5F 4F 
-              A3 8F 43 4D 
-              60 7E 60 70 
-              80 24 48 00 
-              C2 96 95 9F 
-              89 4B A3 8F 
-              3F 15 46 47 
-              48 49 4A 4B 
-              4C 4D 4E 4F 
-              50 51 52 53 
-              54 55 56 57 
-              58 59 5A 0D 
-              80 21 49 00 
-              C2 96 95 9F 
-              89 4E A3 8F 
-              3F 12 49 4A 
+              1A 00 C2 8A 
+              8A 7E 7E 5E 
+              76 7B 8F 7E 
+              7E 5E 76 7B 
+              80 11 1B 00 
+              C2 94 6A 4C 
+              52 60 71 8F 
+              6A 4C 52 60 
+              71 80 12 1C 
+              00 C2 8A 8A 
+              66 6E 57 7B 
+              63 8F 66 6E 
+              57 7B 63 80 
+              13 1D 00 C2 
+              94 43 74 66 
+              5A 79 74 8F 
+              43 74 66 5A 
+              79 74 80 0E 
+              1E 00 C2 98 
+              95 3F 01 75 
+              0D A3 8F 41 
+              80 15 1F 00 
+              C2 9E 95 41 
+              7B 79 79 7A 
+              40 A3 8F 42 
+              44 46 46 45 
+              7F 80 13 20 
+              00 C2 83 95 
+              9F 89 4E A3 
+              8F 94 41 4C 
+              52 74 69 49 
+              80 15 21 00 
+              C2 99 95 41 
+              76 6F 7B 62 
+              76 A3 8F 41 
+              76 6F 7B 62 
+              76 80 24 22 
+              00 C2 96 95 
+              9F 89 4B A3 
+              8F 3F 15 46 
+              47 48 49 4A 
               4B 4C 4D 4E 
               4F 50 51 52 
               53 54 55 56 
               57 58 59 5A 
-              0D 80 1E 4A 
-              00 C2 A2 95 
-              3F 0B 2D 31 
-              38 35 34 34 
-              32 37 34 30 
-              30 0D A3 8F 
-              8A 41 6E 62 
-              45 44 48 80 
-              0D 4B 00 C2 
-              9D 95 3F 00 
-              0D A3 8F 4D 
-              80 16 4C 00 
-              C2 99 95 8A 
-              41 42 5E 7B 
-              7D 6E A3 8F 
-              41 42 5E 7B 
-              7D 6E 80 10 
-              4D 00 C2 9A 
-              95 41 50 73 
-              69 4C 59 A3 
-              8F 41 80 1A 
-              4E 00 C2 A2 
-              95 3F 09 33 
-              31 32 35 32 
-              36 32 38 37 
-              0D A3 8F 52 
-              68 4C 57 4F 
-              80 12 4F 00 
-              C2 9A 95 8A 
-              41 57 5C 68 
-              60 69 A3 8F 
-              8A 41 80 11 
-              50 00 C2 94 
-              73 6E 6B 7B 
-              4E 8F 73 6E 
-              6B 7B 4E 80 
-              14 51 00 C2 
-              9E 95 43 41 
-              7E 78 68 57 
-              A3 8F 7E 41 
-              47 57 68 80 
-              0E 52 00 C2 
-              98 95 3F 01 
-              65 0D A3 8F 
-              41 80 0E 53 
+              0D 80 14 23 
+              00 C2 9E 95 
+              77 4E 40 4C 
+              43 A3 8F 43 
+              48 71 7F 73 
+              7C 80 10 24 
+              00 C2 9C 96 
+              95 41 44 A3 
+              8F 3F 01 44 
+              0D 80 10 25 
+              00 C2 9C 96 
+              95 41 56 A3 
+              8F 3F 01 56 
+              0D 80 14 26 
+              00 C2 8A 8A 
+              41 51 76 7D 
+              49 5B 8F 41 
+              51 76 7D 49 
+              5B 80 0E 27 
               00 C2 84 95 
               9F 89 4D A3 
               8F 41 48 80 
-              0E 54 00 C2 
-              84 95 9F 89 
+              14 28 00 C2 
+              8A 8A 41 75 
+              55 4F 7B 45 
+              8F 41 75 55 
+              4F 7B 45 80 
+              15 29 00 C2 
+              99 95 41 50 
+              51 4B 48 47 
+              A3 8F 41 50 
+              51 4B 48 47 
+              80 15 2A 00 
+              C2 99 95 41 
+              41 40 64 6F 
               48 A3 8F 41 
-              43 80 15 55 
-              00 C2 9E 95 
-              42 5E 6E 6F 
-              43 5A A3 8F 
-              41 61 51 50 
-              7C 65 80 10 
-              56 00 C2 9D 
-              95 3F 02 77 
-              6F 0D A3 8F 
-              41 77 80 10 
-              57 00 C2 9C 
-              96 95 41 56 
-              A3 8F 3F 01 
-              56 0D 80 1D 
-              58 00 C2 96 
-              95 9F 89 52 
-              A3 8F 3F 0E 
-              4D 4E 4F 50 
-              51 52 53 54 
-              55 56 57 58 
-              59 5A 0D 80 
-              12 59 00 C2 
-              9A 95 8A 41 
-              5E 6D 4D 4F 
-              6C A3 8F 8A 
-              41 80 0F 5A 
-              00 C2 9D 95 
-              3F 01 44 0D 
-              A3 8F 41 44 
-              80 13 5B 00 
-              C2 83 95 9F 
-              89 52 A3 8F 
-              94 41 50 53 
-              74 79 4D 80 
-              10 5C 00 C2 
-              9C 96 95 41 
-              50 A3 8F 3F 
-              01 50 0D 80 
-              10 5D 00 C2 
-              9A 95 41 4F 
-              67 48 43 53 
-              A3 8F 41 80 
-              13 5E 00 C2 
-              83 95 9F 89 
-              54 A3 8F 94 
-              41 52 54 55 
-              41 4F 80 29 
-              5F 00 C2 96 
+              41 40 64 6F 
+              48 80 1D 2B 
+              00 C2 9B 96 
+              95 8A 49 42 
+              56 73 4B A3 
+              8F 3F 0A 2D 
+              31 35 31 36 
+              31 32 36 31 
+              39 0D 80 1C 
+              2C 00 C2 9B 
+              96 95 8A 44 
+              6A 72 4E 65 
+              A3 8F 3F 09 
+              2D 37 38 33 
+              32 34 36 34 
+              35 0D 80 11 
+              2D 00 C2 9A 
+              95 8A 5E 54 
+              6A 6F 44 A3 
+              8F 8A 41 80 
+              1E 2E 00 C2 
+              A2 95 3F 0B 
+              2D 31 36 38 
+              39 35 38 35 
+              38 33 31 0D 
+              A3 8F 8A 41 
+              64 6D 50 62 
+              67 80 0D 2F 
+              00 C2 98 95 
+              3F 00 0D A3 
+              8F 40 80 1C 
+              30 00 C2 A2 
+              95 3F 0A 2D 
+              36 36 33 37 
+              35 31 31 32 
+              38 0D A3 8F 
+              8A 67 64 40 
+              67 58 80 15 
+              31 00 C2 9E 
+              95 41 7F 6A 
+              6E 5E 47 A3 
+              8F 42 40 55 
+              51 61 78 80 
+              1C 32 00 C2 
+              A2 95 3F 0A 
+              2D 32 31 34 
+              35 35 31 33 
+              33 32 0D A3 
+              8F 8A 4C 72 
+              5C 6C 64 80 
+              13 33 00 C2 
+              99 95 63 65 
+              52 71 7C A3 
+              8F 63 65 52 
+              71 7C 80 29 
+              34 00 C2 96 
               95 9F 89 46 
               A3 8F 3F 1A 
               41 42 43 44 
@@ -5044,546 +4897,804 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
               51 52 53 54 
               55 56 57 58 
               59 5A 0D 80 
-              10 60 00 C2 
+              10 35 00 C2 
               9C 96 95 41 
-              4D A3 8F 3F 
-              01 4D 0D 80 
-              1C 61 00 C2 
+              42 A3 8F 3F 
+              01 42 0D 80 
+              11 36 00 C2 
+              9A 95 8A 56 
+              4C 73 50 5B 
+              A3 8F 8A 41 
+              80 14 37 00 
+              C2 8A 8A 41 
+              54 56 41 7F 
+              6B 8F 41 54 
+              56 41 7F 6B 
+              80 13 38 00 
+              C2 83 95 9F 
+              89 52 A3 8F 
+              94 41 50 53 
+              74 79 4D 80 
+              1C 39 00 C2 
               A2 95 3F 0A 
-              2D 37 38 35 
-              38 39 34 38 
-              33 34 0D A3 
-              8F 8A 6E 75 
-              7C 76 72 80 
-              0E 62 00 C2 
-              84 95 9F 89 
-              48 A3 8F 41 
-              43 80 12 63 
-              00 C2 9D 95 
-              3F 04 64 6C 
-              59 53 0D A3 
-              8F 41 64 80 
-              11 64 00 C2 
-              9D 95 3F 03 
-              50 62 71 0D 
-              A3 8F 41 50 
-              80 13 65 00 
-              C2 94 41 4F 
-              60 69 4B 55 
-              8F 41 4F 60 
-              69 4B 55 80 
-              13 66 00 C2 
-              94 42 6D 6B 
-              4F 75 79 8F 
-              42 6D 6B 4F 
-              75 79 80 13 
-              67 00 C2 98 
-              95 3F 06 58 
-              71 6C 53 6F 
-              6E 0D A3 8F 
-              46 80 14 68 
-              00 C2 98 95 
-              3F 07 6F 53 
-              64 57 7A 4D 
-              54 0D A3 8F 
-              47 80 15 69 
-              00 C2 98 95 
-              3F 08 46 5A 
-              6F 41 56 6F 
-              6A 41 0D A3 
-              8F 48 80 10 
-              6A 00 C2 9C 
-              96 95 41 59 
-              A3 8F 3F 01 
-              59 0D 80 13 
-              6B 00 C2 94 
-              43 56 65 55 
-              4B 48 8F 43 
-              56 65 55 4B 
-              48 80 15 6C 
-              00 C2 9E 95 
-              42 44 43 5A 
-              74 52 A3 8F 
-              41 7B 7C 65 
-              4B 6D 80 14 
-              6D 00 C2 9E 
-              95 52 45 7B 
-              46 7A A3 8F 
-              43 6D 7A 44 
-              79 45 80 1B 
-              6E 00 C2 A2 
-              95 3F 09 2D 
-              34 37 35 37 
-              31 38 37 33 
-              0D A3 8F 8A 
-              42 75 5E 4E 
-              61 80 13 6F 
-              00 C2 94 41 
-              50 73 6D 4D 
-              57 8F 41 50 
-              73 6D 4D 57 
-              80 14 70 00 
-              C2 99 95 8A 
-              41 7B 6F 73 
-              57 A3 8F 41 
-              7B 6F 73 57 
-              80 1D 71 00 
-              C2 9B 96 95 
-              8A 55 75 59 
-              79 7E A3 8F 
-              3F 0A 2D 33 
-              36 36 33 32 
-              31 32 37 38 
-              0D 80 13 72 
+              31 38 39 32 
+              39 31 37 31 
+              38 33 0D A3 
+              8F 41 70 74 
+              79 7E 7F 80 
+              10 3A 00 C2 
+              9D 95 3F 02 
+              6A 56 0D A3 
+              8F 41 6A 80 
+              13 3B 00 C2 
+              94 42 47 48 
+              5E 7A 66 8F 
+              42 47 48 5E 
+              7A 66 80 1C 
+              3C 00 C2 A2 
+              95 3F 0A 2D 
+              34 34 37 32 
+              30 30 32 30 
+              37 0D A3 8F 
+              8A 5A 69 7B 
+              6F 4F 80 13 
+              3D 00 C2 9D 
+              95 3F 05 44 
+              4E 78 49 75 
+              0D A3 8F 41 
+              44 80 15 3E 
+              00 C2 99 95 
+              41 6A 4D 66 
+              55 5B A3 8F 
+              41 6A 4D 66 
+              55 5B 80 1A 
+              3F 00 C2 A2 
+              95 3F 09 34 
+              31 39 30 31 
+              31 30 34 31 
+              0D A3 8F 58 
+              7E 59 67 61 
+              80 14 40 00 
+              C2 8A 41 53 
+              77 5E 4D 64 
+              8F 8A 41 53 
+              77 5E 4D 64 
+              80 15 41 00 
+              C2 9E 95 42 
+              4B 70 78 72 
+              4E A3 8F 41 
+              74 4F 47 4D 
+              71 80 13 42 
               00 C2 83 95 
               9F 89 53 A3 
               8F 94 41 51 
               54 44 7D 4E 
-              80 15 73 00 
-              C2 98 95 3F 
-              08 6F 50 57 
-              53 54 6A 63 
-              79 0D A3 8F 
-              48 80 14 74 
-              00 C2 9D 95 
-              3F 06 68 74 
-              4A 64 68 53 
-              0D A3 8F 41 
-              68 80 10 75 
-              00 C2 9C 96 
-              95 41 48 A3 
-              8F 3F 01 48 
-              0D 80 15 76 
-              00 C2 9E 95 
-              41 61 4A 6D 
-              6B 4A A3 8F 
-              42 5E 75 52 
-              54 75 80 1F 
-              77 00 C2 9B 
-              96 95 8A 41 
-              5D 71 75 4E 
-              65 A3 8F 3F 
-              0B 2D 31 35 
-              37 33 33 34 
-              34 31 36 35 
-              0D 80 12 78 
-              00 C2 98 95 
-              3F 05 42 5A 
-              73 76 63 0D 
-              A3 8F 45 80 
-              16 79 00 C2 
-              9D 95 3F 08 
-              4B 68 6F 51 
-              4A 65 46 44 
-              0D A3 8F 41 
-              4B 80 28 7A 
-              00 C2 96 95 
-              9F 89 47 A3 
-              8F 3F 19 42 
-              43 44 45 46 
-              47 48 49 4A 
-              4B 4C 4D 4E 
-              4F 50 51 52 
-              53 54 55 56 
-              57 58 59 5A 
-              0D 80 10 7B 
-              00 C2 9C 96 
-              95 41 51 A3 
-              8F 3F 01 51 
-              0D 80 14 7C 
-              00 C2 98 95 
-              3F 07 4B 6E 
-              74 64 73 71 
-              44 0D A3 8F 
-              47 80 13 7D 
-              00 C2 83 95 
-              9F 89 47 A3 
-              8F 94 41 45 
-              51 44 4D 42 
-              80 0F 7E 00 
-              C2 9D 95 3F 
-              01 56 0D A3 
-              8F 41 56 80 
-              1E 7F 00 C2 
-              96 95 9F 89 
-              51 A3 8F 3F 
-              0F 4C 4D 4E 
-              4F 50 51 52 
-              53 54 55 56 
-              57 58 59 5A 
-              0D 80 15 80 
-              00 C2 9E 95 
-              42 5B 72 53 
-              7E 45 A3 8F 
-              41 64 4D 6C 
-              41 7A 80 0E 
-              81 00 C2 84 
-              95 9F 89 4B 
-              A3 8F 41 46 
-              80 13 82 00 
-              C2 94 41 45 
-              74 56 66 59 
-              8F 41 45 74 
-              56 66 59 80 
-              14 83 00 C2 
+              80 13 43 00 
+              C2 94 43 72 
+              6F 76 51 70 
+              8F 43 72 6F 
+              76 51 70 80 
+              1C 44 00 C2 
+              A2 95 3F 0A 
+              31 39 38 34 
+              38 37 35 37 
+              34 35 0D A3 
+              8F 41 76 53 
+              6C 73 61 80 
+              0E 45 00 C2 
+              84 95 9F 89 
+              47 A3 8F 41 
+              42 80 1F 46 
+              00 C2 9B 96 
+              95 8A 41 4B 
+              7D 75 71 5C 
+              A3 8F 3F 0B 
+              2D 31 32 37 
+              34 35 30 32 
+              32 33 36 0D 
+              80 20 47 00 
+              C2 96 95 9F 
+              89 4F A3 8F 
+              3F 11 4A 4B 
+              4C 4D 4E 4F 
+              50 51 52 53 
+              54 55 56 57 
+              58 59 5A 0D 
+              80 12 48 00 
+              C2 9A 95 8A 
+              41 7B 40 56 
+              7F 41 A3 8F 
+              8A 41 80 0D 
+              49 00 C2 9D 
+              95 3F 00 0D 
+              A3 8F 4D 80 
+              10 4A 00 C2 
+              9C 96 95 41 
+              49 A3 8F 3F 
+              01 49 0D 80 
+              14 4B 00 C2 
               98 95 3F 07 
-              7A 62 6F 73 
-              67 47 71 0D 
+              65 67 42 65 
+              47 64 67 0D 
               A3 8F 47 80 
-              14 84 00 C2 
-              9E 95 7C 47 
-              4F 4B 5A A3 
-              8F 43 43 78 
-              70 74 65 80 
-              13 85 00 C2 
-              83 95 9F 89 
-              48 A3 8F 94 
-              41 46 51 54 
-              51 43 80 13 
-              86 00 C2 83 
-              95 9F 89 52 
-              A3 8F 94 41 
-              50 53 74 79 
-              4D 80 10 87 
-              00 C2 9C 96 
-              95 41 4E A3 
-              8F 3F 01 4E 
-              0D 80 29 88 
+              10 4C 00 C2 
+              9A 95 41 6C 
+              7D 44 48 7B 
+              A3 8F 41 80 
+              16 4D 00 C2 
+              99 95 8A 41 
+              5B 6B 5A 5D 
+              5C A3 8F 41 
+              5B 6B 5A 5D 
+              5C 80 14 4E 
+              00 C2 9E 95 
+              43 5E 58 6B 
+              75 5F A3 8F 
+              61 67 54 4A 
+              60 80 14 4F 
+              00 C2 9E 95 
+              4E 4F 6B 5D 
+              58 A3 8F 43 
+              71 70 54 62 
+              67 80 16 50 
+              00 C2 9D 95 
+              3F 08 6E 7A 
+              51 4A 7A 6D 
+              4E 6B 0D A3 
+              8F 41 6E 80 
+              11 51 00 C2 
+              94 7F 58 67 
+              53 4F 8F 7F 
+              58 67 53 4F 
+              80 14 52 00 
+              C2 9D 95 3F 
+              06 62 59 63 
+              4B 66 49 0D 
+              A3 8F 41 62 
+              80 13 53 00 
+              C2 83 95 9F 
+              89 52 A3 8F 
+              94 41 50 53 
+              74 79 4D 80 
+              10 54 00 C2 
+              9C 96 95 41 
+              4A A3 8F 3F 
+              01 4A 0D 80 
+              25 55 00 C2 
+              96 95 9F 89 
+              4A A3 8F 3F 
+              16 45 46 47 
+              48 49 4A 4B 
+              4C 4D 4E 4F 
+              50 51 52 53 
+              54 55 56 57 
+              58 59 5A 0D 
+              80 0F 56 00 
+              C2 9A 95 44 
+              7B 6B 6A 59 
+              A3 8F 41 80 
+              10 57 00 C2 
+              9C 96 95 41 
+              56 A3 8F 3F 
+              01 56 0D 80 
+              1B 58 00 C2 
+              96 95 9F 89 
+              54 A3 8F 3F 
+              0C 4F 50 51 
+              52 53 54 55 
+              56 57 58 59 
+              5A 0D 80 15 
+              59 00 C2 9D 
+              95 3F 07 4F 
+              4A 61 50 53 
+              5A 66 0D A3 
+              8F 41 4F 80 
+              0F 5A 00 C2 
+              9A 95 6B 60 
+              58 76 6B A3 
+              8F 41 80 13 
+              5B 00 C2 94 
+              43 7A 6A 4C 
+              50 4B 8F 43 
+              7A 6A 4C 50 
+              4B 80 11 5C 
+              00 C2 98 95 
+              3F 04 54 78 
+              43 56 0D A3 
+              8F 44 80 13 
+              5D 00 C2 94 
+              41 6E 62 77 
+              42 5E 8F 41 
+              6E 62 77 42 
+              5E 80 13 5E 
+              00 C2 98 95 
+              3F 06 68 56 
+              66 6B 51 79 
+              0D A3 8F 46 
+              80 14 5F 00 
+              C2 9E 95 43 
+              5B 59 7D 42 
+              5A A3 8F 64 
+              66 42 7D 65 
+              80 16 60 00 
+              C2 99 95 8A 
+              41 48 5D 62 
+              58 5B A3 8F 
+              41 48 5D 62 
+              58 5B 80 12 
+              61 00 C2 8A 
+              8A 6C 46 78 
+              54 58 8F 6C 
+              46 78 54 58 
+              80 15 62 00 
+              C2 9E 95 42 
+              45 7D 6F 6F 
+              53 A3 8F 41 
+              7A 42 50 50 
+              6C 80 25 63 
               00 C2 96 95 
-              9F 89 46 A3 
-              8F 3F 1A 41 
-              42 43 44 45 
+              9F 89 4A A3 
+              8F 3F 16 45 
               46 47 48 49 
               4A 4B 4C 4D 
               4E 4F 50 51 
               52 53 54 55 
               56 57 58 59 
-              5A 0D 80 16 
-              89 00 C2 9D 
-              95 3F 08 6C 
-              67 4B 58 78 
-              43 47 47 0D 
-              A3 8F 41 6C 
-              80 1A 8A 00 
-              C2 A2 95 3F 
-              09 32 38 36 
-              39 37 34 32 
-              31 33 0D A3 
-              8F 51 46 6E 
-              44 45 80 10 
-              8B 00 C2 9C 
-              96 95 41 59 
+              5A 0D 80 10 
+              64 00 C2 9C 
+              96 95 41 41 
               A3 8F 3F 01 
-              59 0D 80 16 
-              8C 00 C2 9D 
-              95 3F 08 74 
-              6A 6E 4A 55 
-              4E 69 46 0D 
-              A3 8F 41 74 
-              80 1C 8D 00 
-              C2 A2 95 3F 
-              0A 2D 33 35 
-              36 31 36 36 
-              38 34 37 0D 
-              A3 8F 8A 55 
-              4E 6A 72 7F 
-              80 14 8E 00 
-              C2 9E 95 43 
-              54 6D 73 58 
-              6B A3 8F 6B 
-              52 4C 67 54 
-              80 11 8F 00 
-              C2 94 55 68 
-              44 5A 76 8F 
-              55 68 44 5A 
-              76 80 15 90 
-              00 C2 9E 95 
-              41 4E 61 47 
-              6D 5A A3 8F 
-              42 71 5E 78 
-              52 65 80 14 
-              91 00 C2 9E 
-              95 43 5F 42 
-              5B 72 5C A3 
-              8F 60 7D 64 
-              4D 63 80 13 
-              92 00 C2 83 
-              95 9F 89 50 
-              A3 8F 94 41 
-              4E 53 54 71 
-              4B 80 13 93 
-              00 C2 83 95 
-              9F 89 4F A3 
-              8F 94 41 4D 
-              53 44 6D 4A 
-              80 15 94 00 
-              C2 9E 95 41 
-              54 7B 49 60 
-              55 A3 8F 42 
-              6B 44 76 5F 
-              6A 80 15 95 
-              00 C2 98 95 
-              3F 08 75 52 
-              64 4D 6F 6B 
-              4B 79 0D A3 
-              8F 48 80 0D 
-              96 00 C2 9D 
-              95 3F 00 0D 
-              A3 8F 4D 80 
-              10 97 00 C2 
-              9C 96 95 41 
-              4B A3 8F 3F 
-              01 4B 0D 80 
-              1C 98 00 C2 
-              A2 95 3F 0A 
-              2D 31 30 35 
-              37 39 35 35 
-              31 39 0D A3 
-              8F 8A 46 53 
-              64 7E 7F 80 
-              1F 99 00 C2 
-              9B 96 95 8A 
-              41 47 44 4B 
-              6E 5B A3 8F 
-              3F 0B 2D 31 
-              31 39 32 32 
-              37 38 39 33 
-              39 0D 80 15 
-              9A 00 C2 98 
-              95 3F 08 6F 
-              56 43 73 43 
-              4A 47 50 0D 
-              A3 8F 48 80 
-              11 9B 00 C2 
-              94 78 4F 44 
-              79 65 8F 78 
-              4F 44 79 65 
-              80 12 9C 00 
-              C2 9A 95 8A 
-              41 57 5F 5F 
-              49 67 A3 8F 
-              8A 41 80 13 
-              9D 00 C2 94 
-              43 58 68 71 
-              73 71 8F 43 
-              58 68 71 73 
-              71 80 12 9E 
-              00 C2 8A 49 
-              75 45 52 66 
-              8F 8A 49 75 
-              45 52 66 80 
-              14 9F 00 C2 
-              9E 95 43 40 
-              54 77 6B 58 
-              A3 8F 7F 6B 
-              48 54 67 80 
-              13 A0 00 C2 
-              9D 95 3F 05 
-              59 44 69 70 
-              68 0D A3 8F 
-              41 59 80 15 
-              A1 00 C2 98 
-              95 3F 08 70 
-              6D 45 68 74 
-              77 68 64 0D 
-              A3 8F 48 80 
-              11 A2 00 C2 
-              9A 95 8A 7C 
-              7A 55 75 79 
-              A3 8F 8A 41 
-              80 13 A3 00 
-              C2 83 95 9F 
-              89 50 A3 8F 
-              94 41 4E 53 
-              54 71 4B 80 
-              1D A4 00 C2 
-              9B 96 95 8A 
-              66 7B 4E 6C 
-              4E A3 8F 3F 
-              0A 2D 36 35 
-              33 30 36 30 
-              38 37 38 0D 
-              80 1F A5 00 
-              C2 9B 96 95 
-              8A 41 73 51 
-              5E 68 5A A3 
-              8F 3F 0B 2D 
-              31 39 33 33 
-              39 36 31 37 
-              35 34 0D 80 
-              12 A6 00 C2 
-              98 95 3F 05 
-              54 4B 65 6D 
-              4B 0D A3 8F 
-              45 80 0F A7 
+              41 0D 80 0E 
+              65 00 C2 84 
+              95 9F 89 54 
+              A3 8F 41 4F 
+              80 10 66 00 
+              C2 9C 96 95 
+              41 4F A3 8F 
+              3F 01 4F 0D 
+              80 0E 67 00 
+              C2 84 95 9F 
+              89 4B A3 8F 
+              41 46 80 13 
+              68 00 C2 94 
+              41 73 6C 57 
+              40 63 8F 41 
+              73 6C 57 40 
+              63 80 16 69 
               00 C2 9D 95 
-              3F 01 66 0D 
-              A3 8F 41 66 
-              80 10 A8 00 
-              C2 9A 95 41 
-              6C 77 51 41 
-              7C A3 8F 41 
-              80 0E A9 00 
-              C2 84 95 9F 
-              89 54 A3 8F 
-              41 4F 80 0F 
-              AA 00 C2 9A 
-              95 44 56 74 
-              4E 53 A3 8F 
-              41 80 1A AB 
+              3F 08 55 4D 
+              74 58 6B 4B 
+              77 55 0D A3 
+              8F 41 55 80 
+              10 6A 00 C2 
+              9D 95 3F 02 
+              73 61 0D A3 
+              8F 41 73 80 
+              1B 6B 00 C2 
+              9B 96 95 51 
+              64 65 5C 68 
+              A3 8F 3F 09 
+              32 39 34 38 
+              30 33 32 34 
+              30 0D 80 1A 
+              6C 00 C2 9B 
+              96 95 43 73 
+              62 5C 6E A3 
+              8F 3F 08 36 
+              33 38 34 32 
+              30 39 34 0D 
+              80 15 6D 00 
+              C2 9E 95 41 
+              61 72 60 5C 
+              7D A3 8F 42 
+              5E 4D 5F 63 
+              42 80 1A 6E 
               00 C2 A2 95 
-              3F 09 34 32 
-              36 32 30 38 
-              36 38 38 0D 
-              A3 8F 59 59 
-              76 76 70 80 
-              10 AC 00 C2 
-              9A 95 41 74 
-              7F 6E 5F 6D 
-              A3 8F 41 80 
-              10 AD 00 C2 
-              9C 96 95 41 
-              44 A3 8F 3F 
-              01 44 0D 80 
-              15 AE 00 C2 
-              99 95 41 7D 
-              59 6C 4D 40 
-              A3 8F 41 7D 
-              59 6C 4D 40 
-              80 10 AF 00 
-              C2 9A 95 41 
-              52 51 62 54 
-              44 A3 8F 41 
-              80 0E B0 00 
-              C2 98 95 3F 
-              01 6F 0D A3 
-              8F 41 80 10 
-              B1 00 C2 9C 
-              96 95 41 4C 
-              A3 8F 3F 01 
-              4C 0D 80 1E 
-              B2 00 C2 A2 
-              95 3F 0B 2D 
-              31 32 32 31 
-              30 30 33 32 
-              38 36 0D A3 
-              8F 8A 41 48 
-              71 70 60 56 
-              80 0E B3 00 
-              C2 84 95 9F 
-              89 48 A3 8F 
-              41 43 80 10 
-              B4 00 C2 9C 
-              96 95 41 47 
-              A3 8F 3F 01 
-              47 0D 80 0E 
-              B5 00 C2 84 
-              95 9F 89 4B 
-              A3 8F 41 46 
-              80 1E B6 00 
-              C2 A2 95 3F 
-              0B 2D 31 32 
-              39 32 38 38 
-              38 32 39 38 
-              0D A3 8F 8A 
-              41 4D 43 7E 
-              63 6A 80 11 
-              B7 00 C2 98 
-              95 3F 04 57 
-              59 48 6B 0D 
-              A3 8F 44 80 
-              11 B8 00 C2 
-              9A 95 8A 77 
-              5C 5D 6F 78 
-              A3 8F 8A 41 
-              80 0E B9 00 
-              C2 84 95 9F 
-              89 54 A3 8F 
-              41 4F 80 10 
-              BA 00 C2 9C 
-              96 95 41 55 
-              A3 8F 3F 01 
-              55 0D 80 14 
-              BB 00 C2 8A 
-              8A 41 4D 6E 
-              5A 4C 7E 8F 
-              41 4D 6E 5A 
-              4C 7E 80 21 
-              BC 00 C2 96 
-              95 9F 89 4E 
-              A3 8F 3F 12 
+              3F 09 35 32 
+              30 34 35 37 
+              33 30 38 0D 
+              A3 8F 5F 41 
+              58 71 5C 80 
+              12 6F 00 C2 
+              8A 4E 7E 65 
+              54 7C 8F 8A 
+              4E 7E 65 54 
+              7C 80 14 70 
+              00 C2 9E 95 
+              55 59 4C 6A 
+              6E A3 8F 43 
+              6A 66 73 55 
+              51 80 13 71 
+              00 C2 98 95 
+              3F 06 46 78 
+              77 57 66 4D 
+              0D A3 8F 46 
+              80 13 72 00 
+              C2 99 95 62 
+              7E 56 7D 53 
+              A3 8F 62 7E 
+              56 7D 53 80 
+              15 73 00 C2 
+              98 95 3F 08 
+              69 59 51 77 
+              4A 43 65 62 
+              0D A3 8F 48 
+              80 1F 74 00 
+              C2 9B 96 95 
+              8A 41 4B 52 
+              79 7F 68 A3 
+              8F 3F 0B 2D 
+              31 32 36 33 
+              32 34 37 33 
+              33 36 0D 80 
+              1D 75 00 C2 
+              9B 96 95 41 
+              52 7D 76 51 
+              7F A3 8F 3F 
+              0A 31 33 39 
+              31 39 34 34 
+              38 33 31 0D 
+              80 23 76 00 
+              C2 96 95 9F 
+              89 4C A3 8F 
+              3F 14 47 48 
               49 4A 4B 4C 
               4D 4E 4F 50 
               51 52 53 54 
               55 56 57 58 
               59 5A 0D 80 
-              11 BD 00 C2 
-              9D 95 3F 03 
-              43 66 58 0D 
-              A3 8F 41 43 
-              80 0F BE 00 
-              C2 9D 95 3F 
-              01 51 0D A3 
-              8F 41 51 80 
-              13 BF 00 C2 
-              94 41 6B 4F 
-              6D 64 5F 8F 
-              41 6B 4F 6D 
-              64 5F 80 13 
-              C0 00 C2 83 
-              95 9F 89 46 
+              1D 77 00 C2 
+              9B 96 95 41 
+              78 7B 7E 43 
+              47 A3 8F 3F 
+              0A 32 30 32 
+              38 39 38 36 
+              35 36 37 0D 
+              80 11 78 00 
+              C2 9A 95 8A 
+              61 45 5F 4B 
+              62 A3 8F 8A 
+              41 80 14 79 
+              00 C2 99 95 
+              8A 56 5B 6A 
+              43 51 A3 8F 
+              56 5B 6A 43 
+              51 80 11 7A 
+              00 C2 9A 95 
+              8A 58 4F 70 
+              45 62 A3 8F 
+              8A 41 80 10 
+              7B 00 C2 9C 
+              96 95 41 56 
+              A3 8F 3F 01 
+              56 0D 80 1D 
+              7C 00 C2 9B 
+              96 95 41 60 
+              5F 72 5A 7A 
+              A3 8F 3F 0A 
+              31 36 31 38 
+              39 34 35 37 
+              32 32 0D 80 
+              0E 7D 00 C2 
+              84 95 9F 89 
+              53 A3 8F 41 
+              4E 80 1D 7E 
+              00 C2 9B 96 
+              95 41 79 46 
+              47 5E 41 A3 
+              8F 3F 0A 32 
+              30 33 31 36 
+              34 36 35 39 
+              33 0D 80 13 
+              7F 00 C2 83 
+              95 9F 89 4C 
               A3 8F 94 41 
-              44 50 74 49 
-              41 80 13 C1 
-              00 C2 83 95 
-              9F 89 54 A3 
-              8F 94 41 52 
-              54 55 41 4F 
-              80 13 C2 00 
-              C2 94 41 6C 
-              77 4C 62 58 
-              8F 41 6C 77 
-              4C 62 58 80 
-              16 C3 00 C2 
-              99 95 8A 41 
-              6E 6F 56 63 
-              7B A3 8F 41 
-              6E 6F 56 63 
-              7B 80 0E C4 
+              4A 52 54 61 
+              47 80 1D 80 
+              00 C2 9B 96 
+              95 41 57 5D 
+              40 56 6F A3 
+              8F 3F 0A 31 
+              34 36 37 32 
+              32 31 34 32 
+              33 0D 80 13 
+              81 00 C2 83 
+              95 9F 89 53 
+              A3 8F 94 41 
+              51 54 44 7D 
+              4E 80 13 82 
+              00 C2 94 43 
+              6B 79 7C 62 
+              6B 8F 43 6B 
+              79 7C 62 6B 
+              80 14 83 00 
+              C2 99 95 8A 
+              7A 4F 6C 4F 
+              44 A3 8F 7A 
+              4F 6C 4F 44 
+              80 10 84 00 
+              C2 9C 96 95 
+              41 4E A3 8F 
+              3F 01 4E 0D 
+              80 12 85 00 
+              C2 9A 95 8A 
+              41 78 7C 48 
+              56 6E A3 8F 
+              8A 41 80 1F 
+              86 00 C2 9B 
+              96 95 8A 41 
+              69 75 5B 64 
+              70 A3 8F 3F 
+              0B 2D 31 37 
+              37 35 36 31 
+              34 32 35 36 
+              0D 80 0E 87 
               00 C2 84 95 
-              9F 89 4F A3 
-              8F 41 4A 80 
-              10 C5 00 C2 
+              9F 89 4A A3 
+              8F 41 45 80 
+              14 88 00 C2 
+              99 95 8A 79 
+              70 70 6C 72 
+              A3 8F 79 70 
+              70 6C 72 80 
+              10 89 00 C2 
               9C 96 95 41 
               57 A3 8F 3F 
               01 57 0D 80 
-              13 C6 00 C2 
-              83 95 9F 89 
-              4D A3 8F 94 
-              41 4B 52 64 
-              65 48 80 0E 
-              C7 00 C2 84 
-              95 9F 89 4D 
-              A3 8F 41 48 
-              80 1C C8 00 
-              C2 96 95 9F 
-              89 53 A3 8F 
-              3F 0D 4E 4F 
+              12 8A 00 C2 
+              8A 6C 67 51 
+              56 44 8F 8A 
+              6C 67 51 56 
+              44 80 14 8B 
+              00 C2 9E 95 
+              43 4F 59 53 
+              6C 6F A3 8F 
+              70 66 6C 53 
+              50 80 0E 8C 
+              00 C2 84 95 
+              9F 89 4C A3 
+              8F 41 47 80 
+              1D 8D 00 C2 
+              A2 95 3F 0B 
+              2D 31 30 31 
+              33 34 36 39 
+              39 39 37 0D 
+              A3 8F 8A 7C 
+              5A 45 4C 6D 
+              80 14 8E 00 
+              C2 9E 95 7E 
+              6E 76 72 72 
+              A3 8F 43 41 
+              51 49 4D 4D 
+              80 0F 8F 00 
+              C2 98 95 3F 
+              02 63 72 0D 
+              A3 8F 42 80 
+              1C 90 00 C2 
+              A2 95 3F 0A 
+              2D 34 39 36 
+              39 32 34 37 
+              31 39 0D A3 
+              8F 8A 5D 67 
+              67 60 6F 80 
+              11 91 00 C2 
+              9A 95 8A 70 
+              50 74 78 70 
+              A3 8F 8A 41 
+              80 13 92 00 
+              C2 83 95 9F 
+              89 4A A3 8F 
+              94 41 48 51 
+              74 59 45 80 
+              1F 93 00 C2 
+              9B 96 95 8A 
+              41 76 76 7D 
+              6D 77 A3 8F 
+              3F 0B 2D 31 
+              39 39 34 31 
+              32 30 30 35 
+              35 0D 80 13 
+              94 00 C2 94 
+              43 5B 49 47 
+              41 64 8F 43 
+              5B 49 47 41 
+              64 80 15 95 
+              00 C2 9E 95 
+              42 72 45 5F 
+              59 56 A3 8F 
+              41 4D 7A 60 
+              66 69 80 11 
+              96 00 C2 9D 
+              95 3F 03 45 
+              51 4F 0D A3 
+              8F 41 45 80 
+              1A 97 00 C2 
+              A2 95 3F 09 
+              39 32 34 33 
+              31 35 30 36 
+              35 0D A3 8F 
+              77 45 7E 76 
+              79 80 1C 98 
+              00 C2 A2 95 
+              3F 0A 2D 32 
+              34 32 38 38 
+              38 33 38 32 
+              0D A3 8F 8A 
+              4E 5E 62 7A 
+              7E 80 0F 99 
+              00 C2 9D 95 
+              3F 01 64 0D 
+              A3 8F 41 64 
+              80 1B 9A 00 
+              C2 9B 96 95 
+              50 74 62 75 
+              61 A3 8F 3F 
+              09 32 38 32 
+              32 30 39 36 
+              33 33 0D 80 
+              25 9B 00 C2 
+              96 95 9F 89 
+              4A A3 8F 3F 
+              16 45 46 47 
+              48 49 4A 4B 
+              4C 4D 4E 4F 
               50 51 52 53 
               54 55 56 57 
               58 59 5A 0D 
-              80 14 C9 00 
-              C2 9E 95 75 
-              6C 4E 4A 56 
-              A3 8F 43 4A 
-              53 71 75 69 
-              80 12 CA 00 
-              C2 8A 42 4D 
-              4B 7A 75 8F 
-              8A 42 4D 4B 
-              7A 75 80 00 	.db	$22,$01,$00,$b6,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$14,$02,$00,$b6,$3f,$0c,$53,$65,$65,$64,$20,$3d,$20,$37,$38,$34,$33,$34,$0d,$80,$10,$03,$00,$c2,$9d,$95,$3f,$02,$64,$4a,$0d,$a3,$8f,$41,$64,$80,$13,$04,$00,$c2,$94,$42,$66,$49,$5f,$42,$5a,$8f,$42,$66,$49,$5f,$42,$5a,$80,$13,$05,$00,$c2,$94,$43,$41,$41,$78,$66,$77,$8f,$43,$41,$41,$78,$66,$77,$80,$13,$06,$00,$c2,$94,$42,$58,$5b,$6f,$75,$4a,$8f,$42,$58,$5b,$6f,$75,$4a,$80,$15,$07,$00,$c2,$99,$95,$41,$74,$7f,$7a,$4f,$74,$a3,$8f,$41,$74,$7f,$7a,$4f,$74,$80,$13,$08,$00,$c2,$94,$42,$7b,$7f,$60,$42,$47,$8f,$42,$7b,$7f,$60,$42,$47,$80,$10,$09,$00,$c2,$9c,$96,$95,$41,$46,$a3,$8f,$3f,$01,$46,$0d,$80,$13,$0a,$00,$c2,$83,$95,$9f,$89,$50,$a3,$8f,$94,$41,$4e,$53,$54,$71,$4b,$80,$10,$0b,$00,$c2,$9c,$96,$95,$41,$40,$a3,$8f,$3f,$01,$40,$0d,$80,$13,$0c,$00,$c2,$83,$95,$9f,$89,$4c,$a3,$8f,$94,$41,$4a,$52,$54,$61,$47,$80,$16,$0d,$00,$c2,$9d,$95,$3f,$08,$44,$72,$45,$74,$47,$6a,$64,$41,$0d,$a3,$8f,$41,$44,$80,$0d,$0e,$00,$c2,$98,$95,$3f,$00,$0d,$a3,$8f,$40,$80,$20,$0f,$00,$c2,$96,$95,$9f,$89,$4f,$a3,$8f,$3f,$11,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$15,$10,$00,$c2,$99,$95,$41,$4f,$4e,$67,$7d,$6d,$a3,$8f,$41,$4f,$4e,$67,$7d,$6d,$80,$10,$11,$00,$c2,$9c,$96,$95,$41,$4c,$a3,$8f,$3f,$01,$4c,$0d,$80,$15,$12,$00,$c2,$99,$95,$41,$45,$6d,$5f,$5c,$6d,$a3,$8f,$41,$45,$6d,$5f,$5c,$6d,$80,$13,$13,$00,$c2,$83,$95,$9f,$89,$53,$a3,$8f,$94,$41,$51,$54,$44,$7d,$4e,$80,$0d,$14,$00,$c2,$98,$95,$3f,$00,$0d,$a3,$8f,$40,$80,$0e,$15,$00,$c2,$84,$95,$9f,$89,$4a,$a3,$8f,$41,$45,$80,$1e,$16,$00,$c2,$96,$95,$9f,$89,$51,$a3,$8f,$3f,$0f,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$13,$17,$00,$c2,$99,$95,$51,$57,$6c,$5c,$6e,$a3,$8f,$51,$57,$6c,$5c,$6e,$80,$23,$18,$00,$c2,$96,$95,$9f,$89,$4c,$a3,$8f,$3f,$14,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$12,$19,$00,$c2,$8a,$8a,$71,$68,$51,$5c,$5d,$8f,$71,$68,$51,$5c,$5d,$80,$14,$1a,$00,$c2,$8a,$8a,$41,$72,$7d,$6b,$5a,$63,$8f,$41,$72,$7d,$6b,$5a,$63,$80,$1e,$1b,$00,$c2,$a2,$95,$3f,$0b,$2d,$32,$30,$35,$36,$33,$31,$31,$38,$31,$34,$0d,$a3,$8f,$8a,$41,$7a,$64,$4d,$50,$46,$80,$0e,$1c,$00,$c2,$84,$95,$9f,$89,$50,$a3,$8f,$41,$4b,$80,$27,$1d,$00,$c2,$96,$95,$9f,$89,$48,$a3,$8f,$3f,$18,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$1b,$1e,$00,$c2,$a2,$95,$3f,$0a,$31,$30,$34,$37,$39,$37,$30,$37,$34,$39,$0d,$a3,$8f,$7e,$5d,$6c,$4e,$7d,$80,$14,$1f,$00,$c2,$8a,$8a,$41,$51,$7c,$66,$78,$5c,$8f,$41,$51,$7c,$66,$78,$5c,$80,$0e,$20,$00,$c2,$84,$95,$9f,$89,$4b,$a3,$8f,$41,$46,$80,$11,$21,$00,$c2,$9a,$95,$8a,$6a,$4c,$76,$5a,$56,$a3,$8f,$8a,$41,$80,$14,$22,$00,$c2,$99,$95,$8a,$6c,$41,$58,$63,$74,$a3,$8f,$6c,$41,$58,$63,$74,$80,$13,$23,$00,$c2,$83,$95,$9f,$89,$4f,$a3,$8f,$94,$41,$4d,$53,$44,$6d,$4a,$80,$11,$24,$00,$c2,$9a,$95,$8a,$59,$6c,$41,$6c,$6e,$a3,$8f,$8a,$41,$80,$15,$25,$00,$c2,$9d,$95,$3f,$07,$44,$56,$71,$49,$69,$6c,$79,$0d,$a3,$8f,$41,$44,$80,$13,$26,$00,$c2,$98,$95,$3f,$06,$4c,$55,$47,$4f,$71,$6e,$0d,$a3,$8f,$46,$80,$0f,$27,$00,$c2,$9d,$95,$3f,$01,$77,$0d,$a3,$8f,$41,$77,$80,$1c,$28,$00,$c2,$a2,$95,$3f,$0a,$31,$35,$32,$32,$39,$30,$31,$37,$35,$32,$0d,$a3,$8f,$41,$5a,$71,$5a,$4b,$78,$80,$13,$29,$00,$c2,$83,$95,$9f,$89,$46,$a3,$8f,$94,$41,$44,$50,$74,$49,$41,$80,$13,$2a,$00,$c2,$83,$95,$9f,$89,$4a,$a3,$8f,$94,$41,$48,$51,$74,$59,$45,$80,$11,$2b,$00,$c2,$94,$43,$43,$55,$69,$7a,$8f,$43,$43,$55,$69,$7a,$80,$23,$2c,$00,$c2,$96,$95,$9f,$89,$4c,$a3,$8f,$3f,$14,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$20,$2d,$00,$c2,$96,$95,$9f,$89,$4f,$a3,$8f,$3f,$11,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$2e,$00,$c2,$9a,$95,$41,$4e,$65,$7b,$58,$65,$a3,$8f,$41,$80,$10,$2f,$00,$c2,$9c,$96,$95,$41,$56,$a3,$8f,$3f,$01,$56,$0d,$80,$1c,$30,$00,$c2,$96,$95,$9f,$89,$53,$a3,$8f,$3f,$0d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$0f,$31,$00,$c2,$9a,$95,$50,$48,$4c,$6e,$7f,$a3,$8f,$41,$80,$1d,$32,$00,$c2,$9b,$96,$95,$41,$73,$70,$75,$67,$48,$a3,$8f,$3f,$0a,$31,$39,$34,$32,$31,$38,$32,$33,$34,$34,$0d,$80,$0e,$33,$00,$c2,$84,$95,$9f,$89,$54,$a3,$8f,$41,$4f,$80,$0e,$34,$00,$c2,$84,$95,$9f,$89,$47,$a3,$8f,$41,$42,$80,$27,$35,$00,$c2,$96,$95,$9f,$89,$48,$a3,$8f,$3f,$18,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$0e,$36,$00,$c2,$84,$95,$9f,$89,$49,$a3,$8f,$41,$44,$80,$11,$37,$00,$c2,$94,$51,$6a,$6e,$73,$4c,$8f,$51,$6a,$6e,$73,$4c,$80,$0f,$38,$00,$c2,$9d,$95,$3f,$01,$64,$0d,$a3,$8f,$41,$64,$80,$15,$39,$00,$c2,$9e,$95,$42,$5b,$7e,$65,$46,$58,$a3,$8f,$41,$64,$41,$5a,$79,$67,$80,$14,$3a,$00,$c2,$99,$95,$8a,$74,$59,$4a,$59,$45,$a3,$8f,$74,$59,$4a,$59,$45,$80,$13,$3b,$00,$c2,$83,$95,$9f,$89,$49,$a3,$8f,$94,$41,$47,$51,$64,$55,$44,$80,$1d,$3c,$00,$c2,$96,$95,$9f,$89,$52,$a3,$8f,$3f,$0e,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$11,$3d,$00,$c2,$94,$76,$5e,$7e,$5b,$74,$8f,$76,$5e,$7e,$5b,$74,$80,$15,$3e,$00,$c2,$9e,$95,$42,$4a,$66,$74,$43,$57,$a3,$8f,$41,$75,$59,$4b,$7c,$68,$80,$1b,$3f,$00,$c2,$96,$95,$9f,$89,$54,$a3,$8f,$3f,$0c,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$40,$00,$c2,$9c,$96,$95,$41,$44,$a3,$8f,$3f,$01,$44,$0d,$80,$1b,$41,$00,$c2,$9b,$96,$95,$60,$6c,$63,$57,$7c,$a3,$8f,$3f,$09,$35,$34,$38,$35,$35,$30,$31,$34,$30,$0d,$80,$26,$42,$00,$c2,$96,$95,$9f,$89,$49,$a3,$8f,$3f,$17,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$1f,$43,$00,$c2,$9b,$96,$95,$8a,$41,$4c,$66,$70,$6f,$7f,$a3,$8f,$3f,$0b,$2d,$31,$32,$38,$35,$32,$32,$39,$35,$36,$37,$0d,$80,$12,$44,$00,$c2,$8a,$8a,$61,$43,$4e,$5c,$66,$8f,$61,$43,$4e,$5c,$66,$80,$14,$45,$00,$c2,$99,$95,$8a,$71,$7f,$54,$54,$6d,$a3,$8f,$71,$7f,$54,$54,$6d,$80,$14,$46,$00,$c2,$99,$95,$8a,$43,$50,$7f,$6e,$65,$a3,$8f,$43,$50,$7f,$6e,$65,$80,$14,$47,$00,$c2,$9e,$95,$72,$5f,$41,$5f,$4f,$a3,$8f,$43,$4d,$60,$7e,$60,$70,$80,$24,$48,$00,$c2,$96,$95,$9f,$89,$4b,$a3,$8f,$3f,$15,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$21,$49,$00,$c2,$96,$95,$9f,$89,$4e,$a3,$8f,$3f,$12,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$1e,$4a,$00,$c2,$a2,$95,$3f,$0b,$2d,$31,$38,$35,$34,$34,$32,$37,$34,$30,$30,$0d,$a3,$8f,$8a,$41,$6e,$62,$45,$44,$48,$80,$0d,$4b,$00,$c2,$9d,$95,$3f,$00,$0d,$a3,$8f,$4d,$80,$16,$4c,$00,$c2,$99,$95,$8a,$41,$42,$5e,$7b,$7d,$6e,$a3,$8f,$41,$42,$5e,$7b,$7d,$6e,$80,$10,$4d,$00,$c2,$9a,$95,$41,$50,$73,$69,$4c,$59,$a3,$8f,$41,$80,$1a,$4e,$00,$c2,$a2,$95,$3f,$09,$33,$31,$32,$35,$32,$36,$32,$38,$37,$0d,$a3,$8f,$52,$68,$4c,$57,$4f,$80,$12,$4f,$00,$c2,$9a,$95,$8a,$41,$57,$5c,$68,$60,$69,$a3,$8f,$8a,$41,$80,$11,$50,$00,$c2,$94,$73,$6e,$6b,$7b,$4e,$8f,$73,$6e,$6b,$7b,$4e,$80,$14,$51,$00,$c2,$9e,$95,$43,$41,$7e,$78,$68,$57,$a3,$8f,$7e,$41,$47,$57,$68,$80,$0e,$52,$00,$c2,$98,$95,$3f,$01,$65,$0d,$a3,$8f,$41,$80,$0e,$53,$00,$c2,$84,$95,$9f,$89,$4d,$a3,$8f,$41,$48,$80,$0e,$54,$00,$c2,$84,$95,$9f,$89,$48,$a3,$8f,$41,$43,$80,$15,$55,$00,$c2,$9e,$95,$42,$5e,$6e,$6f,$43,$5a,$a3,$8f,$41,$61,$51,$50,$7c,$65,$80,$10,$56,$00,$c2,$9d,$95,$3f,$02,$77,$6f,$0d,$a3,$8f,$41,$77,$80,$10,$57,$00,$c2,$9c,$96,$95,$41,$56,$a3,$8f,$3f,$01,$56,$0d,$80,$1d,$58,$00,$c2,$96,$95,$9f,$89,$52,$a3,$8f,$3f,$0e,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$12,$59,$00,$c2,$9a,$95,$8a,$41,$5e,$6d,$4d,$4f,$6c,$a3,$8f,$8a,$41,$80,$0f,$5a,$00,$c2,$9d,$95,$3f,$01,$44,$0d,$a3,$8f,$41,$44,$80,$13,$5b,$00,$c2,$83,$95,$9f,$89,$52,$a3,$8f,$94,$41,$50,$53,$74,$79,$4d,$80,$10,$5c,$00,$c2,$9c,$96,$95,$41,$50,$a3,$8f,$3f,$01,$50,$0d,$80,$10,$5d,$00,$c2,$9a,$95,$41,$4f,$67,$48,$43,$53,$a3,$8f,$41,$80,$13,$5e,$00,$c2,$83,$95,$9f,$89,$54,$a3,$8f,$94,$41,$52,$54,$55,$41,$4f,$80,$29,$5f,$00,$c2,$96,$95,$9f,$89,$46,$a3,$8f,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$60,$00,$c2,$9c,$96,$95,$41,$4d,$a3,$8f,$3f,$01,$4d,$0d,$80,$1c,$61,$00,$c2,$a2,$95,$3f,$0a,$2d,$37,$38,$35,$38,$39,$34,$38,$33,$34,$0d,$a3,$8f,$8a,$6e,$75,$7c,$76,$72,$80,$0e,$62,$00,$c2,$84,$95,$9f,$89,$48,$a3,$8f,$41,$43,$80,$12,$63,$00,$c2,$9d,$95,$3f,$04,$64,$6c,$59,$53,$0d,$a3,$8f,$41,$64,$80,$11,$64,$00,$c2,$9d,$95,$3f,$03,$50,$62,$71,$0d,$a3,$8f,$41,$50,$80,$13,$65,$00,$c2,$94,$41,$4f,$60,$69,$4b,$55,$8f,$41,$4f,$60,$69,$4b,$55,$80,$13,$66,$00,$c2,$94,$42,$6d,$6b,$4f,$75,$79,$8f,$42,$6d,$6b,$4f,$75,$79,$80,$13,$67,$00,$c2,$98,$95,$3f,$06,$58,$71,$6c,$53,$6f,$6e,$0d,$a3,$8f,$46,$80,$14,$68,$00,$c2,$98,$95,$3f,$07,$6f,$53,$64,$57,$7a,$4d,$54,$0d,$a3,$8f,$47,$80,$15,$69,$00,$c2,$98,$95,$3f,$08,$46,$5a,$6f,$41,$56,$6f,$6a,$41,$0d,$a3,$8f,$48,$80,$10,$6a,$00,$c2,$9c,$96,$95,$41,$59,$a3,$8f,$3f,$01,$59,$0d,$80,$13,$6b,$00,$c2,$94,$43,$56,$65,$55,$4b,$48,$8f,$43,$56,$65,$55,$4b,$48,$80,$15,$6c,$00,$c2,$9e,$95,$42,$44,$43,$5a,$74,$52,$a3,$8f,$41,$7b,$7c,$65,$4b,$6d,$80,$14,$6d,$00,$c2,$9e,$95,$52,$45,$7b,$46,$7a,$a3,$8f,$43,$6d,$7a,$44,$79,$45,$80,$1b,$6e,$00,$c2,$a2,$95,$3f,$09,$2d,$34,$37,$35,$37,$31,$38,$37,$33,$0d,$a3,$8f,$8a,$42,$75,$5e,$4e,$61,$80,$13,$6f,$00,$c2,$94,$41,$50,$73,$6d,$4d,$57,$8f,$41,$50,$73,$6d,$4d,$57,$80,$14,$70,$00,$c2,$99,$95,$8a,$41,$7b,$6f,$73,$57,$a3,$8f,$41,$7b,$6f,$73,$57,$80,$1d,$71,$00,$c2,$9b,$96,$95,$8a,$55,$75,$59,$79,$7e,$a3,$8f,$3f,$0a,$2d,$33,$36,$36,$33,$32,$31,$32,$37,$38,$0d,$80,$13,$72,$00,$c2,$83,$95,$9f,$89,$53,$a3,$8f,$94,$41,$51,$54,$44,$7d,$4e,$80,$15,$73,$00,$c2,$98,$95,$3f,$08,$6f,$50,$57,$53,$54,$6a,$63,$79,$0d,$a3,$8f,$48,$80,$14,$74,$00,$c2,$9d,$95,$3f,$06,$68,$74,$4a,$64,$68,$53,$0d,$a3,$8f,$41,$68,$80,$10,$75,$00,$c2,$9c,$96,$95,$41,$48,$a3,$8f,$3f,$01,$48,$0d,$80,$15,$76,$00,$c2,$9e,$95,$41,$61,$4a,$6d,$6b,$4a,$a3,$8f,$42,$5e,$75,$52,$54,$75,$80,$1f,$77,$00,$c2,$9b,$96,$95,$8a,$41,$5d,$71,$75,$4e,$65,$a3,$8f,$3f,$0b,$2d,$31,$35,$37,$33,$33,$34,$34,$31,$36,$35,$0d,$80,$12,$78,$00,$c2,$98,$95,$3f,$05,$42,$5a,$73,$76,$63,$0d,$a3,$8f,$45,$80,$16,$79,$00,$c2,$9d,$95,$3f,$08,$4b,$68,$6f,$51,$4a,$65,$46,$44,$0d,$a3,$8f,$41,$4b,$80,$28,$7a,$00,$c2,$96,$95,$9f,$89,$47,$a3,$8f,$3f,$19,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$7b,$00,$c2,$9c,$96,$95,$41,$51,$a3,$8f,$3f,$01,$51,$0d,$80,$14,$7c,$00,$c2,$98,$95,$3f,$07,$4b,$6e,$74,$64,$73,$71,$44,$0d,$a3,$8f,$47,$80,$13,$7d,$00,$c2,$83,$95,$9f,$89,$47,$a3,$8f,$94,$41,$45,$51,$44,$4d,$42,$80,$0f,$7e,$00,$c2,$9d,$95,$3f,$01,$56,$0d,$a3,$8f,$41,$56,$80,$1e,$7f,$00,$c2,$96,$95,$9f,$89,$51,$a3,$8f,$3f,$0f,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$15,$80,$00,$c2,$9e,$95,$42,$5b,$72,$53,$7e,$45,$a3,$8f,$41,$64,$4d,$6c,$41,$7a,$80,$0e,$81,$00,$c2,$84,$95,$9f,$89,$4b,$a3,$8f,$41,$46,$80,$13,$82,$00,$c2,$94,$41,$45,$74,$56,$66,$59,$8f,$41,$45,$74,$56,$66,$59,$80,$14,$83,$00,$c2,$98,$95,$3f,$07,$7a,$62,$6f,$73,$67,$47,$71,$0d,$a3,$8f,$47,$80,$14,$84,$00,$c2,$9e,$95,$7c,$47,$4f,$4b,$5a,$a3,$8f,$43,$43,$78,$70,$74,$65,$80,$13,$85,$00,$c2,$83,$95,$9f,$89,$48,$a3,$8f,$94,$41,$46,$51,$54,$51,$43,$80,$13,$86,$00,$c2,$83,$95,$9f,$89,$52,$a3,$8f,$94,$41,$50,$53,$74,$79,$4d,$80,$10,$87,$00,$c2,$9c,$96,$95,$41,$4e,$a3,$8f,$3f,$01,$4e,$0d,$80,$29,$88,$00,$c2,$96,$95,$9f,$89,$46,$a3,$8f,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$16,$89,$00,$c2,$9d,$95,$3f,$08,$6c,$67,$4b,$58,$78,$43,$47,$47,$0d,$a3,$8f,$41,$6c,$80,$1a,$8a,$00,$c2,$a2,$95,$3f,$09,$32,$38,$36,$39,$37,$34,$32,$31,$33,$0d,$a3,$8f,$51,$46,$6e,$44,$45,$80,$10,$8b,$00,$c2,$9c,$96,$95,$41,$59,$a3,$8f,$3f,$01,$59,$0d,$80,$16,$8c,$00,$c2,$9d,$95,$3f,$08,$74,$6a,$6e,$4a,$55,$4e,$69,$46,$0d,$a3,$8f,$41,$74,$80,$1c,$8d,$00,$c2,$a2,$95,$3f,$0a,$2d,$33,$35,$36,$31,$36,$36,$38,$34,$37,$0d,$a3,$8f,$8a,$55,$4e,$6a,$72,$7f,$80,$14,$8e,$00,$c2,$9e,$95,$43,$54,$6d,$73,$58,$6b,$a3,$8f,$6b,$52,$4c,$67,$54,$80,$11,$8f,$00,$c2,$94,$55,$68,$44,$5a,$76,$8f,$55,$68,$44,$5a,$76,$80,$15,$90,$00,$c2,$9e,$95,$41,$4e,$61,$47,$6d,$5a,$a3,$8f,$42,$71,$5e,$78,$52,$65,$80,$14,$91,$00,$c2,$9e,$95,$43,$5f,$42,$5b,$72,$5c,$a3,$8f,$60,$7d,$64,$4d,$63,$80,$13,$92,$00,$c2,$83,$95,$9f,$89,$50,$a3,$8f,$94,$41,$4e,$53,$54,$71,$4b,$80,$13,$93,$00,$c2,$83,$95,$9f,$89,$4f,$a3,$8f,$94,$41,$4d,$53,$44,$6d,$4a,$80,$15,$94,$00,$c2,$9e,$95,$41,$54,$7b,$49,$60,$55,$a3,$8f,$42,$6b,$44,$76,$5f,$6a,$80,$15,$95,$00,$c2,$98,$95,$3f,$08,$75,$52,$64,$4d,$6f,$6b,$4b,$79,$0d,$a3,$8f,$48,$80,$0d,$96,$00,$c2,$9d,$95,$3f,$00,$0d,$a3,$8f,$4d,$80,$10,$97,$00,$c2,$9c,$96,$95,$41,$4b,$a3,$8f,$3f,$01,$4b,$0d,$80,$1c,$98,$00,$c2,$a2,$95,$3f,$0a,$2d,$31,$30,$35,$37,$39,$35,$35,$31,$39,$0d,$a3,$8f,$8a,$46,$53,$64,$7e,$7f,$80,$1f,$99,$00,$c2,$9b,$96,$95,$8a,$41,$47,$44,$4b,$6e,$5b,$a3,$8f,$3f,$0b,$2d,$31,$31,$39,$32,$32,$37,$38,$39,$33,$39,$0d,$80,$15,$9a,$00,$c2,$98,$95,$3f,$08,$6f,$56,$43,$73,$43,$4a,$47,$50,$0d,$a3,$8f,$48,$80,$11,$9b,$00,$c2,$94,$78,$4f,$44,$79,$65,$8f,$78,$4f,$44,$79,$65,$80,$12,$9c,$00,$c2,$9a,$95,$8a,$41,$57,$5f,$5f,$49,$67,$a3,$8f,$8a,$41,$80,$13,$9d,$00,$c2,$94,$43,$58,$68,$71,$73,$71,$8f,$43,$58,$68,$71,$73,$71,$80,$12,$9e,$00,$c2,$8a,$49,$75,$45,$52,$66,$8f,$8a,$49,$75,$45,$52,$66,$80,$14,$9f,$00,$c2,$9e,$95,$43,$40,$54,$77,$6b,$58,$a3,$8f,$7f,$6b,$48,$54,$67,$80,$13,$a0,$00,$c2,$9d,$95,$3f,$05,$59,$44,$69,$70,$68,$0d,$a3,$8f,$41,$59,$80,$15,$a1,$00,$c2,$98,$95,$3f,$08,$70,$6d,$45,$68,$74,$77,$68,$64,$0d,$a3,$8f,$48,$80,$11,$a2,$00,$c2,$9a,$95,$8a,$7c,$7a,$55,$75,$79,$a3,$8f,$8a,$41,$80,$13,$a3,$00,$c2,$83,$95,$9f,$89,$50,$a3,$8f,$94,$41,$4e,$53,$54,$71,$4b,$80,$1d,$a4,$00,$c2,$9b,$96,$95,$8a,$66,$7b,$4e,$6c,$4e,$a3,$8f,$3f,$0a,$2d,$36,$35,$33,$30,$36,$30,$38,$37,$38,$0d,$80,$1f,$a5,$00,$c2,$9b,$96,$95,$8a,$41,$73,$51,$5e,$68,$5a,$a3,$8f,$3f,$0b,$2d,$31,$39,$33,$33,$39,$36,$31,$37,$35,$34,$0d,$80,$12,$a6,$00,$c2,$98,$95,$3f,$05,$54,$4b,$65,$6d,$4b,$0d,$a3,$8f,$45,$80,$0f,$a7,$00,$c2,$9d,$95,$3f,$01,$66,$0d,$a3,$8f,$41,$66,$80,$10,$a8,$00,$c2,$9a,$95,$41,$6c,$77,$51,$41,$7c,$a3,$8f,$41,$80,$0e,$a9,$00,$c2,$84,$95,$9f,$89,$54,$a3,$8f,$41,$4f,$80,$0f,$aa,$00,$c2,$9a,$95,$44,$56,$74,$4e,$53,$a3,$8f,$41,$80,$1a,$ab,$00,$c2,$a2,$95,$3f,$09,$34,$32,$36,$32,$30,$38,$36,$38,$38,$0d,$a3,$8f,$59,$59,$76,$76,$70,$80,$10,$ac,$00,$c2,$9a,$95,$41,$74,$7f,$6e,$5f,$6d,$a3,$8f,$41,$80,$10,$ad,$00,$c2,$9c,$96,$95,$41,$44,$a3,$8f,$3f,$01,$44,$0d,$80,$15,$ae,$00,$c2,$99,$95,$41,$7d,$59,$6c,$4d,$40,$a3,$8f,$41,$7d,$59,$6c,$4d,$40,$80,$10,$af,$00,$c2,$9a,$95,$41,$52,$51,$62,$54,$44,$a3,$8f,$41,$80,$0e,$b0,$00,$c2,$98,$95,$3f,$01,$6f,$0d,$a3,$8f,$41,$80,$10,$b1,$00,$c2,$9c,$96,$95,$41,$4c,$a3,$8f,$3f,$01,$4c,$0d,$80,$1e,$b2,$00,$c2,$a2,$95,$3f,$0b,$2d,$31,$32,$32,$31,$30,$30,$33,$32,$38,$36,$0d,$a3,$8f,$8a,$41,$48,$71,$70,$60,$56,$80,$0e,$b3,$00,$c2,$84,$95,$9f,$89,$48,$a3,$8f,$41,$43,$80,$10,$b4,$00,$c2,$9c,$96,$95,$41,$47,$a3,$8f,$3f,$01,$47,$0d,$80,$0e,$b5,$00,$c2,$84,$95,$9f,$89,$4b,$a3,$8f,$41,$46,$80,$1e,$b6,$00,$c2,$a2,$95,$3f,$0b,$2d,$31,$32,$39,$32,$38,$38,$38,$32,$39,$38,$0d,$a3,$8f,$8a,$41,$4d,$43,$7e,$63,$6a,$80,$11,$b7,$00,$c2,$98,$95,$3f,$04,$57,$59,$48,$6b,$0d,$a3,$8f,$44,$80,$11,$b8,$00,$c2,$9a,$95,$8a,$77,$5c,$5d,$6f,$78,$a3,$8f,$8a,$41,$80,$0e,$b9,$00,$c2,$84,$95,$9f,$89,$54,$a3,$8f,$41,$4f,$80,$10,$ba,$00,$c2,$9c,$96,$95,$41,$55,$a3,$8f,$3f,$01,$55,$0d,$80,$14,$bb,$00,$c2,$8a,$8a,$41,$4d,$6e,$5a,$4c,$7e,$8f,$41,$4d,$6e,$5a,$4c,$7e,$80,$21,$bc,$00,$c2,$96,$95,$9f,$89,$4e,$a3,$8f,$3f,$12,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$11,$bd,$00,$c2,$9d,$95,$3f,$03,$43,$66,$58,$0d,$a3,$8f,$41,$43,$80,$0f,$be,$00,$c2,$9d,$95,$3f,$01,$51,$0d,$a3,$8f,$41,$51,$80,$13,$bf,$00,$c2,$94,$41,$6b,$4f,$6d,$64,$5f,$8f,$41,$6b,$4f,$6d,$64,$5f,$80,$13,$c0,$00,$c2,$83,$95,$9f,$89,$46,$a3,$8f,$94,$41,$44,$50,$74,$49,$41,$80,$13,$c1,$00,$c2,$83,$95,$9f,$89,$54,$a3,$8f,$94,$41,$52,$54,$55,$41,$4f,$80,$13,$c2,$00,$c2,$94,$41,$6c,$77,$4c,$62,$58,$8f,$41,$6c,$77,$4c,$62,$58,$80,$16,$c3,$00,$c2,$99,$95,$8a,$41,$6e,$6f,$56,$63,$7b,$a3,$8f,$41,$6e,$6f,$56,$63,$7b,$80,$0e,$c4,$00,$c2,$84,$95,$9f,$89,$4f,$a3,$8f,$41,$4a,$80,$10,$c5,$00,$c2,$9c,$96,$95,$41,$57,$a3,$8f,$3f,$01,$57,$0d,$80,$13,$c6,$00,$c2,$83,$95,$9f,$89,$4d,$a3,$8f,$94,$41,$4b,$52,$64,$65,$48,$80,$0e,$c7,$00,$c2,$84,$95,$9f,$89,$4d,$a3,$8f,$41,$48,$80,$1c,$c8,$00,$c2,$96,$95,$9f,$89,$53,$a3,$8f,$3f,$0d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$14,$c9,$00,$c2,$9e,$95,$75,$6c,$4e,$4a,$56,$a3,$8f,$43,$4a,$53,$71,$75,$69,$80,$12,$ca,$00,$c2,$8a,$42,$4d,$4b,$7a,$75,$8f,$8a,$42,$4d,$4b,$7a,$75,$80,$00
+              80 11 9C 00 
+              C2 94 7C 68 
+              74 7C 60 8F 
+              7C 68 74 7C 
+              60 80 24 9D 
+              00 C2 96 95 
+              9F 89 4B A3 
+              8F 3F 15 46 
+              47 48 49 4A 
+              4B 4C 4D 4E 
+              4F 50 51 52 
+              53 54 55 56 
+              57 58 59 5A 
+              0D 80 1D 9E 
+              00 C2 9B 96 
+              95 41 51 67 
+              79 50 61 A3 
+              8F 3F 0A 31 
+              33 36 39 34 
+              31 32 36 34 
+              31 0D 80 12 
+              9F 00 C2 9A 
+              95 8A 41 51 
+              4A 7A 66 71 
+              A3 8F 8A 41 
+              80 12 A0 00 
+              C2 8A 8A 5C 
+              6A 70 5C 43 
+              8F 5C 6A 70 
+              5C 43 80 0F 
+              A1 00 C2 9D 
+              95 3F 01 75 
+              0D A3 8F 41 
+              75 80 12 A2 
+              00 C2 8A 8A 
+              76 7D 5F 59 
+              68 8F 76 7D 
+              5F 59 68 80 
+              16 A3 00 C2 
+              9D 95 3F 08 
+              55 71 4D 6C 
+              64 4E 49 6B 
+              0D A3 8F 41 
+              55 80 10 A4 
+              00 C2 9A 95 
+              41 7A 78 7E 
+              76 78 A3 8F 
+              41 80 1C A5 
+              00 C2 A2 95 
+              3F 0A 31 33 
+              37 32 38 30 
+              38 39 38 36 
+              0D A3 8F 41 
+              51 74 76 5C 
+              5A 80 14 A6 
+              00 C2 9E 95 
+              43 58 6E 45 
+              66 65 A3 8F 
+              67 51 7A 59 
+              5A 80 1C A7 
+              00 C2 A2 95 
+              3F 0A 32 30 
+              34 35 36 34 
+              39 31 32 30 
+              0D A3 8F 41 
+              79 7B 62 43 
+              60 80 0D A8 
+              00 C2 98 95 
+              3F 00 0D A3 
+              8F 40 80 1C 
+              A9 00 C2 A2 
+              95 3F 0A 2D 
+              37 30 38 30 
+              39 30 35 32 
+              31 0D A3 8F 
+              8A 6A 4D 49 
+              6A 59 80 13 
+              AA 00 C2 94 
+              41 76 4F 61 
+              4A 66 8F 41 
+              76 4F 61 4A 
+              66 80 22 AB 
+              00 C2 96 95 
+              9F 89 4D A3 
+              8F 3F 13 48 
+              49 4A 4B 4C 
+              4D 4E 4F 50 
+              51 52 53 54 
+              55 56 57 58 
+              59 5A 0D 80 
+              13 AC 00 C2 
+              94 42 54 73 
+              53 4E 61 8F 
+              42 54 73 53 
+              4E 61 80 0E 
+              AD 00 C2 84 
+              95 9F 89 4C 
+              A3 8F 41 47 
+              80 12 AE 00 
+              C2 8A 58 79 
+              44 68 56 8F 
+              8A 58 79 44 
+              68 56 80 1B 
+              AF 00 C2 A2 
+              95 3F 09 2D 
+              39 32 30 36 
+              32 34 31 31 
+              0D A3 8F 8A 
+              45 5F 4C 4B 
+              4B 80 11 B0 
+              00 C2 9D 95 
+              3F 03 56 48 
+              63 0D A3 8F 
+              41 56 80 15 
+              B1 00 C2 9E 
+              95 42 6F 6A 
+              67 68 7D A3 
+              8F 41 50 55 
+              58 57 42 80 
+              15 B2 00 C2 
+              9E 95 42 6C 
+              77 67 67 7C 
+              A3 8F 41 53 
+              48 58 58 43 
+              80 14 B3 00 
+              C2 8A 41 65 
+              63 69 6C 5F 
+              8F 8A 41 65 
+              63 69 6C 5F 
+              80 15 B4 00 
+              C2 9E 95 41 
+              54 62 67 78 
+              7B A3 8F 42 
+              6B 5D 58 47 
+              44 80 15 B5 
+              00 C2 98 95 
+              3F 08 7A 71 
+              6D 49 42 46 
+              53 76 0D A3 
+              8F 48 80 1B 
+              B6 00 C2 9B 
+              96 95 56 6E 
+              78 74 57 A3 
+              8F 3F 09 33 
+              38 31 33 39 
+              30 31 30 33 
+              0D 80 10 B7 
+              00 C2 9C 96 
+              95 41 54 A3 
+              8F 3F 01 54 
+              0D 80 11 B8 
+              00 C2 94 59 
+              65 57 67 4C 
+              8F 59 65 57 
+              67 4C 80 12 
+              B9 00 C2 8A 
+              4F 5C 7D 77 
+              56 8F 8A 4F 
+              5C 7D 77 56 
+              80 14 BA 00 
+              C2 9D 95 3F 
+              06 75 58 72 
+              6F 66 58 0D 
+              A3 8F 41 75 
+              80 12 BB 00 
+              C2 8A 4D 41 
+              54 6E 58 8F 
+              8A 4D 41 54 
+              6E 58 80 10 
+              BC 00 C2 9D 
+              95 3F 02 4A 
+              71 0D A3 8F 
+              41 4A 80 13 
+              BD 00 C2 83 
+              95 9F 89 50 
+              A3 8F 94 41 
+              4E 53 54 71 
+              4B 80 14 BE 
+              00 C2 9E 95 
+              43 62 5E 4D 
+              65 4F A3 8F 
+              5D 61 72 5A 
+              70 80 1B BF 
+              00 C2 9B 96 
+              95 52 51 60 
+              52 4A A3 8F 
+              3F 09 33 30 
+              36 35 37 38 
+              35 37 30 0D 
+              80 12 C0 00 
+              C2 9A 95 8A 
+              41 44 6B 72 
+              54 72 A3 8F 
+              8A 41 80 14 
+              C1 00 C2 99 
+              95 8A 61 76 
+              79 4A 60 A3 
+              8F 61 76 79 
+              4A 60 80 13 
+              C2 00 C2 98 
+              95 3F 06 67 
+              59 73 48 42 
+              6C 0D A3 8F 
+              46 80 13 C3 
+              00 C2 83 95 
+              9F 89 4B A3 
+              8F 94 41 49 
+              52 44 5D 46 
+              80 1C C4 00 
+              C2 A2 95 3F 
+              0A 31 36 33 
+              34 32 34 39 
+              37 38 31 0D 
+              A3 8F 41 61 
+              5A 4A 70 75 
+              80 10 C5 00 
+              C2 9D 95 3F 
+              02 5A 70 0D 
+              A3 8F 41 5A 
+              80 16 C6 00 
+              C2 99 95 8A 
+              41 55 44 7B 
+              78 5D A3 8F 
+              41 55 44 7B 
+              78 5D 80 13 
+              C7 00 C2 83 
+              95 9F 89 4C 
+              A3 8F 94 41 
+              4A 52 54 61 
+              47 80 1C C8 
+              00 C2 A2 95 
+              3F 0A 31 38 
+              36 38 30 38 
+              37 39 34 37 
+              0D A3 8F 41 
+              6F 56 4C 4A 
+              4B 80 1F C9 
+              00 C2 9B 96 
+              95 8A 41 51 
+              45 49 5A 42 
+              A3 8F 3F 0B 
+              2D 31 33 36 
+              30 33 30 33 
+              37 34 36 0D 
+              80 1E CA 00 
+              C2 96 95 9F 
+              89 51 A3 8F 
+              3F 0F 4C 4D 
+              4E 4F 50 51 
+              52 53 54 55 
+              56 57 58 59 
+              5A 0D 80 00 	.db	$22,$01,$00,$b6,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$14,$02,$00,$b6,$3f,$0c,$53,$65,$65,$64,$20,$3d,$20,$34,$35,$30,$32,$34,$0d,$80,$10,$03,$00,$c2,$9a,$95,$41,$6b,$52,$70,$43,$45,$a3,$8f,$41,$80,$15,$04,$00,$c2,$9e,$95,$41,$5d,$4d,$47,$5d,$56,$a3,$8f,$42,$62,$72,$78,$62,$69,$80,$1d,$05,$00,$c2,$9b,$96,$95,$41,$59,$52,$60,$43,$40,$a3,$8f,$3f,$0a,$31,$34,$39,$38,$30,$32,$32,$30,$38,$30,$0d,$80,$15,$06,$00,$c2,$9e,$95,$41,$4b,$45,$4e,$46,$7f,$a3,$8f,$42,$74,$7a,$71,$79,$40,$80,$12,$07,$00,$c2,$9a,$95,$8a,$41,$40,$7d,$76,$45,$6c,$a3,$8f,$8a,$41,$80,$13,$08,$00,$c2,$83,$95,$9f,$89,$47,$a3,$8f,$94,$41,$45,$51,$44,$4d,$42,$80,$13,$09,$00,$c2,$83,$95,$9f,$89,$4d,$a3,$8f,$94,$41,$4b,$52,$64,$65,$48,$80,$0f,$0a,$00,$c2,$9a,$95,$58,$77,$54,$4b,$7f,$a3,$8f,$41,$80,$0e,$0b,$00,$c2,$84,$95,$9f,$89,$4c,$a3,$8f,$41,$47,$80,$13,$0c,$00,$c2,$98,$95,$3f,$06,$66,$72,$77,$64,$73,$63,$0d,$a3,$8f,$46,$80,$11,$0d,$00,$c2,$94,$55,$47,$43,$45,$77,$8f,$55,$47,$43,$45,$77,$80,$1c,$0e,$00,$c2,$a2,$95,$3f,$0a,$31,$37,$39,$32,$34,$39,$31,$33,$39,$30,$0d,$a3,$8f,$41,$6a,$75,$73,$7d,$7e,$80,$1a,$0f,$00,$c2,$a2,$95,$3f,$09,$34,$31,$30,$33,$37,$39,$38,$39,$33,$0d,$a3,$8f,$58,$5d,$5e,$59,$75,$80,$13,$10,$00,$c2,$99,$95,$6a,$6f,$67,$42,$78,$a3,$8f,$6a,$6f,$67,$42,$78,$80,$1b,$11,$00,$c2,$96,$95,$9f,$89,$54,$a3,$8f,$3f,$0c,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$16,$12,$00,$c2,$99,$95,$8a,$41,$4c,$7d,$4d,$56,$50,$a3,$8f,$41,$4c,$7d,$4d,$56,$50,$80,$10,$13,$00,$c2,$9c,$96,$95,$41,$4c,$a3,$8f,$3f,$01,$4c,$0d,$80,$13,$14,$00,$c2,$83,$95,$9f,$89,$48,$a3,$8f,$94,$41,$46,$51,$54,$51,$43,$80,$1c,$15,$00,$c2,$a2,$95,$3f,$0a,$2d,$34,$37,$38,$37,$35,$35,$33,$39,$34,$0d,$a3,$8f,$8a,$5c,$62,$53,$69,$42,$80,$14,$16,$00,$c2,$9e,$95,$51,$42,$47,$79,$4f,$a3,$8f,$43,$6e,$7d,$78,$46,$70,$80,$10,$17,$00,$c2,$9c,$96,$95,$41,$57,$a3,$8f,$3f,$01,$57,$0d,$80,$1d,$18,$00,$c2,$9b,$96,$95,$8a,$60,$7f,$58,$41,$41,$a3,$8f,$3f,$0a,$2d,$35,$35,$33,$34,$38,$34,$33,$35,$33,$0d,$80,$1b,$19,$00,$c2,$9b,$96,$95,$74,$6c,$7c,$6f,$4b,$a3,$8f,$3f,$09,$38,$38,$34,$31,$39,$38,$33,$34,$37,$0d,$80,$12,$1a,$00,$c2,$8a,$8a,$7e,$7e,$5e,$76,$7b,$8f,$7e,$7e,$5e,$76,$7b,$80,$11,$1b,$00,$c2,$94,$6a,$4c,$52,$60,$71,$8f,$6a,$4c,$52,$60,$71,$80,$12,$1c,$00,$c2,$8a,$8a,$66,$6e,$57,$7b,$63,$8f,$66,$6e,$57,$7b,$63,$80,$13,$1d,$00,$c2,$94,$43,$74,$66,$5a,$79,$74,$8f,$43,$74,$66,$5a,$79,$74,$80,$0e,$1e,$00,$c2,$98,$95,$3f,$01,$75,$0d,$a3,$8f,$41,$80,$15,$1f,$00,$c2,$9e,$95,$41,$7b,$79,$79,$7a,$40,$a3,$8f,$42,$44,$46,$46,$45,$7f,$80,$13,$20,$00,$c2,$83,$95,$9f,$89,$4e,$a3,$8f,$94,$41,$4c,$52,$74,$69,$49,$80,$15,$21,$00,$c2,$99,$95,$41,$76,$6f,$7b,$62,$76,$a3,$8f,$41,$76,$6f,$7b,$62,$76,$80,$24,$22,$00,$c2,$96,$95,$9f,$89,$4b,$a3,$8f,$3f,$15,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$14,$23,$00,$c2,$9e,$95,$77,$4e,$40,$4c,$43,$a3,$8f,$43,$48,$71,$7f,$73,$7c,$80,$10,$24,$00,$c2,$9c,$96,$95,$41,$44,$a3,$8f,$3f,$01,$44,$0d,$80,$10,$25,$00,$c2,$9c,$96,$95,$41,$56,$a3,$8f,$3f,$01,$56,$0d,$80,$14,$26,$00,$c2,$8a,$8a,$41,$51,$76,$7d,$49,$5b,$8f,$41,$51,$76,$7d,$49,$5b,$80,$0e,$27,$00,$c2,$84,$95,$9f,$89,$4d,$a3,$8f,$41,$48,$80,$14,$28,$00,$c2,$8a,$8a,$41,$75,$55,$4f,$7b,$45,$8f,$41,$75,$55,$4f,$7b,$45,$80,$15,$29,$00,$c2,$99,$95,$41,$50,$51,$4b,$48,$47,$a3,$8f,$41,$50,$51,$4b,$48,$47,$80,$15,$2a,$00,$c2,$99,$95,$41,$41,$40,$64,$6f,$48,$a3,$8f,$41,$41,$40,$64,$6f,$48,$80,$1d,$2b,$00,$c2,$9b,$96,$95,$8a,$49,$42,$56,$73,$4b,$a3,$8f,$3f,$0a,$2d,$31,$35,$31,$36,$31,$32,$36,$31,$39,$0d,$80,$1c,$2c,$00,$c2,$9b,$96,$95,$8a,$44,$6a,$72,$4e,$65,$a3,$8f,$3f,$09,$2d,$37,$38,$33,$32,$34,$36,$34,$35,$0d,$80,$11,$2d,$00,$c2,$9a,$95,$8a,$5e,$54,$6a,$6f,$44,$a3,$8f,$8a,$41,$80,$1e,$2e,$00,$c2,$a2,$95,$3f,$0b,$2d,$31,$36,$38,$39,$35,$38,$35,$38,$33,$31,$0d,$a3,$8f,$8a,$41,$64,$6d,$50,$62,$67,$80,$0d,$2f,$00,$c2,$98,$95,$3f,$00,$0d,$a3,$8f,$40,$80,$1c,$30,$00,$c2,$a2,$95,$3f,$0a,$2d,$36,$36,$33,$37,$35,$31,$31,$32,$38,$0d,$a3,$8f,$8a,$67,$64,$40,$67,$58,$80,$15,$31,$00,$c2,$9e,$95,$41,$7f,$6a,$6e,$5e,$47,$a3,$8f,$42,$40,$55,$51,$61,$78,$80,$1c,$32,$00,$c2,$a2,$95,$3f,$0a,$2d,$32,$31,$34,$35,$35,$31,$33,$33,$32,$0d,$a3,$8f,$8a,$4c,$72,$5c,$6c,$64,$80,$13,$33,$00,$c2,$99,$95,$63,$65,$52,$71,$7c,$a3,$8f,$63,$65,$52,$71,$7c,$80,$29,$34,$00,$c2,$96,$95,$9f,$89,$46,$a3,$8f,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$35,$00,$c2,$9c,$96,$95,$41,$42,$a3,$8f,$3f,$01,$42,$0d,$80,$11,$36,$00,$c2,$9a,$95,$8a,$56,$4c,$73,$50,$5b,$a3,$8f,$8a,$41,$80,$14,$37,$00,$c2,$8a,$8a,$41,$54,$56,$41,$7f,$6b,$8f,$41,$54,$56,$41,$7f,$6b,$80,$13,$38,$00,$c2,$83,$95,$9f,$89,$52,$a3,$8f,$94,$41,$50,$53,$74,$79,$4d,$80,$1c,$39,$00,$c2,$a2,$95,$3f,$0a,$31,$38,$39,$32,$39,$31,$37,$31,$38,$33,$0d,$a3,$8f,$41,$70,$74,$79,$7e,$7f,$80,$10,$3a,$00,$c2,$9d,$95,$3f,$02,$6a,$56,$0d,$a3,$8f,$41,$6a,$80,$13,$3b,$00,$c2,$94,$42,$47,$48,$5e,$7a,$66,$8f,$42,$47,$48,$5e,$7a,$66,$80,$1c,$3c,$00,$c2,$a2,$95,$3f,$0a,$2d,$34,$34,$37,$32,$30,$30,$32,$30,$37,$0d,$a3,$8f,$8a,$5a,$69,$7b,$6f,$4f,$80,$13,$3d,$00,$c2,$9d,$95,$3f,$05,$44,$4e,$78,$49,$75,$0d,$a3,$8f,$41,$44,$80,$15,$3e,$00,$c2,$99,$95,$41,$6a,$4d,$66,$55,$5b,$a3,$8f,$41,$6a,$4d,$66,$55,$5b,$80,$1a,$3f,$00,$c2,$a2,$95,$3f,$09,$34,$31,$39,$30,$31,$31,$30,$34,$31,$0d,$a3,$8f,$58,$7e,$59,$67,$61,$80,$14,$40,$00,$c2,$8a,$41,$53,$77,$5e,$4d,$64,$8f,$8a,$41,$53,$77,$5e,$4d,$64,$80,$15,$41,$00,$c2,$9e,$95,$42,$4b,$70,$78,$72,$4e,$a3,$8f,$41,$74,$4f,$47,$4d,$71,$80,$13,$42,$00,$c2,$83,$95,$9f,$89,$53,$a3,$8f,$94,$41,$51,$54,$44,$7d,$4e,$80,$13,$43,$00,$c2,$94,$43,$72,$6f,$76,$51,$70,$8f,$43,$72,$6f,$76,$51,$70,$80,$1c,$44,$00,$c2,$a2,$95,$3f,$0a,$31,$39,$38,$34,$38,$37,$35,$37,$34,$35,$0d,$a3,$8f,$41,$76,$53,$6c,$73,$61,$80,$0e,$45,$00,$c2,$84,$95,$9f,$89,$47,$a3,$8f,$41,$42,$80,$1f,$46,$00,$c2,$9b,$96,$95,$8a,$41,$4b,$7d,$75,$71,$5c,$a3,$8f,$3f,$0b,$2d,$31,$32,$37,$34,$35,$30,$32,$32,$33,$36,$0d,$80,$20,$47,$00,$c2,$96,$95,$9f,$89,$4f,$a3,$8f,$3f,$11,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$12,$48,$00,$c2,$9a,$95,$8a,$41,$7b,$40,$56,$7f,$41,$a3,$8f,$8a,$41,$80,$0d,$49,$00,$c2,$9d,$95,$3f,$00,$0d,$a3,$8f,$4d,$80,$10,$4a,$00,$c2,$9c,$96,$95,$41,$49,$a3,$8f,$3f,$01,$49,$0d,$80,$14,$4b,$00,$c2,$98,$95,$3f,$07,$65,$67,$42,$65,$47,$64,$67,$0d,$a3,$8f,$47,$80,$10,$4c,$00,$c2,$9a,$95,$41,$6c,$7d,$44,$48,$7b,$a3,$8f,$41,$80,$16,$4d,$00,$c2,$99,$95,$8a,$41,$5b,$6b,$5a,$5d,$5c,$a3,$8f,$41,$5b,$6b,$5a,$5d,$5c,$80,$14,$4e,$00,$c2,$9e,$95,$43,$5e,$58,$6b,$75,$5f,$a3,$8f,$61,$67,$54,$4a,$60,$80,$14,$4f,$00,$c2,$9e,$95,$4e,$4f,$6b,$5d,$58,$a3,$8f,$43,$71,$70,$54,$62,$67,$80,$16,$50,$00,$c2,$9d,$95,$3f,$08,$6e,$7a,$51,$4a,$7a,$6d,$4e,$6b,$0d,$a3,$8f,$41,$6e,$80,$11,$51,$00,$c2,$94,$7f,$58,$67,$53,$4f,$8f,$7f,$58,$67,$53,$4f,$80,$14,$52,$00,$c2,$9d,$95,$3f,$06,$62,$59,$63,$4b,$66,$49,$0d,$a3,$8f,$41,$62,$80,$13,$53,$00,$c2,$83,$95,$9f,$89,$52,$a3,$8f,$94,$41,$50,$53,$74,$79,$4d,$80,$10,$54,$00,$c2,$9c,$96,$95,$41,$4a,$a3,$8f,$3f,$01,$4a,$0d,$80,$25,$55,$00,$c2,$96,$95,$9f,$89,$4a,$a3,$8f,$3f,$16,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$0f,$56,$00,$c2,$9a,$95,$44,$7b,$6b,$6a,$59,$a3,$8f,$41,$80,$10,$57,$00,$c2,$9c,$96,$95,$41,$56,$a3,$8f,$3f,$01,$56,$0d,$80,$1b,$58,$00,$c2,$96,$95,$9f,$89,$54,$a3,$8f,$3f,$0c,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$15,$59,$00,$c2,$9d,$95,$3f,$07,$4f,$4a,$61,$50,$53,$5a,$66,$0d,$a3,$8f,$41,$4f,$80,$0f,$5a,$00,$c2,$9a,$95,$6b,$60,$58,$76,$6b,$a3,$8f,$41,$80,$13,$5b,$00,$c2,$94,$43,$7a,$6a,$4c,$50,$4b,$8f,$43,$7a,$6a,$4c,$50,$4b,$80,$11,$5c,$00,$c2,$98,$95,$3f,$04,$54,$78,$43,$56,$0d,$a3,$8f,$44,$80,$13,$5d,$00,$c2,$94,$41,$6e,$62,$77,$42,$5e,$8f,$41,$6e,$62,$77,$42,$5e,$80,$13,$5e,$00,$c2,$98,$95,$3f,$06,$68,$56,$66,$6b,$51,$79,$0d,$a3,$8f,$46,$80,$14,$5f,$00,$c2,$9e,$95,$43,$5b,$59,$7d,$42,$5a,$a3,$8f,$64,$66,$42,$7d,$65,$80,$16,$60,$00,$c2,$99,$95,$8a,$41,$48,$5d,$62,$58,$5b,$a3,$8f,$41,$48,$5d,$62,$58,$5b,$80,$12,$61,$00,$c2,$8a,$8a,$6c,$46,$78,$54,$58,$8f,$6c,$46,$78,$54,$58,$80,$15,$62,$00,$c2,$9e,$95,$42,$45,$7d,$6f,$6f,$53,$a3,$8f,$41,$7a,$42,$50,$50,$6c,$80,$25,$63,$00,$c2,$96,$95,$9f,$89,$4a,$a3,$8f,$3f,$16,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$10,$64,$00,$c2,$9c,$96,$95,$41,$41,$a3,$8f,$3f,$01,$41,$0d,$80,$0e,$65,$00,$c2,$84,$95,$9f,$89,$54,$a3,$8f,$41,$4f,$80,$10,$66,$00,$c2,$9c,$96,$95,$41,$4f,$a3,$8f,$3f,$01,$4f,$0d,$80,$0e,$67,$00,$c2,$84,$95,$9f,$89,$4b,$a3,$8f,$41,$46,$80,$13,$68,$00,$c2,$94,$41,$73,$6c,$57,$40,$63,$8f,$41,$73,$6c,$57,$40,$63,$80,$16,$69,$00,$c2,$9d,$95,$3f,$08,$55,$4d,$74,$58,$6b,$4b,$77,$55,$0d,$a3,$8f,$41,$55,$80,$10,$6a,$00,$c2,$9d,$95,$3f,$02,$73,$61,$0d,$a3,$8f,$41,$73,$80,$1b,$6b,$00,$c2,$9b,$96,$95,$51,$64,$65,$5c,$68,$a3,$8f,$3f,$09,$32,$39,$34,$38,$30,$33,$32,$34,$30,$0d,$80,$1a,$6c,$00,$c2,$9b,$96,$95,$43,$73,$62,$5c,$6e,$a3,$8f,$3f,$08,$36,$33,$38,$34,$32,$30,$39,$34,$0d,$80,$15,$6d,$00,$c2,$9e,$95,$41,$61,$72,$60,$5c,$7d,$a3,$8f,$42,$5e,$4d,$5f,$63,$42,$80,$1a,$6e,$00,$c2,$a2,$95,$3f,$09,$35,$32,$30,$34,$35,$37,$33,$30,$38,$0d,$a3,$8f,$5f,$41,$58,$71,$5c,$80,$12,$6f,$00,$c2,$8a,$4e,$7e,$65,$54,$7c,$8f,$8a,$4e,$7e,$65,$54,$7c,$80,$14,$70,$00,$c2,$9e,$95,$55,$59,$4c,$6a,$6e,$a3,$8f,$43,$6a,$66,$73,$55,$51,$80,$13,$71,$00,$c2,$98,$95,$3f,$06,$46,$78,$77,$57,$66,$4d,$0d,$a3,$8f,$46,$80,$13,$72,$00,$c2,$99,$95,$62,$7e,$56,$7d,$53,$a3,$8f,$62,$7e,$56,$7d,$53,$80,$15,$73,$00,$c2,$98,$95,$3f,$08,$69,$59,$51,$77,$4a,$43,$65,$62,$0d,$a3,$8f,$48,$80,$1f,$74,$00,$c2,$9b,$96,$95,$8a,$41,$4b,$52,$79,$7f,$68,$a3,$8f,$3f,$0b,$2d,$31,$32,$36,$33,$32,$34,$37,$33,$33,$36,$0d,$80,$1d,$75,$00,$c2,$9b,$96,$95,$41,$52,$7d,$76,$51,$7f,$a3,$8f,$3f,$0a,$31,$33,$39,$31,$39,$34,$34,$38,$33,$31,$0d,$80,$23,$76,$00,$c2,$96,$95,$9f,$89,$4c,$a3,$8f,$3f,$14,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$1d,$77,$00,$c2,$9b,$96,$95,$41,$78,$7b,$7e,$43,$47,$a3,$8f,$3f,$0a,$32,$30,$32,$38,$39,$38,$36,$35,$36,$37,$0d,$80,$11,$78,$00,$c2,$9a,$95,$8a,$61,$45,$5f,$4b,$62,$a3,$8f,$8a,$41,$80,$14,$79,$00,$c2,$99,$95,$8a,$56,$5b,$6a,$43,$51,$a3,$8f,$56,$5b,$6a,$43,$51,$80,$11,$7a,$00,$c2,$9a,$95,$8a,$58,$4f,$70,$45,$62,$a3,$8f,$8a,$41,$80,$10,$7b,$00,$c2,$9c,$96,$95,$41,$56,$a3,$8f,$3f,$01,$56,$0d,$80,$1d,$7c,$00,$c2,$9b,$96,$95,$41,$60,$5f,$72,$5a,$7a,$a3,$8f,$3f,$0a,$31,$36,$31,$38,$39,$34,$35,$37,$32,$32,$0d,$80,$0e,$7d,$00,$c2,$84,$95,$9f,$89,$53,$a3,$8f,$41,$4e,$80,$1d,$7e,$00,$c2,$9b,$96,$95,$41,$79,$46,$47,$5e,$41,$a3,$8f,$3f,$0a,$32,$30,$33,$31,$36,$34,$36,$35,$39,$33,$0d,$80,$13,$7f,$00,$c2,$83,$95,$9f,$89,$4c,$a3,$8f,$94,$41,$4a,$52,$54,$61,$47,$80,$1d,$80,$00,$c2,$9b,$96,$95,$41,$57,$5d,$40,$56,$6f,$a3,$8f,$3f,$0a,$31,$34,$36,$37,$32,$32,$31,$34,$32,$33,$0d,$80,$13,$81,$00,$c2,$83,$95,$9f,$89,$53,$a3,$8f,$94,$41,$51,$54,$44,$7d,$4e,$80,$13,$82,$00,$c2,$94,$43,$6b,$79,$7c,$62,$6b,$8f,$43,$6b,$79,$7c,$62,$6b,$80,$14,$83,$00,$c2,$99,$95,$8a,$7a,$4f,$6c,$4f,$44,$a3,$8f,$7a,$4f,$6c,$4f,$44,$80,$10,$84,$00,$c2,$9c,$96,$95,$41,$4e,$a3,$8f,$3f,$01,$4e,$0d,$80,$12,$85,$00,$c2,$9a,$95,$8a,$41,$78,$7c,$48,$56,$6e,$a3,$8f,$8a,$41,$80,$1f,$86,$00,$c2,$9b,$96,$95,$8a,$41,$69,$75,$5b,$64,$70,$a3,$8f,$3f,$0b,$2d,$31,$37,$37,$35,$36,$31,$34,$32,$35,$36,$0d,$80,$0e,$87,$00,$c2,$84,$95,$9f,$89,$4a,$a3,$8f,$41,$45,$80,$14,$88,$00,$c2,$99,$95,$8a,$79,$70,$70,$6c,$72,$a3,$8f,$79,$70,$70,$6c,$72,$80,$10,$89,$00,$c2,$9c,$96,$95,$41,$57,$a3,$8f,$3f,$01,$57,$0d,$80,$12,$8a,$00,$c2,$8a,$6c,$67,$51,$56,$44,$8f,$8a,$6c,$67,$51,$56,$44,$80,$14,$8b,$00,$c2,$9e,$95,$43,$4f,$59,$53,$6c,$6f,$a3,$8f,$70,$66,$6c,$53,$50,$80,$0e,$8c,$00,$c2,$84,$95,$9f,$89,$4c,$a3,$8f,$41,$47,$80,$1d,$8d,$00,$c2,$a2,$95,$3f,$0b,$2d,$31,$30,$31,$33,$34,$36,$39,$39,$39,$37,$0d,$a3,$8f,$8a,$7c,$5a,$45,$4c,$6d,$80,$14,$8e,$00,$c2,$9e,$95,$7e,$6e,$76,$72,$72,$a3,$8f,$43,$41,$51,$49,$4d,$4d,$80,$0f,$8f,$00,$c2,$98,$95,$3f,$02,$63,$72,$0d,$a3,$8f,$42,$80,$1c,$90,$00,$c2,$a2,$95,$3f,$0a,$2d,$34,$39,$36,$39,$32,$34,$37,$31,$39,$0d,$a3,$8f,$8a,$5d,$67,$67,$60,$6f,$80,$11,$91,$00,$c2,$9a,$95,$8a,$70,$50,$74,$78,$70,$a3,$8f,$8a,$41,$80,$13,$92,$00,$c2,$83,$95,$9f,$89,$4a,$a3,$8f,$94,$41,$48,$51,$74,$59,$45,$80,$1f,$93,$00,$c2,$9b,$96,$95,$8a,$41,$76,$76,$7d,$6d,$77,$a3,$8f,$3f,$0b,$2d,$31,$39,$39,$34,$31,$32,$30,$30,$35,$35,$0d,$80,$13,$94,$00,$c2,$94,$43,$5b,$49,$47,$41,$64,$8f,$43,$5b,$49,$47,$41,$64,$80,$15,$95,$00,$c2,$9e,$95,$42,$72,$45,$5f,$59,$56,$a3,$8f,$41,$4d,$7a,$60,$66,$69,$80,$11,$96,$00,$c2,$9d,$95,$3f,$03,$45,$51,$4f,$0d,$a3,$8f,$41,$45,$80,$1a,$97,$00,$c2,$a2,$95,$3f,$09,$39,$32,$34,$33,$31,$35,$30,$36,$35,$0d,$a3,$8f,$77,$45,$7e,$76,$79,$80,$1c,$98,$00,$c2,$a2,$95,$3f,$0a,$2d,$32,$34,$32,$38,$38,$38,$33,$38,$32,$0d,$a3,$8f,$8a,$4e,$5e,$62,$7a,$7e,$80,$0f,$99,$00,$c2,$9d,$95,$3f,$01,$64,$0d,$a3,$8f,$41,$64,$80,$1b,$9a,$00,$c2,$9b,$96,$95,$50,$74,$62,$75,$61,$a3,$8f,$3f,$09,$32,$38,$32,$32,$30,$39,$36,$33,$33,$0d,$80,$25,$9b,$00,$c2,$96,$95,$9f,$89,$4a,$a3,$8f,$3f,$16,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$11,$9c,$00,$c2,$94,$7c,$68,$74,$7c,$60,$8f,$7c,$68,$74,$7c,$60,$80,$24,$9d,$00,$c2,$96,$95,$9f,$89,$4b,$a3,$8f,$3f,$15,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$1d,$9e,$00,$c2,$9b,$96,$95,$41,$51,$67,$79,$50,$61,$a3,$8f,$3f,$0a,$31,$33,$36,$39,$34,$31,$32,$36,$34,$31,$0d,$80,$12,$9f,$00,$c2,$9a,$95,$8a,$41,$51,$4a,$7a,$66,$71,$a3,$8f,$8a,$41,$80,$12,$a0,$00,$c2,$8a,$8a,$5c,$6a,$70,$5c,$43,$8f,$5c,$6a,$70,$5c,$43,$80,$0f,$a1,$00,$c2,$9d,$95,$3f,$01,$75,$0d,$a3,$8f,$41,$75,$80,$12,$a2,$00,$c2,$8a,$8a,$76,$7d,$5f,$59,$68,$8f,$76,$7d,$5f,$59,$68,$80,$16,$a3,$00,$c2,$9d,$95,$3f,$08,$55,$71,$4d,$6c,$64,$4e,$49,$6b,$0d,$a3,$8f,$41,$55,$80,$10,$a4,$00,$c2,$9a,$95,$41,$7a,$78,$7e,$76,$78,$a3,$8f,$41,$80,$1c,$a5,$00,$c2,$a2,$95,$3f,$0a,$31,$33,$37,$32,$38,$30,$38,$39,$38,$36,$0d,$a3,$8f,$41,$51,$74,$76,$5c,$5a,$80,$14,$a6,$00,$c2,$9e,$95,$43,$58,$6e,$45,$66,$65,$a3,$8f,$67,$51,$7a,$59,$5a,$80,$1c,$a7,$00,$c2,$a2,$95,$3f,$0a,$32,$30,$34,$35,$36,$34,$39,$31,$32,$30,$0d,$a3,$8f,$41,$79,$7b,$62,$43,$60,$80,$0d,$a8,$00,$c2,$98,$95,$3f,$00,$0d,$a3,$8f,$40,$80,$1c,$a9,$00,$c2,$a2,$95,$3f,$0a,$2d,$37,$30,$38,$30,$39,$30,$35,$32,$31,$0d,$a3,$8f,$8a,$6a,$4d,$49,$6a,$59,$80,$13,$aa,$00,$c2,$94,$41,$76,$4f,$61,$4a,$66,$8f,$41,$76,$4f,$61,$4a,$66,$80,$22,$ab,$00,$c2,$96,$95,$9f,$89,$4d,$a3,$8f,$3f,$13,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$13,$ac,$00,$c2,$94,$42,$54,$73,$53,$4e,$61,$8f,$42,$54,$73,$53,$4e,$61,$80,$0e,$ad,$00,$c2,$84,$95,$9f,$89,$4c,$a3,$8f,$41,$47,$80,$12,$ae,$00,$c2,$8a,$58,$79,$44,$68,$56,$8f,$8a,$58,$79,$44,$68,$56,$80,$1b,$af,$00,$c2,$a2,$95,$3f,$09,$2d,$39,$32,$30,$36,$32,$34,$31,$31,$0d,$a3,$8f,$8a,$45,$5f,$4c,$4b,$4b,$80,$11,$b0,$00,$c2,$9d,$95,$3f,$03,$56,$48,$63,$0d,$a3,$8f,$41,$56,$80,$15,$b1,$00,$c2,$9e,$95,$42,$6f,$6a,$67,$68,$7d,$a3,$8f,$41,$50,$55,$58,$57,$42,$80,$15,$b2,$00,$c2,$9e,$95,$42,$6c,$77,$67,$67,$7c,$a3,$8f,$41,$53,$48,$58,$58,$43,$80,$14,$b3,$00,$c2,$8a,$41,$65,$63,$69,$6c,$5f,$8f,$8a,$41,$65,$63,$69,$6c,$5f,$80,$15,$b4,$00,$c2,$9e,$95,$41,$54,$62,$67,$78,$7b,$a3,$8f,$42,$6b,$5d,$58,$47,$44,$80,$15,$b5,$00,$c2,$98,$95,$3f,$08,$7a,$71,$6d,$49,$42,$46,$53,$76,$0d,$a3,$8f,$48,$80,$1b,$b6,$00,$c2,$9b,$96,$95,$56,$6e,$78,$74,$57,$a3,$8f,$3f,$09,$33,$38,$31,$33,$39,$30,$31,$30,$33,$0d,$80,$10,$b7,$00,$c2,$9c,$96,$95,$41,$54,$a3,$8f,$3f,$01,$54,$0d,$80,$11,$b8,$00,$c2,$94,$59,$65,$57,$67,$4c,$8f,$59,$65,$57,$67,$4c,$80,$12,$b9,$00,$c2,$8a,$4f,$5c,$7d,$77,$56,$8f,$8a,$4f,$5c,$7d,$77,$56,$80,$14,$ba,$00,$c2,$9d,$95,$3f,$06,$75,$58,$72,$6f,$66,$58,$0d,$a3,$8f,$41,$75,$80,$12,$bb,$00,$c2,$8a,$4d,$41,$54,$6e,$58,$8f,$8a,$4d,$41,$54,$6e,$58,$80,$10,$bc,$00,$c2,$9d,$95,$3f,$02,$4a,$71,$0d,$a3,$8f,$41,$4a,$80,$13,$bd,$00,$c2,$83,$95,$9f,$89,$50,$a3,$8f,$94,$41,$4e,$53,$54,$71,$4b,$80,$14,$be,$00,$c2,$9e,$95,$43,$62,$5e,$4d,$65,$4f,$a3,$8f,$5d,$61,$72,$5a,$70,$80,$1b,$bf,$00,$c2,$9b,$96,$95,$52,$51,$60,$52,$4a,$a3,$8f,$3f,$09,$33,$30,$36,$35,$37,$38,$35,$37,$30,$0d,$80,$12,$c0,$00,$c2,$9a,$95,$8a,$41,$44,$6b,$72,$54,$72,$a3,$8f,$8a,$41,$80,$14,$c1,$00,$c2,$99,$95,$8a,$61,$76,$79,$4a,$60,$a3,$8f,$61,$76,$79,$4a,$60,$80,$13,$c2,$00,$c2,$98,$95,$3f,$06,$67,$59,$73,$48,$42,$6c,$0d,$a3,$8f,$46,$80,$13,$c3,$00,$c2,$83,$95,$9f,$89,$4b,$a3,$8f,$94,$41,$49,$52,$44,$5d,$46,$80,$1c,$c4,$00,$c2,$a2,$95,$3f,$0a,$31,$36,$33,$34,$32,$34,$39,$37,$38,$31,$0d,$a3,$8f,$41,$61,$5a,$4a,$70,$75,$80,$10,$c5,$00,$c2,$9d,$95,$3f,$02,$5a,$70,$0d,$a3,$8f,$41,$5a,$80,$16,$c6,$00,$c2,$99,$95,$8a,$41,$55,$44,$7b,$78,$5d,$a3,$8f,$41,$55,$44,$7b,$78,$5d,$80,$13,$c7,$00,$c2,$83,$95,$9f,$89,$4c,$a3,$8f,$94,$41,$4a,$52,$54,$61,$47,$80,$1c,$c8,$00,$c2,$a2,$95,$3f,$0a,$31,$38,$36,$38,$30,$38,$37,$39,$34,$37,$0d,$a3,$8f,$41,$6f,$56,$4c,$4a,$4b,$80,$1f,$c9,$00,$c2,$9b,$96,$95,$8a,$41,$51,$45,$49,$5a,$42,$a3,$8f,$3f,$0b,$2d,$31,$33,$36,$30,$33,$30,$33,$37,$34,$36,$0d,$80,$1e,$ca,$00,$c2,$96,$95,$9f,$89,$51,$a3,$8f,$3f,$0f,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$00
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-   16 D1:C844 00 00 00 00 
+   16 D1:C8D4 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -6607,17 +6718,17 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 		.block 		4096
-   17 D1:D844 -  -  -  -  EndTestInstance:
-   18 D1:D844 -  -  -  -  		
-   19 D1:D844 -  -  -  -  ; ***************************************************************************************
-   20 D1:D844 -  -  -  -  ;
-   21 D1:D844 -  -  -  -  ;									Changes and Updates
-   22 D1:D844 -  -  -  -  ;
-   23 D1:D844 -  -  -  -  ; ***************************************************************************************
-   24 D1:D844 -  -  -  -  ;
-   25 D1:D844 -  -  -  -  ;		Date			Notes
-   26 D1:D844 -  -  -  -  ;		==== 			=====
-   27 D1:D844 -  -  -  -  ;
-   28 D1:D844 -  -  -  -  ; ***************************************************************************************
+   17 D1:D8D4 -  -  -  -  EndTestInstance:
+   18 D1:D8D4 -  -  -  -  		
+   19 D1:D8D4 -  -  -  -  ; ***************************************************************************************
+   20 D1:D8D4 -  -  -  -  ;
+   21 D1:D8D4 -  -  -  -  ;									Changes and Updates
+   22 D1:D8D4 -  -  -  -  ;
+   23 D1:D8D4 -  -  -  -  ; ***************************************************************************************
+   24 D1:D8D4 -  -  -  -  ;
+   25 D1:D8D4 -  -  -  -  ;		Date			Notes
+   26 D1:D8D4 -  -  -  -  ;		==== 			=====
+   27 D1:D8D4 -  -  -  -  ;
+   28 D1:D8D4 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   61 D1:D844 -  -  -  -  FinalAddress:
+   62 D1:D8D4 -  -  -  -  FinalAddress:
