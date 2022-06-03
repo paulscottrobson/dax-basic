@@ -12,14 +12,14 @@
 
 ; ***************************************************************************************
 ;
-;							Print ASCIIZ string at HL
+;							Print ASCII string at HL
 ;
 ; ***************************************************************************************
 
 PrintStringAtHL:
 		ld 		a,(hl)
-		or 		a
-		ret 	z
+		cp 		$20		
+		ret 	c
 		call 	SYSPrintChar
 		inc 	hl
 		jr 		PrintStringAtHL

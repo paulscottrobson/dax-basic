@@ -15,6 +15,7 @@
 #include "core/commands/colon.asm"
 #include "core/commands/end.asm"
 #include "core/commands/endofline.asm"
+#include "core/commands/print.asm"
 #include "core/commands/rem.asm"
 #include "core/commands/run.asm"
 #include "core/commands/stop.asm"

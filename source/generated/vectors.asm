@@ -59,7 +59,7 @@ VectorsSet0:
 	addr(Command_REM)                ; $00b6 rem
 	addr(Unimplemented)              ; $00b7 let
 	addr(Unimplemented)              ; $00b8 vdu
-	addr(Unimplemented)              ; $00b9 print
+	addr(Command_PRINT)              ; $00b9 print
 	addr(Unimplemented)              ; $00ba load
 	addr(Unimplemented)              ; $00bb save
 	addr(Unimplemented)              ; $00bc list

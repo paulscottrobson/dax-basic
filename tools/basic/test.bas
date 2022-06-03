@@ -1,2 +1,2 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-assert time
+print "Pi is ";22/7

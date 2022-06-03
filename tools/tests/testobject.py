@@ -31,8 +31,7 @@ class TestObject(object):
 		print('rem "Seed = {0}"'.format(self.seed))
 
 	def footer(self):
-		#print('print "Ok Seed {0}"'.format(self.seed))
-		pass
+		print('print "Ok Seed {0}"'.format(self.seed))
 
 	def create(self):
 		self.header()
