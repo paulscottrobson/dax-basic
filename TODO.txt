@@ -1,8 +1,8 @@
 TODO:
 	Variables A-Z
-	LET (also allow for LET $A and $A)
+	LET (also allow for LET $A and $A) and write test script.
 	Variables rest of.
 
 Pass:
-	Unary (after modification)
+	
 	

@@ -143,7 +143,8 @@ _ETStringIndirect:
 		; 		Found an identifier.
 		;
 _ETVariable:
-		ERR_TODO
+		call 	FindVariable 				; find the variable.
+		ret 	nc 							; return if found.
 		ERR_UNKNOWNVAR 						; unknown variable
 		
 ; ***************************************************************************************

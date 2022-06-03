@@ -1,2 +1,3 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-print "Pi is ";22/7
+c = 12
+print c

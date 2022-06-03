@@ -47,6 +47,7 @@
 #include "core/setup/instance.asm"
 #include "core/setup/new.asm"
 #include "core/utility/utility.asm"
+#include "core/variables/find.asm"
 #include "generated/kwd_keywords.asm"
 #include "generated/kwd_misc.asm"
 #include "generated/messagetext.asm"
