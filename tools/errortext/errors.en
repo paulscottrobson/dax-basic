@@ -20,6 +20,7 @@ Disabled:	Functionality not enabled
 ToDo: 		Code not written
 NoLBracket: Missing Left Bracket
 NoRBracket: Missing Right Bracket
+NoDollar:	Missing $
 NoComma: 	Missing Comma
 Memory: 	Out of memory
 UnknownVar:	Unknown Variable

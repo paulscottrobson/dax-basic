@@ -83,7 +83,7 @@ class UnaryOperators(TestObject):
 		return True 
 
 	def getOperatorList(self):
-		return "-,&,not,?,!,abs,len,asc,sgn,val"
+		return "-,&,not,?,!,abs,len,asc,sgn,val,str"
 
 if __name__ == "__main__":
 	UnaryOperators().create()

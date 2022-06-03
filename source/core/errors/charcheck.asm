@@ -31,6 +31,9 @@ CheckLeftBracket:
 CheckRightBracket:
 		checknext(KWD_RPAREN,ERRID_NORBRACKET)
 
+CheckDollar:
+		checkNext(KWD_DOLLAR,ERRID_NODOLLAR)
+		
 CheckComma:
 		checknext(KWD_COMMA,ERRID_NOCOMMA)		
 
