@@ -1,0 +1,31 @@
+# *****************************************************************************
+# *****************************************************************************
+#
+#		Name:		pseudo.src
+#		Author:		Paul Robson (paul@robsons.org.uk)
+#		Date:		1st April 2022
+#		Reviewed: 	No
+#		Purpose:	Pseudo operations that speed up or provide support.
+#
+# *****************************************************************************
+# *****************************************************************************
+
+#
+# 		These are specific internal ones for the tape interface
+#
+
+EDF0 	"THDR" 0
+		HWReadTapeHeader()
+
+EDF1 	"TBYTE"	0	
+		A = HWReadTapeByte();SETNZ(0);
+
+EDF2 	"TNAME" 0
+		HWSetTapeName()		
+
+EDF3 	"PROMPT" 0
+		H = 0x40;L = 0x00;
+		HWLoadPrompt()		
+
+EDFF 	"IMPORT A" 0
+		A = HWXImportM7Source();		

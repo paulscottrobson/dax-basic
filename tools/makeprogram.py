@@ -47,8 +47,8 @@ class BasicProgram(object):
 	#
 	# 		Write output file 
 	#
-	def write(self,fileName = "testprogram.asm"):
-		f = ("../source/generated/"+fileName).replace("/",os.sep)
+	def write(self,fileName = "testprogram.dat"):
+		f = ("../source/testprogram/"+fileName).replace("/",os.sep)
 		h = open(f,"w")
 		h.write(";\n;\tThis code automatically generated.\n;\n")
 		h.write("TestProgram:\n")

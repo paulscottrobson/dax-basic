@@ -3,7 +3,7 @@
 #
 #		Name : 		scanner.py
 #		Purpose :	Scan the source code to build the command tables
-#		Date :		30th April 2022
+#		Date :		3rd June 2022
 #		Author : 	Paul Robson (paul@robsons.org.uk)
 #
 # *******************************************************************************************

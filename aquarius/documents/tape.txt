@@ -1,0 +1,24 @@
+Cassette Interface
+==================
+
+$1BCE READSYNC ($EDF0)
+
+Skips over the sync header ($FF), and the following $00 byte.
+
+By changing this so it skips any immediately preceding $00 bytes we can chain together CAQ files.
+
+$1B4D READCASSETTEBYTE ($EDF1)
+
+Read 1 byte into A. Z flag set. 
+
+
+CLOAD should load a directory ? like on C64/PET
+
+$1CD9 Skips sync reads 6 bytes.
+
+CQC files are concatenated CAQ files - literally.
+
+Hardware
+========
+
+POKE 4096,n sets to fast mode when n is on. On emulator x 16, hardware depends !
