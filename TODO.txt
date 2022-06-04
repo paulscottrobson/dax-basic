@@ -1,5 +1,9 @@
 TODO:
-	DIM - fix Python script to dump arrays.
+	DIM 
+		- write DIM memory
+		- write DIM array.
+		- fix Python script to dump arrays.
+		
 	Array code in find.asm (requires DIM) and add to variables (or maybe a new script ?)
 	$<test> requires DIM (TOP ?)
 

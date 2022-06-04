@@ -29,84 +29,91 @@ ERRID_BADVALUE = 3
 	jp ErrorHandler
 #endmacro
 
-ERRID_DISABLED = 4
+ERRID_DIM = 4
+
+#macro ERR_DIM
+	ld a,ERRID_DIM
+	jp ErrorHandler
+#endmacro
+
+ERRID_DISABLED = 5
 
 #macro ERR_DISABLED
 	ld a,ERRID_DISABLED
 	jp ErrorHandler
 #endmacro
 
-ERRID_DIVZERO = 5
+ERRID_DIVZERO = 6
 
 #macro ERR_DIVZERO
 	ld a,ERRID_DIVZERO
 	jp ErrorHandler
 #endmacro
 
-ERRID_MEMORY = 6
+ERRID_MEMORY = 7
 
 #macro ERR_MEMORY
 	ld a,ERRID_MEMORY
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOCOMMA = 7
+ERRID_NOCOMMA = 8
 
 #macro ERR_NOCOMMA
 	ld a,ERRID_NOCOMMA
 	jp ErrorHandler
 #endmacro
 
-ERRID_NODOLLAR = 8
+ERRID_NODOLLAR = 9
 
 #macro ERR_NODOLLAR
 	ld a,ERRID_NODOLLAR
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOLBRACKET = 9
+ERRID_NOLBRACKET = 10
 
 #macro ERR_NOLBRACKET
 	ld a,ERRID_NOLBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 10
+ERRID_NORBRACKET = 11
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 11
+ERRID_NOTREF = 12
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 12
+ERRID_STOP = 13
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 13
+ERRID_SYNTAX = 14
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 14
+ERRID_TODO = 15
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 15
+ERRID_UNKNOWNVAR = 16
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR
