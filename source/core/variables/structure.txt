@@ -18,3 +18,4 @@ Each record is as follows:
 	10..13 	Value of variable 		10..13 	Maximum array element ID (e.g. DIM x(8) this is 8)
 									14..17 	Element #0 (for DIM x(8) there are 9 in total, 0..8)
 
+

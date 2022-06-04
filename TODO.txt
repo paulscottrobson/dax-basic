@@ -1,6 +1,13 @@
 TODO:
 	Variables rest of.
+		- Allocate memory and create record
+		- Python script to analyse memory dump
+		- Searches
+		- Extend testing and bully it.
+
 	$<test> requires DIM (TOP ?)
-Pass:
-	
+	Array code in find.asm (requires DIM)
+
+Notes:	
+	call RESTORE in RUN when READ/DATA/RESTORE working.
 	

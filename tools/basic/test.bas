@@ -1,3 +1,2 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-let c = 12:d = 42
-print c,d
+demo1 = 42

@@ -49,6 +49,12 @@ LanguageStackEnd: 							; as far as the language stack goes.
 StandardIntegers: 							; address of standard A-Z variables. On a 128 byte page.
 		.dw 	0,0
 
+HashTableBase: 								; base of hash tables.
+		.dw 	0,0
+
+HighAllocMemory: 							; first byte of non allocatable memory.
+		.dw 	0,0		
+
 ;
 ;		The empty space is in here. Arrays, Variables and Memory allocated from the bottom up.
 ;
@@ -83,6 +89,19 @@ RandomSeed: 								; random number seeds.
 AllowAutoCreate: 							; autocreate permission flag.
 		.dw 	0
 
+; ***************************************************************************************
+;
+;									Variable Information
+;
+; ***************************************************************************************
+
+VarNameStart: 								; first byte of name
+		.dw 	0,0
+VarHash: 									; name hash value
+		.dw 	0		
+VarHashListPtr: 							; address of the hash list to use.
+		.dw 	0,0
+		
 ; ***************************************************************************************
 ;
 ;										  Buffers

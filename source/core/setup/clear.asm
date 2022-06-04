@@ -31,7 +31,7 @@ _CCFindLow:
 		inc 	hl 							; one past the last $00
 		ld 		(TopMemory),hl 				; save TOP
 		inc 	hl 							; one for luck
-		ld 		(LowAllocMemory),hl
+		ld 		(LowAllocMemory),hl 		; lowest byte allocated, this pointer moves up.
 		;
 		; 	 		Reset the language stack
 		;
@@ -48,16 +48,25 @@ _CCFindLow:
 		add 	hl,de
 		ld 		(StandardIntegers),hl
 		;
-		; 		TODO:Allocate space for, and erase all hash table pointers, 
+		; 		Allocate space for, and erase all hash table pointers, 
 		;
-
+		ld 		de,HashTableSize*4*2 		; bytes required for integer/array hash tables
+_CCFClearHT:
+		dec 	hl 							; clear DE bytes going backwards.
+		ld 		(hl),0
+		dec 	de
+		ld 		a,d
+		or 		e
+		jr 		nz,_CCFClearHT
+		ld 		(HashTableBase),hl 			; save table base
 		;
-		; 		TODO:Seed the RNG incase the seeds were all zero which gives bad results
+		; 		Save highest byte that can be allocate
+		;
+		ld 		(HighAllocMemory),hl 		; set high memory
+		;
+		; 		Seed the RNG incase the seeds were all zero which gives bad results
 		;
 		call 	UnaryRandomInitialise
-		;
-		;		TODO:RESTORE the Data Pointer.
-		;
 		ret
 
 ; ***************************************************************************************

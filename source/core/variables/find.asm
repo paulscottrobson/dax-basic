@@ -48,6 +48,40 @@ FindVariable:
 		;		Not a standard simple variable.
 		;
 _FVNotSimple:
+		call 	VariableInformation 		; get information about the variable.
+		call 	VariableSearchList 			; search the linked list
+		jr 		c,_FVNotFound  				
+		;
+		;		Found variable. Address of record is in HL.
+		;
+_FVExitReference:		
+		ld 		de,10 						; point to the actual data.
+		add 	hl,de 
+		;
+		; 		TODO: Array check code.
+		;
+		ld 		c,XTYPE_INTEGER 			; it's an integer
+		set 	CIsReference,c 				; it's an integer reference in UHL.
+		xor 	a 							; clear carry and return
+		ret
+		;
+		; 		Variable is not found, can we autocreate it ?
+		;
+_FVNotFound:		
+		debug
+
+		ld 		a,(AllowAutoCreate) 		; is auto create on ?
+		or 		a
+		jr 		z,_FVFail
+		ld 		a,(ix+0) 					; not allowed for arrays.
+		cp 		KWD_LPAREN 		
+		jr 		z,_FVFail
+		ld 		hl,4 						; bytes to allocate for data.
+		call 	VariableCreate 				; create a new variable.
+		jr 		_FVExitReference 			; and exit with HL+10 as a reference
+
+_FVFail:
+		ld 		ix,(VarNameStart) 			; restore IX to start of variable name.
 		scf
 		ret
 
