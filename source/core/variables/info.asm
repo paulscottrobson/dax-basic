@@ -28,12 +28,18 @@ _VICalculateHash:
 		cp 		IDENTIFIER_END 				; not an identifier character.
 		jr 		nc,_VIHashDone 				; if so, reached the end.
 		add 	a,b 						; add to hash
+		rlca
+		rlca
+		add 	a,b
 		ld 		b,a 						; update hash
 		inc 	ix 							; next character
 		jr 		_VICalculateHash				
 		;
 _VIHashDone:
 		ld 		a,b 						; write hash byte out
+		;
+		; xor 	a 							; hack to overload a list, put them all one one :)
+		;
 		ld 		(VarHash),a
 		;
 		; 		Calculate the hash table address pointer.

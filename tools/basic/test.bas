@@ -1,5 +1,5 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-demo1 = 429
+demo1 = 429:print demo1
 demo2 = 428
 demo3 = 427
 demo4 = 426
@@ -12,3 +12,4 @@ a1 = 3+12*12
 a12 = 11
 a13 = 4*2
 a21 = -1-2
+print demo1;demo2;demo3;a21

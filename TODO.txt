@@ -1,6 +1,5 @@
 TODO:
 	Variables rest of.
-		- Searches
 		- Extend testing and bully it.
 
 	DIM - fix Python script to dump arrays.
