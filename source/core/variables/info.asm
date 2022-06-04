@@ -28,8 +28,6 @@ _VICalculateHash:
 		cp 		IDENTIFIER_END 				; not an identifier character.
 		jr 		nc,_VIHashDone 				; if so, reached the end.
 		add 	a,b 						; add to hash
-		rrca 								; rotate byte twice right
-		rrca
 		ld 		b,a 						; update hash
 		inc 	ix 							; next character
 		jr 		_VICalculateHash				
@@ -41,12 +39,12 @@ _VIHashDone:
 		; 		Calculate the hash table address pointer.
 		;		
 		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
-		add 	a,a 						; multiply by 4
-		add 	a,a
-		ld 		de,$0000 					; put in DE
-		ld 		e,a
+		ld 		hl,$0000 					; put in HL
+		ld 		l,a
+		add 	hl,hl 						; x 4
+		add 	hl,hl
 		;
-		ld 		hl,HashTableBase 			; add to hash table base.
+		ld 		de,(HashTableBase) 			; add to hash table base.
 		add 	hl,de
 		;
 		ld 		a,(ix+0) 					; followed by a ( ?

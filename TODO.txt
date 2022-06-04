@@ -1,9 +1,9 @@
 TODO:
 	Variables rest of.
-		- Python script to analyse memory dump
 		- Searches
 		- Extend testing and bully it.
 
+	DIM - fix Python script to dump arrays.
 	$<test> requires DIM (TOP ?)
 	Array code in find.asm (requires DIM)
 

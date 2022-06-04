@@ -20,6 +20,7 @@
 LanguageStackSize = 2048 					; bytes allocated to language stack.
 
 HashTableSize = 16 							; 16 pointers for each of 6 types
+											; must be power of 2. 
 
 ; ***************************************************************************************
 ;
