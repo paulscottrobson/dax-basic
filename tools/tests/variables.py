@@ -39,6 +39,15 @@ class BasicIntegerVariable(Variable):
 	def createValue(self):
 		return random.randint(-99999,99999)
 
+class LongNameIntegerVariable(BasicIntegerVariable):
+	def createName(self):
+		s = BasicIntegerVariable.createName(self)
+		v = "0123456789abcdefghijklmnopqrstuvwxyz._"
+		for i in range(0,random.randint(1,5)):
+			s = s + v[random.randint(0,len(v)-1)]
+		return s
+
+
 # *******************************************************************************************
 #
 #							Assignment/variable testing
@@ -50,7 +59,7 @@ class Assignments(TestObject):
 		TestObject.header(self)
 		self.variables = []
 		names = {}
-		while len(self.variables) < 20:
+		while len(self.variables) < 40:
 			v = self.createNewVariable()
 			while v.getName() in names:
 				v = self.createNewVariable()
@@ -59,7 +68,7 @@ class Assignments(TestObject):
 			print(v.changeValue())
 
 	def createNewVariable(self):
-		return BasicIntegerVariable()
+		return LongNameIntegerVariable() if random.randint(0,2) != 0 else BasicIntegerVariable()
 
 	def footer(self):
 		for v in self.variables:

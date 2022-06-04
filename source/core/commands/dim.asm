@@ -1,21 +1,27 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		badcommands.asm
+;		Name : 		dim.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
-;		Date : 		3rd June 2022
+;		Date : 		4th June 2022
 ;		Reviewed :	No
-;		Purpose :	Commands that aren't allowed to be run, e.g. cause SN Error.
+;		Purpose :	Dim command
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
 
-BadCmd_Then: 		;; [then]
-BadCmd_RBracket: 	;; [)]
-BadCmd_Comma: 		;; [,]
-BadCmd_SemiColon: 	;; [;]
-BadCmd_To: 			;; [to]
-		jp 		SyntaxError
+; ***************************************************************************************
+;
+;		DIM command
+;			DIM n(x) 			Creates variable n with x+1 elements 0..x
+;			DIM n x 			Reserves x+1 bytes of memory and sets DIM equal to it
+;								(can be comma chained)
+;			DIM n -ve, not 1 	DIM_Error (Dim -1 allocates 0 bytes so gives lowmemalloc)
+;
+; ***************************************************************************************
+
+Command_DIM: 	;; [dim]
+		debug
 
 ; ***************************************************************************************
 ;

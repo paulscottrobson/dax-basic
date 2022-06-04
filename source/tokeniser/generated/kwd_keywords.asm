@@ -59,24 +59,27 @@ KeywordsSet0:
 	.db	3,"DEF"            ; $00b3
 	.db	4,"PROC"           ; $00b4
 	.db	7,"ENDPROC"        ; $00b5
-	.db	5,"LOCAL"          ; $00b6
-	.db	3,"DIM"            ; $00b7
-	.db	3,"REM"            ; $00b8
-	.db	3,"LET"            ; $00b9
-	.db	3,"VDU"            ; $00ba
-	.db	5,"PRINT"          ; $00bb
-	.db	4,"LOAD"           ; $00bc
-	.db	4,"SAVE"           ; $00bd
-	.db	4,"LIST"           ; $00be
-	.db	3,"NEW"            ; $00bf
-	.db	3,"RUN"            ; $00c0
-	.db	4,"READ"           ; $00c1
-	.db	4,"DATA"           ; $00c2
-	.db	7,"RESTORE"        ; $00c3
-	.db	6,"ASSERT"         ; $00c4
-	.db	5,"CLEAR"          ; $00c5
-	.db	3,"END"            ; $00c6
-	.db	4,"STOP"           ; $00c7
+	.db	5,"GOSUB"          ; $00b6
+	.db	6,"RETURN"         ; $00b7
+	.db	4,"GOTO"           ; $00b8
+	.db	5,"LOCAL"          ; $00b9
+	.db	3,"DIM"            ; $00ba
+	.db	3,"REM"            ; $00bb
+	.db	3,"LET"            ; $00bc
+	.db	3,"VDU"            ; $00bd
+	.db	5,"PRINT"          ; $00be
+	.db	4,"LOAD"           ; $00bf
+	.db	4,"SAVE"           ; $00c0
+	.db	4,"LIST"           ; $00c1
+	.db	3,"NEW"            ; $00c2
+	.db	3,"RUN"            ; $00c3
+	.db	4,"READ"           ; $00c4
+	.db	4,"DATA"           ; $00c5
+	.db	7,"RESTORE"        ; $00c6
+	.db	6,"ASSERT"         ; $00c7
+	.db	5,"CLEAR"          ; $00c8
+	.db	3,"END"            ; $00c9
+	.db	4,"STOP"           ; $00ca
 	.db	0
 ;
 ;	Keywords for set 1

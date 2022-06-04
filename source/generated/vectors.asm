@@ -53,27 +53,30 @@ VectorsSet0:
 	addr(BadCmd_To)                  ; $00b0 to
 	addr(Unimplemented)              ; $00b1 step
 	addr(Unimplemented)              ; $00b2 next
-	addr(BadCmd_Defproc)             ; $00b3 def
+	addr(Unimplemented)              ; $00b3 def
 	addr(Unimplemented)              ; $00b4 proc
 	addr(Unimplemented)              ; $00b5 endproc
-	addr(Unimplemented)              ; $00b6 local
-	addr(Unimplemented)              ; $00b7 dim
-	addr(Command_REM)                ; $00b8 rem
-	addr(Command_LET)                ; $00b9 let
-	addr(Unimplemented)              ; $00ba vdu
-	addr(Command_PRINT)              ; $00bb print
-	addr(Unimplemented)              ; $00bc load
-	addr(Unimplemented)              ; $00bd save
-	addr(Unimplemented)              ; $00be list
-	addr(Command_NEW)                ; $00bf new
-	addr(Command_RUN)                ; $00c0 run
-	addr(Unimplemented)              ; $00c1 read
-	addr(Unimplemented)              ; $00c2 data
-	addr(Unimplemented)              ; $00c3 restore
-	addr(Command_ASSERT)             ; $00c4 assert
-	addr(Command_CLEAR)              ; $00c5 clear
-	addr(Command_END)                ; $00c6 end
-	addr(Command_STOP)               ; $00c7 stop
+	addr(Unimplemented)              ; $00b6 gosub
+	addr(Unimplemented)              ; $00b7 return
+	addr(Unimplemented)              ; $00b8 goto
+	addr(Unimplemented)              ; $00b9 local
+	addr(Command_DIM)                ; $00ba dim
+	addr(Command_REM)                ; $00bb rem
+	addr(Command_LET)                ; $00bc let
+	addr(Unimplemented)              ; $00bd vdu
+	addr(Command_PRINT)              ; $00be print
+	addr(Unimplemented)              ; $00bf load
+	addr(Unimplemented)              ; $00c0 save
+	addr(Unimplemented)              ; $00c1 list
+	addr(Command_NEW)                ; $00c2 new
+	addr(Command_RUN)                ; $00c3 run
+	addr(Unimplemented)              ; $00c4 read
+	addr(Unimplemented)              ; $00c5 data
+	addr(Unimplemented)              ; $00c6 restore
+	addr(Command_ASSERT)             ; $00c7 assert
+	addr(Command_CLEAR)              ; $00c8 clear
+	addr(Command_END)                ; $00c9 end
+	addr(Command_STOP)               ; $00ca stop
 ;
 ;	Vectors for set 1
 ;

@@ -44,8 +44,8 @@
 		if 		then 	else
 		for 	to 		step 	next
 		def 	proc 	endproc
+		gosub 	return 	goto
 		local 	dim 	rem 	let 	vdu 	print 	
-
 	 	load	save 	list 	new 	run 	read 	data 	restore	
 	 	assert 	clear 	end 	stop
 

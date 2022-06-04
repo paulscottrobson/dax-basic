@@ -1,11 +1,18 @@
 TODO:
-	Variables rest of.
-		- Extend testing and bully it.
-
 	DIM - fix Python script to dump arrays.
+	Array code in find.asm (requires DIM) and add to variables (or maybe a new script ?)
 	$<test> requires DIM (TOP ?)
-	Array code in find.asm (requires DIM)
 
+	GOTO .. 
+	Implement Return Stack.
+	GOSUB .. RETURN
+	REPEAT..UNTIL
+	IF...THEN/GOTO... ELSE
+	FOR..TO..STEP..NEXT
+	VDU (with semicolons)
+	READ/DATA/RESTORE
+	DEF PROC ... ENDPROC / LOCAL
+	LIST
 Notes:	
 	call RESTORE in RUN when READ/DATA/RESTORE working.
 	

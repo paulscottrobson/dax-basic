@@ -145,6 +145,7 @@ class Keywords(object):
 if __name__ == "__main__":
 	kwd = Keywords()
 	stem = "../source/generated/"
+	tstem = "../source/tokeniser/generated/"
 	kwd.generateConstants(stem+"kwd_constants.inc")
-	kwd.generateKeywordTables(stem+"kwd_keywords.asm")
+	kwd.generateKeywordTables(tstem+"kwd_keywords.asm")
 	kwd.generateMiscTables(stem+"kwd_misc.asm")	
