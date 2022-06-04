@@ -21,7 +21,6 @@
 ; ***************************************************************************************
 
 FindVariable:
-		debug
 		ld 		a,(ix+0)					; get first character
 		cp 		IDENTIFIER_END 				; check it is an identifier reference.
 		jp 		nc,SyntaxError 		
@@ -29,7 +28,11 @@ FindVariable:
 		ld 		a,(ix+1) 					; look at next character, if that is an
 		cp 		IDENTIFIER_END 				; integer_type then this is a single letter
 		jr 		c,_FVNotSimple 				; integer.
-
+		cp 		KWD_LPAREN 					; could also be a(
+		jr 		z,_FVNotSimple
+		;
+		; 		Code for A-Z fixed integers.
+		;
 		ld 		hl,(StandardIntegers) 		; point UHL to standard ints on 128 byte boundary
 		ld 		a,(ix+0) 					; get the identifier ID
 		add 	a,a 						; x4
@@ -38,8 +41,7 @@ FindVariable:
 		ld 		l,a 						; UHL now points to the variable.
 		ld 		c,XTYPE_INTEGER 			; it's an integer
 		set 	CIsReference,c 				; it's an integer reference in UHL.
-		inc 	ix 							; skip over identifier marker
-		inc 	ix
+		inc 	ix 							; skip over identifier 
 		xor 	a 							; clear carry and return
 		ret
 		;

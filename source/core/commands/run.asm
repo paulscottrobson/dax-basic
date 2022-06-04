@@ -21,6 +21,8 @@ Command_RUN: 	;; [run]
 
 		ld 		ix,(CodeAddress) 			; start from this line, e.g. the first line.
 		ld 		(RunStackPtr),sp 			; save Z80 SP
+		xor 	a
+		ld 		(AllowAutoCreate),a 		; clear the flag allowing auto-create of simple variables.
 		;
 		; 		New line at IX.
 		;
@@ -56,12 +58,14 @@ _CRDoCommand:
 		; 		Do CALL (HL)
 		;
 		;
-		;		Check for alternate lets !x ?x which are all binary/unary operators
+		;		Check for alternate lets $x !x ?x which are all binary and/or unary operators
 		;		
 _CRAlternateLets:		
 		cp 		KWD_PLING
 		jr 		z,_CRAssignmentLet
 		cp 		KWD_QMARK
+		jr 		z,_CRAssignmentLet
+		cp 		KWD_DOLLAR
 		jr 		z,_CRAssignmentLet
 		jp 		SyntaxError
 		;
@@ -71,8 +75,7 @@ _CRAssignmentHandler:
 		cp 		IDENTIFIER_END 				; check what follows is an identifier.
 		jp 		nc,SyntaxError
 _CRAssignmentLet:		
-		ERR_TODO
-		;call	Command_LET
+		call	Command_LET 				; do LET.
 		jp 		_CRNewCommand
 
 ; ***************************************************************************************

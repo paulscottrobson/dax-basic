@@ -30,10 +30,10 @@
 ;
 ; ***************************************************************************************
 
-UnaryInt32True:	
+UnaryInt32True:	;; [true]
 		ld 		a,255
 		jr 		_Int32Logical
-UnaryInt32False: 
+UnaryInt32False: ;; [false]
 		xor 	a
 _Int32Logical:
 		ld 		l,a 						; copy A to H L H' L'

@@ -80,7 +80,10 @@ AConvert: 									; used for address conversions.
 RandomSeed: 								; random number seeds.
 		.block 	16
 
-s; ***************************************************************************************
+AllowAutoCreate: 							; autocreate permission flag.
+		.dw 	0
+
+; ***************************************************************************************
 ;
 ;										  Buffers
 ;

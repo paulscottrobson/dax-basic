@@ -1,6 +1,6 @@
 TODO:
-	Variables A-Z
-	LET (also allow for LET $A and $A) and write test script.
+	LET test script.
+	$assignment.
 	Variables rest of.
 
 Pass:
