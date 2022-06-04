@@ -31,3 +31,6 @@ trun: ti84
 	
 crun: ti84
 	tilp --no-gui build$(S)ti84$(S)basic.8xp
+
+dump:
+	python ..$(S)tools$(S)dumpvars.py

@@ -55,7 +55,7 @@ _FVNotSimple:
 		;		Found variable. Address of record is in HL.
 		;
 _FVExitReference:		
-		ld 		de,10 						; point to the actual data.
+		ld 		de,9 						; point to the actual data.
 		add 	hl,de 
 		;
 		; 		TODO: Array check code.
@@ -68,8 +68,6 @@ _FVExitReference:
 		; 		Variable is not found, can we autocreate it ?
 		;
 _FVNotFound:		
-		debug
-
 		ld 		a,(AllowAutoCreate) 		; is auto create on ?
 		or 		a
 		jr 		z,_FVFail
@@ -78,7 +76,7 @@ _FVNotFound:
 		jr 		z,_FVFail
 		ld 		hl,4 						; bytes to allocate for data.
 		call 	VariableCreate 				; create a new variable.
-		jr 		_FVExitReference 			; and exit with HL+10 as a reference
+		jr 		_FVExitReference 			; and exit with HL+9 as a reference
 
 _FVFail:
 		ld 		ix,(VarNameStart) 			; restore IX to start of variable name.

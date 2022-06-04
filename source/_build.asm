@@ -44,6 +44,7 @@
 #include "core/expression/unary/time.asm"
 #include "core/expression/unary/top.asm"
 #include "core/expression/unary/val.asm"
+#include "core/setup/allocate.asm"
 #include "core/setup/clear.asm"
 #include "core/setup/instance.asm"
 #include "core/setup/new.asm"
