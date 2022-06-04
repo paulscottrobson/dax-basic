@@ -1,0 +1,20 @@
+Variables structure
+===================
+
+Only supports single dimension arrays.
+
+2 x HashTableSize arrays of 4 byte address records (2 for Z80,3 for eZ80)
+	- 1 for integers
+	- 1 for arrays
+
+Each points to a linked list terminating in $0 - the hash table address itself may be $0
+
+Each record is as follows:
+
+	0 		Hash of variable name (not including array parenthesis)
+	1..4 	Pointer to next record in variable chain, or 0.
+	5..9 	Address of identifier in BASIC code.
+
+	10..13 	Value of variable 		10..13 	Maximum array element ID (e.g. DIM x(8) this is 8)
+									14..17 	Element #0 (for DIM x(8) there are 9 in total, 0..8)
+

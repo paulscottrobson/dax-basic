@@ -27,6 +27,10 @@ brackets: common
 	python tests$(S)brackets.py >$(TESTCODE)
 	python makeprogram.py  $(TESTCODE)
 	
+variables: common
+	python tests$(S)variables.py >$(TESTCODE)
+	python makeprogram.py  $(TESTCODE)
+	
 common:
 	python errorgen.py en
 	python keywords.py 

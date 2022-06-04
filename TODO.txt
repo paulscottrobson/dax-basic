@@ -1,8 +1,6 @@
 TODO:
-	LET test script.
-	$assignment.
 	Variables rest of.
-
+	$<test> requires DIM (TOP ?)
 Pass:
 	
 	

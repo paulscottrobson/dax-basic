@@ -56,3 +56,5 @@ class TestObject(object):
 		roundup = 1000
 		return int(r * roundup+0.5)/roundup
 
+	def getOperatorList(self):
+		return "."
