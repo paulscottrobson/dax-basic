@@ -17,6 +17,10 @@
 ; ***************************************************************************************
 
 AllocateBytes:
+		ex 		de,hl 						; make HL 16 bit
+		ld 		hl,$000000
+		ld 		h,d
+		ld 		l,e
 		ld 		de,(LowAllocMemory) 		; lowest free byte
 		push 	de 							; save on stack
 		add 	hl,de 						; HL is the new highest

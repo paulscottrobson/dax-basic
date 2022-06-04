@@ -21,7 +21,6 @@
 ; ***************************************************************************************
 
 Command_DIM: 	;; [dim]
-		debug
 		;
 		; 		Skip the DIM identifier - we treat the two differently so
 		; 		we cannot just get a l-value here.
@@ -56,6 +55,51 @@ _CDError:
 
 ; ***************************************************************************************
 ;
+;			Allocate memory to variable. Error if outside range -1 .. $FFFF
+;			Allocates one extra byte so DIM x1 68 actually allocates 69 bytes :)
+;
+; ***************************************************************************************
+
+DimensionAllocate:
+		push 	de 							; save start on stack
+		ex 		(sp),ix 					; IX to TOS, start -> IX
+		ld 		a,1 						; allow creation of the variable if required
+		ld 		(AllowAutoCreate),a
+		call 	FindVariable 				; find/create the variable appropriately.
+		bit 	CIsReference,c 				; check reference, and integer
+		jr 		z,_CDError
+		bit 	CIsString,c
+		jr 		nz,_CDError
+		pop 	ix 							; get address of constant back into IX
+		push 	hl 							; save address of variable reference on stack.
+		ld  	a,KWD_LSQPAREN
+		call 	CheckNextA 					; check for [
+		call 	EvaluateInteger 			; get the number of bytes to allocate into HL
+		ld  	a,KWD_RSQPAREN
+		call 	CheckNextA 					; check for ]
+		inc 	hl 							; increment HL,HL'
+		ld 		a,h
+		or 		l
+		jr 		nz,_DANoCarry
+		exx
+		inc 	hl
+		exx
+_DANoCarry:
+		exx 								; check if HL' is zero
+		ld 		a,h
+		or 		l
+		exx
+		jr 		nz,_CDError
+		call 	AllocateBytes 				; allocate that much memory.
+		ex 		de,hl 						; put address into UDE
+		pop 	hl 							; this is where it goes.
+		st_de_hl_ind_incr 					; write DE at HL and increment by 4
+		xor 	a 							; autocreate off
+		ld 		(AllowAutoCreate),a
+		ret
+
+; ***************************************************************************************
+;
 ;		Dimension array variable. Must not already exist, followed by one dimension
 ; 		which is the upper index, so n+1 memory locations.
 ;
@@ -64,15 +108,6 @@ _CDError:
 DimensionArray:
 		ERR_TODO
 
-; ***************************************************************************************
-;
-;			Allocate memory to variable. Error if outside range -1 .. $FFFF
-;			Allocates one extra byte so DIM x1 68 actually allocates 69 bytes :)
-;
-; ***************************************************************************************
-
-DimensionAllocate:
-		ERR_TODO
 
 ; ***************************************************************************************
 ;

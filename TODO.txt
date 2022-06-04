@@ -1,9 +1,10 @@
 TODO:
 	DIM 
-		- write DIM memory
 		- write DIM array.
 		- fix Python script to dump arrays.
 		
+	Fix STR$ and PRINT to output hex ?
+	
 	Array code in find.asm (requires DIM) and add to variables (or maybe a new script ?)
 	$<test> requires DIM (TOP ?)
 
@@ -17,6 +18,7 @@ TODO:
 	READ/DATA/RESTORE
 	DEF PROC ... ENDPROC / LOCAL
 	LIST
+
 Notes:	
 	call RESTORE in RUN when READ/DATA/RESTORE working.
-	
+
