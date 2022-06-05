@@ -13,6 +13,7 @@
 BadCmd_Then: 		;; [then]
 BadCmd_RBracket: 	;; [)]
 BadCmd_Comma: 		;; [,]
+BadCmd_Comma: 		;; [~]
 BadCmd_SemiColon: 	;; [;]
 BadCmd_To: 			;; [to]
 		jp 		SyntaxError
