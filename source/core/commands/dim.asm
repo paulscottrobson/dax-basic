@@ -12,11 +12,12 @@
 
 ; ***************************************************************************************
 ;
-;		DIM command
+;		DIM command (note syntax change for memory allocation)
+;	
 ;			DIM n(x) 			Creates variable n with x+1 elements 0..x
-;			DIM n x 			Reserves x+1 bytes of memory and sets DIM equal to it
+;			DIM n[x] 			Reserves x+1 bytes of memory and sets DIM equal to it
 ;								(can be comma chained)
-;			DIM n -ve, not 1 	DIM_Error (Dim -1 allocates 0 bytes so gives lowmemalloc)
+;			DIM n[-ve, not -1] 	DIM_Error (Dim -1 allocates 0 bytes so gives lowmemalloc)
 ;
 ; ***************************************************************************************
 
@@ -106,7 +107,38 @@ _DANoCarry:
 ; ***************************************************************************************
 
 DimensionArray:
-		ERR_TODO
+		push 	de 							; save start on stack.
+		;
+		call 	EvaluateInteger 			; get dimensions of array, max 1k.
+		ld 		a,h 						; max out at $03FF
+		and 	$FC
+		exx
+		or 		h
+		or 		l
+		exx
+		jr 		nz,_CDError
+		;
+		ex 		(sp),ix 					; end position on stack, start in IX.
+		push 	hl 							; save dimension size on stack.		
+		;
+		call 	VariableInformation 		; get information about this array
+		call 	VariableSearchList 			; look to see if already present.
+		jr 		nc,_CDError 				; not found.
+		;
+		pop 	hl 							; get dimension size back
+		push 	hl
+		inc 	hl 							; add one for zeroth array element
+		inc 	hl 							; add one for size word.
+		add 	hl,hl 						; x 4 = memory required
+		add 	hl,hl
+		call 	VariableCreate 				; create the array, completely blank.
+		;
+		pop 	de 							; get last index into DE
+		ld 		bc,9 						; point HL to array offset 9 which is the array size
+		add 	hl,bc
+		st_de_hl_ind_incr 					; write DE at HL and increment by 4
+		pop 	ix 							; restore end position
+		ret		
 
 
 ; ***************************************************************************************

@@ -1,10 +1,5 @@
 TODO:
-	DIM 
-		- write DIM array.
-		- fix Python script to dump arrays.
-		
 	Fix STR$ and PRINT to output hex ?
-	
 	Array code in find.asm (requires DIM) and add to variables (or maybe a new script ?)
 	$<test> requires DIM (TOP ?)
 

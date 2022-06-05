@@ -19,9 +19,9 @@
 
 VariableCreate:		
 		;
-		;		Work out bytes to allocate (HL+10) and allocate it
+		;		Work out bytes to allocate (HL+9) and allocate it
 		;
-		ld 		de,9 						; add 10 for the first collection of bytes.
+		ld 		de,9 						; add 9 for the first collection of bytes.
 		add 	hl,de 						; actual # of bytes required.
 		push 	hl 							; save count.
 		call 	AllocateBytes 				; claim that many bytes
