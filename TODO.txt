@@ -1,8 +1,9 @@
 TODO:
 	Fix STR$ and PRINT to output hex ?
-	Array code in find.asm (requires DIM) and add to variables (or maybe a new script ?)
+		- STR$~(x) does it in hex
+		- PRINT ~ switches to hex, comma or semicolon switches back to decimal.
+	Array code in find.asm (requires DIM) and add to variables.
 	$<test> requires DIM (TOP ?)
-
 	GOTO .. 
 	Implement Return Stack.
 	GOSUB .. RETURN

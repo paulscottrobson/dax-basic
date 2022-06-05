@@ -123,7 +123,7 @@ DimensionArray:
 		;
 		call 	VariableInformation 		; get information about this array
 		call 	VariableSearchList 			; look to see if already present.
-		jr 		nc,_CDError 				; not found.
+		jr 		nc,_CDError 				; found, then error, can't redimension
 		;
 		pop 	hl 							; get dimension size back
 		push 	hl
