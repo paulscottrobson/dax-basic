@@ -90,6 +90,9 @@ RandomSeed: 								; random number seeds.
 AllowAutoCreate: 							; autocreate permission flag.
 		.dw 	0
 
+PrintBase: 									; current base for PRINT
+		.dw 	0 
+		
 ; ***************************************************************************************
 ;
 ;									Variable Information

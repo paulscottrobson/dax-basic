@@ -38,7 +38,7 @@
 	time	top		val		true 	false
 	
 ::FIRST_NORMAL
-		) 		, 		: 		; 		' 		[		]	
+		) 		, 		: 		; 		' 		[		]	~
 
 		repeat 	until
 		if 		then 	else

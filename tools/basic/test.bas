@@ -1,4 +1,5 @@
 rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
+print ~42"---";42
 print z
 dim z[-1]:print z
 dim c(4),test(8)

@@ -83,7 +83,7 @@ class Keywords(object):
 		s = s.replace(";","SEMICOLON").replace(":","COLON").replace("@","AT").replace("'","SQUOTE").replace("$","DOLLAR")
 		s = s.replace("*","ASTERISK").replace("/","SLASH").replace("+","PLUS").replace("-","MINUS").replace("=","EQUALS")
 		s = s.replace(">","GREATER").replace("<","LESS").replace("&","AMPERSAND").replace("[","LSQPAREN").replace("]","RSQPAREN")
-		s = s.replace("^","HAT").replace("","").replace("","").replace("","").replace("","")
+		s = s.replace("^","HAT").replace("~","TILDE").replace("","").replace("","").replace("","")
 		s = s.replace("","").replace("","").replace("","").replace("","").replace("","")
 		assert re.match("^[A-Z0-9]+$",s) is not None,"Bad name "+s
 		return s.upper()
