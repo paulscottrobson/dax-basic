@@ -1,5 +1,4 @@
 TODO:
-	$<test> requires DIM (TOP ?)
 	GOTO .. 
 	GOSUB .. RETURN
 	REPEAT..UNTIL
@@ -12,4 +11,3 @@ TODO:
 
 Notes:	
 	call RESTORE in RUN when READ/DATA/RESTORE working.
-	REM allows no operand.

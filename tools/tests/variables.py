@@ -52,6 +52,19 @@ class LongNameIntegerVariable(BasicIntegerVariable):
 			s = s + v[random.randint(0,len(v)-1)]
 		return self.createName() if s.startswith("ar") else s
 
+class StringMemoryVariable(LongNameIntegerVariable):
+	def __init__(self):
+		self.space = random.randint(5,12)
+		LongNameIntegerVariable.__init__(self)
+		print("dim {0}[{1}]".format(self.getName(),self.space+1))
+		self.name = "$"+self.name
+	#
+	def createValue(self):
+		return "".join([chr(random.randint(48,110)) for i in range(0,random.randint(0,self.space))])
+	#
+	def getDisplayValue(self):
+		return '"'+self.getValue()+'"'
+
 class ArrayVariable(LongNameIntegerVariable):
 	def __init__(self):
 		Variable.__init__(self)
@@ -92,6 +105,8 @@ class Assignments(TestObject):
 	def createNewVariable(self):
 		if random.randint(0,6) == 0:
 			return ArrayVariable()
+		if random.randint(0,4) == 0:
+			return StringMemoryVariable()
 		if random.randint(0,2) != 0:
 			return LongNameIntegerVariable() 
 		return BasicIntegerVariable()

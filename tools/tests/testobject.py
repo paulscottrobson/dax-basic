@@ -36,6 +36,7 @@ class TestObject(object):
 	def create(self):
 		self.header()
 		count = 200
+		#count = 3
 		while count > 0:
 			op = self.opList[random.randint(0,len(self.opList)-1)]
 			if self.make(op):

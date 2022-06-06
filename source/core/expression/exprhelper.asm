@@ -81,7 +81,7 @@ Evaluate8BitInteger:
 ;
 ; ***************************************************************************************
 
-EvaluateStringOnly:
+EvaluateString:
 		call 	EvaluateValue
 		bit 	CIsString,c 				; check string bit.
 		jp 		z,TypeMismatch 				; clear, type mismatch.

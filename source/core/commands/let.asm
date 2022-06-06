@@ -50,7 +50,20 @@ _CLNoAuto:
 		; 		String assignment code.
 		;
 _CLString:
-		debug
+		call 	EvaluateStringTerm  		; so we get $(x+4) = 2 etc.
+		push 	hl 							; save target expression
+		ld 		a,KWD_EQUALS 				; check = follows
+		call 	CheckNextA
+		call 	EvaluateString 				; get the thing to copy
+		pop 	de 							; target in DE.
+_CLCopy:
+		ld 		a,(hl) 						; copy (HL) to (DE)	
+		ld 		(de),a
+		inc 	hl
+		inc 	de
+		cp 		$20 						; until control character
+		jr 		nc,_CLCopy
+		ret
 
 ; ***************************************************************************************
 ;
