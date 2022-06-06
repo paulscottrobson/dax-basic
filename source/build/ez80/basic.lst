@@ -461,76 +461,83 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/messageid.inc"
    50 00:0000             	jp ErrorHandler
    51 00:0000             #endmacro
    52 00:0000 -  -  -  -  
-   53 00:0000 -  -  -  -  ERRID_MEMORY = 7
+   53 00:0000 -  -  -  -  ERRID_INDEX = 7
    54 00:0000 -  -  -  -  
-   55 00:0000 -  -  -  -  #macro ERR_MEMORY
-   56 00:0000             	ld a,ERRID_MEMORY
+   55 00:0000 -  -  -  -  #macro ERR_INDEX
+   56 00:0000             	ld a,ERRID_INDEX
    57 00:0000             	jp ErrorHandler
    58 00:0000             #endmacro
    59 00:0000 -  -  -  -  
-   60 00:0000 -  -  -  -  ERRID_NOCOMMA = 8
+   60 00:0000 -  -  -  -  ERRID_MEMORY = 8
    61 00:0000 -  -  -  -  
-   62 00:0000 -  -  -  -  #macro ERR_NOCOMMA
-   63 00:0000             	ld a,ERRID_NOCOMMA
+   62 00:0000 -  -  -  -  #macro ERR_MEMORY
+   63 00:0000             	ld a,ERRID_MEMORY
    64 00:0000             	jp ErrorHandler
    65 00:0000             #endmacro
    66 00:0000 -  -  -  -  
-   67 00:0000 -  -  -  -  ERRID_NODOLLAR = 9
+   67 00:0000 -  -  -  -  ERRID_NOCOMMA = 9
    68 00:0000 -  -  -  -  
-   69 00:0000 -  -  -  -  #macro ERR_NODOLLAR
-   70 00:0000             	ld a,ERRID_NODOLLAR
+   69 00:0000 -  -  -  -  #macro ERR_NOCOMMA
+   70 00:0000             	ld a,ERRID_NOCOMMA
    71 00:0000             	jp ErrorHandler
    72 00:0000             #endmacro
    73 00:0000 -  -  -  -  
-   74 00:0000 -  -  -  -  ERRID_NOLBRACKET = 10
+   74 00:0000 -  -  -  -  ERRID_NODOLLAR = 10
    75 00:0000 -  -  -  -  
-   76 00:0000 -  -  -  -  #macro ERR_NOLBRACKET
-   77 00:0000             	ld a,ERRID_NOLBRACKET
+   76 00:0000 -  -  -  -  #macro ERR_NODOLLAR
+   77 00:0000             	ld a,ERRID_NODOLLAR
    78 00:0000             	jp ErrorHandler
    79 00:0000             #endmacro
    80 00:0000 -  -  -  -  
-   81 00:0000 -  -  -  -  ERRID_NORBRACKET = 11
+   81 00:0000 -  -  -  -  ERRID_NOLBRACKET = 11
    82 00:0000 -  -  -  -  
-   83 00:0000 -  -  -  -  #macro ERR_NORBRACKET
-   84 00:0000             	ld a,ERRID_NORBRACKET
+   83 00:0000 -  -  -  -  #macro ERR_NOLBRACKET
+   84 00:0000             	ld a,ERRID_NOLBRACKET
    85 00:0000             	jp ErrorHandler
    86 00:0000             #endmacro
    87 00:0000 -  -  -  -  
-   88 00:0000 -  -  -  -  ERRID_NOTREF = 12
+   88 00:0000 -  -  -  -  ERRID_NORBRACKET = 12
    89 00:0000 -  -  -  -  
-   90 00:0000 -  -  -  -  #macro ERR_NOTREF
-   91 00:0000             	ld a,ERRID_NOTREF
+   90 00:0000 -  -  -  -  #macro ERR_NORBRACKET
+   91 00:0000             	ld a,ERRID_NORBRACKET
    92 00:0000             	jp ErrorHandler
    93 00:0000             #endmacro
    94 00:0000 -  -  -  -  
-   95 00:0000 -  -  -  -  ERRID_STOP = 13
+   95 00:0000 -  -  -  -  ERRID_NOTREF = 13
    96 00:0000 -  -  -  -  
-   97 00:0000 -  -  -  -  #macro ERR_STOP
-   98 00:0000             	ld a,ERRID_STOP
+   97 00:0000 -  -  -  -  #macro ERR_NOTREF
+   98 00:0000             	ld a,ERRID_NOTREF
    99 00:0000             	jp ErrorHandler
   100 00:0000             #endmacro
   101 00:0000 -  -  -  -  
-  102 00:0000 -  -  -  -  ERRID_SYNTAX = 14
+  102 00:0000 -  -  -  -  ERRID_STOP = 14
   103 00:0000 -  -  -  -  
-  104 00:0000 -  -  -  -  #macro ERR_SYNTAX
-  105 00:0000             	ld a,ERRID_SYNTAX
+  104 00:0000 -  -  -  -  #macro ERR_STOP
+  105 00:0000             	ld a,ERRID_STOP
   106 00:0000             	jp ErrorHandler
   107 00:0000             #endmacro
   108 00:0000 -  -  -  -  
-  109 00:0000 -  -  -  -  ERRID_TODO = 15
+  109 00:0000 -  -  -  -  ERRID_SYNTAX = 15
   110 00:0000 -  -  -  -  
-  111 00:0000 -  -  -  -  #macro ERR_TODO
-  112 00:0000             	ld a,ERRID_TODO
+  111 00:0000 -  -  -  -  #macro ERR_SYNTAX
+  112 00:0000             	ld a,ERRID_SYNTAX
   113 00:0000             	jp ErrorHandler
   114 00:0000             #endmacro
   115 00:0000 -  -  -  -  
-  116 00:0000 -  -  -  -  ERRID_UNKNOWNVAR = 16
+  116 00:0000 -  -  -  -  ERRID_TODO = 16
   117 00:0000 -  -  -  -  
-  118 00:0000 -  -  -  -  #macro ERR_UNKNOWNVAR
-  119 00:0000             	ld a,ERRID_UNKNOWNVAR
+  118 00:0000 -  -  -  -  #macro ERR_TODO
+  119 00:0000             	ld a,ERRID_TODO
   120 00:0000             	jp ErrorHandler
   121 00:0000             #endmacro
   122 00:0000 -  -  -  -  
+  123 00:0000 -  -  -  -  ERRID_UNKNOWNVAR = 17
+  124 00:0000 -  -  -  -  
+  125 00:0000 -  -  -  -  #macro ERR_UNKNOWNVAR
+  126 00:0000             	ld a,ERRID_UNKNOWNVAR
+  127 00:0000             	jp ErrorHandler
+  128 00:0000             #endmacro
+  129 00:0000 -  -  -  -  
 Listing for file "_build.asm"
    10 00:0000 -  -  -  -  #include "int32/zmacros.inc"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/zmacros.inc"
@@ -652,43 +659,44 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    36 00:0000             
    37 00:0000             #ifdef AQUARIUS
    38 00:0000             .org 	$4000
-   39 00:0000             		ld 		sp,$BFFF
-   40 00:0000             #endif
-   41 00:0000             
-   42 00:0000             #endif
-   43 00:0000 CD F0 0E 00 		call 	SYSInitialise
-   44 00:0004 11 00 10 00 		ld 		de,TestInstance
-   45 00:0008 21 3B 20 00 		ld 		hl,EndTestInstance
-   46 00:000C CD E2 08 00 		call 	SetCurrentInstance
-   47 00:0010 -  -  -  -  
-   48 00:0010 3E C3 -  -  		ld 		a,$C3 				; the code for JP
-   49 00:0012 32 60 00 00 		ld 		(JumpCode),a 		; so we can do a CALL indirect.
-   50 00:0016 -  -  -  -  		
-   51 00:0016 C3 9B 02 00 		jp 		Command_RUN
-   52 00:001A -  -  -  -  
-   53 00:001A -  -  -  -  WarmStart:		
-   54 00:001A 3E 2A -  -  		ld 		a,'*'
-   55 00:001C CD F2 0E 00 		call 	SYSPrintChar
-   56 00:0020 CD F1 0E 00 		call 	SYSTerminate
-   57 00:0024 -  -  -  -  
-   58 00:0024 -  -  -  -  Unimplemented:
-   59 00:0024 3E 05 C3 58 
+   39 00:0000             		ld 		hl,StandardIntegers 		; allows dumpvars to find this.
+   40 00:0000             		ld 		sp,$BFFF
+   41 00:0000             #endif
+   42 00:0000             
+   43 00:0000             #endif
+   44 00:0000 CD 04 0F 00 		call 	SYSInitialise
+   45 00:0004 11 00 10 00 		ld 		de,TestInstance
+   46 00:0008 21 7B 23 00 		ld 		hl,EndTestInstance
+   47 00:000C CD E2 08 00 		call 	SetCurrentInstance
+   48 00:0010 -  -  -  -  
+   49 00:0010 3E C3 -  -  		ld 		a,$C3 				; the code for JP
+   50 00:0012 32 60 00 00 		ld 		(JumpCode),a 		; so we can do a CALL indirect.
+   51 00:0016 -  -  -  -  		
+   52 00:0016 C3 9B 02 00 		jp 		Command_RUN
+   53 00:001A -  -  -  -  
+   54 00:001A -  -  -  -  WarmStart:		
+   55 00:001A 3E 2A -  -  		ld 		a,'*'
+   56 00:001C CD 06 0F 00 		call 	SYSPrintChar
+   57 00:0020 CD 05 0F 00 		call 	SYSTerminate
+   58 00:0024 -  -  -  -  
+   59 00:0024 -  -  -  -  Unimplemented:
+   60 00:0024 3E 05 C3 58 
               03 00 -  -  		ERR_DISABLED
 Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
-   60 00:002A -  -  -  -  Int32DivZeroHandler:
-   61 00:002A 3E 06 C3 58 
+   61 00:002A -  -  -  -  Int32DivZeroHandler:
+   62 00:002A 3E 06 C3 58 
               03 00 -  -  		ERR_DIVZERO
-   62 00:0030 -  -  -  -  
-   63 00:0030 -  -  -  -  ; ***************************************************************************************
-   64 00:0030 -  -  -  -  ;
-   65 00:0030 -  -  -  -  ;									Changes and Updates
-   66 00:0030 -  -  -  -  ;
-   67 00:0030 -  -  -  -  ; ***************************************************************************************
-   68 00:0030 -  -  -  -  ;
-   69 00:0030 -  -  -  -  ;		Date			Notes
-   70 00:0030 -  -  -  -  ;		==== 			=====
-   71 00:0030 -  -  -  -  ;
-   72 00:0030 -  -  -  -  ; ***************************************************************************************
+   63 00:0030 -  -  -  -  
+   64 00:0030 -  -  -  -  ; ***************************************************************************************
+   65 00:0030 -  -  -  -  ;
+   66 00:0030 -  -  -  -  ;									Changes and Updates
+   67 00:0030 -  -  -  -  ;
+   68 00:0030 -  -  -  -  ; ***************************************************************************************
+   69 00:0030 -  -  -  -  ;
+   70 00:0030 -  -  -  -  ;		Date			Notes
+   71 00:0030 -  -  -  -  ;		==== 			=====
+   72 00:0030 -  -  -  -  ;
+   73 00:0030 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
    12 00:0030 -  -  -  -  #include "core/01data.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/01data.asm"
@@ -1085,8 +1093,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
   121 00:017C DD E3 -  -  		ex 		(sp),ix 					; end position on stack, start in IX.
   122 00:017E E5 -  -  -  		push 	hl 							; save dimension size on stack.		
   123 00:017F -  -  -  -  		;
-  124 00:017F CD E0 09 00 		call 	VariableInformation 		; get information about this array
-  125 00:0183 CD 1C 0A 00 		call 	VariableSearchList 			; look to see if already present.
+  124 00:017F CD DC 09 00 		call 	VariableInformation 		; get information about this array
+  125 00:0183 CD 18 0A 00 		call 	VariableSearchList 			; look to see if already present.
   126 00:0187 30 97 -  -  		jr 		nc,_CDError 				; found, then error, can't redimension
   127 00:0189 -  -  -  -  		;
   128 00:0189 E1 -  -  -  		pop 	hl 							; get dimension size back
@@ -1347,7 +1355,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    45 00:0240 -  -  -  -  _CPRPrintNumber:
    46 00:0240 01 9C 00 00 		ld  	bc,ConvertBuffer
    47 00:0244 C5 -  -  -  		push 	bc
-   48 00:0245 CD A3 0E 00 		call 	Int32ToString 				; convert to string
+   48 00:0245 CD B7 0E 00 		call 	Int32ToString 				; convert to string
    49 00:0249 E1 -  -  -  		pop 	hl
    50 00:024A -  -  -  -  		;
    51 00:024A -  -  -  -  		; 		Print text at HL.
@@ -1367,14 +1375,14 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    65 00:025A -  -  -  -  		; 		New line (')
    66 00:025A -  -  -  -  		;
    67 00:025A -  -  -  -  _CPRNewLine:
-   68 00:025A CD F3 0E 00 		call 	SYSPrintCRLF
+   68 00:025A CD 07 0F 00 		call 	SYSPrintCRLF
    69 00:025E 18 0C -  -  		jr 		_CPRCheckNext
    70 00:0260 -  -  -  -  		;
    71 00:0260 -  -  -  -  		; 		Tab command (,)
    72 00:0260 -  -  -  -  		;
    73 00:0260 -  -  -  -  _CPRTab:
    74 00:0260 3E 09 -  -  		ld 		a,9  						; print CHR$(9), tab
-   75 00:0262 CD F2 0E 00 		call 	SYSPrintChar
+   75 00:0262 CD 06 0F 00 		call 	SYSPrintChar
    76 00:0266 -  -  -  -  		;
    77 00:0266 -  -  -  -  		;		Set to base 10 then check next character
    78 00:0266 -  -  -  -  		;
@@ -1396,7 +1404,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    94 00:0279 -  -  -  -  		;		Found EOL or : not after ; ,
    95 00:0279 -  -  -  -  		;
    96 00:0279 -  -  -  -  _CPRExitNL:
-   97 00:0279 CD F3 0E 00 		call 	SYSPrintCRLF 				; do CR/LF
+   97 00:0279 CD 07 0F 00 		call 	SYSPrintCRLF 				; do CR/LF
    98 00:027D C9 -  -  -  		ret
 Listing for file "_build.asm"
    21 00:027E -  -  -  -  #include "core/commands/rem.asm"
@@ -1508,7 +1516,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/run.asm"
    52 00:02D3 -  -  -  -  _CRDoCommand:		
    53 00:02D3 E6 7F 21 00 
               00 00 6F 29 
-              29 11 AC 0B 
+              29 11 C0 0B 
               00 19 ED 17 
               ED 53 61 00 
               00 -  -  -  		dispatch(VectorsSet0)   			; Set up JumpCode
@@ -1573,7 +1581,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/stop.asm"
    17 00:030E -  -  -  -  ; ***************************************************************************************
    18 00:030E -  -  -  -  
    19 00:030E -  -  -  -  Command_STOP: 	;; [stop]
-   20 00:030E 3E 0D C3 58 
+   20 00:030E 3E 0E C3 58 
               03 00 -  -  		ERR_STOP
 Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/stop.asm"
    21 00:0314 -  -  -  -  
@@ -1621,26 +1629,26 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/charcheck.as
    28 00:0314 -  -  -  -  CheckLeftBracket:
    29 00:0314 DD 7E 00 DD 
               23 FE 95 C8 
-              3E 0A C3 58 
+              3E 0B C3 58 
               03 00 -  -  		checknext(KWD_LPAREN,ERRID_NOLBRACKET)
 Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/charcheck.asm"
    30 00:0322 -  -  -  -  
    31 00:0322 -  -  -  -  CheckRightBracket:
    32 00:0322 DD 7E 00 DD 
               23 FE A5 C8 
-              3E 0B C3 58 
+              3E 0C C3 58 
               03 00 -  -  		checknext(KWD_RPAREN,ERRID_NORBRACKET)
    33 00:0330 -  -  -  -  
    34 00:0330 -  -  -  -  CheckDollar:
    35 00:0330 DD 7E 00 DD 
               23 FE 96 C8 
-              3E 09 C3 58 
+              3E 0A C3 58 
               03 00 -  -  		checkNext(KWD_DOLLAR,ERRID_NODOLLAR)
    36 00:033E -  -  -  -  		
    37 00:033E -  -  -  -  CheckComma:
    38 00:033E DD 7E 00 DD 
               23 FE A6 C8 
-              3E 08 C3 58 
+              3E 09 C3 58 
               03 00 -  -  		checknext(KWD_COMMA,ERRID_NOCOMMA)		
    39 00:034C -  -  -  -  
    40 00:034C -  -  -  -  ; ***************************************************************************************
@@ -1653,7 +1661,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/charcheck.as
    47 00:034C DD BE 00 -  		cp 		a,(ix+0) 					; match ?
    48 00:034F DD 23 -  -  		inc 	ix 							; skip character
    49 00:0351 C8 -  -  -  		ret 	z 							; yes, okay
-   50 00:0352 3E 0E C3 58 
+   50 00:0352 3E 0F C3 58 
               03 00 -  -  		ERR_SYNTAX 							; no, syntax error.
    51 00:0358 -  -  -  -  		
    52 00:0358 -  -  -  -  ; ***************************************************************************************
@@ -1721,12 +1729,12 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    47 00:038B DD 66 02 -  		ld 		h,(ix+2)
    48 00:038E 3E 0A -  -  		ld 		a,10 					; convert in base 10
    49 00:0390 01 9C 00 00 		ld 		bc,ConvertBuffer
-   50 00:0394 CD A3 0E 00 		call 	Int32ToString
+   50 00:0394 CD B7 0E 00 		call 	Int32ToString
    51 00:0398 C5 -  -  -  		push 	bc
    52 00:0399 E1 -  -  -  		pop 	hl
    53 00:039A CD 01 09 00 		call 	PrintStringAtHL			; print error line number.
    54 00:039E -  -  -  -  _EHExit:		
-   55 00:039E CD F3 0E 00 		call 	SYSPrintCRLF 			; print carriage return
+   55 00:039E CD 07 0F 00 		call 	SYSPrintCRLF 			; print carriage return
    56 00:03A2 C3 1A 00 00 		jp 		WarmStart
    57 00:03A6 -  -  -  -  
    58 00:03A6 -  -  -  -  _EHAtText:
@@ -1744,7 +1752,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    66 00:03BC 3E 03 C3 58 
               03 00 -  -  		ERR_BADVALUE
    67 00:03C2 -  -  -  -  SyntaxError:
-   68 00:03C2 3E 0E C3 58 
+   68 00:03C2 3E 0F C3 58 
               03 00 -  -  		ERR_SYNTAX
    69 00:03C8 -  -  -  -  						
    70 00:03C8 -  -  -  -  ; ***************************************************************************************
@@ -1781,7 +1789,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    19 00:03C8 -  -  -  -  ALUAdd: 		;; [+]
    20 00:03C8 CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 22 
+              03 00 C3 36 
               0E 00 -  -  		IntegerDispatch(Int32Add)
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/basicmath.asm"
    21 00:03D6 -  -  -  -  
@@ -1794,7 +1802,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    28 00:03D6 -  -  -  -  ALUSubtract: 	;; [-]
    29 00:03D6 CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 2A 
+              03 00 C3 3E 
               0E 00 -  -  		IntegerDispatch(Int32Subtract)
    30 00:03E4 -  -  -  -  
    31 00:03E4 -  -  -  -  ; ***************************************************************************************
@@ -1806,7 +1814,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    37 00:03E4 -  -  -  -  ALUMultiply: 	;; [*]
    38 00:03E4 CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 E9 
+              03 00 C3 FD 
               0D 00 -  -  		IntegerDispatch(Int32Multiply)
    39 00:03F2 -  -  -  -  
    40 00:03F2 -  -  -  -  ; ***************************************************************************************
@@ -1819,7 +1827,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    47 00:03F2 -  -  -  -  ALUDivide2:	;; [div]
    48 00:03F2 CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 E9 
+              03 00 C3 FD 
               0C 00 -  -  		IntegerDispatch(Int32SDivide)
    49 00:0400 -  -  -  -  
    50 00:0400 -  -  -  -  ; ***************************************************************************************
@@ -1831,8 +1839,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    56 00:0400 -  -  -  -  ALUModulus: 	;; [mod]
    57 00:0400 CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 EC 
-              0C 00 -  -  		IntegerDispatch(Int32Modulus)
+              03 00 C3 00 
+              0D 00 -  -  		IntegerDispatch(Int32Modulus)
    58 00:040E -  -  -  -  
    59 00:040E -  -  -  -  ; ***************************************************************************************
    60 00:040E -  -  -  -  ;
@@ -1843,19 +1851,19 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    65 00:040E -  -  -  -  ALUAnd: 		;; [and]
    66 00:040E CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 34 
+              03 00 C3 48 
               0E 00 -  -  		IntegerDispatch(Int32And)
    67 00:041C -  -  -  -  
    68 00:041C -  -  -  -  ALUOr: 			;; [or]
    69 00:041C CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 41 
+              03 00 C3 55 
               0E 00 -  -  		IntegerDispatch(Int32Or)
    70 00:042A -  -  -  -  
    71 00:042A -  -  -  -  ALUXor: 		;; [eor]
    72 00:042A CD E5 04 00 
               78 B1 C2 B6 
-              03 00 C3 4E 
+              03 00 C3 62 
               0E 00 -  -  		IntegerDispatch(Int32Xor)
    73 00:0438 -  -  -  -  
    74 00:0438 -  -  -  -  ; ***************************************************************************************
@@ -1907,7 +1915,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
               04 00 -  -  		IntegerDispatch(_BRGAMain)
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/binrefs.asm"
    32 00:0456 -  -  -  -  _BRGAMain:		
-   33 00:0456 CD 22 0E 00 		call 	Int32Add 					; address in HL'HL
+   33 00:0456 CD 36 0E 00 		call 	Int32Add 					; address in HL'HL
    34 00:045A CD EB 05 00 		call 	DRConvertHLHLtoAddress 		; make it a real physical address in UHL.
    35 00:045E C9 -  -  -  		ret
    36 00:045F -  -  -  -  
@@ -2031,7 +2039,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/c
    92 00:04B5 78 -  -  -  		ld 		a,b 						; check if either is string
    93 00:04B6 B1 -  -  -  		or 		c
    94 00:04B7 CB 47 -  -  		bit 	CIsString,a 
-   95 00:04B9 CA 62 0E 00 		jp 		z,Int32Compare 				; if not do as integer
+   95 00:04B9 CA 76 0E 00 		jp 		z,Int32Compare 				; if not do as integer
    96 00:04BD -  -  -  -  
    97 00:04BD 3E 02 C3 58 
               03 00 -  -  		ERR_BADTYPE 						; trying to do int<str>comparison
@@ -2057,7 +2065,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/c
   117 00:04D4 3E 01 -  -  		ld 		a,1
   118 00:04D6 C9 -  -  -  		ret
   119 00:04D7 -  -  -  -  
-  120 00:04D7 3E 0F C3 58 
+  120 00:04D7 3E 10 C3 58 
               03 00 -  -  		ERR_TODO()
   121 00:04DD -  -  -  -  
   122 00:04DD -  -  -  -  ; ***************************************************************************************
@@ -2128,7 +2136,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/u
    53 00:04FD C2 B6 03 00 			jp 		nz,TypeMismatch
    54 00:0501 CB 79 -  -  			bit 	CIsReference,c 			; reference -> number.
    55 00:0503 C4 BE 05 00 			call 	nz,Dereference 			; if required.
-   56 00:0507 CD 8C 0E 00 			call 	Int32Negate
+   56 00:0507 CD A0 0E 00 			call 	Int32Negate
    57 00:050B C9 -  -  -  			ret
 Listing for file "_build.asm"
    30 00:050C -  -  -  -  #include "core/expression/expression.asm"
@@ -2231,7 +2239,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/expressi
    96 00:0546 E5 -  -  -  		push 	hl 							; save DE/HL
    97 00:0547 E6 7F 21 00 
               00 00 6F 29 
-              29 11 AC 0B 
+              29 11 C0 0B 
               00 19 ED 17 
               ED 53 61 00 
               00 -  -  -  		dispatch(VectorsSet0) 				; routine address in DE
@@ -2608,7 +2616,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/term.asm
   102 00:0693 -  -  -  -  		;
   103 00:0693 E6 7F 21 00 
               00 00 6F 29 
-              29 11 AC 0B 
+              29 11 C0 0B 
               00 19 ED 17 
               ED 53 61 00 
               00 -  -  -  		dispatch(VectorsSet0) 				; set up call address
@@ -2657,7 +2665,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/term.asm
   145 00:06E5 -  -  -  -  _ETVariable:
   146 00:06E5 CD 4F 09 00 		call 	FindVariable 				; find the variable.
   147 00:06E9 D0 -  -  -  		ret 	nc 							; return if found.
-  148 00:06EA 3E 10 C3 58 
+  148 00:06EA 3E 11 C3 58 
               03 00 -  -  		ERR_UNKNOWNVAR 						; unknown variable
   149 00:06F0 -  -  -  -  		
   150 00:06F0 -  -  -  -  ; ***************************************************************************************
@@ -2994,7 +3002,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/rn
    31 00:0776 C9 -  -  -  		ret
    32 00:0777 -  -  -  -  _URDontSeed:		
    33 00:0777 -  -  -  -  
-   34 00:0777 CD 5B 0E 00 		call	Int32Zero 					; RND(0) doesn't work, no floats.
+   34 00:0777 CD 6F 0E 00 		call	Int32Zero 					; RND(0) doesn't work, no floats.
    35 00:077B 28 1C -  -  		jr 		z,_URFail
    36 00:077D E5 -  -  -  		push 	hl 							; save range on stack.
    37 00:077E D9 -  -  -  		exx
@@ -3012,7 +3020,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/rn
    49 00:078F D9 -  -  -  		exx
    50 00:0790 D1 -  -  -  		pop 	de
    51 00:0791 -  -  -  -  		;
-   52 00:0791 CD EC 0C 00 		call 	Int32Modulus 				; now in range 0->n-1 so bump it.
+   52 00:0791 CD 00 0D 00 		call 	Int32Modulus 				; now in range 0->n-1 so bump it.
    53 00:0795 23 -  -  -  		inc 	hl 							; won't bother with MSB for this
    54 00:0796 0E 00 -  -  		ld		c,XTYPE_INTEGER
    55 00:0798 C9 -  -  -  		ret
@@ -3109,7 +3117,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/sg
    18 00:07EF -  -  -  -  
    19 00:07EF -  -  -  -  Unary_Sgn:	;; [sgn]
    20 00:07EF CD 65 05 00 		call	EvaluateIntegerTerm 		; get value
-   21 00:07F3 CD 5B 0E 00 		call 	Int32Zero 					; integer sgn() code
+   21 00:07F3 CD 6F 0E 00 		call 	Int32Zero 					; integer sgn() code
    22 00:07F7 CA 63 04 00 		jp 		z,UnaryInt32False
    23 00:07FB D9 -  -  -  		exx
    24 00:07FC CB 7C -  -  		bit 	7,h
@@ -3213,7 +3221,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/st
    31 00:0839 20 02 -  -  		jr 		nz,_USNotHex2
    32 00:083B 3E 10 -  -  		ld 		a,16
    33 00:083D -  -  -  -  _USNotHex2:		
-   34 00:083D CD A3 0E 00 		call 	Int32ToString 				
+   34 00:083D CD B7 0E 00 		call 	Int32ToString 				
    35 00:0841 21 8A 00 00 		ld 		hl,_USBuffer 				; string address.
    36 00:0845 0E 01 -  -  		ld 		c,XTYPE_STRING				; return string at physical address HL
    37 00:0847 C9 -  -  -  		ret
@@ -3250,7 +3258,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/ti
    17 00:0848 -  -  -  -  ; ***************************************************************************************
    18 00:0848 -  -  -  -  
    19 00:0848 -  -  -  -  Unary_Time:	;; [time]
-   20 00:0848 CD F4 0E 00 			call 	SYSGetTimer
+   20 00:0848 CD 08 0F 00 			call 	SYSGetTimer
    21 00:084C 0E 00 -  -  			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
    22 00:084E C9 -  -  -  			ret
    23 00:084F -  -  -  -  
@@ -3331,7 +3339,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/va
    21 00:0860 E5 -  -  -  		push 	hl 							; copy to BC
    22 00:0861 C1 -  -  -  		pop 	bc
    23 00:0862 3E F6 -  -  		ld 		a,-10 						; base 10, signed.
-   24 00:0864 CD 81 0D 00 		call 	Int32FromString 			; get the integer part.
+   24 00:0864 CD 95 0D 00 		call 	Int32FromString 			; get the integer part.
    25 00:0868 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer 
    26 00:086A C8 -  -  -  		ret		z 							; okay
    27 00:086B 3E 03 C3 58 
@@ -3388,7 +3396,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/allocate.asm"
    33 00:0889 ED 52 -  -  		sbc 	hl,de
    34 00:088B E1 -  -  -  		pop 	hl 							; get lowest free byte back into HL
    35 00:088C D0 -  -  -  		ret 	nc 							; return if high >= low
-   36 00:088D 3E 07 C3 58 
+   36 00:088D 3E 08 C3 58 
               03 00 -  -  		ERR_MEMORY 							; memory error.
 Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/allocate.asm"
    37 00:0893 -  -  -  -  
@@ -3591,7 +3599,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/utility/utility.asm
    20 00:0901 7E -  -  -  		ld 		a,(hl)
    21 00:0902 FE 20 -  -  		cp 		$20		
    22 00:0904 D8 -  -  -  		ret 	c
-   23 00:0905 CD F2 0E 00 		call 	SYSPrintChar
+   23 00:0905 CD 06 0F 00 		call 	SYSPrintChar
    24 00:0909 23 -  -  -  		inc 	hl
    25 00:090A 18 F5 -  -  		jr 		PrintStringAtHL
    26 00:090C -  -  -  -  
@@ -3749,8 +3757,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
    48 00:0976 -  -  -  -  		;		Not a standard simple variable.
    49 00:0976 -  -  -  -  		;
    50 00:0976 -  -  -  -  _FVNotSimple:
-   51 00:0976 CD E0 09 00 		call 	VariableInformation 		; get information about the variable.
-   52 00:097A CD 1C 0A 00 		call 	VariableSearchList 			; search the linked list
+   51 00:0976 CD DC 09 00 		call 	VariableInformation 		; get information about the variable.
+   52 00:097A CD 18 0A 00 		call 	VariableSearchList 			; search the linked list
    53 00:097E 38 14 -  -  		jr 		c,_FVNotFound  				
    54 00:0980 -  -  -  -  		;
    55 00:0980 -  -  -  -  		;		Found variable. Address of record is in HL.
@@ -3795,227 +3803,230 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
    93 00:09B3 -  -  -  -  ; ***************************************************************************************
    94 00:09B3 -  -  -  -  
    95 00:09B3 -  -  -  -  ArrayLookup:
-   96 00:09B3 F5 3E 02 32 
-              FF FF FF F1 		debug
+   96 00:09B3 E5 -  -  -  		push 	hl 							; save the array address on the stack.
+   97 00:09B4 CD 65 05 00 		call 	EvaluateIntegerTerm 		; evaluate the array index.
+   98 00:09B8 D9 -  -  -  		exx 								; check index in 0000-FFFF
+   99 00:09B9 7C -  -  -  		ld 		a,h
+  100 00:09BA B5 -  -  -  		or 		l
+  101 00:09BB D9 -  -  -  		exx
+  102 00:09BC 20 18 -  -  		jr 		nz,_ALBadValue  			; if so, it's a bad value
+  103 00:09BE 11 00 00 00 		ld 		de,$00 						; put HL into DE clearing UDE
+  104 00:09C2 54 -  -  -  		ld 		d,h
+  105 00:09C3 5D -  -  -  		ld 		e,l
+  106 00:09C4 E1 -  -  -  		pop 	hl 							; get the array base back
+  107 00:09C5 E5 -  -  -  		push 	hl
+  108 00:09C6 ED 27 -  -  		ld_ind_hl 							; read the array index maximum
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
-   97 00:09BB E5 -  -  -  		push 	hl 							; save the array address on the stack.
-   98 00:09BC CD 8B 05 00 		call 	EvaluateInteger 			; evaluate the array index.
-   99 00:09C0 D9 -  -  -  		exx 								; check index in 0000-FFFF
-  100 00:09C1 7C -  -  -  		ld 		a,h
-  101 00:09C2 B5 -  -  -  		or 		l
-  102 00:09C3 D9 -  -  -  		exx
-  103 00:09C4 C2 BC 03 00 		jp 		nz,BadValue  				; if so, it's a bad value
-  104 00:09C8 11 00 00 00 		ld 		de,$00 						; put HL into DE clearing UDE
-  105 00:09CC 54 -  -  -  		ld 		d,h
-  106 00:09CD 5D -  -  -  		ld 		e,l
-  107 00:09CE E1 -  -  -  		pop 	hl 							; get the array base back
-  108 00:09CF E5 -  -  -  		push 	hl
-  109 00:09D0 ED 27 -  -  		ld_ind_hl 							; read the array index maximum
-  110 00:09D2 AF -  -  -  		xor  	a							; subtract maximum from index
-  111 00:09D3 ED 52 -  -  		sbc 	hl,de
-  112 00:09D5 DA BC 03 00 		jp 		c,BadValue 					; if max < index then error
-  113 00:09D9 EB -  -  -  		ex 		de,hl 						; index back into HL
-  114 00:09DA 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
-  115 00:09DB 29 -  -  -  		add 	hl,hl 						; x 4
-  116 00:09DC 29 -  -  -  		add 	hl,hl
-  117 00:09DD D1 -  -  -  		pop 	de 							; get array base back
-  118 00:09DE 19 -  -  -  		add 	hl,de 						; add offset to it
-  119 00:09DF C9 -  -  -  		ret
-  120 00:09E0 -  -  -  -  
-  121 00:09E0 -  -  -  -  ; ***************************************************************************************
-  122 00:09E0 -  -  -  -  ;
-  123 00:09E0 -  -  -  -  ;									Changes and Updates
-  124 00:09E0 -  -  -  -  ;
-  125 00:09E0 -  -  -  -  ; ***************************************************************************************
-  126 00:09E0 -  -  -  -  ;
-  127 00:09E0 -  -  -  -  ;		Date			Notes
-  128 00:09E0 -  -  -  -  ;		==== 			=====
-  129 00:09E0 -  -  -  -  ;
-  130 00:09E0 -  -  -  -  ; ***************************************************************************************
+  109 00:09C8 AF -  -  -  		xor  	a							; subtract maximum from index
+  110 00:09C9 ED 52 -  -  		sbc 	hl,de
+  111 00:09CB DA D6 09 00 		jp 		c,_ALBadValue 				; if max < index then error
+  112 00:09CF EB -  -  -  		ex 		de,hl 						; index back into HL
+  113 00:09D0 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
+  114 00:09D1 29 -  -  -  		add 	hl,hl 						; x 4
+  115 00:09D2 29 -  -  -  		add 	hl,hl
+  116 00:09D3 D1 -  -  -  		pop 	de 							; get array base back
+  117 00:09D4 19 -  -  -  		add 	hl,de 						; add offset to it
+  118 00:09D5 C9 -  -  -  		ret
+  119 00:09D6 -  -  -  -  
+  120 00:09D6 -  -  -  -  _ALBadValue:
+  121 00:09D6 3E 07 C3 58 
+              03 00 -  -  		ERR_INDEX
+  122 00:09DC -  -  -  -  		
+  123 00:09DC -  -  -  -  ; ***************************************************************************************
+  124 00:09DC -  -  -  -  ;
+  125 00:09DC -  -  -  -  ;									Changes and Updates
+  126 00:09DC -  -  -  -  ;
+  127 00:09DC -  -  -  -  ; ***************************************************************************************
+  128 00:09DC -  -  -  -  ;
+  129 00:09DC -  -  -  -  ;		Date			Notes
+  130 00:09DC -  -  -  -  ;		==== 			=====
+  131 00:09DC -  -  -  -  ;
+  132 00:09DC -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   55 00:09E0 -  -  -  -  #include "core/variables/info.asm"
+   55 00:09DC -  -  -  -  #include "core/variables/info.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/info.asm"
-    1 00:09E0 -  -  -  -  ; ***************************************************************************************
-    2 00:09E0 -  -  -  -  ; ***************************************************************************************
-    3 00:09E0 -  -  -  -  ;
-    4 00:09E0 -  -  -  -  ;		Name : 		info.asm
-    5 00:09E0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:09E0 -  -  -  -  ;		Date : 		4th June 2022
-    7 00:09E0 -  -  -  -  ;		Reviewed :	No
-    8 00:09E0 -  -  -  -  ;		Purpose :	Get information about variable at IX
-    9 00:09E0 -  -  -  -  ;
-   10 00:09E0 -  -  -  -  ; ***************************************************************************************
-   11 00:09E0 -  -  -  -  ; ***************************************************************************************
-   12 00:09E0 -  -  -  -  
-   13 00:09E0 -  -  -  -  ; ***************************************************************************************
-   14 00:09E0 -  -  -  -  ;
-   15 00:09E0 -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
-   16 00:09E0 -  -  -  -  ; 		after the identifier.
-   17 00:09E0 -  -  -  -  ;
-   18 00:09E0 -  -  -  -  ; ***************************************************************************************
-   19 00:09E0 -  -  -  -  
-   20 00:09E0 -  -  -  -  VariableInformation:
-   21 00:09E0 DD 22 80 00 
+    1 00:09DC -  -  -  -  ; ***************************************************************************************
+    2 00:09DC -  -  -  -  ; ***************************************************************************************
+    3 00:09DC -  -  -  -  ;
+    4 00:09DC -  -  -  -  ;		Name : 		info.asm
+    5 00:09DC -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:09DC -  -  -  -  ;		Date : 		4th June 2022
+    7 00:09DC -  -  -  -  ;		Reviewed :	No
+    8 00:09DC -  -  -  -  ;		Purpose :	Get information about variable at IX
+    9 00:09DC -  -  -  -  ;
+   10 00:09DC -  -  -  -  ; ***************************************************************************************
+   11 00:09DC -  -  -  -  ; ***************************************************************************************
+   12 00:09DC -  -  -  -  
+   13 00:09DC -  -  -  -  ; ***************************************************************************************
+   14 00:09DC -  -  -  -  ;
+   15 00:09DC -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
+   16 00:09DC -  -  -  -  ; 		after the identifier.
+   17 00:09DC -  -  -  -  ;
+   18 00:09DC -  -  -  -  ; ***************************************************************************************
+   19 00:09DC -  -  -  -  
+   20 00:09DC -  -  -  -  VariableInformation:
+   21 00:09DC DD 22 80 00 
               00 -  -  -  		ld 		(VarNameStart),ix 			; save start.
-   22 00:09E5 -  -  -  -  		;
-   23 00:09E5 -  -  -  -  		; 		Calculate hash, find end.
-   24 00:09E5 -  -  -  -  		;
-   25 00:09E5 06 00 -  -  		ld 		b,0 						; build the hash in B.
-   26 00:09E7 -  -  -  -  _VICalculateHash:
-   27 00:09E7 DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
-   28 00:09EA FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
-   29 00:09EC 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
-   30 00:09EE 80 -  -  -  		add 	a,b 						; add to hash
-   31 00:09EF 07 -  -  -  		rlca
-   32 00:09F0 07 -  -  -  		rlca
-   33 00:09F1 80 -  -  -  		add 	a,b
-   34 00:09F2 47 -  -  -  		ld 		b,a 						; update hash
-   35 00:09F3 DD 23 -  -  		inc 	ix 							; next character
-   36 00:09F5 18 F0 -  -  		jr 		_VICalculateHash				
-   37 00:09F7 -  -  -  -  		;
-   38 00:09F7 -  -  -  -  _VIHashDone:
-   39 00:09F7 78 -  -  -  		ld 		a,b 						; write hash byte out
-   40 00:09F8 -  -  -  -  		;
-   41 00:09F8 -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
-   42 00:09F8 -  -  -  -  		;
-   43 00:09F8 32 84 00 00 		ld 		(VarHash),a
-   44 00:09FC -  -  -  -  		;
-   45 00:09FC -  -  -  -  		; 		Calculate the hash table address pointer.
-   46 00:09FC -  -  -  -  		;		
-   47 00:09FC E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
-   48 00:09FE 21 00 00 00 		ld 		hl,$0000 					; put in HL
-   49 00:0A02 6F -  -  -  		ld 		l,a
-   50 00:0A03 29 -  -  -  		add 	hl,hl 						; x 4
-   51 00:0A04 29 -  -  -  		add 	hl,hl
-   52 00:0A05 -  -  -  -  		;
-   53 00:0A05 ED 5B 48 00 
+   22 00:09E1 -  -  -  -  		;
+   23 00:09E1 -  -  -  -  		; 		Calculate hash, find end.
+   24 00:09E1 -  -  -  -  		;
+   25 00:09E1 06 00 -  -  		ld 		b,0 						; build the hash in B.
+   26 00:09E3 -  -  -  -  _VICalculateHash:
+   27 00:09E3 DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
+   28 00:09E6 FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
+   29 00:09E8 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
+   30 00:09EA 80 -  -  -  		add 	a,b 						; add to hash
+   31 00:09EB 07 -  -  -  		rlca
+   32 00:09EC 07 -  -  -  		rlca
+   33 00:09ED 80 -  -  -  		add 	a,b
+   34 00:09EE 47 -  -  -  		ld 		b,a 						; update hash
+   35 00:09EF DD 23 -  -  		inc 	ix 							; next character
+   36 00:09F1 18 F0 -  -  		jr 		_VICalculateHash				
+   37 00:09F3 -  -  -  -  		;
+   38 00:09F3 -  -  -  -  _VIHashDone:
+   39 00:09F3 78 -  -  -  		ld 		a,b 						; write hash byte out
+   40 00:09F4 -  -  -  -  		;
+   41 00:09F4 -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
+   42 00:09F4 -  -  -  -  		;
+   43 00:09F4 32 84 00 00 		ld 		(VarHash),a
+   44 00:09F8 -  -  -  -  		;
+   45 00:09F8 -  -  -  -  		; 		Calculate the hash table address pointer.
+   46 00:09F8 -  -  -  -  		;		
+   47 00:09F8 E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
+   48 00:09FA 21 00 00 00 		ld 		hl,$0000 					; put in HL
+   49 00:09FE 6F -  -  -  		ld 		l,a
+   50 00:09FF 29 -  -  -  		add 	hl,hl 						; x 4
+   51 00:0A00 29 -  -  -  		add 	hl,hl
+   52 00:0A01 -  -  -  -  		;
+   53 00:0A01 ED 5B 48 00 
               00 -  -  -  		ld 		de,(HashTableBase) 			; add to hash table base.
-   54 00:0A0A 19 -  -  -  		add 	hl,de
-   55 00:0A0B -  -  -  -  		;
-   56 00:0A0B DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
-   57 00:0A0E FE 95 -  -  		cp 		KWD_LPAREN 					; if so
-   58 00:0A10 20 05 -  -  		jr 		nz,_VINotArray 				; it's an array.
-   59 00:0A12 11 40 00 00 		ld 		de,HashTableSize * 4 		; so advance to the second block which is
-   60 00:0A16 19 -  -  -  		add 	hl,de 						; for hash tables
-   61 00:0A17 -  -  -  -  _VINotArray:
-   62 00:0A17 22 86 00 00 		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
-   63 00:0A1B C9 -  -  -  		ret
-   64 00:0A1C -  -  -  -  
-   65 00:0A1C -  -  -  -  ; ***************************************************************************************
-   66 00:0A1C -  -  -  -  ;
-   67 00:0A1C -  -  -  -  ;									Changes and Updates
-   68 00:0A1C -  -  -  -  ;
-   69 00:0A1C -  -  -  -  ; ***************************************************************************************
-   70 00:0A1C -  -  -  -  ;
-   71 00:0A1C -  -  -  -  ;		Date			Notes
-   72 00:0A1C -  -  -  -  ;		==== 			=====
-   73 00:0A1C -  -  -  -  ;
-   74 00:0A1C -  -  -  -  ; ***************************************************************************************
-   75 00:0A1C -  -  -  -  
+   54 00:0A06 19 -  -  -  		add 	hl,de
+   55 00:0A07 -  -  -  -  		;
+   56 00:0A07 DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
+   57 00:0A0A FE 95 -  -  		cp 		KWD_LPAREN 					; if so
+   58 00:0A0C 20 05 -  -  		jr 		nz,_VINotArray 				; it's an array.
+   59 00:0A0E 11 40 00 00 		ld 		de,HashTableSize * 4 		; so advance to the second block which is
+   60 00:0A12 19 -  -  -  		add 	hl,de 						; for hash tables
+   61 00:0A13 -  -  -  -  _VINotArray:
+   62 00:0A13 22 86 00 00 		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
+   63 00:0A17 C9 -  -  -  		ret
+   64 00:0A18 -  -  -  -  
+   65 00:0A18 -  -  -  -  ; ***************************************************************************************
+   66 00:0A18 -  -  -  -  ;
+   67 00:0A18 -  -  -  -  ;									Changes and Updates
+   68 00:0A18 -  -  -  -  ;
+   69 00:0A18 -  -  -  -  ; ***************************************************************************************
+   70 00:0A18 -  -  -  -  ;
+   71 00:0A18 -  -  -  -  ;		Date			Notes
+   72 00:0A18 -  -  -  -  ;		==== 			=====
+   73 00:0A18 -  -  -  -  ;
+   74 00:0A18 -  -  -  -  ; ***************************************************************************************
+   75 00:0A18 -  -  -  -  
 Listing for file "_build.asm"
-   56 00:0A1C -  -  -  -  #include "core/variables/search.asm"
+   56 00:0A18 -  -  -  -  #include "core/variables/search.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-    1 00:0A1C -  -  -  -  ; ***************************************************************************************
-    2 00:0A1C -  -  -  -  ; ***************************************************************************************
-    3 00:0A1C -  -  -  -  ;
-    4 00:0A1C -  -  -  -  ;		Name : 		search.asm
-    5 00:0A1C -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0A1C -  -  -  -  ;		Date : 		4th June 2022
-    7 00:0A1C -  -  -  -  ;		Reviewed :	No
-    8 00:0A1C -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
-    9 00:0A1C -  -  -  -  ;
-   10 00:0A1C -  -  -  -  ; ***************************************************************************************
-   11 00:0A1C -  -  -  -  ; ***************************************************************************************
-   12 00:0A1C -  -  -  -  
-   13 00:0A1C -  -  -  -  ; ***************************************************************************************
-   14 00:0A1C -  -  -  -  ;
-   15 00:0A1C -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
-   16 00:0A1C -  -  -  -  ;		CS if failed.
-   17 00:0A1C -  -  -  -  ;
-   18 00:0A1C -  -  -  -  ; ***************************************************************************************
-   19 00:0A1C -  -  -  -  
-   20 00:0A1C -  -  -  -  VariableSearchList:
-   21 00:0A1C 2A 86 00 00 		ld 		hl,(VarHashListPtr)			; first link.
-   22 00:0A20 -  -  -  -  		;
-   23 00:0A20 -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
-   24 00:0A20 -  -  -  -  		;		the address of the hash record
-   25 00:0A20 -  -  -  -  		;
-   26 00:0A20 -  -  -  -  _VSLLoop:
-   27 00:0A20 ED 27 -  -  		ld_ind_hl 							; follow link
+    1 00:0A18 -  -  -  -  ; ***************************************************************************************
+    2 00:0A18 -  -  -  -  ; ***************************************************************************************
+    3 00:0A18 -  -  -  -  ;
+    4 00:0A18 -  -  -  -  ;		Name : 		search.asm
+    5 00:0A18 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0A18 -  -  -  -  ;		Date : 		4th June 2022
+    7 00:0A18 -  -  -  -  ;		Reviewed :	No
+    8 00:0A18 -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
+    9 00:0A18 -  -  -  -  ;
+   10 00:0A18 -  -  -  -  ; ***************************************************************************************
+   11 00:0A18 -  -  -  -  ; ***************************************************************************************
+   12 00:0A18 -  -  -  -  
+   13 00:0A18 -  -  -  -  ; ***************************************************************************************
+   14 00:0A18 -  -  -  -  ;
+   15 00:0A18 -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
+   16 00:0A18 -  -  -  -  ;		CS if failed.
+   17 00:0A18 -  -  -  -  ;
+   18 00:0A18 -  -  -  -  ; ***************************************************************************************
+   19 00:0A18 -  -  -  -  
+   20 00:0A18 -  -  -  -  VariableSearchList:
+   21 00:0A18 2A 86 00 00 		ld 		hl,(VarHashListPtr)			; first link.
+   22 00:0A1C -  -  -  -  		;
+   23 00:0A1C -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
+   24 00:0A1C -  -  -  -  		;		the address of the hash record
+   25 00:0A1C -  -  -  -  		;
+   26 00:0A1C -  -  -  -  _VSLLoop:
+   27 00:0A1C ED 27 -  -  		ld_ind_hl 							; follow link
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-   28 00:0A22 -  -  -  -  		;
-   29 00:0A22 E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
-   30 00:0A23 AF -  -  -  		xor 	a
-   31 00:0A24 ED 6A -  -  		adc 	hl,hl
-   32 00:0A26 E1 -  -  -  		pop 	hl
-   33 00:0A27 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
-   34 00:0A29 37 -  -  -  		scf 								; otherwise return carry if zero.
-   35 00:0A2A C8 -  -  -  		ret 	z
-   36 00:0A2B -  -  -  -  _VSLRecord:
-   37 00:0A2B -  -  -  -  		;
-   38 00:0A2B -  -  -  -  		;		Check if they actually match. First do the hash.
-   39 00:0A2B -  -  -  -  		;
-   40 00:0A2B 3A 84 00 00 		ld 		a,(VarHash) 				; get the hash value of the variable
-   41 00:0A2F BE -  -  -  		cp 		(hl) 						; check against HL
-   42 00:0A30 23 -  -  -  		inc 	hl 							; points to link back
-   43 00:0A31 20 ED -  -  		jr 		nz,_VSLLoop
-   44 00:0A33 -  -  -  -  		;
-   45 00:0A33 -  -  -  -  		;		Now check the name
-   46 00:0A33 -  -  -  -  		;
-   47 00:0A33 E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
-   48 00:0A34 23 -  -  -  		inc 	hl 							; advance to the name address
-   49 00:0A35 23 -  -  -  		inc 	hl
-   50 00:0A36 23 -  -  -  		inc 	hl
-   51 00:0A37 23 -  -  -  		inc 	hl
-   52 00:0A38 ED 27 -  -  		ld_ind_hl 							; HL now points to the record in program space.
-   53 00:0A3A ED 5B 80 00 
+   28 00:0A1E -  -  -  -  		;
+   29 00:0A1E E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
+   30 00:0A1F AF -  -  -  		xor 	a
+   31 00:0A20 ED 6A -  -  		adc 	hl,hl
+   32 00:0A22 E1 -  -  -  		pop 	hl
+   33 00:0A23 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
+   34 00:0A25 37 -  -  -  		scf 								; otherwise return carry if zero.
+   35 00:0A26 C8 -  -  -  		ret 	z
+   36 00:0A27 -  -  -  -  _VSLRecord:
+   37 00:0A27 -  -  -  -  		;
+   38 00:0A27 -  -  -  -  		;		Check if they actually match. First do the hash.
+   39 00:0A27 -  -  -  -  		;
+   40 00:0A27 3A 84 00 00 		ld 		a,(VarHash) 				; get the hash value of the variable
+   41 00:0A2B BE -  -  -  		cp 		(hl) 						; check against HL
+   42 00:0A2C 23 -  -  -  		inc 	hl 							; points to link back
+   43 00:0A2D 20 ED -  -  		jr 		nz,_VSLLoop
+   44 00:0A2F -  -  -  -  		;
+   45 00:0A2F -  -  -  -  		;		Now check the name
+   46 00:0A2F -  -  -  -  		;
+   47 00:0A2F E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
+   48 00:0A30 23 -  -  -  		inc 	hl 							; advance to the name address
+   49 00:0A31 23 -  -  -  		inc 	hl
+   50 00:0A32 23 -  -  -  		inc 	hl
+   51 00:0A33 23 -  -  -  		inc 	hl
+   52 00:0A34 ED 27 -  -  		ld_ind_hl 							; HL now points to the record in program space.
+   53 00:0A36 ED 5B 80 00 
               00 -  -  -  		ld 		de,(VarNameStart)			; and DE to the start of the name.
-   54 00:0A3F -  -  -  -  		;
-   55 00:0A3F -  -  -  -  		;		Check individual characters
-   56 00:0A3F -  -  -  -  		;
-   57 00:0A3F -  -  -  -  _VSLCharacter:
-   58 00:0A3F 1A -  -  -  		ld 		a,(de) 						; get next character
-   59 00:0A40 FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
-   60 00:0A42 30 08 -  -  		jr 		nc,_VSLEndIdentifier
-   61 00:0A44 BE -  -  -  		cp 		(hl) 						; compare them
-   62 00:0A45 23 -  -  -  		inc 	hl 							; bump both character pointers
-   63 00:0A46 13 -  -  -  		inc 	de
-   64 00:0A47 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
-   65 00:0A49 -  -  -  -  		;
-   66 00:0A49 -  -  -  -  _VSLFailed:
-   67 00:0A49 E1 -  -  -  		pop 	hl 							; pop the +1 link
-   68 00:0A4A 18 D4 -  -  		jr 		_VSLLoop 					; and loop round.
-   69 00:0A4C -  -  -  -  		;
-   70 00:0A4C -  -  -  -  		;		Found IDENTIFIER END at DE
-   71 00:0A4C -  -  -  -  		;		
-   72 00:0A4C -  -  -  -  _VSLEndIdentifier:
-   73 00:0A4C 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
-   74 00:0A4D FE 26 -  -  		cp 		IDENTIFIER_END
-   75 00:0A4F 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
-   76 00:0A51 -  -  -  -  		;
-   77 00:0A51 E1 -  -  -  		pop 	hl 							; get the +1 link
-   78 00:0A52 2B -  -  -  		dec 	hl 							; now start of record
-   79 00:0A53 AF -  -  -  		xor 	a 							; clear carry
-   80 00:0A54 C9 -  -  -  		ret
-   81 00:0A55 -  -  -  -  
-   82 00:0A55 -  -  -  -  ; ***************************************************************************************
-   83 00:0A55 -  -  -  -  ;
-   84 00:0A55 -  -  -  -  ;									Changes and Updates
-   85 00:0A55 -  -  -  -  ;
-   86 00:0A55 -  -  -  -  ; ***************************************************************************************
-   87 00:0A55 -  -  -  -  ;
-   88 00:0A55 -  -  -  -  ;		Date			Notes
-   89 00:0A55 -  -  -  -  ;		==== 			=====
-   90 00:0A55 -  -  -  -  ;
-   91 00:0A55 -  -  -  -  ; ***************************************************************************************
-   92 00:0A55 -  -  -  -  		
+   54 00:0A3B -  -  -  -  		;
+   55 00:0A3B -  -  -  -  		;		Check individual characters
+   56 00:0A3B -  -  -  -  		;
+   57 00:0A3B -  -  -  -  _VSLCharacter:
+   58 00:0A3B 1A -  -  -  		ld 		a,(de) 						; get next character
+   59 00:0A3C FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
+   60 00:0A3E 30 08 -  -  		jr 		nc,_VSLEndIdentifier
+   61 00:0A40 BE -  -  -  		cp 		(hl) 						; compare them
+   62 00:0A41 23 -  -  -  		inc 	hl 							; bump both character pointers
+   63 00:0A42 13 -  -  -  		inc 	de
+   64 00:0A43 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
+   65 00:0A45 -  -  -  -  		;
+   66 00:0A45 -  -  -  -  _VSLFailed:
+   67 00:0A45 E1 -  -  -  		pop 	hl 							; pop the +1 link
+   68 00:0A46 18 D4 -  -  		jr 		_VSLLoop 					; and loop round.
+   69 00:0A48 -  -  -  -  		;
+   70 00:0A48 -  -  -  -  		;		Found IDENTIFIER END at DE
+   71 00:0A48 -  -  -  -  		;		
+   72 00:0A48 -  -  -  -  _VSLEndIdentifier:
+   73 00:0A48 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
+   74 00:0A49 FE 26 -  -  		cp 		IDENTIFIER_END
+   75 00:0A4B 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
+   76 00:0A4D -  -  -  -  		;
+   77 00:0A4D E1 -  -  -  		pop 	hl 							; get the +1 link
+   78 00:0A4E 2B -  -  -  		dec 	hl 							; now start of record
+   79 00:0A4F AF -  -  -  		xor 	a 							; clear carry
+   80 00:0A50 C9 -  -  -  		ret
+   81 00:0A51 -  -  -  -  
+   82 00:0A51 -  -  -  -  ; ***************************************************************************************
+   83 00:0A51 -  -  -  -  ;
+   84 00:0A51 -  -  -  -  ;									Changes and Updates
+   85 00:0A51 -  -  -  -  ;
+   86 00:0A51 -  -  -  -  ; ***************************************************************************************
+   87 00:0A51 -  -  -  -  ;
+   88 00:0A51 -  -  -  -  ;		Date			Notes
+   89 00:0A51 -  -  -  -  ;		==== 			=====
+   90 00:0A51 -  -  -  -  ;
+   91 00:0A51 -  -  -  -  ; ***************************************************************************************
+   92 00:0A51 -  -  -  -  		
 Listing for file "_build.asm"
-   57 00:0A55 -  -  -  -  #include "generated/kwd_misc.asm"
+   57 00:0A51 -  -  -  -  #include "generated/kwd_misc.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_misc.asm"
-    1 00:0A55 -  -  -  -  ;
-    2 00:0A55 -  -  -  -  ;	This file is automatically generated.
-    3 00:0A55 -  -  -  -  ;
-    4 00:0A55 00 00 00 00 
+    1 00:0A51 -  -  -  -  ;
+    2 00:0A51 -  -  -  -  ;	This file is automatically generated.
+    3 00:0A51 -  -  -  -  ;
+    4 00:0A51 00 00 00 00 
+              00 00 00 00 
               00 00 00 00 
               00 00 00 -  	.block	$20-($ & $1F)
     5 00:0A60 -  -  -  -  PrecedenceTable:
@@ -4044,1191 +4055,1192 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/messagetext.as
     2 00:0A71 -  -  -  -  ;	This is automatically generated.
     3 00:0A71 -  -  -  -  ;
     4 00:0A71 -  -  -  -  ErrorIDTable:
-    5 00:0A71 B5 0A 00 00 	.dw	ErrText_warmstart & $FFFF,ErrText_warmstart >> 16
-    6 00:0A75 BB 0A 00 00 	.dw	ErrText_assert & $FFFF,ErrText_assert >> 16
-    7 00:0A79 CC 0A 00 00 	.dw	ErrText_badtype & $FFFF,ErrText_badtype >> 16
-    8 00:0A7D DA 0A 00 00 	.dw	ErrText_badvalue & $FFFF,ErrText_badvalue >> 16
-    9 00:0A81 E4 0A 00 00 	.dw	ErrText_dim & $FFFF,ErrText_dim >> 16
-   10 00:0A85 EE 0A 00 00 	.dw	ErrText_disabled & $FFFF,ErrText_disabled >> 16
-   11 00:0A89 08 0B 00 00 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
-   12 00:0A8D 19 0B 00 00 	.dw	ErrText_memory & $FFFF,ErrText_memory >> 16
-   13 00:0A91 27 0B 00 00 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
-   14 00:0A95 35 0B 00 00 	.dw	ErrText_nodollar & $FFFF,ErrText_nodollar >> 16
-   15 00:0A99 3F 0B 00 00 	.dw	ErrText_nolbracket & $FFFF,ErrText_nolbracket >> 16
-   16 00:0A9D 54 0B 00 00 	.dw	ErrText_norbracket & $FFFF,ErrText_norbracket >> 16
-   17 00:0AA1 6A 0B 00 00 	.dw	ErrText_notref & $FFFF,ErrText_notref >> 16
-   18 00:0AA5 78 0B 00 00 	.dw	ErrText_stop & $FFFF,ErrText_stop >> 16
-   19 00:0AA9 7D 0B 00 00 	.dw	ErrText_syntax & $FFFF,ErrText_syntax >> 16
-   20 00:0AAD 8A 0B 00 00 	.dw	ErrText_todo & $FFFF,ErrText_todo >> 16
-   21 00:0AB1 9B 0B 00 00 	.dw	ErrText_unknownvar & $FFFF,ErrText_unknownvar >> 16
-   22 00:0AB5 -  -  -  -  
-   23 00:0AB5 -  -  -  -  ErrText_warmstart:
-   24 00:0AB5 52 65 61 64 
+    5 00:0A71 B9 0A 00 00 	.dw	ErrText_warmstart & $FFFF,ErrText_warmstart >> 16
+    6 00:0A75 BF 0A 00 00 	.dw	ErrText_assert & $FFFF,ErrText_assert >> 16
+    7 00:0A79 D0 0A 00 00 	.dw	ErrText_badtype & $FFFF,ErrText_badtype >> 16
+    8 00:0A7D DE 0A 00 00 	.dw	ErrText_badvalue & $FFFF,ErrText_badvalue >> 16
+    9 00:0A81 E8 0A 00 00 	.dw	ErrText_dim & $FFFF,ErrText_dim >> 16
+   10 00:0A85 F2 0A 00 00 	.dw	ErrText_disabled & $FFFF,ErrText_disabled >> 16
+   11 00:0A89 0C 0B 00 00 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
+   12 00:0A8D 1D 0B 00 00 	.dw	ErrText_index & $FFFF,ErrText_index >> 16
+   13 00:0A91 2D 0B 00 00 	.dw	ErrText_memory & $FFFF,ErrText_memory >> 16
+   14 00:0A95 3B 0B 00 00 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
+   15 00:0A99 49 0B 00 00 	.dw	ErrText_nodollar & $FFFF,ErrText_nodollar >> 16
+   16 00:0A9D 53 0B 00 00 	.dw	ErrText_nolbracket & $FFFF,ErrText_nolbracket >> 16
+   17 00:0AA1 68 0B 00 00 	.dw	ErrText_norbracket & $FFFF,ErrText_norbracket >> 16
+   18 00:0AA5 7E 0B 00 00 	.dw	ErrText_notref & $FFFF,ErrText_notref >> 16
+   19 00:0AA9 8C 0B 00 00 	.dw	ErrText_stop & $FFFF,ErrText_stop >> 16
+   20 00:0AAD 91 0B 00 00 	.dw	ErrText_syntax & $FFFF,ErrText_syntax >> 16
+   21 00:0AB1 9E 0B 00 00 	.dw	ErrText_todo & $FFFF,ErrText_todo >> 16
+   22 00:0AB5 AF 0B 00 00 	.dw	ErrText_unknownvar & $FFFF,ErrText_unknownvar >> 16
+   23 00:0AB9 -  -  -  -  
+   24 00:0AB9 -  -  -  -  ErrText_warmstart:
+   25 00:0AB9 52 65 61 64 
               79 00 -  -  	.db "Ready",0
-   25 00:0ABB -  -  -  -  ErrText_assert:
-   26 00:0ABB 41 73 73 65 
+   26 00:0ABF -  -  -  -  ErrText_assert:
+   27 00:0ABF 41 73 73 65 
               72 74 69 6F 
               6E 20 66 61 
               69 6C 65 64 
               00 -  -  -  	.db "Assertion failed",0
-   27 00:0ACC -  -  -  -  ErrText_badtype:
-   28 00:0ACC 54 79 70 65 
+   28 00:0AD0 -  -  -  -  ErrText_badtype:
+   29 00:0AD0 54 79 70 65 
               20 4D 69 73 
               6D 61 74 63 
               68 00 -  -  	.db "Type Mismatch",0
-   29 00:0ADA -  -  -  -  ErrText_badvalue:
-   30 00:0ADA 42 61 64 20 
+   30 00:0ADE -  -  -  -  ErrText_badvalue:
+   31 00:0ADE 42 61 64 20 
               56 61 6C 75 
               65 00 -  -  	.db "Bad Value",0
-   31 00:0AE4 -  -  -  -  ErrText_dim:
-   32 00:0AE4 44 49 4D 20 
+   32 00:0AE8 -  -  -  -  ErrText_dim:
+   33 00:0AE8 44 49 4D 20 
               45 72 72 6F 
               72 00 -  -  	.db "DIM Error",0
-   33 00:0AEE -  -  -  -  ErrText_disabled:
-   34 00:0AEE 46 75 6E 63 
+   34 00:0AF2 -  -  -  -  ErrText_disabled:
+   35 00:0AF2 46 75 6E 63 
               74 69 6F 6E 
               61 6C 69 74 
               79 20 6E 6F 
               74 20 65 6E 
               61 62 6C 65 
               64 00 -  -  	.db "Functionality not enabled",0
-   35 00:0B08 -  -  -  -  ErrText_divzero:
-   36 00:0B08 44 69 76 69 
+   36 00:0B0C -  -  -  -  ErrText_divzero:
+   37 00:0B0C 44 69 76 69 
               73 69 6F 6E 
               20 62 79 20 
               5A 65 72 6F 
               00 -  -  -  	.db "Division by Zero",0
-   37 00:0B19 -  -  -  -  ErrText_memory:
-   38 00:0B19 4F 75 74 20 
+   38 00:0B1D -  -  -  -  ErrText_index:
+   39 00:0B1D 42 61 64 20 
+              41 72 72 61 
+              79 20 49 6E 
+              64 65 78 00 	.db "Bad Array Index",0
+   40 00:0B2D -  -  -  -  ErrText_memory:
+   41 00:0B2D 4F 75 74 20 
               6F 66 20 6D 
               65 6D 6F 72 
               79 00 -  -  	.db "Out of memory",0
-   39 00:0B27 -  -  -  -  ErrText_nocomma:
-   40 00:0B27 4D 69 73 73 
+   42 00:0B3B -  -  -  -  ErrText_nocomma:
+   43 00:0B3B 4D 69 73 73 
               69 6E 67 20 
               43 6F 6D 6D 
               61 00 -  -  	.db "Missing Comma",0
-   41 00:0B35 -  -  -  -  ErrText_nodollar:
-   42 00:0B35 4D 69 73 73 
+   44 00:0B49 -  -  -  -  ErrText_nodollar:
+   45 00:0B49 4D 69 73 73 
               69 6E 67 20 
               24 00 -  -  	.db "Missing $",0
-   43 00:0B3F -  -  -  -  ErrText_nolbracket:
-   44 00:0B3F 4D 69 73 73 
+   46 00:0B53 -  -  -  -  ErrText_nolbracket:
+   47 00:0B53 4D 69 73 73 
               69 6E 67 20 
               4C 65 66 74 
               20 42 72 61 
               63 6B 65 74 
               00 -  -  -  	.db "Missing Left Bracket",0
-   45 00:0B54 -  -  -  -  ErrText_norbracket:
-   46 00:0B54 4D 69 73 73 
+   48 00:0B68 -  -  -  -  ErrText_norbracket:
+   49 00:0B68 4D 69 73 73 
               69 6E 67 20 
               52 69 67 68 
               74 20 42 72 
               61 63 6B 65 
               74 00 -  -  	.db "Missing Right Bracket",0
-   47 00:0B6A -  -  -  -  ErrText_notref:
-   48 00:0B6A 43 61 6E 6E 
+   50 00:0B7E -  -  -  -  ErrText_notref:
+   51 00:0B7E 43 61 6E 6E 
               6F 74 20 61 
               73 73 69 67 
               6E 00 -  -  	.db "Cannot assign",0
-   49 00:0B78 -  -  -  -  ErrText_stop:
-   50 00:0B78 53 74 6F 70 
+   52 00:0B8C -  -  -  -  ErrText_stop:
+   53 00:0B8C 53 74 6F 70 
               00 -  -  -  	.db "Stop",0
-   51 00:0B7D -  -  -  -  ErrText_syntax:
-   52 00:0B7D 53 79 6E 74 
+   54 00:0B91 -  -  -  -  ErrText_syntax:
+   55 00:0B91 53 79 6E 74 
               61 78 20 45 
               72 72 6F 72 
               00 -  -  -  	.db "Syntax Error",0
-   53 00:0B8A -  -  -  -  ErrText_todo:
-   54 00:0B8A 43 6F 64 65 
+   56 00:0B9E -  -  -  -  ErrText_todo:
+   57 00:0B9E 43 6F 64 65 
               20 6E 6F 74 
               20 77 72 69 
               74 74 65 6E 
               00 -  -  -  	.db "Code not written",0
-   55 00:0B9B -  -  -  -  ErrText_unknownvar:
-   56 00:0B9B 55 6E 6B 6E 
+   58 00:0BAF -  -  -  -  ErrText_unknownvar:
+   59 00:0BAF 55 6E 6B 6E 
               6F 77 6E 20 
               56 61 72 69 
               61 62 6C 65 
               00 -  -  -  	.db "Unknown Variable",0
 Listing for file "_build.asm"
-   59 00:0BAC -  -  -  -  #include "generated/vectors.asm"
+   59 00:0BC0 -  -  -  -  #include "generated/vectors.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
-    1 00:0BAC -  -  -  -  ;
-    2 00:0BAC -  -  -  -  ;	Vectors for set 0
-    3 00:0BAC -  -  -  -  ;
-    4 00:0BAC -  -  -  -  VectorsSet0:
-    5 00:0BAC A8 01 00 00 	addr(EOLHandler)                 ; $0080 [[eol]]
+    1 00:0BC0 -  -  -  -  ;
+    2 00:0BC0 -  -  -  -  ;	Vectors for set 0
+    3 00:0BC0 -  -  -  -  ;
+    4 00:0BC0 -  -  -  -  VectorsSet0:
+    5 00:0BC0 A8 01 00 00 	addr(EOLHandler)                 ; $0080 [[eol]]
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
-    6 00:0BB0 24 00 00 00 	addr(Unimplemented)              ; $0081 [[shift1]]
-    7 00:0BB4 24 00 00 00 	addr(Unimplemented)              ; $0082 [[shift2]]
-    8 00:0BB8 38 04 00 00 	addr(ALULongReference)           ; $0083 !
-    9 00:0BBC 41 04 00 00 	addr(ALUByteReference)           ; $0084 ?
-   10 00:0BC0 E4 03 00 00 	addr(ALUMultiply)                ; $0085 *
-   11 00:0BC4 F2 03 00 00 	addr(ALUDivide)                  ; $0086 /
-   12 00:0BC8 00 04 00 00 	addr(ALUModulus)                 ; $0087 mod
-   13 00:0BCC F2 03 00 00 	addr(ALUDivide2)                 ; $0088 div
-   14 00:0BD0 C8 03 00 00 	addr(ALUAdd)                     ; $0089 +
-   15 00:0BD4 D6 03 00 00 	addr(ALUSubtract)                ; $008a -
-   16 00:0BD8 9F 04 00 00 	addr(ALUCompareGreaterEqual)     ; $008b >=
-   17 00:0BDC 95 04 00 00 	addr(ALUCompareLessEqual)        ; $008c <=
-   18 00:0BE0 81 04 00 00 	addr(ALUCompareGreater)          ; $008d >
-   19 00:0BE4 77 04 00 00 	addr(ALUCompareLess)             ; $008e <
-   20 00:0BE8 6D 04 00 00 	addr(ALUCompareEqual)            ; $008f =
-   21 00:0BEC 8B 04 00 00 	addr(ALUCompareNotEqual)         ; $0090 <>
-   22 00:0BF0 0E 04 00 00 	addr(ALUAnd)                     ; $0091 and
-   23 00:0BF4 1C 04 00 00 	addr(ALUOr)                      ; $0092 or
-   24 00:0BF8 2A 04 00 00 	addr(ALUXor)                     ; $0093 eor
-   25 00:0BFC 11 08 00 00 	addr(Unary_Ampersand)            ; $0094 &
-   26 00:0C00 09 08 00 00 	addr(Unary_Brackets)             ; $0095 (
-   27 00:0C04 2B 07 00 00 	addr(Unary_MkStr)                ; $0096 $
-   28 00:0C08 58 07 00 00 	addr(Unary_Random)               ; $0097 rnd
-   29 00:0C0C 1A 07 00 00 	addr(Unary_Len)                  ; $0098 len
-   30 00:0C10 F0 06 00 00 	addr(Unary_Abs)                  ; $0099 abs
-   31 00:0C14 EF 07 00 00 	addr(Unary_Sgn)                  ; $009a sgn
-   32 00:0C18 20 08 00 00 	addr(Unary_Str)                  ; $009b str
-   33 00:0C1C 06 07 00 00 	addr(Unary_Chr)                  ; $009c chr
-   34 00:0C20 FD 06 00 00 	addr(Unary_Asc)                  ; $009d asc
-   35 00:0C24 36 07 00 00 	addr(Unary_Not)                  ; $009e not
-   36 00:0C28 4B 07 00 00 	addr(Unary_Page)                 ; $009f page
-   37 00:0C2C 48 08 00 00 	addr(Unary_Time)                 ; $00a0 time
-   38 00:0C30 4F 08 00 00 	addr(Unary_Top)                  ; $00a1 top
-   39 00:0C34 5C 08 00 00 	addr(Unary_Val)                  ; $00a2 val
-   40 00:0C38 5F 04 00 00 	addr(UnaryInt32True)             ; $00a3 true
-   41 00:0C3C 63 04 00 00 	addr(UnaryInt32False)            ; $00a4 false
-   42 00:0C40 ED 00 00 00 	addr(BadCmd_RBracket)            ; $00a5 )
-   43 00:0C44 ED 00 00 00 	addr(BadCmd_Comma)               ; $00a6 ,
-   44 00:0C48 F1 00 00 00 	addr(Command_Colon)              ; $00a7 :
-   45 00:0C4C ED 00 00 00 	addr(BadCmd_SemiColon)           ; $00a8 ;
-   46 00:0C50 7E 02 00 00 	addr(Command_REM2)               ; $00a9 '
-   47 00:0C54 24 00 00 00 	addr(Unimplemented)              ; $00aa [
-   48 00:0C58 24 00 00 00 	addr(Unimplemented)              ; $00ab ]
-   49 00:0C5C ED 00 00 00 	addr(BadCmd_Comma)               ; $00ac ~
-   50 00:0C60 24 00 00 00 	addr(Unimplemented)              ; $00ad repeat
-   51 00:0C64 24 00 00 00 	addr(Unimplemented)              ; $00ae until
-   52 00:0C68 24 00 00 00 	addr(Unimplemented)              ; $00af if
-   53 00:0C6C ED 00 00 00 	addr(BadCmd_Then)                ; $00b0 then
-   54 00:0C70 24 00 00 00 	addr(Unimplemented)              ; $00b1 else
-   55 00:0C74 24 00 00 00 	addr(Unimplemented)              ; $00b2 for
-   56 00:0C78 ED 00 00 00 	addr(BadCmd_To)                  ; $00b3 to
-   57 00:0C7C 24 00 00 00 	addr(Unimplemented)              ; $00b4 step
-   58 00:0C80 24 00 00 00 	addr(Unimplemented)              ; $00b5 next
-   59 00:0C84 24 00 00 00 	addr(Unimplemented)              ; $00b6 def
-   60 00:0C88 24 00 00 00 	addr(Unimplemented)              ; $00b7 proc
-   61 00:0C8C 24 00 00 00 	addr(Unimplemented)              ; $00b8 endproc
-   62 00:0C90 24 00 00 00 	addr(Unimplemented)              ; $00b9 gosub
-   63 00:0C94 24 00 00 00 	addr(Unimplemented)              ; $00ba return
-   64 00:0C98 24 00 00 00 	addr(Unimplemented)              ; $00bb goto
-   65 00:0C9C 24 00 00 00 	addr(Unimplemented)              ; $00bc local
-   66 00:0CA0 F2 00 00 00 	addr(Command_DIM)                ; $00bd dim
-   67 00:0CA4 7E 02 00 00 	addr(Command_REM)                ; $00be rem
-   68 00:0CA8 BF 01 00 00 	addr(Command_LET)                ; $00bf let
-   69 00:0CAC 24 00 00 00 	addr(Unimplemented)              ; $00c0 vdu
-   70 00:0CB0 13 02 00 00 	addr(Command_PRINT)              ; $00c1 print
-   71 00:0CB4 24 00 00 00 	addr(Unimplemented)              ; $00c2 load
-   72 00:0CB8 24 00 00 00 	addr(Unimplemented)              ; $00c3 save
-   73 00:0CBC 24 00 00 00 	addr(Unimplemented)              ; $00c4 list
-   74 00:0CC0 F1 08 00 00 	addr(Command_NEW)                ; $00c5 new
-   75 00:0CC4 9B 02 00 00 	addr(Command_RUN)                ; $00c6 run
-   76 00:0CC8 24 00 00 00 	addr(Unimplemented)              ; $00c7 read
-   77 00:0CCC 24 00 00 00 	addr(Unimplemented)              ; $00c8 data
-   78 00:0CD0 24 00 00 00 	addr(Unimplemented)              ; $00c9 restore
-   79 00:0CD4 DC 00 00 00 	addr(Command_ASSERT)             ; $00ca assert
-   80 00:0CD8 93 08 00 00 	addr(Command_CLEAR)              ; $00cb clear
-   81 00:0CDC A2 01 00 00 	addr(Command_END)                ; $00cc end
-   82 00:0CE0 0E 03 00 00 	addr(Command_STOP)               ; $00cd stop
-   83 00:0CE4 -  -  -  -  ;
-   84 00:0CE4 -  -  -  -  ;	Vectors for set 1
-   85 00:0CE4 -  -  -  -  ;
-   86 00:0CE4 -  -  -  -  VectorsSet1:
-   87 00:0CE4 -  -  -  -  ;
-   88 00:0CE4 -  -  -  -  ;	Vectors for set 2
-   89 00:0CE4 -  -  -  -  ;
-   90 00:0CE4 -  -  -  -  VectorsSet2:
+    6 00:0BC4 24 00 00 00 	addr(Unimplemented)              ; $0081 [[shift1]]
+    7 00:0BC8 24 00 00 00 	addr(Unimplemented)              ; $0082 [[shift2]]
+    8 00:0BCC 38 04 00 00 	addr(ALULongReference)           ; $0083 !
+    9 00:0BD0 41 04 00 00 	addr(ALUByteReference)           ; $0084 ?
+   10 00:0BD4 E4 03 00 00 	addr(ALUMultiply)                ; $0085 *
+   11 00:0BD8 F2 03 00 00 	addr(ALUDivide)                  ; $0086 /
+   12 00:0BDC 00 04 00 00 	addr(ALUModulus)                 ; $0087 mod
+   13 00:0BE0 F2 03 00 00 	addr(ALUDivide2)                 ; $0088 div
+   14 00:0BE4 C8 03 00 00 	addr(ALUAdd)                     ; $0089 +
+   15 00:0BE8 D6 03 00 00 	addr(ALUSubtract)                ; $008a -
+   16 00:0BEC 9F 04 00 00 	addr(ALUCompareGreaterEqual)     ; $008b >=
+   17 00:0BF0 95 04 00 00 	addr(ALUCompareLessEqual)        ; $008c <=
+   18 00:0BF4 81 04 00 00 	addr(ALUCompareGreater)          ; $008d >
+   19 00:0BF8 77 04 00 00 	addr(ALUCompareLess)             ; $008e <
+   20 00:0BFC 6D 04 00 00 	addr(ALUCompareEqual)            ; $008f =
+   21 00:0C00 8B 04 00 00 	addr(ALUCompareNotEqual)         ; $0090 <>
+   22 00:0C04 0E 04 00 00 	addr(ALUAnd)                     ; $0091 and
+   23 00:0C08 1C 04 00 00 	addr(ALUOr)                      ; $0092 or
+   24 00:0C0C 2A 04 00 00 	addr(ALUXor)                     ; $0093 eor
+   25 00:0C10 11 08 00 00 	addr(Unary_Ampersand)            ; $0094 &
+   26 00:0C14 09 08 00 00 	addr(Unary_Brackets)             ; $0095 (
+   27 00:0C18 2B 07 00 00 	addr(Unary_MkStr)                ; $0096 $
+   28 00:0C1C 58 07 00 00 	addr(Unary_Random)               ; $0097 rnd
+   29 00:0C20 1A 07 00 00 	addr(Unary_Len)                  ; $0098 len
+   30 00:0C24 F0 06 00 00 	addr(Unary_Abs)                  ; $0099 abs
+   31 00:0C28 EF 07 00 00 	addr(Unary_Sgn)                  ; $009a sgn
+   32 00:0C2C 20 08 00 00 	addr(Unary_Str)                  ; $009b str
+   33 00:0C30 06 07 00 00 	addr(Unary_Chr)                  ; $009c chr
+   34 00:0C34 FD 06 00 00 	addr(Unary_Asc)                  ; $009d asc
+   35 00:0C38 36 07 00 00 	addr(Unary_Not)                  ; $009e not
+   36 00:0C3C 4B 07 00 00 	addr(Unary_Page)                 ; $009f page
+   37 00:0C40 48 08 00 00 	addr(Unary_Time)                 ; $00a0 time
+   38 00:0C44 4F 08 00 00 	addr(Unary_Top)                  ; $00a1 top
+   39 00:0C48 5C 08 00 00 	addr(Unary_Val)                  ; $00a2 val
+   40 00:0C4C 5F 04 00 00 	addr(UnaryInt32True)             ; $00a3 true
+   41 00:0C50 63 04 00 00 	addr(UnaryInt32False)            ; $00a4 false
+   42 00:0C54 ED 00 00 00 	addr(BadCmd_RBracket)            ; $00a5 )
+   43 00:0C58 ED 00 00 00 	addr(BadCmd_Comma)               ; $00a6 ,
+   44 00:0C5C F1 00 00 00 	addr(Command_Colon)              ; $00a7 :
+   45 00:0C60 ED 00 00 00 	addr(BadCmd_SemiColon)           ; $00a8 ;
+   46 00:0C64 7E 02 00 00 	addr(Command_REM2)               ; $00a9 '
+   47 00:0C68 24 00 00 00 	addr(Unimplemented)              ; $00aa [
+   48 00:0C6C 24 00 00 00 	addr(Unimplemented)              ; $00ab ]
+   49 00:0C70 ED 00 00 00 	addr(BadCmd_Comma)               ; $00ac ~
+   50 00:0C74 24 00 00 00 	addr(Unimplemented)              ; $00ad repeat
+   51 00:0C78 24 00 00 00 	addr(Unimplemented)              ; $00ae until
+   52 00:0C7C 24 00 00 00 	addr(Unimplemented)              ; $00af if
+   53 00:0C80 ED 00 00 00 	addr(BadCmd_Then)                ; $00b0 then
+   54 00:0C84 24 00 00 00 	addr(Unimplemented)              ; $00b1 else
+   55 00:0C88 24 00 00 00 	addr(Unimplemented)              ; $00b2 for
+   56 00:0C8C ED 00 00 00 	addr(BadCmd_To)                  ; $00b3 to
+   57 00:0C90 24 00 00 00 	addr(Unimplemented)              ; $00b4 step
+   58 00:0C94 24 00 00 00 	addr(Unimplemented)              ; $00b5 next
+   59 00:0C98 24 00 00 00 	addr(Unimplemented)              ; $00b6 def
+   60 00:0C9C 24 00 00 00 	addr(Unimplemented)              ; $00b7 proc
+   61 00:0CA0 24 00 00 00 	addr(Unimplemented)              ; $00b8 endproc
+   62 00:0CA4 24 00 00 00 	addr(Unimplemented)              ; $00b9 gosub
+   63 00:0CA8 24 00 00 00 	addr(Unimplemented)              ; $00ba return
+   64 00:0CAC 24 00 00 00 	addr(Unimplemented)              ; $00bb goto
+   65 00:0CB0 24 00 00 00 	addr(Unimplemented)              ; $00bc local
+   66 00:0CB4 F2 00 00 00 	addr(Command_DIM)                ; $00bd dim
+   67 00:0CB8 7E 02 00 00 	addr(Command_REM)                ; $00be rem
+   68 00:0CBC BF 01 00 00 	addr(Command_LET)                ; $00bf let
+   69 00:0CC0 24 00 00 00 	addr(Unimplemented)              ; $00c0 vdu
+   70 00:0CC4 13 02 00 00 	addr(Command_PRINT)              ; $00c1 print
+   71 00:0CC8 24 00 00 00 	addr(Unimplemented)              ; $00c2 load
+   72 00:0CCC 24 00 00 00 	addr(Unimplemented)              ; $00c3 save
+   73 00:0CD0 24 00 00 00 	addr(Unimplemented)              ; $00c4 list
+   74 00:0CD4 F1 08 00 00 	addr(Command_NEW)                ; $00c5 new
+   75 00:0CD8 9B 02 00 00 	addr(Command_RUN)                ; $00c6 run
+   76 00:0CDC 24 00 00 00 	addr(Unimplemented)              ; $00c7 read
+   77 00:0CE0 24 00 00 00 	addr(Unimplemented)              ; $00c8 data
+   78 00:0CE4 24 00 00 00 	addr(Unimplemented)              ; $00c9 restore
+   79 00:0CE8 DC 00 00 00 	addr(Command_ASSERT)             ; $00ca assert
+   80 00:0CEC 93 08 00 00 	addr(Command_CLEAR)              ; $00cb clear
+   81 00:0CF0 A2 01 00 00 	addr(Command_END)                ; $00cc end
+   82 00:0CF4 0E 03 00 00 	addr(Command_STOP)               ; $00cd stop
+   83 00:0CF8 -  -  -  -  ;
+   84 00:0CF8 -  -  -  -  ;	Vectors for set 1
+   85 00:0CF8 -  -  -  -  ;
+   86 00:0CF8 -  -  -  -  VectorsSet1:
+   87 00:0CF8 -  -  -  -  ;
+   88 00:0CF8 -  -  -  -  ;	Vectors for set 2
+   89 00:0CF8 -  -  -  -  ;
+   90 00:0CF8 -  -  -  -  VectorsSet2:
 Listing for file "_build.asm"
-   60 00:0CE4 -  -  -  -  #include "int32/idivide.asm"
+   60 00:0CF8 -  -  -  -  #include "int32/idivide.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/idivide.asm"
-    1 00:0CE4 -  -  -  -  ; ***************************************************************************************
-    2 00:0CE4 -  -  -  -  ; ***************************************************************************************
-    3 00:0CE4 -  -  -  -  ;
-    4 00:0CE4 -  -  -  -  ;		Name : 		idivide.asm
-    5 00:0CE4 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0CE4 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0CE4 -  -  -  -  ;		Reviewed :	No
-    8 00:0CE4 -  -  -  -  ;		Purpose :	Divide HL'HL by DE'DE and variants
-    9 00:0CE4 -  -  -  -  ;
-   10 00:0CE4 -  -  -  -  ; ***************************************************************************************
-   11 00:0CE4 -  -  -  -  ; ***************************************************************************************
-   12 00:0CE4 -  -  -  -  
-   13 00:0CE4 -  -  -  -  ; ***************************************************************************************
-   14 00:0CE4 -  -  -  -  ;
-   15 00:0CE4 -  -  -  -  ;								Unsigned integer divide
-   16 00:0CE4 -  -  -  -  ;
-   17 00:0CE4 -  -  -  -  ; ***************************************************************************************
-   18 00:0CE4 -  -  -  -  
-   19 00:0CE4 -  -  -  -  Int32UDivide:
-   20 00:0CE4 37 -  -  -  		scf
-   21 00:0CE5 C3 29 0D 00 		jp 		_I32UnsignedDivide		
-   22 00:0CE9 -  -  -  -  
-   23 00:0CE9 -  -  -  -  ; ***************************************************************************************
-   24 00:0CE9 -  -  -  -  ;
-   25 00:0CE9 -  -  -  -  ;							Signed integer divide/Modulus
-   26 00:0CE9 -  -  -  -  ;
-   27 00:0CE9 -  -  -  -  ; ***************************************************************************************
-   28 00:0CE9 -  -  -  -  
-   29 00:0CE9 -  -  -  -  Int32SDivide:
-   30 00:0CE9 37 -  -  -  		scf
-   31 00:0CEA 18 01 -  -  		jr 		_I32SDivide
-   32 00:0CEC -  -  -  -  Int32Modulus:
-   33 00:0CEC AF -  -  -  		xor 	a
-   34 00:0CED -  -  -  -  _I32SDivide:
-   35 00:0CED 08 -  -  -  		ex 		af,af' 						; push AF'
-   36 00:0CEE F5 -  -  -  		push 	af
-   37 00:0CEF 08 -  -  -  		ex 		af,af'
-   38 00:0CF0 -  -  -  -  
-   39 00:0CF0 D5 -  -  -  		push 	de 							; push DE'DE as we might remove sign
-   40 00:0CF1 D9 -  -  -  		exx
-   41 00:0CF2 D5 -  -  -  		push 	de
-   42 00:0CF3 D9 -  -  -  		exx
-   43 00:0CF4 -  -  -  -  
-   44 00:0CF4 F5 -  -  -  		push 	af 							; save flag (CS Divide, CC Modulus) on stack.
-   45 00:0CF5 AF -  -  -  		xor 	a 							; clear sign count.
-   46 00:0CF6 CD 16 0D 00 		call 	_I32CheckHLSignSwap
-   47 00:0CFA CD 16 0D 00 		call 	_I32CheckHLSignSwap
-   48 00:0CFE 08 -  -  -  		ex 		af,af' 						; save count in AF'
-   49 00:0CFF F1 -  -  -  		pop 	af 							; get/save function flag
-   50 00:0D00 F5 -  -  -  		push 	af
-   51 00:0D01 CD 29 0D 00 		call 	_I32UnsignedDivide 			; do the unsigned divide or modulus
-   52 00:0D05 F1 -  -  -  		pop 	af 							; get function back
-   53 00:0D06 30 07 -  -  		jr 		nc,_I32SDExit 				; if modulus don't reapply the sign
-   54 00:0D08 08 -  -  -  		ex 	 	af,af' 						; get count
-   55 00:0D09 CB 47 -  -  		bit 	0,a 						; if even do not reapply sign
-   56 00:0D0B C4 8C 0E 00 		call 	nz,Int32Negate 				; if odd, reapply sign.
-   57 00:0D0F -  -  -  -  _I32SDExit:
-   58 00:0D0F D9 -  -  -  		exx 								; restore DE'DE
-   59 00:0D10 D1 -  -  -  		pop 	de
-   60 00:0D11 D9 -  -  -  		exx
-   61 00:0D12 D1 -  -  -  		pop 	de
-   62 00:0D13 F1 -  -  -  		pop 	af 							; restore AF'	
-   63 00:0D14 08 -  -  -  		ex 		af,af'
-   64 00:0D15 C9 -  -  -  		ret
-   65 00:0D16 -  -  -  -  
-   66 00:0D16 -  -  -  -  
-   67 00:0D16 -  -  -  -  _I32CheckHLSignSwap:
-   68 00:0D16 D9 -  -  -  		exx 								; check if HL'HL is negative.
-   69 00:0D17 CB 7C -  -  		bit 	7,h
-   70 00:0D19 D9 -  -  -  		exx
-   71 00:0D1A 28 08 -  -  		jr 		z,_I32CHSPositive 		
-   72 00:0D1C -  -  -  -  		;
-   73 00:0D1C C6 01 -  -  		add 	a,1 						; if so increment counter in A
-   74 00:0D1E F5 -  -  -  		push 	af  						; negate HL'HL preserving A
-   75 00:0D1F CD 8C 0E 00 		call 	Int32Negate 				
-   76 00:0D23 F1 -  -  -  		pop 	af
-   77 00:0D24 -  -  -  -  _I32CHSPositive:
-   78 00:0D24 D9 -  -  -  		exx 	 							; swap HL'HL and DE'DE
-   79 00:0D25 EB -  -  -  		ex 		de,hl
-   80 00:0D26 D9 -  -  -  		exx		
-   81 00:0D27 EB -  -  -  		ex 		de,hl
-   82 00:0D28 C9 -  -  -  		ret
-   83 00:0D29 -  -  -  -  
-   84 00:0D29 -  -  -  -  ; ***************************************************************************************
-   85 00:0D29 -  -  -  -  ;
-   86 00:0D29 -  -  -  -  ;		Divide HL'HL by DE'DE. Preserves BC'BC and DE'DE. If CS return carry else 
-   87 00:0D29 -  -  -  -  ;		return the modulus. Always returns modulus LSB in A.
-   88 00:0D29 -  -  -  -  ;
-   89 00:0D29 -  -  -  -  ; ***************************************************************************************
-   90 00:0D29 -  -  -  -  
-   91 00:0D29 -  -  -  -  _I32UnsignedDivide:
-   92 00:0D29 C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE
-   93 00:0D2A D5 -  -  -  		push 	de
-   94 00:0D2B D9 -  -  -  		exx
-   95 00:0D2C C5 -  -  -  		push 	bc
-   96 00:0D2D D5 -  -  -  		push 	de 							
-   97 00:0D2E D9 -  -  -  		exx
-   98 00:0D2F -  -  -  -  
-   99 00:0D2F F5 -  -  -  		push 	af 							; save CS for exit check
-  100 00:0D30 -  -  -  -  
-  101 00:0D30 7A -  -  -  		ld 		a,d 						; check if DE = 0
-  102 00:0D31 B3 -  -  -  		or 		e
-  103 00:0D32 D9 -  -  -  		exx
-  104 00:0D33 B2 -  -  -  		or 		d
-  105 00:0D34 B3 -  -  -  		or 		e
-  106 00:0D35 D9 -  -  -  		exx
-  107 00:0D36 CA 2A 00 00 		jp 		z,Int32DivZeroHandler 		; if so, error.
-  108 00:0D3A -  -  -  -  
-  109 00:0D3A -  -  -  -  
-  110 00:0D3A 44 -  -  -  		ld 		b,h 						; put Q (divisor) in BC, clear A (result)
-  111 00:0D3B 4D -  -  -  		ld		c,l
-  112 00:0D3C 21 00 00 00 		ld 		hl,$0000
-  113 00:0D40 D9 -  -  -  		exx
-  114 00:0D41 44 -  -  -  		ld 		b,h
-  115 00:0D42 4D -  -  -  		ld		c,l
-  116 00:0D43 21 00 00 00 		ld 		hl,$0000
-  117 00:0D47 D9 -  -  -  		exx
-  118 00:0D48 -  -  -  -  
-  119 00:0D48 3E 20 -  -  		ld 		a,32 						; loop counter
-  120 00:0D4A -  -  -  -  _I32DivideLoop:
-  121 00:0D4A F5 -  -  -  		push 	af
-  122 00:0D4B -  -  -  -  
-  123 00:0D4B CB 21 -  -  		sla 	c 							; shift AQ left : A = HL'HL Q = BC'BC
-  124 00:0D4D CB 10 -  -  		rl 		b
-  125 00:0D4F D9 -  -  -  		exx
-  126 00:0D50 CB 11 -  -  		rl 		c
-  127 00:0D52 CB 10 -  -  		rl 		b
-  128 00:0D54 D9 -  -  -  		exx
-  129 00:0D55 CB 15 -  -  		rl 		l
-  130 00:0D57 CB 14 -  -  		rl 		h
-  131 00:0D59 D9 -  -  -  		exx
-  132 00:0D5A CB 15 -  -  		rl 		l
-  133 00:0D5C CB 14 -  -  		rl 		h
-  134 00:0D5E D9 -  -  -  		exx
-  135 00:0D5F -  -  -  -  
-  136 00:0D5F CD 2A 0E 00 		call 	Int32Subtract 				; A = A - M
-  137 00:0D63 38 03 -  -  		jr 		c,_I32Borrow 				; borrow, failed to subtract.
-  138 00:0D65 -  -  -  -  
-  139 00:0D65 0C -  -  -  		inc 	c 							; set the low bit of BC'BC
-  140 00:0D66 18 04 -  -  		jr 		_I32Next
-  141 00:0D68 -  -  -  -  
-  142 00:0D68 -  -  -  -  _I32Borrow:
-  143 00:0D68 CD 22 0E 00 		call 	Int32Add 					; A = A + M
-  144 00:0D6C -  -  -  -  _I32Next:
-  145 00:0D6C F1 -  -  -  		pop 	af
-  146 00:0D6D 3D -  -  -  		dec 	a
-  147 00:0D6E 20 DA -  -  		jr 		nz,_I32DivideLoop		 	; result is in BC'BC, remainder in HL'HL
-  148 00:0D70 -  -  -  -  
-  149 00:0D70 F1 -  -  -  		pop 	af 							; CS if divide, CC if modulus
-  150 00:0D71 -  -  -  -  
-  151 00:0D71 7D -  -  -  		ld 		a,l 						; A has LSB of modulus.
-  152 00:0D72 30 06 -  -  		jr 		nc,_I32Modulus1
-  153 00:0D74 -  -  -  -  
-  154 00:0D74 60 -  -  -  		ld  	h,b
-  155 00:0D75 69 -  -  -  		ld 		l,c
-  156 00:0D76 D9 -  -  -  		exx
-  157 00:0D77 60 -  -  -  		ld  	h,b
-  158 00:0D78 69 -  -  -  		ld 		l,c
-  159 00:0D79 D9 -  -  -  		exx
-  160 00:0D7A -  -  -  -  _I32Modulus1:		
-  161 00:0D7A D9 -  -  -  		exx 								; restore BC'BC and DE'DE
-  162 00:0D7B D1 -  -  -  		pop 	de
-  163 00:0D7C C1 -  -  -  		pop 	bc
-  164 00:0D7D D9 -  -  -  		exx
-  165 00:0D7E D1 -  -  -  		pop 	de
-  166 00:0D7F C1 -  -  -  		pop 	bc
-  167 00:0D80 C9 -  -  -  		ret
-  168 00:0D81 -  -  -  -  
-  169 00:0D81 -  -  -  -  ; ***************************************************************************************
-  170 00:0D81 -  -  -  -  ;
-  171 00:0D81 -  -  -  -  ;									Changes and Updates
-  172 00:0D81 -  -  -  -  ;
-  173 00:0D81 -  -  -  -  ; ***************************************************************************************
-  174 00:0D81 -  -  -  -  ;
-  175 00:0D81 -  -  -  -  ;		Date			Notes
-  176 00:0D81 -  -  -  -  ;		==== 			=====
-  177 00:0D81 -  -  -  -  ;
-  178 00:0D81 -  -  -  -  ; ***************************************************************************************
-  179 00:0D81 -  -  -  -  		
+    1 00:0CF8 -  -  -  -  ; ***************************************************************************************
+    2 00:0CF8 -  -  -  -  ; ***************************************************************************************
+    3 00:0CF8 -  -  -  -  ;
+    4 00:0CF8 -  -  -  -  ;		Name : 		idivide.asm
+    5 00:0CF8 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0CF8 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0CF8 -  -  -  -  ;		Reviewed :	No
+    8 00:0CF8 -  -  -  -  ;		Purpose :	Divide HL'HL by DE'DE and variants
+    9 00:0CF8 -  -  -  -  ;
+   10 00:0CF8 -  -  -  -  ; ***************************************************************************************
+   11 00:0CF8 -  -  -  -  ; ***************************************************************************************
+   12 00:0CF8 -  -  -  -  
+   13 00:0CF8 -  -  -  -  ; ***************************************************************************************
+   14 00:0CF8 -  -  -  -  ;
+   15 00:0CF8 -  -  -  -  ;								Unsigned integer divide
+   16 00:0CF8 -  -  -  -  ;
+   17 00:0CF8 -  -  -  -  ; ***************************************************************************************
+   18 00:0CF8 -  -  -  -  
+   19 00:0CF8 -  -  -  -  Int32UDivide:
+   20 00:0CF8 37 -  -  -  		scf
+   21 00:0CF9 C3 3D 0D 00 		jp 		_I32UnsignedDivide		
+   22 00:0CFD -  -  -  -  
+   23 00:0CFD -  -  -  -  ; ***************************************************************************************
+   24 00:0CFD -  -  -  -  ;
+   25 00:0CFD -  -  -  -  ;							Signed integer divide/Modulus
+   26 00:0CFD -  -  -  -  ;
+   27 00:0CFD -  -  -  -  ; ***************************************************************************************
+   28 00:0CFD -  -  -  -  
+   29 00:0CFD -  -  -  -  Int32SDivide:
+   30 00:0CFD 37 -  -  -  		scf
+   31 00:0CFE 18 01 -  -  		jr 		_I32SDivide
+   32 00:0D00 -  -  -  -  Int32Modulus:
+   33 00:0D00 AF -  -  -  		xor 	a
+   34 00:0D01 -  -  -  -  _I32SDivide:
+   35 00:0D01 08 -  -  -  		ex 		af,af' 						; push AF'
+   36 00:0D02 F5 -  -  -  		push 	af
+   37 00:0D03 08 -  -  -  		ex 		af,af'
+   38 00:0D04 -  -  -  -  
+   39 00:0D04 D5 -  -  -  		push 	de 							; push DE'DE as we might remove sign
+   40 00:0D05 D9 -  -  -  		exx
+   41 00:0D06 D5 -  -  -  		push 	de
+   42 00:0D07 D9 -  -  -  		exx
+   43 00:0D08 -  -  -  -  
+   44 00:0D08 F5 -  -  -  		push 	af 							; save flag (CS Divide, CC Modulus) on stack.
+   45 00:0D09 AF -  -  -  		xor 	a 							; clear sign count.
+   46 00:0D0A CD 2A 0D 00 		call 	_I32CheckHLSignSwap
+   47 00:0D0E CD 2A 0D 00 		call 	_I32CheckHLSignSwap
+   48 00:0D12 08 -  -  -  		ex 		af,af' 						; save count in AF'
+   49 00:0D13 F1 -  -  -  		pop 	af 							; get/save function flag
+   50 00:0D14 F5 -  -  -  		push 	af
+   51 00:0D15 CD 3D 0D 00 		call 	_I32UnsignedDivide 			; do the unsigned divide or modulus
+   52 00:0D19 F1 -  -  -  		pop 	af 							; get function back
+   53 00:0D1A 30 07 -  -  		jr 		nc,_I32SDExit 				; if modulus don't reapply the sign
+   54 00:0D1C 08 -  -  -  		ex 	 	af,af' 						; get count
+   55 00:0D1D CB 47 -  -  		bit 	0,a 						; if even do not reapply sign
+   56 00:0D1F C4 A0 0E 00 		call 	nz,Int32Negate 				; if odd, reapply sign.
+   57 00:0D23 -  -  -  -  _I32SDExit:
+   58 00:0D23 D9 -  -  -  		exx 								; restore DE'DE
+   59 00:0D24 D1 -  -  -  		pop 	de
+   60 00:0D25 D9 -  -  -  		exx
+   61 00:0D26 D1 -  -  -  		pop 	de
+   62 00:0D27 F1 -  -  -  		pop 	af 							; restore AF'	
+   63 00:0D28 08 -  -  -  		ex 		af,af'
+   64 00:0D29 C9 -  -  -  		ret
+   65 00:0D2A -  -  -  -  
+   66 00:0D2A -  -  -  -  
+   67 00:0D2A -  -  -  -  _I32CheckHLSignSwap:
+   68 00:0D2A D9 -  -  -  		exx 								; check if HL'HL is negative.
+   69 00:0D2B CB 7C -  -  		bit 	7,h
+   70 00:0D2D D9 -  -  -  		exx
+   71 00:0D2E 28 08 -  -  		jr 		z,_I32CHSPositive 		
+   72 00:0D30 -  -  -  -  		;
+   73 00:0D30 C6 01 -  -  		add 	a,1 						; if so increment counter in A
+   74 00:0D32 F5 -  -  -  		push 	af  						; negate HL'HL preserving A
+   75 00:0D33 CD A0 0E 00 		call 	Int32Negate 				
+   76 00:0D37 F1 -  -  -  		pop 	af
+   77 00:0D38 -  -  -  -  _I32CHSPositive:
+   78 00:0D38 D9 -  -  -  		exx 	 							; swap HL'HL and DE'DE
+   79 00:0D39 EB -  -  -  		ex 		de,hl
+   80 00:0D3A D9 -  -  -  		exx		
+   81 00:0D3B EB -  -  -  		ex 		de,hl
+   82 00:0D3C C9 -  -  -  		ret
+   83 00:0D3D -  -  -  -  
+   84 00:0D3D -  -  -  -  ; ***************************************************************************************
+   85 00:0D3D -  -  -  -  ;
+   86 00:0D3D -  -  -  -  ;		Divide HL'HL by DE'DE. Preserves BC'BC and DE'DE. If CS return carry else 
+   87 00:0D3D -  -  -  -  ;		return the modulus. Always returns modulus LSB in A.
+   88 00:0D3D -  -  -  -  ;
+   89 00:0D3D -  -  -  -  ; ***************************************************************************************
+   90 00:0D3D -  -  -  -  
+   91 00:0D3D -  -  -  -  _I32UnsignedDivide:
+   92 00:0D3D C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE
+   93 00:0D3E D5 -  -  -  		push 	de
+   94 00:0D3F D9 -  -  -  		exx
+   95 00:0D40 C5 -  -  -  		push 	bc
+   96 00:0D41 D5 -  -  -  		push 	de 							
+   97 00:0D42 D9 -  -  -  		exx
+   98 00:0D43 -  -  -  -  
+   99 00:0D43 F5 -  -  -  		push 	af 							; save CS for exit check
+  100 00:0D44 -  -  -  -  
+  101 00:0D44 7A -  -  -  		ld 		a,d 						; check if DE = 0
+  102 00:0D45 B3 -  -  -  		or 		e
+  103 00:0D46 D9 -  -  -  		exx
+  104 00:0D47 B2 -  -  -  		or 		d
+  105 00:0D48 B3 -  -  -  		or 		e
+  106 00:0D49 D9 -  -  -  		exx
+  107 00:0D4A CA 2A 00 00 		jp 		z,Int32DivZeroHandler 		; if so, error.
+  108 00:0D4E -  -  -  -  
+  109 00:0D4E -  -  -  -  
+  110 00:0D4E 44 -  -  -  		ld 		b,h 						; put Q (divisor) in BC, clear A (result)
+  111 00:0D4F 4D -  -  -  		ld		c,l
+  112 00:0D50 21 00 00 00 		ld 		hl,$0000
+  113 00:0D54 D9 -  -  -  		exx
+  114 00:0D55 44 -  -  -  		ld 		b,h
+  115 00:0D56 4D -  -  -  		ld		c,l
+  116 00:0D57 21 00 00 00 		ld 		hl,$0000
+  117 00:0D5B D9 -  -  -  		exx
+  118 00:0D5C -  -  -  -  
+  119 00:0D5C 3E 20 -  -  		ld 		a,32 						; loop counter
+  120 00:0D5E -  -  -  -  _I32DivideLoop:
+  121 00:0D5E F5 -  -  -  		push 	af
+  122 00:0D5F -  -  -  -  
+  123 00:0D5F CB 21 -  -  		sla 	c 							; shift AQ left : A = HL'HL Q = BC'BC
+  124 00:0D61 CB 10 -  -  		rl 		b
+  125 00:0D63 D9 -  -  -  		exx
+  126 00:0D64 CB 11 -  -  		rl 		c
+  127 00:0D66 CB 10 -  -  		rl 		b
+  128 00:0D68 D9 -  -  -  		exx
+  129 00:0D69 CB 15 -  -  		rl 		l
+  130 00:0D6B CB 14 -  -  		rl 		h
+  131 00:0D6D D9 -  -  -  		exx
+  132 00:0D6E CB 15 -  -  		rl 		l
+  133 00:0D70 CB 14 -  -  		rl 		h
+  134 00:0D72 D9 -  -  -  		exx
+  135 00:0D73 -  -  -  -  
+  136 00:0D73 CD 3E 0E 00 		call 	Int32Subtract 				; A = A - M
+  137 00:0D77 38 03 -  -  		jr 		c,_I32Borrow 				; borrow, failed to subtract.
+  138 00:0D79 -  -  -  -  
+  139 00:0D79 0C -  -  -  		inc 	c 							; set the low bit of BC'BC
+  140 00:0D7A 18 04 -  -  		jr 		_I32Next
+  141 00:0D7C -  -  -  -  
+  142 00:0D7C -  -  -  -  _I32Borrow:
+  143 00:0D7C CD 36 0E 00 		call 	Int32Add 					; A = A + M
+  144 00:0D80 -  -  -  -  _I32Next:
+  145 00:0D80 F1 -  -  -  		pop 	af
+  146 00:0D81 3D -  -  -  		dec 	a
+  147 00:0D82 20 DA -  -  		jr 		nz,_I32DivideLoop		 	; result is in BC'BC, remainder in HL'HL
+  148 00:0D84 -  -  -  -  
+  149 00:0D84 F1 -  -  -  		pop 	af 							; CS if divide, CC if modulus
+  150 00:0D85 -  -  -  -  
+  151 00:0D85 7D -  -  -  		ld 		a,l 						; A has LSB of modulus.
+  152 00:0D86 30 06 -  -  		jr 		nc,_I32Modulus1
+  153 00:0D88 -  -  -  -  
+  154 00:0D88 60 -  -  -  		ld  	h,b
+  155 00:0D89 69 -  -  -  		ld 		l,c
+  156 00:0D8A D9 -  -  -  		exx
+  157 00:0D8B 60 -  -  -  		ld  	h,b
+  158 00:0D8C 69 -  -  -  		ld 		l,c
+  159 00:0D8D D9 -  -  -  		exx
+  160 00:0D8E -  -  -  -  _I32Modulus1:		
+  161 00:0D8E D9 -  -  -  		exx 								; restore BC'BC and DE'DE
+  162 00:0D8F D1 -  -  -  		pop 	de
+  163 00:0D90 C1 -  -  -  		pop 	bc
+  164 00:0D91 D9 -  -  -  		exx
+  165 00:0D92 D1 -  -  -  		pop 	de
+  166 00:0D93 C1 -  -  -  		pop 	bc
+  167 00:0D94 C9 -  -  -  		ret
+  168 00:0D95 -  -  -  -  
+  169 00:0D95 -  -  -  -  ; ***************************************************************************************
+  170 00:0D95 -  -  -  -  ;
+  171 00:0D95 -  -  -  -  ;									Changes and Updates
+  172 00:0D95 -  -  -  -  ;
+  173 00:0D95 -  -  -  -  ; ***************************************************************************************
+  174 00:0D95 -  -  -  -  ;
+  175 00:0D95 -  -  -  -  ;		Date			Notes
+  176 00:0D95 -  -  -  -  ;		==== 			=====
+  177 00:0D95 -  -  -  -  ;
+  178 00:0D95 -  -  -  -  ; ***************************************************************************************
+  179 00:0D95 -  -  -  -  		
 Listing for file "_build.asm"
-   61 00:0D81 -  -  -  -  #include "int32/ifromstring.asm"
+   61 00:0D95 -  -  -  -  #include "int32/ifromstring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/ifromstring.asm"
-    1 00:0D81 -  -  -  -  ; ***************************************************************************************
-    2 00:0D81 -  -  -  -  ; ***************************************************************************************
-    3 00:0D81 -  -  -  -  ;
-    4 00:0D81 -  -  -  -  ;		Name : 		ifromstring.asm
-    5 00:0D81 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0D81 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0D81 -  -  -  -  ;		Reviewed :	No
-    8 00:0D81 -  -  -  -  ;		Purpose :	Convert string to integer.
-    9 00:0D81 -  -  -  -  ;
-   10 00:0D81 -  -  -  -  ; ***************************************************************************************
-   11 00:0D81 -  -  -  -  ; ***************************************************************************************
-   12 00:0D81 -  -  -  -  
-   13 00:0D81 -  -  -  -  ; ***************************************************************************************
-   14 00:0D81 -  -  -  -  ;
-   15 00:0D81 -  -  -  -  ;			Convert string at (BC) base A (-ve = sign) to number at HL'HL
-   16 00:0D81 -  -  -  -  ;			Return first 'bad' character in A, Z flag set if EOS.
-   17 00:0D81 -  -  -  -  ;
-   18 00:0D81 -  -  -  -  ; ***************************************************************************************
-   19 00:0D81 -  -  -  -  
-   20 00:0D81 -  -  -  -  Int32FromString:
-   21 00:0D81 C5 -  -  -   		push 	bc 							; save BC on stack
-   22 00:0D82 D9 -  -  -  		exx 								; push DE'DE on the stack
-   23 00:0D83 D5 -  -  -  		push 	de
-   24 00:0D84 D9 -  -  -  		exx
-   25 00:0D85 D5 -  -  -  		push 	de
-   26 00:0D86 -  -  -  -  
-   27 00:0D86 21 00 00 00 		ld 		hl,$0000 					; zero HL'HL the result and the DE'DE
-   28 00:0D8A 11 00 00 00 		ld 		de,$0000
-   29 00:0D8E D9 -  -  -  		exx
-   30 00:0D8F 21 00 00 00 		ld 		hl,$0000
-   31 00:0D93 11 00 00 00 		ld 		de,$0000
-   32 00:0D97 D9 -  -  -  		exx
-   33 00:0D98 -  -  -  -  
-   34 00:0D98 5F -  -  -  		ld 		e,a 						; base in E
-   35 00:0D99 CB 7F -  -  		bit 	7,a 						; base -ve e.g. do it signed
-   36 00:0D9B 28 0D -  -  		jr 		z,_I32FSNotSigned
-   37 00:0D9D ED 44 -  -  		neg 		 						; fix up the base
-   38 00:0D9F 5F -  -  -  		ld 		e,a 						; save in E.
-   39 00:0DA0 -  -  -  -  		;
-   40 00:0DA0 0A -  -  -  		ld 		a,(bc) 						; push first character on the stack.
-   41 00:0DA1 F5 -  -  -  		push 	af
-   42 00:0DA2 FE 2D -  -  		cp 		'-' 						; is it a minus ?
-   43 00:0DA4 7B -  -  -  		ld 		a,e 						; restore base in A
-   44 00:0DA5 20 04 -  -  		jr 		nz,_I32FSMain 				; (the compare above)
-   45 00:0DA7 03 -  -  -  		inc 	bc 							; skip over it and start scanning
-   46 00:0DA8 18 01 -  -  		jr 		_I32FSMain
-   47 00:0DAA -  -  -  -  _I32FSNotSigned:		
-   48 00:0DAA E5 -  -  -  		push 	hl 							; this is a dummy first char, will be zero.
-   49 00:0DAB -  -  -  -  		;
-   50 00:0DAB -  -  -  -  		; 		Main conversion loop.
-   51 00:0DAB -  -  -  -  		; 		
-   52 00:0DAB -  -  -  -  _I32FSMain:		
-   53 00:0DAB 0A -  -  -  		ld 		a,(bc) 						; get next character
-   54 00:0DAC FE 60 -  -  		cp 		96 							; simple but sufficient L->U
-   55 00:0DAE 38 02 -  -  		jr 		c,_I32FSNotLower
-   56 00:0DB0 D6 20 -  -  		sub 	32
-   57 00:0DB2 -  -  -  -  _I32FSNotLower:
-   58 00:0DB2 FE 30 -  -  		cp 		'0' 						; check in range
-   59 00:0DB4 38 23 -  -  		jr 		c,_I32FSExit
-   60 00:0DB6 FE 3A -  -  		cp 		'9'+1
-   61 00:0DB8 38 0A -  -  		jr 		c,_I32FSOkay
-   62 00:0DBA FE 41 -  -  		cp 		'A'
-   63 00:0DBC 38 1B -  -  		jr 		c,_I32FSExit
-   64 00:0DBE FE 47 -  -  		cp 		'F'+1
-   65 00:0DC0 30 17 -  -  		jr 		nc,_I32FSExit
-   66 00:0DC2 D6 07 -  -  		sub 	7 							; hex->decimal mod.
-   67 00:0DC4 -  -  -  -  _I32FSOkay:
-   68 00:0DC4 D6 30 -  -  		sub 	'0' 						; now should be 0-15
-   69 00:0DC6 BB -  -  -  		cp 		e 							; fail if >= base
-   70 00:0DC7 30 10 -  -  		jr 		nc,_I32FSExit 
-   71 00:0DC9 03 -  -  -  		inc 	bc 							; consume character
-   72 00:0DCA D5 -  -  -  		push 	de 							; save DE, containing base on stack.
-   73 00:0DCB F5 -  -  -  		push 	af 							; save additive on stack
-   74 00:0DCC CD E9 0D 00 		call 	Int32Multiply 				; result *= base
-   75 00:0DD0 F1 -  -  -  		pop 	af 							; additive in DE
-   76 00:0DD1 5F -  -  -  		ld 		e,a
-   77 00:0DD2 CD 22 0E 00 		call 	Int32Add 					; and add it.
-   78 00:0DD6 D1 -  -  -  		pop 	de 							; restore DE containing base.
-   79 00:0DD7 18 D2 -  -  		jr 		_I32FSMain 					; and go round the loop again.
-   80 00:0DD9 -  -  -  -  
-   81 00:0DD9 -  -  -  -  _I32FSExit:
-   82 00:0DD9 F1 -  -  -  		pop 	af 							; get sign back
-   83 00:0DDA FE 2D -  -  		cp 		'-' 						; if -ve negate result
-   84 00:0DDC CC 8C 0E 00 		call 	z,Int32Negate
-   85 00:0DE0 0A -  -  -  		ld 		a,(bc) 						; get fail character
-   86 00:0DE1 D1 -  -  -  		pop 	de 							; restore DE'DE BC
-   87 00:0DE2 D9 -  -  -  		exx
-   88 00:0DE3 D1 -  -  -  		pop 	de
-   89 00:0DE4 D9 -  -  -  		exx
-   90 00:0DE5 C1 -  -  -  		pop 	bc
-   91 00:0DE6 FE 0D -  -  		cp 		$0D 						; ends in CR ?
-   92 00:0DE8 C9 -  -  -  		ret				
-   93 00:0DE9 -  -  -  -  
-   94 00:0DE9 -  -  -  -  ; ***************************************************************************************
-   95 00:0DE9 -  -  -  -  ;
-   96 00:0DE9 -  -  -  -  ;									Changes and Updates
-   97 00:0DE9 -  -  -  -  ;
-   98 00:0DE9 -  -  -  -  ; ***************************************************************************************
-   99 00:0DE9 -  -  -  -  ;
-  100 00:0DE9 -  -  -  -  ;		Date			Notes
-  101 00:0DE9 -  -  -  -  ;		==== 			=====
-  102 00:0DE9 -  -  -  -  ;
-  103 00:0DE9 -  -  -  -  ; ***************************************************************************************
+    1 00:0D95 -  -  -  -  ; ***************************************************************************************
+    2 00:0D95 -  -  -  -  ; ***************************************************************************************
+    3 00:0D95 -  -  -  -  ;
+    4 00:0D95 -  -  -  -  ;		Name : 		ifromstring.asm
+    5 00:0D95 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0D95 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0D95 -  -  -  -  ;		Reviewed :	No
+    8 00:0D95 -  -  -  -  ;		Purpose :	Convert string to integer.
+    9 00:0D95 -  -  -  -  ;
+   10 00:0D95 -  -  -  -  ; ***************************************************************************************
+   11 00:0D95 -  -  -  -  ; ***************************************************************************************
+   12 00:0D95 -  -  -  -  
+   13 00:0D95 -  -  -  -  ; ***************************************************************************************
+   14 00:0D95 -  -  -  -  ;
+   15 00:0D95 -  -  -  -  ;			Convert string at (BC) base A (-ve = sign) to number at HL'HL
+   16 00:0D95 -  -  -  -  ;			Return first 'bad' character in A, Z flag set if EOS.
+   17 00:0D95 -  -  -  -  ;
+   18 00:0D95 -  -  -  -  ; ***************************************************************************************
+   19 00:0D95 -  -  -  -  
+   20 00:0D95 -  -  -  -  Int32FromString:
+   21 00:0D95 C5 -  -  -   		push 	bc 							; save BC on stack
+   22 00:0D96 D9 -  -  -  		exx 								; push DE'DE on the stack
+   23 00:0D97 D5 -  -  -  		push 	de
+   24 00:0D98 D9 -  -  -  		exx
+   25 00:0D99 D5 -  -  -  		push 	de
+   26 00:0D9A -  -  -  -  
+   27 00:0D9A 21 00 00 00 		ld 		hl,$0000 					; zero HL'HL the result and the DE'DE
+   28 00:0D9E 11 00 00 00 		ld 		de,$0000
+   29 00:0DA2 D9 -  -  -  		exx
+   30 00:0DA3 21 00 00 00 		ld 		hl,$0000
+   31 00:0DA7 11 00 00 00 		ld 		de,$0000
+   32 00:0DAB D9 -  -  -  		exx
+   33 00:0DAC -  -  -  -  
+   34 00:0DAC 5F -  -  -  		ld 		e,a 						; base in E
+   35 00:0DAD CB 7F -  -  		bit 	7,a 						; base -ve e.g. do it signed
+   36 00:0DAF 28 0D -  -  		jr 		z,_I32FSNotSigned
+   37 00:0DB1 ED 44 -  -  		neg 		 						; fix up the base
+   38 00:0DB3 5F -  -  -  		ld 		e,a 						; save in E.
+   39 00:0DB4 -  -  -  -  		;
+   40 00:0DB4 0A -  -  -  		ld 		a,(bc) 						; push first character on the stack.
+   41 00:0DB5 F5 -  -  -  		push 	af
+   42 00:0DB6 FE 2D -  -  		cp 		'-' 						; is it a minus ?
+   43 00:0DB8 7B -  -  -  		ld 		a,e 						; restore base in A
+   44 00:0DB9 20 04 -  -  		jr 		nz,_I32FSMain 				; (the compare above)
+   45 00:0DBB 03 -  -  -  		inc 	bc 							; skip over it and start scanning
+   46 00:0DBC 18 01 -  -  		jr 		_I32FSMain
+   47 00:0DBE -  -  -  -  _I32FSNotSigned:		
+   48 00:0DBE E5 -  -  -  		push 	hl 							; this is a dummy first char, will be zero.
+   49 00:0DBF -  -  -  -  		;
+   50 00:0DBF -  -  -  -  		; 		Main conversion loop.
+   51 00:0DBF -  -  -  -  		; 		
+   52 00:0DBF -  -  -  -  _I32FSMain:		
+   53 00:0DBF 0A -  -  -  		ld 		a,(bc) 						; get next character
+   54 00:0DC0 FE 60 -  -  		cp 		96 							; simple but sufficient L->U
+   55 00:0DC2 38 02 -  -  		jr 		c,_I32FSNotLower
+   56 00:0DC4 D6 20 -  -  		sub 	32
+   57 00:0DC6 -  -  -  -  _I32FSNotLower:
+   58 00:0DC6 FE 30 -  -  		cp 		'0' 						; check in range
+   59 00:0DC8 38 23 -  -  		jr 		c,_I32FSExit
+   60 00:0DCA FE 3A -  -  		cp 		'9'+1
+   61 00:0DCC 38 0A -  -  		jr 		c,_I32FSOkay
+   62 00:0DCE FE 41 -  -  		cp 		'A'
+   63 00:0DD0 38 1B -  -  		jr 		c,_I32FSExit
+   64 00:0DD2 FE 47 -  -  		cp 		'F'+1
+   65 00:0DD4 30 17 -  -  		jr 		nc,_I32FSExit
+   66 00:0DD6 D6 07 -  -  		sub 	7 							; hex->decimal mod.
+   67 00:0DD8 -  -  -  -  _I32FSOkay:
+   68 00:0DD8 D6 30 -  -  		sub 	'0' 						; now should be 0-15
+   69 00:0DDA BB -  -  -  		cp 		e 							; fail if >= base
+   70 00:0DDB 30 10 -  -  		jr 		nc,_I32FSExit 
+   71 00:0DDD 03 -  -  -  		inc 	bc 							; consume character
+   72 00:0DDE D5 -  -  -  		push 	de 							; save DE, containing base on stack.
+   73 00:0DDF F5 -  -  -  		push 	af 							; save additive on stack
+   74 00:0DE0 CD FD 0D 00 		call 	Int32Multiply 				; result *= base
+   75 00:0DE4 F1 -  -  -  		pop 	af 							; additive in DE
+   76 00:0DE5 5F -  -  -  		ld 		e,a
+   77 00:0DE6 CD 36 0E 00 		call 	Int32Add 					; and add it.
+   78 00:0DEA D1 -  -  -  		pop 	de 							; restore DE containing base.
+   79 00:0DEB 18 D2 -  -  		jr 		_I32FSMain 					; and go round the loop again.
+   80 00:0DED -  -  -  -  
+   81 00:0DED -  -  -  -  _I32FSExit:
+   82 00:0DED F1 -  -  -  		pop 	af 							; get sign back
+   83 00:0DEE FE 2D -  -  		cp 		'-' 						; if -ve negate result
+   84 00:0DF0 CC A0 0E 00 		call 	z,Int32Negate
+   85 00:0DF4 0A -  -  -  		ld 		a,(bc) 						; get fail character
+   86 00:0DF5 D1 -  -  -  		pop 	de 							; restore DE'DE BC
+   87 00:0DF6 D9 -  -  -  		exx
+   88 00:0DF7 D1 -  -  -  		pop 	de
+   89 00:0DF8 D9 -  -  -  		exx
+   90 00:0DF9 C1 -  -  -  		pop 	bc
+   91 00:0DFA FE 0D -  -  		cp 		$0D 						; ends in CR ?
+   92 00:0DFC C9 -  -  -  		ret				
+   93 00:0DFD -  -  -  -  
+   94 00:0DFD -  -  -  -  ; ***************************************************************************************
+   95 00:0DFD -  -  -  -  ;
+   96 00:0DFD -  -  -  -  ;									Changes and Updates
+   97 00:0DFD -  -  -  -  ;
+   98 00:0DFD -  -  -  -  ; ***************************************************************************************
+   99 00:0DFD -  -  -  -  ;
+  100 00:0DFD -  -  -  -  ;		Date			Notes
+  101 00:0DFD -  -  -  -  ;		==== 			=====
+  102 00:0DFD -  -  -  -  ;
+  103 00:0DFD -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   62 00:0DE9 -  -  -  -  #include "int32/imultiply.asm"
+   62 00:0DFD -  -  -  -  #include "int32/imultiply.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/imultiply.asm"
-    1 00:0DE9 -  -  -  -  ; ***************************************************************************************
-    2 00:0DE9 -  -  -  -  ; ***************************************************************************************
-    3 00:0DE9 -  -  -  -  ;
-    4 00:0DE9 -  -  -  -  ;		Name : 		imultiply.asm
-    5 00:0DE9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0DE9 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0DE9 -  -  -  -  ;		Reviewed :	No
-    8 00:0DE9 -  -  -  -  ;		Purpose :	Multiply HL'HL by DE'DE
-    9 00:0DE9 -  -  -  -  ;
-   10 00:0DE9 -  -  -  -  ; ***************************************************************************************
-   11 00:0DE9 -  -  -  -  ; ***************************************************************************************
-   12 00:0DE9 -  -  -  -  
-   13 00:0DE9 -  -  -  -  Int32Multiply:
-   14 00:0DE9 C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE, copy HL'HL to BC'BC and zero HL'HL
-   15 00:0DEA D5 -  -  -  		push 	de
-   16 00:0DEB 44 -  -  -  		ld 		b,h
-   17 00:0DEC 4D -  -  -  		ld 		c,l
-   18 00:0DED 21 00 00 00 		ld 		hl,$0000
-   19 00:0DF1 -  -  -  -  
-   20 00:0DF1 D9 -  -  -  		exx
-   21 00:0DF2 C5 -  -  -  		push 	bc
-   22 00:0DF3 D5 -  -  -  		push 	de
-   23 00:0DF4 44 -  -  -  		ld 		b,h
-   24 00:0DF5 4D -  -  -  		ld 		c,l
-   25 00:0DF6 21 00 00 00 		ld 		hl,$0000		
-   26 00:0DFA D9 -  -  -  		exx
-   27 00:0DFB -  -  -  -  
-   28 00:0DFB -  -  -  -  _I32MultiplyLoop:
-   29 00:0DFB CB 41 -  -  		bit 	0,c 						; is bit 0 of BC'BC set ?
-   30 00:0DFD C4 22 0E 00 		call 	nz,Int32Add 				; add DE'DE to HL'HL
-   31 00:0E01 -  -  -  -  		;
-   32 00:0E01 D9 -  -  -  		exx 								; shift BC'BC right.
-   33 00:0E02 CB 38 -  -  		srl 	b
-   34 00:0E04 CB 19 -  -  		rr 		c
-   35 00:0E06 D9 -  -  -  		exx
-   36 00:0E07 CB 18 -  -  		rr 		b
-   37 00:0E09 CB 19 -  -  		rr 		c
-   38 00:0E0B -  -  -  -  		;
-   39 00:0E0B CB 23 -  -  		sla 	e 							; shift DE'DE left.
-   40 00:0E0D CB 12 -  -  		rl 		d
-   41 00:0E0F D9 -  -  -  		exx
-   42 00:0E10 CB 13 -  -  		rl 		e
-   43 00:0E12 CB 12 -  -  		rl 		d
-   44 00:0E14 -  -  -  -  
-   45 00:0E14 78 -  -  -  		ld 		a,b 						; check BC is zero in last exx
-   46 00:0E15 B1 -  -  -  		or 		c
-   47 00:0E16 D9 -  -  -  		exx
-   48 00:0E17 B0 -  -  -  		or 		b
-   49 00:0E18 B1 -  -  -  		or 		c
-   50 00:0E19 20 E0 -  -  		jr 		nz,_I32MultiplyLoop
-   51 00:0E1B -  -  -  -  
-   52 00:0E1B D9 -  -  -  		exx  								; pop DE'DE and BC'BC
-   53 00:0E1C D1 -  -  -  		pop 	de
-   54 00:0E1D C1 -  -  -  		pop 	bc
-   55 00:0E1E D9 -  -  -  		exx
-   56 00:0E1F D1 -  -  -  		pop 	de
-   57 00:0E20 C1 -  -  -  		pop 	bc
-   58 00:0E21 C9 -  -  -  		ret
-   59 00:0E22 -  -  -  -  
-   60 00:0E22 -  -  -  -  ; ***************************************************************************************
-   61 00:0E22 -  -  -  -  ;
-   62 00:0E22 -  -  -  -  ;									Changes and Updates
-   63 00:0E22 -  -  -  -  ;
-   64 00:0E22 -  -  -  -  ; ***************************************************************************************
-   65 00:0E22 -  -  -  -  ;
-   66 00:0E22 -  -  -  -  ;		Date			Notes
-   67 00:0E22 -  -  -  -  ;		==== 			=====
-   68 00:0E22 -  -  -  -  ;
-   69 00:0E22 -  -  -  -  ; ***************************************************************************************
+    1 00:0DFD -  -  -  -  ; ***************************************************************************************
+    2 00:0DFD -  -  -  -  ; ***************************************************************************************
+    3 00:0DFD -  -  -  -  ;
+    4 00:0DFD -  -  -  -  ;		Name : 		imultiply.asm
+    5 00:0DFD -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0DFD -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0DFD -  -  -  -  ;		Reviewed :	No
+    8 00:0DFD -  -  -  -  ;		Purpose :	Multiply HL'HL by DE'DE
+    9 00:0DFD -  -  -  -  ;
+   10 00:0DFD -  -  -  -  ; ***************************************************************************************
+   11 00:0DFD -  -  -  -  ; ***************************************************************************************
+   12 00:0DFD -  -  -  -  
+   13 00:0DFD -  -  -  -  Int32Multiply:
+   14 00:0DFD C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE, copy HL'HL to BC'BC and zero HL'HL
+   15 00:0DFE D5 -  -  -  		push 	de
+   16 00:0DFF 44 -  -  -  		ld 		b,h
+   17 00:0E00 4D -  -  -  		ld 		c,l
+   18 00:0E01 21 00 00 00 		ld 		hl,$0000
+   19 00:0E05 -  -  -  -  
+   20 00:0E05 D9 -  -  -  		exx
+   21 00:0E06 C5 -  -  -  		push 	bc
+   22 00:0E07 D5 -  -  -  		push 	de
+   23 00:0E08 44 -  -  -  		ld 		b,h
+   24 00:0E09 4D -  -  -  		ld 		c,l
+   25 00:0E0A 21 00 00 00 		ld 		hl,$0000		
+   26 00:0E0E D9 -  -  -  		exx
+   27 00:0E0F -  -  -  -  
+   28 00:0E0F -  -  -  -  _I32MultiplyLoop:
+   29 00:0E0F CB 41 -  -  		bit 	0,c 						; is bit 0 of BC'BC set ?
+   30 00:0E11 C4 36 0E 00 		call 	nz,Int32Add 				; add DE'DE to HL'HL
+   31 00:0E15 -  -  -  -  		;
+   32 00:0E15 D9 -  -  -  		exx 								; shift BC'BC right.
+   33 00:0E16 CB 38 -  -  		srl 	b
+   34 00:0E18 CB 19 -  -  		rr 		c
+   35 00:0E1A D9 -  -  -  		exx
+   36 00:0E1B CB 18 -  -  		rr 		b
+   37 00:0E1D CB 19 -  -  		rr 		c
+   38 00:0E1F -  -  -  -  		;
+   39 00:0E1F CB 23 -  -  		sla 	e 							; shift DE'DE left.
+   40 00:0E21 CB 12 -  -  		rl 		d
+   41 00:0E23 D9 -  -  -  		exx
+   42 00:0E24 CB 13 -  -  		rl 		e
+   43 00:0E26 CB 12 -  -  		rl 		d
+   44 00:0E28 -  -  -  -  
+   45 00:0E28 78 -  -  -  		ld 		a,b 						; check BC is zero in last exx
+   46 00:0E29 B1 -  -  -  		or 		c
+   47 00:0E2A D9 -  -  -  		exx
+   48 00:0E2B B0 -  -  -  		or 		b
+   49 00:0E2C B1 -  -  -  		or 		c
+   50 00:0E2D 20 E0 -  -  		jr 		nz,_I32MultiplyLoop
+   51 00:0E2F -  -  -  -  
+   52 00:0E2F D9 -  -  -  		exx  								; pop DE'DE and BC'BC
+   53 00:0E30 D1 -  -  -  		pop 	de
+   54 00:0E31 C1 -  -  -  		pop 	bc
+   55 00:0E32 D9 -  -  -  		exx
+   56 00:0E33 D1 -  -  -  		pop 	de
+   57 00:0E34 C1 -  -  -  		pop 	bc
+   58 00:0E35 C9 -  -  -  		ret
+   59 00:0E36 -  -  -  -  
+   60 00:0E36 -  -  -  -  ; ***************************************************************************************
+   61 00:0E36 -  -  -  -  ;
+   62 00:0E36 -  -  -  -  ;									Changes and Updates
+   63 00:0E36 -  -  -  -  ;
+   64 00:0E36 -  -  -  -  ; ***************************************************************************************
+   65 00:0E36 -  -  -  -  ;
+   66 00:0E36 -  -  -  -  ;		Date			Notes
+   67 00:0E36 -  -  -  -  ;		==== 			=====
+   68 00:0E36 -  -  -  -  ;
+   69 00:0E36 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   63 00:0E22 -  -  -  -  #include "int32/isimple.asm"
+   63 00:0E36 -  -  -  -  #include "int32/isimple.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
-    1 00:0E22 -  -  -  -  ; ***************************************************************************************
-    2 00:0E22 -  -  -  -  ; ***************************************************************************************
-    3 00:0E22 -  -  -  -  ;
-    4 00:0E22 -  -  -  -  ;		Name : 		isimple.asm
-    5 00:0E22 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0E22 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0E22 -  -  -  -  ;		Reviewed :	No
-    8 00:0E22 -  -  -  -  ;		Purpose :	Simple 32 bit operations
-    9 00:0E22 -  -  -  -  ;
-   10 00:0E22 -  -  -  -  ; ***************************************************************************************
-   11 00:0E22 -  -  -  -  ; ***************************************************************************************
-   12 00:0E22 -  -  -  -  
-   13 00:0E22 -  -  -  -  ; ***************************************************************************************
-   14 00:0E22 -  -  -  -  ;
-   15 00:0E22 -  -  -  -  ;								Add DE'DE to HL'HL
-   16 00:0E22 -  -  -  -  ;
-   17 00:0E22 -  -  -  -  ; ***************************************************************************************
-   18 00:0E22 -  -  -  -  
-   19 00:0E22 -  -  -  -  Int32Add:
-   20 00:0E22 52 19 -  -  		zm_add_hlde_16 						; add DE to HL
+    1 00:0E36 -  -  -  -  ; ***************************************************************************************
+    2 00:0E36 -  -  -  -  ; ***************************************************************************************
+    3 00:0E36 -  -  -  -  ;
+    4 00:0E36 -  -  -  -  ;		Name : 		isimple.asm
+    5 00:0E36 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0E36 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0E36 -  -  -  -  ;		Reviewed :	No
+    8 00:0E36 -  -  -  -  ;		Purpose :	Simple 32 bit operations
+    9 00:0E36 -  -  -  -  ;
+   10 00:0E36 -  -  -  -  ; ***************************************************************************************
+   11 00:0E36 -  -  -  -  ; ***************************************************************************************
+   12 00:0E36 -  -  -  -  
+   13 00:0E36 -  -  -  -  ; ***************************************************************************************
+   14 00:0E36 -  -  -  -  ;
+   15 00:0E36 -  -  -  -  ;								Add DE'DE to HL'HL
+   16 00:0E36 -  -  -  -  ;
+   17 00:0E36 -  -  -  -  ; ***************************************************************************************
+   18 00:0E36 -  -  -  -  
+   19 00:0E36 -  -  -  -  Int32Add:
+   20 00:0E36 52 19 -  -  		zm_add_hlde_16 						; add DE to HL
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
-   21 00:0E24 D9 -  -  -  		exx
-   22 00:0E25 52 ED 5A -  		zm_adc_hlde_16 						; add DE' to HL'
-   23 00:0E28 D9 -  -  -  		exx
-   24 00:0E29 C9 -  -  -  		ret
-   25 00:0E2A -  -  -  -  
-   26 00:0E2A -  -  -  -  ; ***************************************************************************************
-   27 00:0E2A -  -  -  -  ;
-   28 00:0E2A -  -  -  -  ;								Sub DE'DE from HL'HL
-   29 00:0E2A -  -  -  -  ;
-   30 00:0E2A -  -  -  -  ; ***************************************************************************************
-   31 00:0E2A -  -  -  -  
-   32 00:0E2A -  -  -  -  Int32Subtract:
-   33 00:0E2A AF -  -  -  		xor 	a 							; clear carry
-   34 00:0E2B 52 ED 52 -  		zm_sbc_hlde_16  					; subtract DE from HL
-   35 00:0E2E D9 -  -  -  		exx
-   36 00:0E2F 52 ED 52 -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
-   37 00:0E32 D9 -  -  -  		exx
-   38 00:0E33 C9 -  -  -  		ret
-   39 00:0E34 -  -  -  -  
-   40 00:0E34 -  -  -  -  ; ***************************************************************************************
-   41 00:0E34 -  -  -  -  ;
-   42 00:0E34 -  -  -  -  ;								And DE'DE into HL'HL
-   43 00:0E34 -  -  -  -  ;
-   44 00:0E34 -  -  -  -  ; ***************************************************************************************
-   45 00:0E34 -  -  -  -  
-   46 00:0E34 -  -  -  -  Int32And:
-   47 00:0E34 D9 -  -  -  		exx
-   48 00:0E35 CD 3A 0E 00 		call 	_I32AndHLDE
-   49 00:0E39 D9 -  -  -  		exx
-   50 00:0E3A -  -  -  -  _I32AndHLDE:		
-   51 00:0E3A 7C -  -  -  		ld 		a,h
-   52 00:0E3B A2 -  -  -  		and 	d
-   53 00:0E3C 67 -  -  -  		ld 		h,a
-   54 00:0E3D 7D -  -  -  		ld 		a,l
-   55 00:0E3E A3 -  -  -  		and 	e
-   56 00:0E3F 6F -  -  -  		ld 		l,a
-   57 00:0E40 C9 -  -  -  		ret
-   58 00:0E41 -  -  -  -  
-   59 00:0E41 -  -  -  -  ; ***************************************************************************************
-   60 00:0E41 -  -  -  -  ;
-   61 00:0E41 -  -  -  -  ;								Or DE'DE into HL'HL
-   62 00:0E41 -  -  -  -  ;
-   63 00:0E41 -  -  -  -  ; ***************************************************************************************
-   64 00:0E41 -  -  -  -  
-   65 00:0E41 -  -  -  -  Int32Or:
-   66 00:0E41 D9 -  -  -  		exx
-   67 00:0E42 CD 47 0E 00 		call 	_I32OrHLDE
-   68 00:0E46 D9 -  -  -  		exx
-   69 00:0E47 -  -  -  -  _I32OrHLDE:		
-   70 00:0E47 7C -  -  -  		ld 		a,h
-   71 00:0E48 B2 -  -  -  		or 		d
-   72 00:0E49 67 -  -  -  		ld 		h,a
-   73 00:0E4A 7D -  -  -  		ld 		a,l
-   74 00:0E4B B3 -  -  -  		or 		e
-   75 00:0E4C 6F -  -  -  		ld 		l,a
-   76 00:0E4D C9 -  -  -  		ret
-   77 00:0E4E -  -  -  -  
-   78 00:0E4E -  -  -  -  ; ***************************************************************************************
-   79 00:0E4E -  -  -  -  ;
-   80 00:0E4E -  -  -  -  ;								Xor DE'DE into HL'HL
-   81 00:0E4E -  -  -  -  ;
-   82 00:0E4E -  -  -  -  ; ***************************************************************************************
-   83 00:0E4E -  -  -  -  
-   84 00:0E4E -  -  -  -  Int32Xor:
-   85 00:0E4E D9 -  -  -  		exx
-   86 00:0E4F CD 54 0E 00 		call 	_I32XorHLDE
-   87 00:0E53 D9 -  -  -  		exx
-   88 00:0E54 -  -  -  -  _I32XorHLDE:		
-   89 00:0E54 7C -  -  -  		ld 		a,h
-   90 00:0E55 AA -  -  -  		xor 	d
-   91 00:0E56 67 -  -  -  		ld 		h,a
-   92 00:0E57 7D -  -  -  		ld 		a,l
-   93 00:0E58 AB -  -  -  		xor 	e
-   94 00:0E59 6F -  -  -  		ld 		l,a
-   95 00:0E5A C9 -  -  -  		ret
-   96 00:0E5B -  -  -  -  
-   97 00:0E5B -  -  -  -  ; ***************************************************************************************
-   98 00:0E5B -  -  -  -  ;
-   99 00:0E5B -  -  -  -  ;								 Check if HL'HL zero
-  100 00:0E5B -  -  -  -  ;
-  101 00:0E5B -  -  -  -  ; ***************************************************************************************
-  102 00:0E5B -  -  -  -  
-  103 00:0E5B -  -  -  -  Int32Zero:
-  104 00:0E5B D9 -  -  -  		exx
-  105 00:0E5C 7D -  -  -  		ld 		a,l
-  106 00:0E5D B4 -  -  -  		or 		h
-  107 00:0E5E D9 -  -  -  		exx
-  108 00:0E5F B5 -  -  -  		or 		l
-  109 00:0E60 B4 -  -  -  		or 		h
-  110 00:0E61 C9 -  -  -  		ret
-  111 00:0E62 -  -  -  -  
-  112 00:0E62 -  -  -  -  ; ***************************************************************************************
-  113 00:0E62 -  -  -  -  ;
-  114 00:0E62 -  -  -  -  ;								Compare HL'HL vs DE'DE
-  115 00:0E62 -  -  -  -  ;
-  116 00:0E62 -  -  -  -  ; ***************************************************************************************
-  117 00:0E62 -  -  -  -  
-  118 00:0E62 -  -  -  -  Int32Compare:
-  119 00:0E62 E5 -  -  -  		push 	hl 							; save HL
-  120 00:0E63 AF -  -  -  		xor 	a 							; clear carry
-  121 00:0E64 52 ED 52 -  		zm_sbc_hlde_16  					; subtract DE from HL
-  122 00:0E67 D9 -  -  -  		exx
-  123 00:0E68 E5 -  -  -  		push 	hl 							; save HL'
-  124 00:0E69 52 ED 52 -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
-  125 00:0E6C -  -  -  -  		;
-  126 00:0E6C 44 -  -  -  		ld 		b,h 						; save most significant byte in B
-  127 00:0E6D E2 75 0E 00 		jp 		po,_I32CNoOverflow  		; on overflow flip B bit 7 (compare signed trick)
-  128 00:0E71 78 -  -  -  		ld 		a,b
-  129 00:0E72 EE 80 -  -  		xor 	$80
-  130 00:0E74 47 -  -  -  		ld 		b,a
-  131 00:0E75 -  -  -  -  _I32CNoOverflow:
-  132 00:0E75 7C -  -  -  		ld 		a,h 						; work out if result is zero
-  133 00:0E76 B5 -  -  -  		or 		l
-  134 00:0E77 D9 -  -  -  		exx 
-  135 00:0E78 B4 -  -  -  		or 		h
-  136 00:0E79 B5 -  -  -  		or 		l
-  137 00:0E7A 28 0A -  -  		jr 		z,_I32NotPos 				; if zero, return zero.
-  138 00:0E7C -  -  -  -  		;
-  139 00:0E7C D9 -  -  -  		exx 								; is B' -ve 	
-  140 00:0E7D CB 78 -  -  		bit 	7,b
-  141 00:0E7F D9 -  -  -  		exx
-  142 00:0E80 3E 01 -  -  		ld 		a,1 						; if B' +ve return 1.
-  143 00:0E82 28 02 -  -  		jr 		z,_I32NotPos
-  144 00:0E84 3E FF -  -  		ld 		a,$FF
-  145 00:0E86 -  -  -  -  _I32NotPos:
-  146 00:0E86 D9 -  -  -  		exx
-  147 00:0E87 E1 -  -  -  		pop 	hl 							; restore HL'
-  148 00:0E88 D9 -  -  -  		exx
-  149 00:0E89 E1 -  -  -  		pop 	hl 							; restore HL
-  150 00:0E8A B7 -  -  -  		or 		a 							; set flags and exit		
-  151 00:0E8B C9 -  -  -  		ret
-  152 00:0E8C -  -  -  -  
-  153 00:0E8C -  -  -  -  ; ***************************************************************************************
-  154 00:0E8C -  -  -  -  ;
-  155 00:0E8C -  -  -  -  ;										Negate HL'HL
-  156 00:0E8C -  -  -  -  ;
-  157 00:0E8C -  -  -  -  ; ***************************************************************************************
-  158 00:0E8C -  -  -  -  
-  159 00:0E8C -  -  -  -  Int32Negate:
-  160 00:0E8C AF -  -  -  		xor 	a
-  161 00:0E8D CD 98 0E 00 		call 	_I32NSubtract
-  162 00:0E91 D9 -  -  -  		exx
-  163 00:0E92 CD 98 0E 00 		call 	_I32NSubtract
-  164 00:0E96 D9 -  -  -  		exx
-  165 00:0E97 C9 -  -  -  		ret
-  166 00:0E98 -  -  -  -  _I32NSubtract:
-  167 00:0E98 D5 -  -  -  		push 	de
-  168 00:0E99 EB -  -  -  		ex 		de,hl
-  169 00:0E9A 21 00 00 00 		ld 		hl,$0000
-  170 00:0E9E 52 ED 52 -  		zm_sbc_hlde_16		
-  171 00:0EA1 D1 -  -  -  		pop 	de
-  172 00:0EA2 C9 -  -  -  		ret
-  173 00:0EA3 -  -  -  -  		
-  174 00:0EA3 -  -  -  -  ; ***************************************************************************************
-  175 00:0EA3 -  -  -  -  ;
-  176 00:0EA3 -  -  -  -  ;									Changes and Updates
-  177 00:0EA3 -  -  -  -  ;
-  178 00:0EA3 -  -  -  -  ; ***************************************************************************************
-  179 00:0EA3 -  -  -  -  ;
-  180 00:0EA3 -  -  -  -  ;		Date			Notes
-  181 00:0EA3 -  -  -  -  ;		==== 			=====
-  182 00:0EA3 -  -  -  -  ;
-  183 00:0EA3 -  -  -  -  ; ***************************************************************************************
-  184 00:0EA3 -  -  -  -  		
+   21 00:0E38 D9 -  -  -  		exx
+   22 00:0E39 52 ED 5A -  		zm_adc_hlde_16 						; add DE' to HL'
+   23 00:0E3C D9 -  -  -  		exx
+   24 00:0E3D C9 -  -  -  		ret
+   25 00:0E3E -  -  -  -  
+   26 00:0E3E -  -  -  -  ; ***************************************************************************************
+   27 00:0E3E -  -  -  -  ;
+   28 00:0E3E -  -  -  -  ;								Sub DE'DE from HL'HL
+   29 00:0E3E -  -  -  -  ;
+   30 00:0E3E -  -  -  -  ; ***************************************************************************************
+   31 00:0E3E -  -  -  -  
+   32 00:0E3E -  -  -  -  Int32Subtract:
+   33 00:0E3E AF -  -  -  		xor 	a 							; clear carry
+   34 00:0E3F 52 ED 52 -  		zm_sbc_hlde_16  					; subtract DE from HL
+   35 00:0E42 D9 -  -  -  		exx
+   36 00:0E43 52 ED 52 -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
+   37 00:0E46 D9 -  -  -  		exx
+   38 00:0E47 C9 -  -  -  		ret
+   39 00:0E48 -  -  -  -  
+   40 00:0E48 -  -  -  -  ; ***************************************************************************************
+   41 00:0E48 -  -  -  -  ;
+   42 00:0E48 -  -  -  -  ;								And DE'DE into HL'HL
+   43 00:0E48 -  -  -  -  ;
+   44 00:0E48 -  -  -  -  ; ***************************************************************************************
+   45 00:0E48 -  -  -  -  
+   46 00:0E48 -  -  -  -  Int32And:
+   47 00:0E48 D9 -  -  -  		exx
+   48 00:0E49 CD 4E 0E 00 		call 	_I32AndHLDE
+   49 00:0E4D D9 -  -  -  		exx
+   50 00:0E4E -  -  -  -  _I32AndHLDE:		
+   51 00:0E4E 7C -  -  -  		ld 		a,h
+   52 00:0E4F A2 -  -  -  		and 	d
+   53 00:0E50 67 -  -  -  		ld 		h,a
+   54 00:0E51 7D -  -  -  		ld 		a,l
+   55 00:0E52 A3 -  -  -  		and 	e
+   56 00:0E53 6F -  -  -  		ld 		l,a
+   57 00:0E54 C9 -  -  -  		ret
+   58 00:0E55 -  -  -  -  
+   59 00:0E55 -  -  -  -  ; ***************************************************************************************
+   60 00:0E55 -  -  -  -  ;
+   61 00:0E55 -  -  -  -  ;								Or DE'DE into HL'HL
+   62 00:0E55 -  -  -  -  ;
+   63 00:0E55 -  -  -  -  ; ***************************************************************************************
+   64 00:0E55 -  -  -  -  
+   65 00:0E55 -  -  -  -  Int32Or:
+   66 00:0E55 D9 -  -  -  		exx
+   67 00:0E56 CD 5B 0E 00 		call 	_I32OrHLDE
+   68 00:0E5A D9 -  -  -  		exx
+   69 00:0E5B -  -  -  -  _I32OrHLDE:		
+   70 00:0E5B 7C -  -  -  		ld 		a,h
+   71 00:0E5C B2 -  -  -  		or 		d
+   72 00:0E5D 67 -  -  -  		ld 		h,a
+   73 00:0E5E 7D -  -  -  		ld 		a,l
+   74 00:0E5F B3 -  -  -  		or 		e
+   75 00:0E60 6F -  -  -  		ld 		l,a
+   76 00:0E61 C9 -  -  -  		ret
+   77 00:0E62 -  -  -  -  
+   78 00:0E62 -  -  -  -  ; ***************************************************************************************
+   79 00:0E62 -  -  -  -  ;
+   80 00:0E62 -  -  -  -  ;								Xor DE'DE into HL'HL
+   81 00:0E62 -  -  -  -  ;
+   82 00:0E62 -  -  -  -  ; ***************************************************************************************
+   83 00:0E62 -  -  -  -  
+   84 00:0E62 -  -  -  -  Int32Xor:
+   85 00:0E62 D9 -  -  -  		exx
+   86 00:0E63 CD 68 0E 00 		call 	_I32XorHLDE
+   87 00:0E67 D9 -  -  -  		exx
+   88 00:0E68 -  -  -  -  _I32XorHLDE:		
+   89 00:0E68 7C -  -  -  		ld 		a,h
+   90 00:0E69 AA -  -  -  		xor 	d
+   91 00:0E6A 67 -  -  -  		ld 		h,a
+   92 00:0E6B 7D -  -  -  		ld 		a,l
+   93 00:0E6C AB -  -  -  		xor 	e
+   94 00:0E6D 6F -  -  -  		ld 		l,a
+   95 00:0E6E C9 -  -  -  		ret
+   96 00:0E6F -  -  -  -  
+   97 00:0E6F -  -  -  -  ; ***************************************************************************************
+   98 00:0E6F -  -  -  -  ;
+   99 00:0E6F -  -  -  -  ;								 Check if HL'HL zero
+  100 00:0E6F -  -  -  -  ;
+  101 00:0E6F -  -  -  -  ; ***************************************************************************************
+  102 00:0E6F -  -  -  -  
+  103 00:0E6F -  -  -  -  Int32Zero:
+  104 00:0E6F D9 -  -  -  		exx
+  105 00:0E70 7D -  -  -  		ld 		a,l
+  106 00:0E71 B4 -  -  -  		or 		h
+  107 00:0E72 D9 -  -  -  		exx
+  108 00:0E73 B5 -  -  -  		or 		l
+  109 00:0E74 B4 -  -  -  		or 		h
+  110 00:0E75 C9 -  -  -  		ret
+  111 00:0E76 -  -  -  -  
+  112 00:0E76 -  -  -  -  ; ***************************************************************************************
+  113 00:0E76 -  -  -  -  ;
+  114 00:0E76 -  -  -  -  ;								Compare HL'HL vs DE'DE
+  115 00:0E76 -  -  -  -  ;
+  116 00:0E76 -  -  -  -  ; ***************************************************************************************
+  117 00:0E76 -  -  -  -  
+  118 00:0E76 -  -  -  -  Int32Compare:
+  119 00:0E76 E5 -  -  -  		push 	hl 							; save HL
+  120 00:0E77 AF -  -  -  		xor 	a 							; clear carry
+  121 00:0E78 52 ED 52 -  		zm_sbc_hlde_16  					; subtract DE from HL
+  122 00:0E7B D9 -  -  -  		exx
+  123 00:0E7C E5 -  -  -  		push 	hl 							; save HL'
+  124 00:0E7D 52 ED 52 -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
+  125 00:0E80 -  -  -  -  		;
+  126 00:0E80 44 -  -  -  		ld 		b,h 						; save most significant byte in B
+  127 00:0E81 E2 89 0E 00 		jp 		po,_I32CNoOverflow  		; on overflow flip B bit 7 (compare signed trick)
+  128 00:0E85 78 -  -  -  		ld 		a,b
+  129 00:0E86 EE 80 -  -  		xor 	$80
+  130 00:0E88 47 -  -  -  		ld 		b,a
+  131 00:0E89 -  -  -  -  _I32CNoOverflow:
+  132 00:0E89 7C -  -  -  		ld 		a,h 						; work out if result is zero
+  133 00:0E8A B5 -  -  -  		or 		l
+  134 00:0E8B D9 -  -  -  		exx 
+  135 00:0E8C B4 -  -  -  		or 		h
+  136 00:0E8D B5 -  -  -  		or 		l
+  137 00:0E8E 28 0A -  -  		jr 		z,_I32NotPos 				; if zero, return zero.
+  138 00:0E90 -  -  -  -  		;
+  139 00:0E90 D9 -  -  -  		exx 								; is B' -ve 	
+  140 00:0E91 CB 78 -  -  		bit 	7,b
+  141 00:0E93 D9 -  -  -  		exx
+  142 00:0E94 3E 01 -  -  		ld 		a,1 						; if B' +ve return 1.
+  143 00:0E96 28 02 -  -  		jr 		z,_I32NotPos
+  144 00:0E98 3E FF -  -  		ld 		a,$FF
+  145 00:0E9A -  -  -  -  _I32NotPos:
+  146 00:0E9A D9 -  -  -  		exx
+  147 00:0E9B E1 -  -  -  		pop 	hl 							; restore HL'
+  148 00:0E9C D9 -  -  -  		exx
+  149 00:0E9D E1 -  -  -  		pop 	hl 							; restore HL
+  150 00:0E9E B7 -  -  -  		or 		a 							; set flags and exit		
+  151 00:0E9F C9 -  -  -  		ret
+  152 00:0EA0 -  -  -  -  
+  153 00:0EA0 -  -  -  -  ; ***************************************************************************************
+  154 00:0EA0 -  -  -  -  ;
+  155 00:0EA0 -  -  -  -  ;										Negate HL'HL
+  156 00:0EA0 -  -  -  -  ;
+  157 00:0EA0 -  -  -  -  ; ***************************************************************************************
+  158 00:0EA0 -  -  -  -  
+  159 00:0EA0 -  -  -  -  Int32Negate:
+  160 00:0EA0 AF -  -  -  		xor 	a
+  161 00:0EA1 CD AC 0E 00 		call 	_I32NSubtract
+  162 00:0EA5 D9 -  -  -  		exx
+  163 00:0EA6 CD AC 0E 00 		call 	_I32NSubtract
+  164 00:0EAA D9 -  -  -  		exx
+  165 00:0EAB C9 -  -  -  		ret
+  166 00:0EAC -  -  -  -  _I32NSubtract:
+  167 00:0EAC D5 -  -  -  		push 	de
+  168 00:0EAD EB -  -  -  		ex 		de,hl
+  169 00:0EAE 21 00 00 00 		ld 		hl,$0000
+  170 00:0EB2 52 ED 52 -  		zm_sbc_hlde_16		
+  171 00:0EB5 D1 -  -  -  		pop 	de
+  172 00:0EB6 C9 -  -  -  		ret
+  173 00:0EB7 -  -  -  -  		
+  174 00:0EB7 -  -  -  -  ; ***************************************************************************************
+  175 00:0EB7 -  -  -  -  ;
+  176 00:0EB7 -  -  -  -  ;									Changes and Updates
+  177 00:0EB7 -  -  -  -  ;
+  178 00:0EB7 -  -  -  -  ; ***************************************************************************************
+  179 00:0EB7 -  -  -  -  ;
+  180 00:0EB7 -  -  -  -  ;		Date			Notes
+  181 00:0EB7 -  -  -  -  ;		==== 			=====
+  182 00:0EB7 -  -  -  -  ;
+  183 00:0EB7 -  -  -  -  ; ***************************************************************************************
+  184 00:0EB7 -  -  -  -  		
 Listing for file "_build.asm"
-   64 00:0EA3 -  -  -  -  #include "int32/itostring.asm"
+   64 00:0EB7 -  -  -  -  #include "int32/itostring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/itostring.asm"
-    1 00:0EA3 -  -  -  -  ; ***************************************************************************************
-    2 00:0EA3 -  -  -  -  ; ***************************************************************************************
-    3 00:0EA3 -  -  -  -  ;
-    4 00:0EA3 -  -  -  -  ;		Name : 		itostring.asm
-    5 00:0EA3 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0EA3 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0EA3 -  -  -  -  ;		Reviewed :	No
-    8 00:0EA3 -  -  -  -  ;		Purpose :	Convert integer to string 
-    9 00:0EA3 -  -  -  -  ;
-   10 00:0EA3 -  -  -  -  ; ***************************************************************************************
-   11 00:0EA3 -  -  -  -  ;
-   12 00:0EA3 -  -  -  -  ; 			Convert HL'HL to ASCIIZ string at BC in base A. A = -ve => Signed
-   13 00:0EA3 -  -  -  -  ;
-   14 00:0EA3 -  -  -  -  ; ***************************************************************************************
-   15 00:0EA3 -  -  -  -  
-   16 00:0EA3 -  -  -  -  Int32ToString:
-   17 00:0EA3 C5 -  -  -  		push 	bc 							; save string start
-   18 00:0EA4 D5 -  -  -  		push 	de 							; save DE'DE and HL'HL, zero DE
-   19 00:0EA5 E5 -  -  -  		push 	hl
-   20 00:0EA6 11 00 00 00 		ld	 	de,$0000
-   21 00:0EAA D9 -  -  -  		exx
-   22 00:0EAB D5 -  -  -  		push 	de
-   23 00:0EAC E5 -  -  -  		push 	hl
-   24 00:0EAD 11 00 00 00 		ld 		de,$000
-   25 00:0EB1 D9 -  -  -  		exx
-   26 00:0EB2 5F -  -  -  		ld 		e,a 						; put base in E
-   27 00:0EB3 -  -  -  -  		;
-   28 00:0EB3 CB 7F -  -  		bit 	7,a 						; -ve base => signed
-   29 00:0EB5 28 11 -  -  		jr 		z,_I32TSNotNegative
-   30 00:0EB7 ED 44 -  -  		neg 								; negate base and put in E
-   31 00:0EB9 5F -  -  -  		ld 		e,a
-   32 00:0EBA -  -  -  -  		;
-   33 00:0EBA D9 -  -  -  		exx 								; is it -ve ?
-   34 00:0EBB CB 7C -  -  		bit 	7,h
-   35 00:0EBD D9 -  -  -  		exx
-   36 00:0EBE 28 08 -  -  		jr 		z,_I32TSNotNegative
-   37 00:0EC0 -  -  -  -  		;
-   38 00:0EC0 CD 8C 0E 00 		call 	Int32Negate 				; yes, negate HL'HL
-   39 00:0EC4 -  -  -  -  		;
-   40 00:0EC4 3E 2D -  -  		ld 		a,'-' 						; output a leading minus.
-   41 00:0EC6 02 -  -  -  		ld 		(bc),a
-   42 00:0EC7 03 -  -  -  		inc 	bc
-   43 00:0EC8 -  -  -  -  _I32TSNotNegative:	
-   44 00:0EC8 CD D7 0E 00 		call 	_I32RecursiveConvert 		; convert the integer to a string		
-   45 00:0ECC -  -  -  -  _I32TSExit:
-   46 00:0ECC 3E 0D -  -  		ld 		a,13 						; write the end of string code
-   47 00:0ECE 02 -  -  -  		ld 		(bc),a 
-   48 00:0ECF -  -  -  -  
-   49 00:0ECF D9 -  -  -  		exx 								; restore registers and exit.
-   50 00:0ED0 E1 -  -  -  		pop 	hl
-   51 00:0ED1 D1 -  -  -  		pop 	de
-   52 00:0ED2 D9 -  -  -  		exx
-   53 00:0ED3 E1 -  -  -  		pop 	hl
-   54 00:0ED4 D1 -  -  -  		pop 	de
-   55 00:0ED5 C1 -  -  -  		pop 	bc
-   56 00:0ED6 C9 -  -  -  		ret
-   57 00:0ED7 -  -  -  -  
-   58 00:0ED7 -  -  -  -  _I32RecursiveConvert:
-   59 00:0ED7 CD E4 0C 00 		call 	Int32UDivide 				; unsigned divide. Mod is in A
-   60 00:0EDB F5 -  -  -  		push 	af 							; save remainder
-   61 00:0EDC CD 5B 0E 00 		call 	Int32Zero		 			; check result is non zero
-   62 00:0EE0 C4 D7 0E 00 		call 	nz,_I32RecursiveConvert 	; if non zero keep dividing
-   63 00:0EE4 F1 -  -  -  		pop 	af 							; restore remainder
-   64 00:0EE5 FE 0A -  -  		cp 		10 							; convert 10+ to hex
-   65 00:0EE7 38 02 -  -  		jr 		c,_I32NotHex
-   66 00:0EE9 C6 07 -  -  		add 	a,7
-   67 00:0EEB -  -  -  -  _I32NotHex:
-   68 00:0EEB C6 30 -  -  		add 	a,48
-   69 00:0EED 02 -  -  -  		ld 		(bc),a 						; write out to buffer
-   70 00:0EEE 03 -  -  -  		inc 	bc
-   71 00:0EEF C9 -  -  -  		ret		
-   72 00:0EF0 -  -  -  -  
-   73 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   74 00:0EF0 -  -  -  -  ;
-   75 00:0EF0 -  -  -  -  ;									Changes and Updates
-   76 00:0EF0 -  -  -  -  ;
-   77 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   78 00:0EF0 -  -  -  -  ;
-   79 00:0EF0 -  -  -  -  ;		Date			Notes
-   80 00:0EF0 -  -  -  -  ;		==== 			=====
-   81 00:0EF0 -  -  -  -  ;
-   82 00:0EF0 -  -  -  -  ; ***************************************************************************************
+    1 00:0EB7 -  -  -  -  ; ***************************************************************************************
+    2 00:0EB7 -  -  -  -  ; ***************************************************************************************
+    3 00:0EB7 -  -  -  -  ;
+    4 00:0EB7 -  -  -  -  ;		Name : 		itostring.asm
+    5 00:0EB7 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0EB7 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0EB7 -  -  -  -  ;		Reviewed :	No
+    8 00:0EB7 -  -  -  -  ;		Purpose :	Convert integer to string 
+    9 00:0EB7 -  -  -  -  ;
+   10 00:0EB7 -  -  -  -  ; ***************************************************************************************
+   11 00:0EB7 -  -  -  -  ;
+   12 00:0EB7 -  -  -  -  ; 			Convert HL'HL to ASCIIZ string at BC in base A. A = -ve => Signed
+   13 00:0EB7 -  -  -  -  ;
+   14 00:0EB7 -  -  -  -  ; ***************************************************************************************
+   15 00:0EB7 -  -  -  -  
+   16 00:0EB7 -  -  -  -  Int32ToString:
+   17 00:0EB7 C5 -  -  -  		push 	bc 							; save string start
+   18 00:0EB8 D5 -  -  -  		push 	de 							; save DE'DE and HL'HL, zero DE
+   19 00:0EB9 E5 -  -  -  		push 	hl
+   20 00:0EBA 11 00 00 00 		ld	 	de,$0000
+   21 00:0EBE D9 -  -  -  		exx
+   22 00:0EBF D5 -  -  -  		push 	de
+   23 00:0EC0 E5 -  -  -  		push 	hl
+   24 00:0EC1 11 00 00 00 		ld 		de,$000
+   25 00:0EC5 D9 -  -  -  		exx
+   26 00:0EC6 5F -  -  -  		ld 		e,a 						; put base in E
+   27 00:0EC7 -  -  -  -  		;
+   28 00:0EC7 CB 7F -  -  		bit 	7,a 						; -ve base => signed
+   29 00:0EC9 28 11 -  -  		jr 		z,_I32TSNotNegative
+   30 00:0ECB ED 44 -  -  		neg 								; negate base and put in E
+   31 00:0ECD 5F -  -  -  		ld 		e,a
+   32 00:0ECE -  -  -  -  		;
+   33 00:0ECE D9 -  -  -  		exx 								; is it -ve ?
+   34 00:0ECF CB 7C -  -  		bit 	7,h
+   35 00:0ED1 D9 -  -  -  		exx
+   36 00:0ED2 28 08 -  -  		jr 		z,_I32TSNotNegative
+   37 00:0ED4 -  -  -  -  		;
+   38 00:0ED4 CD A0 0E 00 		call 	Int32Negate 				; yes, negate HL'HL
+   39 00:0ED8 -  -  -  -  		;
+   40 00:0ED8 3E 2D -  -  		ld 		a,'-' 						; output a leading minus.
+   41 00:0EDA 02 -  -  -  		ld 		(bc),a
+   42 00:0EDB 03 -  -  -  		inc 	bc
+   43 00:0EDC -  -  -  -  _I32TSNotNegative:	
+   44 00:0EDC CD EB 0E 00 		call 	_I32RecursiveConvert 		; convert the integer to a string		
+   45 00:0EE0 -  -  -  -  _I32TSExit:
+   46 00:0EE0 3E 0D -  -  		ld 		a,13 						; write the end of string code
+   47 00:0EE2 02 -  -  -  		ld 		(bc),a 
+   48 00:0EE3 -  -  -  -  
+   49 00:0EE3 D9 -  -  -  		exx 								; restore registers and exit.
+   50 00:0EE4 E1 -  -  -  		pop 	hl
+   51 00:0EE5 D1 -  -  -  		pop 	de
+   52 00:0EE6 D9 -  -  -  		exx
+   53 00:0EE7 E1 -  -  -  		pop 	hl
+   54 00:0EE8 D1 -  -  -  		pop 	de
+   55 00:0EE9 C1 -  -  -  		pop 	bc
+   56 00:0EEA C9 -  -  -  		ret
+   57 00:0EEB -  -  -  -  
+   58 00:0EEB -  -  -  -  _I32RecursiveConvert:
+   59 00:0EEB CD F8 0C 00 		call 	Int32UDivide 				; unsigned divide. Mod is in A
+   60 00:0EEF F5 -  -  -  		push 	af 							; save remainder
+   61 00:0EF0 CD 6F 0E 00 		call 	Int32Zero		 			; check result is non zero
+   62 00:0EF4 C4 EB 0E 00 		call 	nz,_I32RecursiveConvert 	; if non zero keep dividing
+   63 00:0EF8 F1 -  -  -  		pop 	af 							; restore remainder
+   64 00:0EF9 FE 0A -  -  		cp 		10 							; convert 10+ to hex
+   65 00:0EFB 38 02 -  -  		jr 		c,_I32NotHex
+   66 00:0EFD C6 07 -  -  		add 	a,7
+   67 00:0EFF -  -  -  -  _I32NotHex:
+   68 00:0EFF C6 30 -  -  		add 	a,48
+   69 00:0F01 02 -  -  -  		ld 		(bc),a 						; write out to buffer
+   70 00:0F02 03 -  -  -  		inc 	bc
+   71 00:0F03 C9 -  -  -  		ret		
+   72 00:0F04 -  -  -  -  
+   73 00:0F04 -  -  -  -  ; ***************************************************************************************
+   74 00:0F04 -  -  -  -  ;
+   75 00:0F04 -  -  -  -  ;									Changes and Updates
+   76 00:0F04 -  -  -  -  ;
+   77 00:0F04 -  -  -  -  ; ***************************************************************************************
+   78 00:0F04 -  -  -  -  ;
+   79 00:0F04 -  -  -  -  ;		Date			Notes
+   80 00:0F04 -  -  -  -  ;		==== 			=====
+   81 00:0F04 -  -  -  -  ;
+   82 00:0F04 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   65 00:0EF0 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
+   65 00:0F04 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_aquarius/aquarius_io.asm"
-    1 00:0EF0 -  -  -  -  ; ***************************************************************************************
-    2 00:0EF0 -  -  -  -  ; ***************************************************************************************
-    3 00:0EF0 -  -  -  -  ;
-    4 00:0EF0 -  -  -  -  ;		Name : 		aquarius_io.asm
-    5 00:0EF0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0EF0 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0EF0 -  -  -  -  ;		Reviewed :	No
-    8 00:0EF0 -  -  -  -  ;		Purpose :	Aquarius specific code.
-    9 00:0EF0 -  -  -  -  ;
-   10 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   11 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   12 00:0EF0 -  -  -  -  
-   13 00:0EF0 -  -  -  -  #ifdef AQUARIUS
-   14 00:0EF0             
-   15 00:0EF0             ; ***************************************************************************************
-   16 00:0EF0             ;
-   17 00:0EF0             ;								Initialise system stuff
-   18 00:0EF0             ;
-   19 00:0EF0             ; ***************************************************************************************
-   20 00:0EF0             
-   21 00:0EF0             SYSInitialise:
-   22 00:0EF0             	ld 		a,$0b 								; Aquarius clear screen
-   23 00:0EF0             	call 	SYSPrintChar
-   24 00:0EF0             	ret
-   25 00:0EF0             
-   26 00:0EF0             ; ***************************************************************************************
-   27 00:0EF0             ;
-   28 00:0EF0             ;								Terminate system stuff
-   29 00:0EF0             ;
-   30 00:0EF0             ; ***************************************************************************************
-   31 00:0EF0             
-   32 00:0EF0             SYSTerminate:
-   33 00:0EF0             	jr 		SYSTerminate
-   34 00:0EF0             
-   35 00:0EF0             ; ***************************************************************************************
-   36 00:0EF0             ;
-   37 00:0EF0             ;								Print A character
-   38 00:0EF0             ;
-   39 00:0EF0             ; ***************************************************************************************
-   40 00:0EF0             
-   41 00:0EF0             SYSPrintChar:
-   42 00:0EF0             	push 	af 									; we stack everything including alt registers
-   43 00:0EF0             	push 	bc
-   44 00:0EF0             	push 	de
-   45 00:0EF0             	push 	hl
-   46 00:0EF0             	push 	ix
-   47 00:0EF0             	push 	iy
-   48 00:0EF0             	exx
-   49 00:0EF0             	push 	bc
-   50 00:0EF0             	push 	de
-   51 00:0EF0             	push 	hl
-   52 00:0EF0             	call 	$1D94 								; the Aquarius equivalent uses alt-registers to save.
-   53 00:0EF0             	pop 	hl
-   54 00:0EF0             	pop 	de
-   55 00:0EF0             	pop 	bc
-   56 00:0EF0             	exx
-   57 00:0EF0             	pop 	iy
-   58 00:0EF0             	pop 	ix
-   59 00:0EF0             	pop 	hl
-   60 00:0EF0             	pop 	de
-   61 00:0EF0             	pop 	bc
-   62 00:0EF0             	pop 	af
-   63 00:0EF0             	ret		
-   64 00:0EF0             
-   65 00:0EF0             ; ***************************************************************************************
-   66 00:0EF0             ;
-   67 00:0EF0             ;									Print Newline
-   68 00:0EF0             ;
-   69 00:0EF0             ; ***************************************************************************************
-   70 00:0EF0             
-   71 00:0EF0             SYSPrintCRLF:
-   72 00:0EF0             	push 	af
-   73 00:0EF0             	ld 		a,13
-   74 00:0EF0             	call 	SYSPrintChar
-   75 00:0EF0             	ld 		a,10
-   76 00:0EF0             	call 	SYSPrintChar
-   77 00:0EF0             	pop 	af
-   78 00:0EF0             	ret
-   79 00:0EF0             
-   80 00:0EF0             ; ***************************************************************************************
-   81 00:0EF0             ;
-   82 00:0EF0             ;									Get time into HL'HL
-   83 00:0EF0             ;
-   84 00:0EF0             ; ***************************************************************************************
-   85 00:0EF0             
-   86 00:0EF0             SYSGetTimer:
-   87 00:0EF0              	in 		a,($00)
-   88 00:0EF0              	ld 		l,a
-   89 00:0EF0              	in 		a,($01)
-   90 00:0EF0              	ld 		h,a
-   91 00:0EF0              	exx
-   92 00:0EF0              	in 		a,($02)
-   93 00:0EF0              	ld 		l,a
-   94 00:0EF0              	in 		a,($03)
-   95 00:0EF0              	ld 		h,a
-   96 00:0EF0              	exx
-   97 00:0EF0             	ret 	
-   98 00:0EF0             	
-   99 00:0EF0             #endif
-  100 00:0EF0 -  -  -  -  
-  101 00:0EF0 -  -  -  -  ; ***************************************************************************************
-  102 00:0EF0 -  -  -  -  ;
-  103 00:0EF0 -  -  -  -  ;									Changes and Updates
-  104 00:0EF0 -  -  -  -  ;
-  105 00:0EF0 -  -  -  -  ; ***************************************************************************************
-  106 00:0EF0 -  -  -  -  ;
-  107 00:0EF0 -  -  -  -  ;		Date			Notes
-  108 00:0EF0 -  -  -  -  ;		==== 			=====
-  109 00:0EF0 -  -  -  -  ;
-  110 00:0EF0 -  -  -  -  ; ***************************************************************************************
+    1 00:0F04 -  -  -  -  ; ***************************************************************************************
+    2 00:0F04 -  -  -  -  ; ***************************************************************************************
+    3 00:0F04 -  -  -  -  ;
+    4 00:0F04 -  -  -  -  ;		Name : 		aquarius_io.asm
+    5 00:0F04 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0F04 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0F04 -  -  -  -  ;		Reviewed :	No
+    8 00:0F04 -  -  -  -  ;		Purpose :	Aquarius specific code.
+    9 00:0F04 -  -  -  -  ;
+   10 00:0F04 -  -  -  -  ; ***************************************************************************************
+   11 00:0F04 -  -  -  -  ; ***************************************************************************************
+   12 00:0F04 -  -  -  -  
+   13 00:0F04 -  -  -  -  #ifdef AQUARIUS
+   14 00:0F04             
+   15 00:0F04             ; ***************************************************************************************
+   16 00:0F04             ;
+   17 00:0F04             ;								Initialise system stuff
+   18 00:0F04             ;
+   19 00:0F04             ; ***************************************************************************************
+   20 00:0F04             
+   21 00:0F04             SYSInitialise:
+   22 00:0F04             	ld 		a,$0b 								; Aquarius clear screen
+   23 00:0F04             	call 	SYSPrintChar
+   24 00:0F04             	ret
+   25 00:0F04             
+   26 00:0F04             ; ***************************************************************************************
+   27 00:0F04             ;
+   28 00:0F04             ;								Terminate system stuff
+   29 00:0F04             ;
+   30 00:0F04             ; ***************************************************************************************
+   31 00:0F04             
+   32 00:0F04             SYSTerminate:
+   33 00:0F04             	jr 		SYSTerminate
+   34 00:0F04             
+   35 00:0F04             ; ***************************************************************************************
+   36 00:0F04             ;
+   37 00:0F04             ;								Print A character
+   38 00:0F04             ;
+   39 00:0F04             ; ***************************************************************************************
+   40 00:0F04             
+   41 00:0F04             SYSPrintChar:
+   42 00:0F04             	push 	af 									; we stack everything including alt registers
+   43 00:0F04             	push 	bc
+   44 00:0F04             	push 	de
+   45 00:0F04             	push 	hl
+   46 00:0F04             	push 	ix
+   47 00:0F04             	push 	iy
+   48 00:0F04             	exx
+   49 00:0F04             	push 	bc
+   50 00:0F04             	push 	de
+   51 00:0F04             	push 	hl
+   52 00:0F04             	call 	$1D94 								; the Aquarius equivalent uses alt-registers to save.
+   53 00:0F04             	pop 	hl
+   54 00:0F04             	pop 	de
+   55 00:0F04             	pop 	bc
+   56 00:0F04             	exx
+   57 00:0F04             	pop 	iy
+   58 00:0F04             	pop 	ix
+   59 00:0F04             	pop 	hl
+   60 00:0F04             	pop 	de
+   61 00:0F04             	pop 	bc
+   62 00:0F04             	pop 	af
+   63 00:0F04             	ret		
+   64 00:0F04             
+   65 00:0F04             ; ***************************************************************************************
+   66 00:0F04             ;
+   67 00:0F04             ;									Print Newline
+   68 00:0F04             ;
+   69 00:0F04             ; ***************************************************************************************
+   70 00:0F04             
+   71 00:0F04             SYSPrintCRLF:
+   72 00:0F04             	push 	af
+   73 00:0F04             	ld 		a,13
+   74 00:0F04             	call 	SYSPrintChar
+   75 00:0F04             	ld 		a,10
+   76 00:0F04             	call 	SYSPrintChar
+   77 00:0F04             	pop 	af
+   78 00:0F04             	ret
+   79 00:0F04             
+   80 00:0F04             ; ***************************************************************************************
+   81 00:0F04             ;
+   82 00:0F04             ;									Get time into HL'HL
+   83 00:0F04             ;
+   84 00:0F04             ; ***************************************************************************************
+   85 00:0F04             
+   86 00:0F04             SYSGetTimer:
+   87 00:0F04              	in 		a,($00)
+   88 00:0F04              	ld 		l,a
+   89 00:0F04              	in 		a,($01)
+   90 00:0F04              	ld 		h,a
+   91 00:0F04              	exx
+   92 00:0F04              	in 		a,($02)
+   93 00:0F04              	ld 		l,a
+   94 00:0F04              	in 		a,($03)
+   95 00:0F04              	ld 		h,a
+   96 00:0F04              	exx
+   97 00:0F04             	ret 	
+   98 00:0F04             	
+   99 00:0F04             #endif
+  100 00:0F04 -  -  -  -  
+  101 00:0F04 -  -  -  -  ; ***************************************************************************************
+  102 00:0F04 -  -  -  -  ;
+  103 00:0F04 -  -  -  -  ;									Changes and Updates
+  104 00:0F04 -  -  -  -  ;
+  105 00:0F04 -  -  -  -  ; ***************************************************************************************
+  106 00:0F04 -  -  -  -  ;
+  107 00:0F04 -  -  -  -  ;		Date			Notes
+  108 00:0F04 -  -  -  -  ;		==== 			=====
+  109 00:0F04 -  -  -  -  ;
+  110 00:0F04 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   66 00:0EF0 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
+   66 00:0F04 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_dummy/dummy_io.asm"
-    1 00:0EF0 -  -  -  -  ; ***************************************************************************************
-    2 00:0EF0 -  -  -  -  ; ***************************************************************************************
-    3 00:0EF0 -  -  -  -  ;
-    4 00:0EF0 -  -  -  -  ;		Name : 		dummy_io.asm
-    5 00:0EF0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0EF0 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0EF0 -  -  -  -  ;		Reviewed :	No
-    8 00:0EF0 -  -  -  -  ;		Purpose :	eZ80 build System code.,a
-    9 00:0EF0 -  -  -  -  ;
-   10 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   11 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   12 00:0EF0 -  -  -  -  
-   13 00:0EF0 -  -  -  -  #ifdef CLEANEZ80
-   14 00:0EF0 -  -  -  -  
-   15 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   16 00:0EF0 -  -  -  -  ;
-   17 00:0EF0 -  -  -  -  ;								Initialise system stuff
-   18 00:0EF0 -  -  -  -  ;
-   19 00:0EF0 -  -  -  -  ; ***************************************************************************************
-   20 00:0EF0 -  -  -  -  
-   21 00:0EF0 -  -  -  -  SYSInitialise:
-   22 00:0EF0 C9 -  -  -  	ret
-   23 00:0EF1 -  -  -  -  
-   24 00:0EF1 -  -  -  -  ; ***************************************************************************************
-   25 00:0EF1 -  -  -  -  ;
-   26 00:0EF1 -  -  -  -  ;								Terminate system stuff
-   27 00:0EF1 -  -  -  -  ;
-   28 00:0EF1 -  -  -  -  ; ***************************************************************************************
-   29 00:0EF1 -  -  -  -  
-   30 00:0EF1 -  -  -  -  SYSTerminate:
-   31 00:0EF1 C9 -  -  -  	ret
-   32 00:0EF2 -  -  -  -  
-   33 00:0EF2 -  -  -  -  ; ***************************************************************************************
-   34 00:0EF2 -  -  -  -  ;
-   35 00:0EF2 -  -  -  -  ;								Print A character
-   36 00:0EF2 -  -  -  -  ;
-   37 00:0EF2 -  -  -  -  ; ***************************************************************************************
-   38 00:0EF2 -  -  -  -  
-   39 00:0EF2 -  -  -  -  SYSPrintChar:
-   40 00:0EF2 C9 -  -  -  	ret		
-   41 00:0EF3 -  -  -  -  
-   42 00:0EF3 -  -  -  -  ; ***************************************************************************************
-   43 00:0EF3 -  -  -  -  ;
-   44 00:0EF3 -  -  -  -  ;									Print Newline
-   45 00:0EF3 -  -  -  -  ;
-   46 00:0EF3 -  -  -  -  ; ***************************************************************************************
-   47 00:0EF3 -  -  -  -  
-   48 00:0EF3 -  -  -  -  SYSPrintCRLF:
-   49 00:0EF3 C9 -  -  -  	ret
-   50 00:0EF4 -  -  -  -  
-   51 00:0EF4 -  -  -  -  ; ***************************************************************************************
-   52 00:0EF4 -  -  -  -  ;
-   53 00:0EF4 -  -  -  -  ;									Get time into HL'HL
-   54 00:0EF4 -  -  -  -  ;
-   55 00:0EF4 -  -  -  -  ; ***************************************************************************************
-   56 00:0EF4 -  -  -  -  
-   57 00:0EF4 -  -  -  -  SYSGetTimer:
-   58 00:0EF4 C9 -  -  -  	ret
-   59 00:0EF5 -  -  -  -  
-   60 00:0EF5 -  -  -  -  #endif
-   61 00:0EF5 -  -  -  -  
-   62 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   63 00:0EF5 -  -  -  -  ;
-   64 00:0EF5 -  -  -  -  ;									Changes and Updates
-   65 00:0EF5 -  -  -  -  ;
-   66 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   67 00:0EF5 -  -  -  -  ;
-   68 00:0EF5 -  -  -  -  ;		Date			Notes
-   69 00:0EF5 -  -  -  -  ;		==== 			=====
-   70 00:0EF5 -  -  -  -  ;
-   71 00:0EF5 -  -  -  -  ; ***************************************************************************************
+    1 00:0F04 -  -  -  -  ; ***************************************************************************************
+    2 00:0F04 -  -  -  -  ; ***************************************************************************************
+    3 00:0F04 -  -  -  -  ;
+    4 00:0F04 -  -  -  -  ;		Name : 		dummy_io.asm
+    5 00:0F04 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0F04 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0F04 -  -  -  -  ;		Reviewed :	No
+    8 00:0F04 -  -  -  -  ;		Purpose :	eZ80 build System code.,a
+    9 00:0F04 -  -  -  -  ;
+   10 00:0F04 -  -  -  -  ; ***************************************************************************************
+   11 00:0F04 -  -  -  -  ; ***************************************************************************************
+   12 00:0F04 -  -  -  -  
+   13 00:0F04 -  -  -  -  #ifdef CLEANEZ80
+   14 00:0F04 -  -  -  -  
+   15 00:0F04 -  -  -  -  ; ***************************************************************************************
+   16 00:0F04 -  -  -  -  ;
+   17 00:0F04 -  -  -  -  ;								Initialise system stuff
+   18 00:0F04 -  -  -  -  ;
+   19 00:0F04 -  -  -  -  ; ***************************************************************************************
+   20 00:0F04 -  -  -  -  
+   21 00:0F04 -  -  -  -  SYSInitialise:
+   22 00:0F04 C9 -  -  -  	ret
+   23 00:0F05 -  -  -  -  
+   24 00:0F05 -  -  -  -  ; ***************************************************************************************
+   25 00:0F05 -  -  -  -  ;
+   26 00:0F05 -  -  -  -  ;								Terminate system stuff
+   27 00:0F05 -  -  -  -  ;
+   28 00:0F05 -  -  -  -  ; ***************************************************************************************
+   29 00:0F05 -  -  -  -  
+   30 00:0F05 -  -  -  -  SYSTerminate:
+   31 00:0F05 C9 -  -  -  	ret
+   32 00:0F06 -  -  -  -  
+   33 00:0F06 -  -  -  -  ; ***************************************************************************************
+   34 00:0F06 -  -  -  -  ;
+   35 00:0F06 -  -  -  -  ;								Print A character
+   36 00:0F06 -  -  -  -  ;
+   37 00:0F06 -  -  -  -  ; ***************************************************************************************
+   38 00:0F06 -  -  -  -  
+   39 00:0F06 -  -  -  -  SYSPrintChar:
+   40 00:0F06 C9 -  -  -  	ret		
+   41 00:0F07 -  -  -  -  
+   42 00:0F07 -  -  -  -  ; ***************************************************************************************
+   43 00:0F07 -  -  -  -  ;
+   44 00:0F07 -  -  -  -  ;									Print Newline
+   45 00:0F07 -  -  -  -  ;
+   46 00:0F07 -  -  -  -  ; ***************************************************************************************
+   47 00:0F07 -  -  -  -  
+   48 00:0F07 -  -  -  -  SYSPrintCRLF:
+   49 00:0F07 C9 -  -  -  	ret
+   50 00:0F08 -  -  -  -  
+   51 00:0F08 -  -  -  -  ; ***************************************************************************************
+   52 00:0F08 -  -  -  -  ;
+   53 00:0F08 -  -  -  -  ;									Get time into HL'HL
+   54 00:0F08 -  -  -  -  ;
+   55 00:0F08 -  -  -  -  ; ***************************************************************************************
+   56 00:0F08 -  -  -  -  
+   57 00:0F08 -  -  -  -  SYSGetTimer:
+   58 00:0F08 C9 -  -  -  	ret
+   59 00:0F09 -  -  -  -  
+   60 00:0F09 -  -  -  -  #endif
+   61 00:0F09 -  -  -  -  
+   62 00:0F09 -  -  -  -  ; ***************************************************************************************
+   63 00:0F09 -  -  -  -  ;
+   64 00:0F09 -  -  -  -  ;									Changes and Updates
+   65 00:0F09 -  -  -  -  ;
+   66 00:0F09 -  -  -  -  ; ***************************************************************************************
+   67 00:0F09 -  -  -  -  ;
+   68 00:0F09 -  -  -  -  ;		Date			Notes
+   69 00:0F09 -  -  -  -  ;		==== 			=====
+   70 00:0F09 -  -  -  -  ;
+   71 00:0F09 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   67 00:0EF5 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
+   67 00:0F09 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_ti84/ti_84io.asm"
-    1 00:0EF5 -  -  -  -  ; ***************************************************************************************
-    2 00:0EF5 -  -  -  -  ; ***************************************************************************************
-    3 00:0EF5 -  -  -  -  ;
-    4 00:0EF5 -  -  -  -  ;		Name : 		ti84_io.asm
-    5 00:0EF5 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0EF5 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0EF5 -  -  -  -  ;		Reviewed :	No
-    8 00:0EF5 -  -  -  -  ;		Purpose :	TI84 specific code
-    9 00:0EF5 -  -  -  -  ;
-   10 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   11 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   12 00:0EF5 -  -  -  -  
-   13 00:0EF5 -  -  -  -  #ifdef TI84
-   14 00:0EF5             
-   15 00:0EF5             ; ***************************************************************************************
-   16 00:0EF5             ;
-   17 00:0EF5             ;								Initialise system stuff
-   18 00:0EF5             ;
-   19 00:0EF5             ; ***************************************************************************************
-   20 00:0EF5             
-   21 00:0EF5             SYSInitialise:
-   22 00:0EF5             	di
-   23 00:0EF5             	ld 		(_StackTemp84),sp 					; TI84 we preserve IY and SP.
-   24 00:0EF5             	ld 		(_IYTemp84),iy
-   25 00:0EF5             	ret
-   26 00:0EF5             
-   27 00:0EF5             ; ***************************************************************************************
-   28 00:0EF5             ;
-   29 00:0EF5             ;								Terminate system stuff
-   30 00:0EF5             ;
-   31 00:0EF5             ; ***************************************************************************************
-   32 00:0EF5             
-   33 00:0EF5             SYSTerminate:
-   34 00:0EF5             	ld 		sp,(_StackTemp84) 					; TI84 restore SP
-   35 00:0EF5             	pop 	iy 									; throw return address from SYSInitialise call
-   36 00:0EF5             	ld 		iy,(_IYTemp84) 						; restore IY
-   37 00:0EF5             	res 	donePrgm,(iy+doneFlags) 			; marks program as complete (task switching ?)
-   38 00:0EF5             	ei
-   39 00:0EF5             	ret 										; and exit.
-   40 00:0EF5             
-   41 00:0EF5             _StackTemp84:									; temp var for TI84 only.
-   42 00:0EF5             	.dw 	0,0
-   43 00:0EF5             _IYTemp84:
-   44 00:0EF5             	.dw 	0,0		
-   45 00:0EF5             
-   46 00:0EF5             ; ***************************************************************************************
-   47 00:0EF5             ;
-   48 00:0EF5             ;								Print A character
-   49 00:0EF5             ;
-   50 00:0EF5             ; ***************************************************************************************
-   51 00:0EF5             
-   52 00:0EF5             SYSPrintChar:
-   53 00:0EF5             	push 	af 									; we stack everything including alt registers
-   54 00:0EF5             	push 	bc
-   55 00:0EF5             	push 	de
-   56 00:0EF5             	push 	hl
-   57 00:0EF5             	push 	ix
-   58 00:0EF5             	push 	iy
-   59 00:0EF5             	exx
-   60 00:0EF5             	push 	bc
-   61 00:0EF5             	push 	de
-   62 00:0EF5             	push 	hl
-   63 00:0EF5             
-   64 00:0EF5             	ld 		iy,(_IYTemp84)
-   65 00:0EF5             	call 	_PutC 								; print A as character
-   66 00:0EF5             	di
-   67 00:0EF5             	ld 		(_IYTemp84),iy
-   68 00:0EF5             
-   69 00:0EF5             	pop 	hl
-   70 00:0EF5             	pop 	de
-   71 00:0EF5             	pop 	bc
-   72 00:0EF5             	exx
-   73 00:0EF5             	pop 	iy
-   74 00:0EF5             	pop 	ix
-   75 00:0EF5             	pop 	hl
-   76 00:0EF5             	pop 	de
-   77 00:0EF5             	pop 	bc
-   78 00:0EF5             	pop 	af
-   79 00:0EF5             	ret		
-   80 00:0EF5             
-   81 00:0EF5             ; ***************************************************************************************
-   82 00:0EF5             ;
-   83 00:0EF5             ;									Print Newline
-   84 00:0EF5             ;
-   85 00:0EF5             ; ***************************************************************************************
-   86 00:0EF5             
-   87 00:0EF5             SYSPrintCRLF:
-   88 00:0EF5             	push 	af 									; we stack everything including alt registers
-   89 00:0EF5             	push 	bc
-   90 00:0EF5             	push 	de
-   91 00:0EF5             	push 	hl
-   92 00:0EF5             	push 	ix
-   93 00:0EF5             	push 	iy
-   94 00:0EF5             	exx
-   95 00:0EF5             	push 	bc
-   96 00:0EF5             	push 	de
-   97 00:0EF5             	push 	hl
-   98 00:0EF5             
-   99 00:0EF5             	ld 		iy,(_IYTemp84)
-  100 00:0EF5             	call 	_newline
-  101 00:0EF5             	di
-  102 00:0EF5             	ld 		(_IYTemp84),iy
-  103 00:0EF5             
-  104 00:0EF5             	pop 	hl
-  105 00:0EF5             	pop 	de
-  106 00:0EF5             	pop 	bc
-  107 00:0EF5             	exx
-  108 00:0EF5             	pop 	iy
-  109 00:0EF5             	pop 	ix
-  110 00:0EF5             	pop 	hl
-  111 00:0EF5             	pop 	de
-  112 00:0EF5             	pop 	bc
-  113 00:0EF5             	pop 	af
-  114 00:0EF5             	ret
-  115 00:0EF5             
-  116 00:0EF5             ; ***************************************************************************************
-  117 00:0EF5             ;
-  118 00:0EF5             ;									Get time into HL'HL
-  119 00:0EF5             ;
-  120 00:0EF5             ; ***************************************************************************************
-  121 00:0EF5             
-  122 00:0EF5             SYSGetTimer:
-  123 00:0EF5             	ld 		hl,$1234
-  124 00:0EF5             	exx
-  125 00:0EF5             	ld 		hl,$5678
-  126 00:0EF5             	exx
-  127 00:0EF5             	ret
-  128 00:0EF5             
-  129 00:0EF5             #endif
-  130 00:0EF5 -  -  -  -  
-  131 00:0EF5 -  -  -  -  ; ***************************************************************************************
-  132 00:0EF5 -  -  -  -  ;
-  133 00:0EF5 -  -  -  -  ;									Changes and Updates
-  134 00:0EF5 -  -  -  -  ;
-  135 00:0EF5 -  -  -  -  ; ***************************************************************************************
-  136 00:0EF5 -  -  -  -  ;
-  137 00:0EF5 -  -  -  -  ;		Date			Notes
-  138 00:0EF5 -  -  -  -  ;		==== 			=====
-  139 00:0EF5 -  -  -  -  ;
-  140 00:0EF5 -  -  -  -  ; ***************************************************************************************
+    1 00:0F09 -  -  -  -  ; ***************************************************************************************
+    2 00:0F09 -  -  -  -  ; ***************************************************************************************
+    3 00:0F09 -  -  -  -  ;
+    4 00:0F09 -  -  -  -  ;		Name : 		ti84_io.asm
+    5 00:0F09 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0F09 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0F09 -  -  -  -  ;		Reviewed :	No
+    8 00:0F09 -  -  -  -  ;		Purpose :	TI84 specific code
+    9 00:0F09 -  -  -  -  ;
+   10 00:0F09 -  -  -  -  ; ***************************************************************************************
+   11 00:0F09 -  -  -  -  ; ***************************************************************************************
+   12 00:0F09 -  -  -  -  
+   13 00:0F09 -  -  -  -  #ifdef TI84
+   14 00:0F09             
+   15 00:0F09             ; ***************************************************************************************
+   16 00:0F09             ;
+   17 00:0F09             ;								Initialise system stuff
+   18 00:0F09             ;
+   19 00:0F09             ; ***************************************************************************************
+   20 00:0F09             
+   21 00:0F09             SYSInitialise:
+   22 00:0F09             	di
+   23 00:0F09             	ld 		(_StackTemp84),sp 					; TI84 we preserve IY and SP.
+   24 00:0F09             	ld 		(_IYTemp84),iy
+   25 00:0F09             	ret
+   26 00:0F09             
+   27 00:0F09             ; ***************************************************************************************
+   28 00:0F09             ;
+   29 00:0F09             ;								Terminate system stuff
+   30 00:0F09             ;
+   31 00:0F09             ; ***************************************************************************************
+   32 00:0F09             
+   33 00:0F09             SYSTerminate:
+   34 00:0F09             	ld 		sp,(_StackTemp84) 					; TI84 restore SP
+   35 00:0F09             	pop 	iy 									; throw return address from SYSInitialise call
+   36 00:0F09             	ld 		iy,(_IYTemp84) 						; restore IY
+   37 00:0F09             	res 	donePrgm,(iy+doneFlags) 			; marks program as complete (task switching ?)
+   38 00:0F09             	ei
+   39 00:0F09             	ret 										; and exit.
+   40 00:0F09             
+   41 00:0F09             _StackTemp84:									; temp var for TI84 only.
+   42 00:0F09             	.dw 	0,0
+   43 00:0F09             _IYTemp84:
+   44 00:0F09             	.dw 	0,0		
+   45 00:0F09             
+   46 00:0F09             ; ***************************************************************************************
+   47 00:0F09             ;
+   48 00:0F09             ;								Print A character
+   49 00:0F09             ;
+   50 00:0F09             ; ***************************************************************************************
+   51 00:0F09             
+   52 00:0F09             SYSPrintChar:
+   53 00:0F09             	push 	af 									; we stack everything including alt registers
+   54 00:0F09             	push 	bc
+   55 00:0F09             	push 	de
+   56 00:0F09             	push 	hl
+   57 00:0F09             	push 	ix
+   58 00:0F09             	push 	iy
+   59 00:0F09             	exx
+   60 00:0F09             	push 	bc
+   61 00:0F09             	push 	de
+   62 00:0F09             	push 	hl
+   63 00:0F09             
+   64 00:0F09             	ld 		iy,(_IYTemp84)
+   65 00:0F09             	call 	_PutC 								; print A as character
+   66 00:0F09             	di
+   67 00:0F09             	ld 		(_IYTemp84),iy
+   68 00:0F09             
+   69 00:0F09             	pop 	hl
+   70 00:0F09             	pop 	de
+   71 00:0F09             	pop 	bc
+   72 00:0F09             	exx
+   73 00:0F09             	pop 	iy
+   74 00:0F09             	pop 	ix
+   75 00:0F09             	pop 	hl
+   76 00:0F09             	pop 	de
+   77 00:0F09             	pop 	bc
+   78 00:0F09             	pop 	af
+   79 00:0F09             	ret		
+   80 00:0F09             
+   81 00:0F09             ; ***************************************************************************************
+   82 00:0F09             ;
+   83 00:0F09             ;									Print Newline
+   84 00:0F09             ;
+   85 00:0F09             ; ***************************************************************************************
+   86 00:0F09             
+   87 00:0F09             SYSPrintCRLF:
+   88 00:0F09             	push 	af 									; we stack everything including alt registers
+   89 00:0F09             	push 	bc
+   90 00:0F09             	push 	de
+   91 00:0F09             	push 	hl
+   92 00:0F09             	push 	ix
+   93 00:0F09             	push 	iy
+   94 00:0F09             	exx
+   95 00:0F09             	push 	bc
+   96 00:0F09             	push 	de
+   97 00:0F09             	push 	hl
+   98 00:0F09             
+   99 00:0F09             	ld 		iy,(_IYTemp84)
+  100 00:0F09             	call 	_newline
+  101 00:0F09             	di
+  102 00:0F09             	ld 		(_IYTemp84),iy
+  103 00:0F09             
+  104 00:0F09             	pop 	hl
+  105 00:0F09             	pop 	de
+  106 00:0F09             	pop 	bc
+  107 00:0F09             	exx
+  108 00:0F09             	pop 	iy
+  109 00:0F09             	pop 	ix
+  110 00:0F09             	pop 	hl
+  111 00:0F09             	pop 	de
+  112 00:0F09             	pop 	bc
+  113 00:0F09             	pop 	af
+  114 00:0F09             	ret
+  115 00:0F09             
+  116 00:0F09             ; ***************************************************************************************
+  117 00:0F09             ;
+  118 00:0F09             ;									Get time into HL'HL
+  119 00:0F09             ;
+  120 00:0F09             ; ***************************************************************************************
+  121 00:0F09             
+  122 00:0F09             SYSGetTimer:
+  123 00:0F09             	ld 		hl,$1234
+  124 00:0F09             	exx
+  125 00:0F09             	ld 		hl,$5678
+  126 00:0F09             	exx
+  127 00:0F09             	ret
+  128 00:0F09             
+  129 00:0F09             #endif
+  130 00:0F09 -  -  -  -  
+  131 00:0F09 -  -  -  -  ; ***************************************************************************************
+  132 00:0F09 -  -  -  -  ;
+  133 00:0F09 -  -  -  -  ;									Changes and Updates
+  134 00:0F09 -  -  -  -  ;
+  135 00:0F09 -  -  -  -  ; ***************************************************************************************
+  136 00:0F09 -  -  -  -  ;
+  137 00:0F09 -  -  -  -  ;		Date			Notes
+  138 00:0F09 -  -  -  -  ;		==== 			=====
+  139 00:0F09 -  -  -  -  ;
+  140 00:0F09 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   68 00:0EF5 -  -  -  -  #include "testprogram/basic.asm"
+   68 00:0F09 -  -  -  -  #include "testprogram/basic.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-    1 00:0EF5 -  -  -  -  ; ***************************************************************************************
-    2 00:0EF5 -  -  -  -  ; ***************************************************************************************
-    3 00:0EF5 -  -  -  -  ;
-    4 00:0EF5 -  -  -  -  ;		Name : 		basic.asm
-    5 00:0EF5 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:0EF5 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:0EF5 -  -  -  -  ;		Reviewed :	No
-    8 00:0EF5 -  -  -  -  ;		Purpose :	Main program.
-    9 00:0EF5 -  -  -  -  ;
-   10 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   11 00:0EF5 -  -  -  -  ; ***************************************************************************************
-   12 00:0EF5 -  -  -  -  
-   13 00:0EF5 00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
+    1 00:0F09 -  -  -  -  ; ***************************************************************************************
+    2 00:0F09 -  -  -  -  ; ***************************************************************************************
+    3 00:0F09 -  -  -  -  ;
+    4 00:0F09 -  -  -  -  ;		Name : 		basic.asm
+    5 00:0F09 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:0F09 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:0F09 -  -  -  -  ;		Reviewed :	No
+    8 00:0F09 -  -  -  -  ;		Purpose :	Main program.
+    9 00:0F09 -  -  -  -  ;
+   10 00:0F09 -  -  -  -  ; ***************************************************************************************
+   11 00:0F09 -  -  -  -  ; ***************************************************************************************
+   12 00:0F09 -  -  -  -  
+   13 00:0F09 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -5297,23 +5309,231 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
     2 00:1000 -  -  -  -  ;	This code automatically generated.
     3 00:1000 -  -  -  -  ;
     4 00:1000 -  -  -  -  TestProgram:
-    5 00:1000 21 01 00 BE 
-              3F 19 41 42 
+    5 00:1000 22 01 00 BE 
+              3F 1A 41 42 
               43 44 45 46 
               47 48 49 4A 
               4B 4C 4D 4E 
               4F 50 51 52 
               53 54 55 56 
-              57 58 59 0D 
-              80 0C 02 00 
-              BD 13 04 12 
-              13 95 44 A5 
-              80 0D 03 00 
-              13 04 12 13 
+              57 58 59 5A 
+              0D 80 14 02 
+              00 BE 3F 0C 
+              53 65 65 64 
+              20 3D 20 39 
+              38 39 34 38 
+              0D 80 0E 03 
+              00 BD 02 1A 
+              02 21 03 1B 
+              95 48 A5 80 
+              12 04 00 02 
+              1A 02 21 03 
+              1B 95 43 A5 
+              8F 8A 41 77 
+              5E 80 0E 05 
+              00 BD 19 07 
+              01 1C 07 12 
+              95 48 A5 80 
+              12 06 00 19 
+              07 01 1C 07 
+              12 95 43 A5 
+              8F 8A 52 73 
+              58 80 0C 07 
+              00 BD 05 1B 
+              1A 20 95 44 
+              A5 80 0F 08 
+              00 05 1B 1A 
+              20 95 43 A5 
+              8F 54 48 55 
+              80 0B 09 00 
+              BD 11 1F 0B 
+              95 47 A5 80 
+              0F 0A 00 11 
+              1F 0B 95 45 
+              A5 8F 8A 47 
+              62 44 80 0B 
+              0B 00 BD 10 
+              1C 24 95 47 
+              A5 80 0E 0C 
+              00 10 1C 24 
               95 42 A5 8F 
-              6A 80 00 -  	.db	$21,$01,$00,$be,$3f,$19,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$0d,$80,$0c,$02,$00,$bd,$13,$04,$12,$13,$95,$44,$a5,$80,$0d,$03,$00,$13,$04,$12,$13,$95,$42,$a5,$8f,$6a,$80,$00
+              44 43 4F 80 
+              10 0D 00 05 
+              1B 1A 20 95 
+              43 A5 8F 8A 
+              48 4A 63 80 
+              0E 0E 00 11 
+              1F 0B 95 47 
+              A5 8F 43 7A 
+              75 80 12 0F 
+              00 19 07 01 
+              1C 07 12 95 
+              40 A5 8F 8A 
+              56 6A 44 80 
+              10 10 00 CA 
+              02 1A 02 21 
+              03 1B 95 40 
+              A5 8F 40 80 
+              10 11 00 CA 
+              02 1A 02 21 
+              03 1B 95 41 
+              A5 8F 40 80 
+              10 12 00 CA 
+              02 1A 02 21 
+              03 1B 95 42 
+              A5 8F 40 80 
+              13 13 00 CA 
+              02 1A 02 21 
+              03 1B 95 43 
+              A5 8F 8A 41 
+              77 5E 80 10 
+              14 00 CA 02 
+              1A 02 21 03 
+              1B 95 44 A5 
+              8F 40 80 10 
+              15 00 CA 02 
+              1A 02 21 03 
+              1B 95 45 A5 
+              8F 40 80 10 
+              16 00 CA 02 
+              1A 02 21 03 
+              1B 95 46 A5 
+              8F 40 80 10 
+              17 00 CA 02 
+              1A 02 21 03 
+              1B 95 47 A5 
+              8F 40 80 10 
+              18 00 CA 02 
+              1A 02 21 03 
+              1B 95 48 A5 
+              8F 40 80 08 
+              19 00 0D 0E 
+              0D 04 80 13 
+              1A 00 CA 19 
+              07 01 1C 07 
+              12 95 40 A5 
+              8F 8A 56 6A 
+              44 80 10 1B 
+              00 CA 19 07 
+              01 1C 07 12 
+              95 41 A5 8F 
+              40 80 10 1C 
+              00 CA 19 07 
+              01 1C 07 12 
+              95 42 A5 8F 
+              40 80 13 1D 
+              00 CA 19 07 
+              01 1C 07 12 
+              95 43 A5 8F 
+              8A 52 73 58 
+              80 10 1E 00 
+              CA 19 07 01 
+              1C 07 12 95 
+              44 A5 8F 40 
+              80 10 1F 00 
+              CA 19 07 01 
+              1C 07 12 95 
+              45 A5 8F 40 
+              80 10 20 00 
+              CA 19 07 01 
+              1C 07 12 95 
+              46 A5 8F 40 
+              80 10 21 00 
+              CA 19 07 01 
+              1C 07 12 95 
+              47 A5 8F 40 
+              80 10 22 00 
+              CA 19 07 01 
+              1C 07 12 95 
+              48 A5 8F 40 
+              80 08 23 00 
+              0D 0E 0D 04 
+              80 0E 24 00 
+              CA 05 1B 1A 
+              20 95 40 A5 
+              8F 40 80 0E 
+              25 00 CA 05 
+              1B 1A 20 95 
+              41 A5 8F 40 
+              80 0E 26 00 
+              CA 05 1B 1A 
+              20 95 42 A5 
+              8F 40 80 11 
+              27 00 CA 05 
+              1B 1A 20 95 
+              43 A5 8F 8A 
+              48 4A 63 80 
+              0E 28 00 CA 
+              05 1B 1A 20 
+              95 44 A5 8F 
+              40 80 08 29 
+              00 0D 0E 0D 
+              04 80 0D 2A 
+              00 CA 11 1F 
+              0B 95 40 A5 
+              8F 40 80 0D 
+              2B 00 CA 11 
+              1F 0B 95 41 
+              A5 8F 40 80 
+              0D 2C 00 CA 
+              11 1F 0B 95 
+              42 A5 8F 40 
+              80 0D 2D 00 
+              CA 11 1F 0B 
+              95 43 A5 8F 
+              40 80 0D 2E 
+              00 CA 11 1F 
+              0B 95 44 A5 
+              8F 40 80 10 
+              2F 00 CA 11 
+              1F 0B 95 45 
+              A5 8F 8A 47 
+              62 44 80 0D 
+              30 00 CA 11 
+              1F 0B 95 46 
+              A5 8F 40 80 
+              0F 31 00 CA 
+              11 1F 0B 95 
+              47 A5 8F 43 
+              7A 75 80 08 
+              32 00 0D 0E 
+              0D 04 80 0D 
+              33 00 CA 10 
+              1C 24 95 40 
+              A5 8F 40 80 
+              0D 34 00 CA 
+              10 1C 24 95 
+              41 A5 8F 40 
+              80 0F 35 00 
+              CA 10 1C 24 
+              95 42 A5 8F 
+              44 43 4F 80 
+              0D 36 00 CA 
+              10 1C 24 95 
+              43 A5 8F 40 
+              80 0D 37 00 
+              CA 10 1C 24 
+              95 44 A5 8F 
+              40 80 0D 38 
+              00 CA 10 1C 
+              24 95 45 A5 
+              8F 40 80 0D 
+              39 00 CA 10 
+              1C 24 95 46 
+              A5 8F 40 80 
+              0D 3A 00 CA 
+              10 1C 24 95 
+              47 A5 8F 40 
+              80 08 3B 00 
+              0D 0E 0D 04 
+              80 15 3C 00 
+              C1 3F 0D 4F 
+              6B 20 53 65 
+              65 64 20 39 
+              38 39 34 38 
+              0D 80 00 -  	.db	$22,$01,$00,$be,$3f,$1a,$41,$42,$43,$44,$45,$46,$47,$48,$49,$4a,$4b,$4c,$4d,$4e,$4f,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$5a,$0d,$80,$14,$02,$00,$be,$3f,$0c,$53,$65,$65,$64,$20,$3d,$20,$39,$38,$39,$34,$38,$0d,$80,$0e,$03,$00,$bd,$02,$1a,$02,$21,$03,$1b,$95,$48,$a5,$80,$12,$04,$00,$02,$1a,$02,$21,$03,$1b,$95,$43,$a5,$8f,$8a,$41,$77,$5e,$80,$0e,$05,$00,$bd,$19,$07,$01,$1c,$07,$12,$95,$48,$a5,$80,$12,$06,$00,$19,$07,$01,$1c,$07,$12,$95,$43,$a5,$8f,$8a,$52,$73,$58,$80,$0c,$07,$00,$bd,$05,$1b,$1a,$20,$95,$44,$a5,$80,$0f,$08,$00,$05,$1b,$1a,$20,$95,$43,$a5,$8f,$54,$48,$55,$80,$0b,$09,$00,$bd,$11,$1f,$0b,$95,$47,$a5,$80,$0f,$0a,$00,$11,$1f,$0b,$95,$45,$a5,$8f,$8a,$47,$62,$44,$80,$0b,$0b,$00,$bd,$10,$1c,$24,$95,$47,$a5,$80,$0e,$0c,$00,$10,$1c,$24,$95,$42,$a5,$8f,$44,$43,$4f,$80,$10,$0d,$00,$05,$1b,$1a,$20,$95,$43,$a5,$8f,$8a,$48,$4a,$63,$80,$0e,$0e,$00,$11,$1f,$0b,$95,$47,$a5,$8f,$43,$7a,$75,$80,$12,$0f,$00,$19,$07,$01,$1c,$07,$12,$95,$40,$a5,$8f,$8a,$56,$6a,$44,$80,$10,$10,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$40,$a5,$8f,$40,$80,$10,$11,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$41,$a5,$8f,$40,$80,$10,$12,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$42,$a5,$8f,$40,$80,$13,$13,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$43,$a5,$8f,$8a,$41,$77,$5e,$80,$10,$14,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$44,$a5,$8f,$40,$80,$10,$15,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$45,$a5,$8f,$40,$80,$10,$16,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$46,$a5,$8f,$40,$80,$10,$17,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$47,$a5,$8f,$40,$80,$10,$18,$00,$ca,$02,$1a,$02,$21,$03,$1b,$95,$48,$a5,$8f,$40,$80,$08,$19,$00,$0d,$0e,$0d,$04,$80,$13,$1a,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$40,$a5,$8f,$8a,$56,$6a,$44,$80,$10,$1b,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$41,$a5,$8f,$40,$80,$10,$1c,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$42,$a5,$8f,$40,$80,$13,$1d,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$43,$a5,$8f,$8a,$52,$73,$58,$80,$10,$1e,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$44,$a5,$8f,$40,$80,$10,$1f,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$45,$a5,$8f,$40,$80,$10,$20,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$46,$a5,$8f,$40,$80,$10,$21,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$47,$a5,$8f,$40,$80,$10,$22,$00,$ca,$19,$07,$01,$1c,$07,$12,$95,$48,$a5,$8f,$40,$80,$08,$23,$00,$0d,$0e,$0d,$04,$80,$0e,$24,$00,$ca,$05,$1b,$1a,$20,$95,$40,$a5,$8f,$40,$80,$0e,$25,$00,$ca,$05,$1b,$1a,$20,$95,$41,$a5,$8f,$40,$80,$0e,$26,$00,$ca,$05,$1b,$1a,$20,$95,$42,$a5,$8f,$40,$80,$11,$27,$00,$ca,$05,$1b,$1a,$20,$95,$43,$a5,$8f,$8a,$48,$4a,$63,$80,$0e,$28,$00,$ca,$05,$1b,$1a,$20,$95,$44,$a5,$8f,$40,$80,$08,$29,$00,$0d,$0e,$0d,$04,$80,$0d,$2a,$00,$ca,$11,$1f,$0b,$95,$40,$a5,$8f,$40,$80,$0d,$2b,$00,$ca,$11,$1f,$0b,$95,$41,$a5,$8f,$40,$80,$0d,$2c,$00,$ca,$11,$1f,$0b,$95,$42,$a5,$8f,$40,$80,$0d,$2d,$00,$ca,$11,$1f,$0b,$95,$43,$a5,$8f,$40,$80,$0d,$2e,$00,$ca,$11,$1f,$0b,$95,$44,$a5,$8f,$40,$80,$10,$2f,$00,$ca,$11,$1f,$0b,$95,$45,$a5,$8f,$8a,$47,$62,$44,$80,$0d,$30,$00,$ca,$11,$1f,$0b,$95,$46,$a5,$8f,$40,$80,$0f,$31,$00,$ca,$11,$1f,$0b,$95,$47,$a5,$8f,$43,$7a,$75,$80,$08,$32,$00,$0d,$0e,$0d,$04,$80,$0d,$33,$00,$ca,$10,$1c,$24,$95,$40,$a5,$8f,$40,$80,$0d,$34,$00,$ca,$10,$1c,$24,$95,$41,$a5,$8f,$40,$80,$0f,$35,$00,$ca,$10,$1c,$24,$95,$42,$a5,$8f,$44,$43,$4f,$80,$0d,$36,$00,$ca,$10,$1c,$24,$95,$43,$a5,$8f,$40,$80,$0d,$37,$00,$ca,$10,$1c,$24,$95,$44,$a5,$8f,$40,$80,$0d,$38,$00,$ca,$10,$1c,$24,$95,$45,$a5,$8f,$40,$80,$0d,$39,$00,$ca,$10,$1c,$24,$95,$46,$a5,$8f,$40,$80,$0d,$3a,$00,$ca,$10,$1c,$24,$95,$47,$a5,$8f,$40,$80,$08,$3b,$00,$0d,$0e,$0d,$04,$80,$15,$3c,$00,$c1,$3f,$0d,$4f,$6b,$20,$53,$65,$65,$64,$20,$39,$38,$39,$34,$38,$0d,$80,$00
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-   16 00:103B 00 00 00 00 
+   16 00:137B 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -6337,17 +6557,17 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 		.block 		4096
-   17 00:203B -  -  -  -  EndTestInstance:
-   18 00:203B -  -  -  -  		
-   19 00:203B -  -  -  -  ; ***************************************************************************************
-   20 00:203B -  -  -  -  ;
-   21 00:203B -  -  -  -  ;									Changes and Updates
-   22 00:203B -  -  -  -  ;
-   23 00:203B -  -  -  -  ; ***************************************************************************************
-   24 00:203B -  -  -  -  ;
-   25 00:203B -  -  -  -  ;		Date			Notes
-   26 00:203B -  -  -  -  ;		==== 			=====
-   27 00:203B -  -  -  -  ;
-   28 00:203B -  -  -  -  ; ***************************************************************************************
+   17 00:237B -  -  -  -  EndTestInstance:
+   18 00:237B -  -  -  -  		
+   19 00:237B -  -  -  -  ; ***************************************************************************************
+   20 00:237B -  -  -  -  ;
+   21 00:237B -  -  -  -  ;									Changes and Updates
+   22 00:237B -  -  -  -  ;
+   23 00:237B -  -  -  -  ; ***************************************************************************************
+   24 00:237B -  -  -  -  ;
+   25 00:237B -  -  -  -  ;		Date			Notes
+   26 00:237B -  -  -  -  ;		==== 			=====
+   27 00:237B -  -  -  -  ;
+   28 00:237B -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   69 00:203B -  -  -  -  FinalAddress:
+   69 00:237B -  -  -  -  FinalAddress:

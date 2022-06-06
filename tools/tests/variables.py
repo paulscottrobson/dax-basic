@@ -32,12 +32,17 @@ class Variable:
 		return "{0} = {1}".format(self.getName(),self.getDisplayValue())
 	def checkValue(self):
 		return "assert {0} = {1}".format(self.getName(),self.getDisplayValue())
+	def getArrayName(self):
+		Variable.arrayCount += 1
+		return "ar_"+str(Variable.arrayCount)
+
+Variable.arrayCount = 0
 
 class BasicIntegerVariable(Variable):
 	def createName(self):
 		return chr(random.randint(0,25)+97)
 	def createValue(self):
-		return random.randint(-99999,99999)
+		return random.randint(-9999999,9999999)
 
 class LongNameIntegerVariable(BasicIntegerVariable):
 	def createName(self):
@@ -47,6 +52,23 @@ class LongNameIntegerVariable(BasicIntegerVariable):
 			s = s + v[random.randint(0,len(v)-1)]
 		return self.createName() if s.startswith("ar") else s
 
+class ArrayVariable(LongNameIntegerVariable):
+	def __init__(self):
+		Variable.__init__(self)
+		self.arraySize = random.randint(1,10)
+		self.data = [ 0 ] * (self.arraySize+1)
+		print("dim {0}({1})".format(self.getName(),self.arraySize))
+	#
+	def changeValue(self):
+		i = random.randint(0,self.arraySize)
+		v = self.createValue()
+		self.data[i] = v
+		return "{0}({1}) = {2}".format(self.getName(),i,v)
+	#
+	def checkValue(self):
+		for i in range(0,self.arraySize+1):
+			print("assert {0}({1}) = {2}".format(self.getName(),i,self.data[i]))
+		return "rem \"\""
 
 # *******************************************************************************************
 #
@@ -68,7 +90,11 @@ class Assignments(TestObject):
 			print(v.changeValue())
 
 	def createNewVariable(self):
-		return LongNameIntegerVariable() if random.randint(0,2) != 0 else BasicIntegerVariable()
+		if random.randint(0,6) == 0:
+			return ArrayVariable()
+		if random.randint(0,2) != 0:
+			return LongNameIntegerVariable() 
+		return BasicIntegerVariable()
 
 	def footer(self):
 		for v in self.variables:
