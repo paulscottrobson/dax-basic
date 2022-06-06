@@ -11,8 +11,11 @@
 ; ***************************************************************************************
 ;
 ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
-;		The low bytes (0..3) doubled the size of the stack in bytes 
+;		The low bytes (0..3) the size of the stack entry in bytes 
 ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
+;
+;		If a location in program is saved on the stack, it is at offset 1..4 (start of
+;		line) and offset 5 (offset in line)
 ;
 ; ***************************************************************************************
 ;

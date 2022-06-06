@@ -61,7 +61,7 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00b8 endproc
 	addr(Unimplemented)              ; $00b9 gosub
 	addr(Unimplemented)              ; $00ba return
-	addr(Unimplemented)              ; $00bb goto
+	addr(Command_GOTO)               ; $00bb goto
 	addr(Unimplemented)              ; $00bc local
 	addr(Command_DIM)                ; $00bd dim
 	addr(Command_REM)                ; $00be rem

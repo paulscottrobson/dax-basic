@@ -27,12 +27,18 @@ class BasicProgram(object):
 			line = 1
 			for s in open(fileName).readlines():
 				if s.strip() != "":
-					self.addLine(s.strip())
-					line += 1
+					if s[0] >= '0' and s[0] <= '9':
+						m = re.match("^([0-9]+)\\s*(.*)$",s)
+						line = int(m.group(1))
+						s = m.group(2).strip()
+					if s != "":
+						self.addLine(s.strip(),line)
+						line += 1
 	#
 	# 		Add a line, optional line number
 	#
 	def addLine(self,text,lineNumber = None):
+		print(lineNumber,text)
 		if text.find("//") >= 0:
 			text = text[:text.find("//")].strip()
 			if text == "":

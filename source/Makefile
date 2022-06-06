@@ -21,7 +21,7 @@ ti84: prebuild
 
 prebuild:
 	python ..$(S)tools$(S)makeinclude.py default.build >_build.asm
-	make -C ..$(S)tools variables
+	make -C ..$(S)tools #variables
 
 zrun: z80 
 	$(AEMULATOR) build$(S)z80$(S)basic.bin go

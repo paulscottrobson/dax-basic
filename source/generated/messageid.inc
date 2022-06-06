@@ -57,70 +57,77 @@ ERRID_INDEX = 7
 	jp ErrorHandler
 #endmacro
 
-ERRID_MEMORY = 8
+ERRID_LINENO = 8
+
+#macro ERR_LINENO
+	ld a,ERRID_LINENO
+	jp ErrorHandler
+#endmacro
+
+ERRID_MEMORY = 9
 
 #macro ERR_MEMORY
 	ld a,ERRID_MEMORY
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOCOMMA = 9
+ERRID_NOCOMMA = 10
 
 #macro ERR_NOCOMMA
 	ld a,ERRID_NOCOMMA
 	jp ErrorHandler
 #endmacro
 
-ERRID_NODOLLAR = 10
+ERRID_NODOLLAR = 11
 
 #macro ERR_NODOLLAR
 	ld a,ERRID_NODOLLAR
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOLBRACKET = 11
+ERRID_NOLBRACKET = 12
 
 #macro ERR_NOLBRACKET
 	ld a,ERRID_NOLBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 12
+ERRID_NORBRACKET = 13
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 13
+ERRID_NOTREF = 14
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 14
+ERRID_STOP = 15
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 15
+ERRID_SYNTAX = 16
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 16
+ERRID_TODO = 17
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 17
+ERRID_UNKNOWNVAR = 18
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR

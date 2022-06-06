@@ -27,3 +27,4 @@ UnknownVar:	Unknown Variable
 NotRef:		Cannot assign
 Dim: 		DIM Error
 Index: 		Bad Array Index
+LineNo:		Unknown line number.

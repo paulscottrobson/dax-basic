@@ -10,6 +10,7 @@ ErrorIDTable:
 	.dw	ErrText_disabled & $FFFF,ErrText_disabled >> 16
 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
 	.dw	ErrText_index & $FFFF,ErrText_index >> 16
+	.dw	ErrText_lineno & $FFFF,ErrText_lineno >> 16
 	.dw	ErrText_memory & $FFFF,ErrText_memory >> 16
 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
 	.dw	ErrText_nodollar & $FFFF,ErrText_nodollar >> 16
@@ -37,6 +38,8 @@ ErrText_divzero:
 	.db "Division by Zero",0
 ErrText_index:
 	.db "Bad Array Index",0
+ErrText_lineno:
+	.db "Unknown line number.",0
 ErrText_memory:
 	.db "Out of memory",0
 ErrText_nocomma:

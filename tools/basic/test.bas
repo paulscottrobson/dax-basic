@@ -1,10 +1,4 @@
-rem "ABCDEFGHIJKLMNOPQRSTUVWXY"
-rem
-dim t[22]
-$t = "hello"
-print t
-print $t
-dim tx[22]
-$tx = "hello2"
-print tx
-print $tx
+10 count = 0
+20 count = count + 1
+30 print count
+40 goto 20
