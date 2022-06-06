@@ -1,5 +1,5 @@
 TODO:
-	Array code in find.asm (requires DIM) and add to variables.
+	Array test
 	$<test> requires DIM (TOP ?)
 	GOTO .. 
 	Implement Return Stack.

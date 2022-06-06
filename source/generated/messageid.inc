@@ -50,70 +50,77 @@ ERRID_DIVZERO = 6
 	jp ErrorHandler
 #endmacro
 
-ERRID_MEMORY = 7
+ERRID_INDEX = 7
+
+#macro ERR_INDEX
+	ld a,ERRID_INDEX
+	jp ErrorHandler
+#endmacro
+
+ERRID_MEMORY = 8
 
 #macro ERR_MEMORY
 	ld a,ERRID_MEMORY
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOCOMMA = 8
+ERRID_NOCOMMA = 9
 
 #macro ERR_NOCOMMA
 	ld a,ERRID_NOCOMMA
 	jp ErrorHandler
 #endmacro
 
-ERRID_NODOLLAR = 9
+ERRID_NODOLLAR = 10
 
 #macro ERR_NODOLLAR
 	ld a,ERRID_NODOLLAR
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOLBRACKET = 10
+ERRID_NOLBRACKET = 11
 
 #macro ERR_NOLBRACKET
 	ld a,ERRID_NOLBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 11
+ERRID_NORBRACKET = 12
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 12
+ERRID_NOTREF = 13
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 13
+ERRID_STOP = 14
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 14
+ERRID_SYNTAX = 15
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 15
+ERRID_TODO = 16
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 16
+ERRID_UNKNOWNVAR = 17
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR

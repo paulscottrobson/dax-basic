@@ -13,11 +13,15 @@ def deek(a):
 	n = mem[a]+(mem[a+1]<<8)+(mem[a+2]<<16)+(mem[a+3]<<24)
 	return n-0x100000000 if (n & 0x80000000) != 0 else n
 
-hashTableAddress = 0x5700 														# Location in CPU memory
-szVariables = 0x5780  															# Location of A-Z variables.
+mem = [x for x in open("memory.dump","rb").read(-1)]
+
+va = deek(0x4001) & 0xFFFF  													# where the standard var address is
+szVariables = deek(va) & 0xFFFF
+hashTableAddress = szVariables-0x80 											# Location in CPU memory
 hashTableSize = 16 																# Number of hash table entries.
 
-mem = [x for x in open("memory.dump","rb").read(-1)]
+print("Standard variables at ${0:4x}".format(szVariables))
+print("Hash table base at    ${0:4x}".format(hashTableAddress))
 
 vList = []
 for v in range(0,26): 															# dump any non-zero a-z

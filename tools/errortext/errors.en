@@ -26,3 +26,4 @@ Memory: 	Out of memory
 UnknownVar:	Unknown Variable
 NotRef:		Cannot assign
 Dim: 		DIM Error
+Index: 		Bad Array Index

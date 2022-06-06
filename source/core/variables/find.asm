@@ -58,8 +58,11 @@ _FVExitReference:
 		ld 		de,9 						; point to the actual data.
 		add 	hl,de 
 		;
-		; 		TODO: Array check code.
+		; 		Check for arrays. IX points to token after identifier, HL to the array size.
 		;
+		ld 		a,(ix+0) 					; check next token
+		cp 		KWD_LPAREN 					; if (
+		call 	z,ArrayLookup 				; array access required.
 		ld 		c,XTYPE_INTEGER 			; it's an integer
 		set 	CIsReference,c 				; it's an integer reference in UHL.
 		xor 	a 							; clear carry and return
@@ -83,6 +86,40 @@ _FVFail:
 		scf
 		ret
 
+; ***************************************************************************************
+;
+;									 Array lookup
+;
+; ***************************************************************************************
+
+ArrayLookup:
+		push 	hl 							; save the array address on the stack.
+		call 	EvaluateIntegerTerm 		; evaluate the array index.
+		exx 								; check index in 0000-FFFF
+		ld 		a,h
+		or 		l
+		exx
+		jr 		nz,_ALBadValue  			; if so, it's a bad value
+		ld 		de,$00 						; put HL into DE clearing UDE
+		ld 		d,h
+		ld 		e,l
+		pop 	hl 							; get the array base back
+		push 	hl
+		ld_ind_hl 							; read the array index maximum
+		xor  	a							; subtract maximum from index
+		sbc 	hl,de
+		jp 		c,_ALBadValue 				; if max < index then error
+		ex 		de,hl 						; index back into HL
+		inc 	hl 							; add 1, to skip over index count
+		add 	hl,hl 						; x 4
+		add 	hl,hl
+		pop 	de 							; get array base back
+		add 	hl,de 						; add offset to it
+		ret
+
+_ALBadValue:
+		ERR_INDEX
+		
 ; ***************************************************************************************
 ;
 ;									Changes and Updates

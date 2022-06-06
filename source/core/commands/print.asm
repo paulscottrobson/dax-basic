@@ -43,10 +43,6 @@ _CPRLoop:
 		;
 		ld 		a,(PrintBase)				; current print mode.
 _CPRPrintNumber:
-		push 	af 							; print leading space
-		ld 		a,' '
-		call 	SYSPrintChar
-		pop 	af
 		ld  	bc,ConvertBuffer
 		push 	bc
 		call 	Int32ToString 				; convert to string

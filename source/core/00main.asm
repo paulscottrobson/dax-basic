@@ -36,6 +36,7 @@
 
 #ifdef AQUARIUS
 .org 	$4000
+		ld 		hl,StandardIntegers 		; allows dumpvars to find this.
 		ld 		sp,$BFFF
 #endif
 

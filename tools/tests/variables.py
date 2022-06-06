@@ -45,7 +45,7 @@ class LongNameIntegerVariable(BasicIntegerVariable):
 		v = "0123456789abcdefghijklmnopqrstuvwxyz._"
 		for i in range(0,random.randint(1,5)):
 			s = s + v[random.randint(0,len(v)-1)]
-		return s
+		return self.createName() if s.startswith("ar") else s
 
 
 # *******************************************************************************************

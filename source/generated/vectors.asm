@@ -46,7 +46,7 @@ VectorsSet0:
 	addr(Command_REM2)               ; $00a9 '
 	addr(Unimplemented)              ; $00aa [
 	addr(Unimplemented)              ; $00ab ]
-	addr(Unimplemented)              ; $00ac ~
+	addr(BadCmd_Comma)               ; $00ac ~
 	addr(Unimplemented)              ; $00ad repeat
 	addr(Unimplemented)              ; $00ae until
 	addr(Unimplemented)              ; $00af if
