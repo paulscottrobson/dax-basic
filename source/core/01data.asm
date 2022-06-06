@@ -72,6 +72,9 @@ TopMemory: 									; first free location after PAGE.
 ;
 ; ***************************************************************************************
 
+BasicSP:									; BASIC stack pointer
+		.dw 	0,0
+
 CurrentLineStart: 							; Start of current line.
 		.dw 	0,0
 		

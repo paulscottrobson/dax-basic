@@ -37,7 +37,6 @@ _CCFindLow:
 		;
 		ld 		hl,(HighMemory) 			; this is high memory, also top of stack
 		;
-		ld 		(hl),$FF 					; top of stack marker.
 		ld 		(LanguageStack),hl 			; going down from here		
 		ld 		de,-LanguageStackSize 		; allocate space for language stack.
 		add 	hl,de
@@ -67,6 +66,10 @@ _CCFClearHT:
 		; 		Seed the RNG incase the seeds were all zero which gives bad results
 		;
 		call 	UnaryRandomInitialise
+		;
+		;		Erase the stack
+		;
+		call 	StackReset 					; reset the basic stack to empty
 		ret
 
 ; ***************************************************************************************

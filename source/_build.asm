@@ -49,6 +49,7 @@
 #include "core/setup/clear.asm"
 #include "core/setup/instance.asm"
 #include "core/setup/new.asm"
+#include "core/structures/stack.asm"
 #include "core/utility/utility.asm"
 #include "core/variables/create.asm"
 #include "core/variables/find.asm"

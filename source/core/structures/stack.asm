@@ -1,38 +1,30 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		rem.asm
+;		Name : 		stack.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
-;		Date : 		3rd June 2022
+;		Date : 		6th June 2022
 ;		Reviewed :	No
 ;		Purpose :	Rem / ' command
 ;
 ; ***************************************************************************************
 ; ***************************************************************************************
-
+;
+;		The BASIC stack works downwards. Each entry has a first byte, offset 0
+;		The low bytes (0..3) doubled the size of the stack in bytes 
+;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
+;
 ; ***************************************************************************************
 ;
-;							Comment command, can be ' or REM
-;				Note for semantic consistency the comment is in a string.
+;								Clear the stack
 ;
 ; ***************************************************************************************
 
-Command_REM: 	;; [rem]
-Command_REM2: 	;; [']
-		ld 		a,(ix+0) 					; check : EOL or a string follows
-		cp 		KWC_EOL_MARKER 				; exit if end of line.
-		ret 	z
-		inc 	ix
-		cp 		KWD_COLON 					; exit if colon, e.g. end of command
-		ret 	z
-		cp 		STRING_MARKER
-		jp 		nz,SyntaxError
-		;		
-		ld 		de,$0000 					; length + 2 into DE (length, and NULL)
-		ld 		e,(ix+0)
-		inc 	de 
-		inc 	de
-		add 	ix,de 						; skip string
+StackReset:
+		ld 		hl,(LanguageStack) 			; top of language stack
+		dec 	hl 							; down to make space for end.
+		ld 		(BasicSP),hl 				; write out current position
+		ld 		(hl),0 						; Dummy top, as stack size cannot be 0.
 		ret
 
 ; ***************************************************************************************
