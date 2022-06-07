@@ -50,6 +50,7 @@
 #include "core/setup/clear.asm"
 #include "core/setup/instance.asm"
 #include "core/setup/new.asm"
+#include "core/structures/for.asm"
 #include "core/structures/gosub.asm"
 #include "core/structures/goto.asm"
 #include "core/structures/repeat.asm"

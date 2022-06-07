@@ -95,7 +95,7 @@ AllowAutoCreate: 							; autocreate permission flag.
 
 PrintBase: 									; current base for PRINT
 		.dw 	0 
-		
+
 ; ***************************************************************************************
 ;
 ;									Variable Information

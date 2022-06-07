@@ -52,7 +52,7 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00af if
 	addr(BadCmd_Then)                ; $00b0 then
 	addr(Unimplemented)              ; $00b1 else
-	addr(Unimplemented)              ; $00b2 for
+	addr(Command_FOR)                ; $00b2 for
 	addr(BadCmd_To)                  ; $00b3 to
 	addr(Unimplemented)              ; $00b4 step
 	addr(Unimplemented)              ; $00b5 next
