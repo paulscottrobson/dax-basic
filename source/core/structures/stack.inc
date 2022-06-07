@@ -9,12 +9,11 @@
 ;
 ; ***************************************************************************************
 
-ST_CodePosSize = 5 							; bytes required to store code position.
+STM_GOSUB = $13					 			; Gosub : Element 1, six bytes
+											; return position (5) marker (1)
 
-STM_GOSUB = $11 + ST_CodePosSize 			; Gosub : Element 1, one position in code
-											; (add 1 for the marker itself)
-
-STM_REPEAT = $21 + ST_CodePosSize 			; Repeat : Element 1, one position in code
+STM_REPEAT = $23				 			; Repeat : Element 2, six bytes
+											; loop position  (5) marker (1)
 
 ; ***************************************************************************************
 ;

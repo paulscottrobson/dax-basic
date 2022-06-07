@@ -11,7 +11,7 @@
 ; ***************************************************************************************
 ;
 ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
-;		The low bytes (0..3) the size of the stack entry in bytes 
+;		The low bytes (0..3) doubled is the size of the stack entry in bytes 
 ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
 ;
 ;		If a location in program is saved on the stack, it is at offset 1..4 (start of
@@ -39,6 +39,7 @@ StackReset:
 StackOpenFrame:
 		push 	af 							; save frame type
 		and 	$0F 						; get size of frame
+		add 	a,a 						; double it
 		ld 		de,$0000 					; put in UDE
 		ld 		e,a
 		ld 		hl,(BasicSP) 				; get stack pointer
@@ -63,6 +64,7 @@ StackCloseFrame:
 		ld 		hl,(BasicSP)				; get stack frame
 		ld 		a,(hl) 						; get stack marker
 		and 	$0F 						; put into UDE
+		add 	a,a 						; double it
 		ld 		de,$000000
 		ld 		e,a
 		add 	hl,de 						; close it
