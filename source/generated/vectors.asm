@@ -55,7 +55,7 @@ VectorsSet0:
 	addr(Command_FOR)                ; $00b2 for
 	addr(BadCmd_To)                  ; $00b3 to
 	addr(Unimplemented)              ; $00b4 step
-	addr(Unimplemented)              ; $00b5 next
+	addr(Command_Next)               ; $00b5 next
 	addr(Unimplemented)              ; $00b6 def
 	addr(Unimplemented)              ; $00b7 proc
 	addr(Unimplemented)              ; $00b8 endproc

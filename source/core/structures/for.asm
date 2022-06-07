@@ -1,11 +1,11 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		repeat.asm
+;		Name : 		for.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
 ;		Date : 		7th June 2022
 ;		Reviewed :	No
-;		Purpose :	Repeat/Until command
+;		Purpose :	For/Next command
 ;
 ; ***************************************************************************************
 
@@ -21,16 +21,16 @@ Command_FOR: ;; [for]
 			;
 			;		Variable Reference to increment
 			;
+			push	ix 						; save start position
 			ld 		a,255 					; FOR can create
 			ld 		(AllowAutoCreate),a
 			call 	EvaluateTerm 			; get term
 			xor 	a 						; autocreate off.
 			ld 		(AllowAutoCreate),a
-
+			pop 	ix 						; get start position
+			push 	hl 						; save reference address.
 			;
-			bit 	CIsReference,c 			; must be an integer reference.
-			jp 		z,SyntaxError
-			bit 	CIsString,c
+			bit 	CIsString,c 			; check it is a string reference.
 			jp 		nz,SyntaxError
 			ex 		de,hl 					; put reference in DE.
 			;
@@ -38,124 +38,106 @@ Command_FOR: ;; [for]
 			ld 		bc,6
 			add 	hl,bc 
 			st_de_hl_ind_incr 				; write and bump reference.
-			ex 		de,hl 					; put the FOR data pointer in DE.
 			;
-			;		=
+			;		var = value
 			;
-			ld 		a,KWD_EQUALS 			; should be FOR <var> = <a> TO <b>
-			call 	CheckNextA
-			;
-			; 		start
-			;
-			push 	de 						; save write pos (Stack + 10)
-			call 	EvaluateInteger 		; get start value in HL'HL
-			call 	_CRUpdateIndex 			; copy HL'HL to the index.
-			pop 	de 						; restore write pos
+			call 	Command_LET 			; so we do I = 1 or whatever.
 			; 		
 			; 		TO
 			;
 			ld 		a,KWD_TO 				; TO token
 			call 	CheckNextA
 			;
- 			;		end
+			;		value
 			;
-			call 	_CRWriteIntToDE 		; to value 
+			call 	EvaluateInteger  		; write the TO value to offset 10.
+			ld 		a,10
+			call 	CFWriteHLHLToA 
 			;
-			;		check step
+			;		Check STEP ?
 			;
-			ld 		a,(ix+0)				; followed by STEP ?
-			cp 		KWD_STEP
-			jr 		z,_CRHasStep
-			;
-			;		No Step, use 1.
-			;
-			ld 		hl,1 					; HL'HL is step
+			ld 		hl,1 					; default STEP is 1.
 			exx
 			ld 		hl,0
-			exx
-			call 	_CRWriteHLHLToDE 		; write it and exit
-			jr 		_CRExit
+			exx			
+			ld 		a,(ix+0) 				; STEP provided ?
+			cp 		KWD_STEP 				
+			jr 		nz,_CFDefaultStep
 			;
-			;		Step, get value
-			;
-_CRHasStep:	inc 	ix 						; skip STEP
-			call 	_CRWriteIntToDE 		; Step value			
-			;
-			;		Come back here.
-			;
-_CRExit:			
-			call 	StackSavePosition 		; save the loop position last of all.
-			ret
-
-;
-;		Write an evaluate integer or HL'HL to address DE.
-;
-_CRWriteIntToDE:
-			push 	de
+			inc 	ix 						; get step
 			call 	EvaluateInteger
-			pop 	de
-_CRWriteHLHLToDE:
-			ex 		de,hl 					; write DE'DE to (HL)
-			exx
-			ex 		de,hl
-			exx
-
-			ld 		(hl),e
-			inc 	hl
-			ld 		(hl),d
-			inc 	hl
-			push 	hl
-			exx 	
-			pop 	hl
-
-			ld 		(hl),e
-			inc 	hl
-			ld 		(hl),d
-			inc 	hl
-			push 	hl
-			exx 	
-			pop 	hl
-
-			ex 		de,hl 					; put back so DE is the address.
-			exx
-			ex 		de,hl
-			exx
+_CFDefaultStep:			
+			ld 		a,14 					; write to STEP slot.
+			call 	CFWriteHLHLToA 
+			call 	StackSavePosition 		; save loop address
 			ret
+
+; ***************************************************************************************
 ;
-;			Read offset A into HL'HL
-;			
-_CRReadAToHLHL:
-			push 	bc 						; HL = (BasicSP)+a
-			ld 		bc,$000000
+;								Read BasicStack+A to HL'HL
+;
+; ***************************************************************************************
+
+CFReadAToHLHL:
+			ld 		bc,0 					; BC = 00|A
 			ld 		c,a
-			ld 		hl,(BasicSP)
+			ld 		hl,(BasicSP) 			; add stack base
 			add 	hl,bc
-			pop 	bc
-;
-;			Read (HL) to HL'HL
-;			
-_CRReadHLToHLHL:
+
 			push 	hl
+			ld_ind_hl 						; get low word
+			exx
+
+			pop 	hl 						; get high word
+			inc 	hl
+			inc 	hl
 			ld_ind_hl
+			exx
+
+			ret
+			
+; ***************************************************************************************
+;
+;								Write HL'HL to BasicStack+A
+;
+; ***************************************************************************************
+
+CFWriteHLHLToA:
+			ex 		de,hl 					; copy HL'HL to DE
+			exx
+			ex 		de,hl
+			exx
+
+			ld 		bc,0 					; BC = 00|A
+			ld 		c,a
+			ld 		hl,(BasicSP) 			; add stack base
+			add 	hl,bc
+
+			ld 		(hl),e 					; write low word
+			inc 	hl
+			ld 		(hl),d
+			inc 	hl
+
+			push 	hl 						; write high word
 			exx
 			pop 	hl
+			ld 		(hl),e
 			inc 	hl
-			inc 	hl
-			ld_ind_hl
+			ld 		(hl),d
 			exx
-			ret
+			ret			
+
+; ***************************************************************************************
 ;
-;			Copy HL'HL to the index
+;									Next Command
+;		  (only supports version w/o index variable, something I never liked)
 ;
-_CRUpdateIndex
-			ex 		de,hl 					; put index value in DE.
-			ld 		hl,(BasicSP) 			; point HL to the reference address
-			ld 		bc,6
-			add 	hl,bc
-			ld_ind_hl 						; HL now contains the address of the variable
-			ex 		de,hl 					; DE address HL'HL data
-			call 	_CRWriteHLHLToDE
-			ret
+; ***************************************************************************************
+
+Command_Next:	;; [next]
+			debug
+			ld		a,STM_FOR 				; check in a FOR Loop.
+			call 	StackCheckFrame
 
 ; ***************************************************************************************
 ;

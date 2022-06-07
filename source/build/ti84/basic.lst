@@ -1123,7 +1123,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
    66 D1:A9AC DD E3 -  -  		ex 		(sp),ix 					; IX to TOS, start -> IX
    67 D1:A9AE 3E 01 -  -  		ld 		a,1 						; allow creation of the variable if required
    68 D1:A9B0 32 01 A9 D1 		ld 		(AllowAutoCreate),a
-   69 D1:A9B4 CD B9 B3 D1 		call 	FindVariable 				; find/create the variable appropriately.
+   69 D1:A9B4 CD A8 B3 D1 		call 	FindVariable 				; find/create the variable appropriately.
    70 D1:A9B8 CB 79 -  -  		bit 	CIsReference,c 				; check reference, and integer
    71 D1:A9BA 28 E9 -  -  		jr 		z,_CDError
    72 D1:A9BC CB 41 -  -  		bit 	CIsString,c
@@ -1179,8 +1179,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
   121 D1:AA01 DD E3 -  -  		ex 		(sp),ix 					; end position on stack, start in IX.
   122 D1:AA03 E5 -  -  -  		push 	hl 							; save dimension size on stack.		
   123 D1:AA04 -  -  -  -  		;
-  124 D1:AA04 CD 46 B4 D1 		call 	VariableInformation 		; get information about this array
-  125 D1:AA08 CD 82 B4 D1 		call 	VariableSearchList 			; look to see if already present.
+  124 D1:AA04 CD 35 B4 D1 		call 	VariableInformation 		; get information about this array
+  125 D1:AA08 CD 71 B4 D1 		call 	VariableSearchList 			; look to see if already present.
   126 D1:AA0C 30 97 -  -  		jr 		nc,_CDError 				; found, then error, can't redimension
   127 D1:AA0E -  -  -  -  		;
   128 D1:AA0E E1 -  -  -  		pop 	hl 							; get dimension size back
@@ -1189,7 +1189,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
   131 D1:AA11 23 -  -  -  		inc 	hl 							; add one for size word.
   132 D1:AA12 29 -  -  -  		add 	hl,hl 						; x 4 = memory required
   133 D1:AA13 29 -  -  -  		add 	hl,hl
-  134 D1:AA14 CD 76 B3 D1 		call 	VariableCreate 				; create the array, completely blank.
+  134 D1:AA14 CD 65 B3 D1 		call 	VariableCreate 				; create the array, completely blank.
   135 D1:AA18 -  -  -  -  		;
   136 D1:AA18 D1 -  -  -  		pop 	de 							; get last index into DE
   137 D1:AA19 01 09 00 00 		ld 		bc,9 						; point HL to array offset 9 which is the array size
@@ -1458,7 +1458,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    51 D1:AAE0 -  -  -  -  		; 		Print text at HL.
    52 D1:AAE0 -  -  -  -  		;
    53 D1:AAE0 -  -  -  -  _CPRPrintHL:
-   54 D1:AAE0 CD 6B B3 D1 		call 	PrintStringAtHL 			; print string out
+   54 D1:AAE0 CD 5A B3 D1 		call 	PrintStringAtHL 			; print string out
    55 D1:AAE4 18 C9 -  -  		jr 		_CPRLoop 					; and loop back.		
    56 D1:AAE6 -  -  -  -  		;
    57 D1:AAE6 -  -  -  -  		;		Hex mode (~)
@@ -1804,7 +1804,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    27 D1:ABFA 19 -  -  -  		add 	hl,de
    28 D1:ABFB ED 27 -  -  		ld_ind_hl 						; load hl,(hl) to get address in HL.
 Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
-   29 D1:ABFD CD 6B B3 D1 		call 	PrintStringAtHL
+   29 D1:ABFD CD 5A B3 D1 		call 	PrintStringAtHL
    30 D1:AC01 -  -  -  -  		;
    31 D1:AC01 F1 -  -  -  		pop 	af 						; restore error ID
    32 D1:AC02 B7 -  -  -  		or 		a 						; no line # if error #zero (warmstart)
@@ -1817,7 +1817,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    38 D1:AC0E 28 24 -  -  		jr 		z,_EHExit
    39 D1:AC10 -  -  -  -  
    40 D1:AC10 21 3C AC D1 		ld 		hl,_EHAtText 			; print "at line"
-   41 D1:AC14 CD 6B B3 D1 		call 	PrintStringAtHL 
+   41 D1:AC14 CD 5A B3 D1 		call 	PrintStringAtHL 
    42 D1:AC18 -  -  -  -  		
    43 D1:AC18 D9 -  -  -  		exx								; HL'HL = line number
    44 D1:AC19 21 00 00 00 		ld 		hl,$0000 		
@@ -1829,7 +1829,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    50 D1:AC2A CD 87 B9 D1 		call 	Int32ToString
    51 D1:AC2E C5 -  -  -  		push 	bc
    52 D1:AC2F E1 -  -  -  		pop 	hl
-   53 D1:AC30 CD 6B B3 D1 		call 	PrintStringAtHL			; print error line number.
+   53 D1:AC30 CD 5A B3 D1 		call 	PrintStringAtHL			; print error line number.
    54 D1:AC34 -  -  -  -  _EHExit:		
    55 D1:AC34 CD 22 BA D1 		call 	SYSPrintCRLF 			; print carriage return
    56 D1:AC38 C3 9B A8 D1 		jp 		WarmStart
@@ -2760,7 +2760,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/term.asm
   143 D1:AF7B -  -  -  -  		; 		Found an identifier.
   144 D1:AF7B -  -  -  -  		;
   145 D1:AF7B -  -  -  -  _ETVariable:
-  146 D1:AF7B CD B9 B3 D1 		call 	FindVariable 				; find the variable.
+  146 D1:AF7B CD A8 B3 D1 		call 	FindVariable 				; find the variable.
   147 D1:AF7F D0 -  -  -  		ret 	nc 							; return if found.
   148 D1:AF80 3E 16 C3 EE 
               AB D1 -  -  		ERR_UNKNOWNVAR 						; unknown variable
@@ -3581,7 +3581,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/clear.asm"
    69 D1:B175 -  -  -  -  		;
    70 D1:B175 -  -  -  -  		;		Erase the stack
    71 D1:B175 -  -  -  -  		;
-   72 D1:B175 CD EA B2 D1 		call 	StackReset 					; reset the basic stack to empty
+   72 D1:B175 CD D9 B2 D1 		call 	StackReset 					; reset the basic stack to empty
    73 D1:B179 C9 -  -  -  		ret
    74 D1:B17A -  -  -  -  
    75 D1:B17A -  -  -  -  ; ***************************************************************************************
@@ -3680,11 +3680,11 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
     1 D1:B199 -  -  -  -  ; ***************************************************************************************
     2 D1:B199 -  -  -  -  ; ***************************************************************************************
     3 D1:B199 -  -  -  -  ;
-    4 D1:B199 -  -  -  -  ;		Name : 		repeat.asm
+    4 D1:B199 -  -  -  -  ;		Name : 		for.asm
     5 D1:B199 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
     6 D1:B199 -  -  -  -  ;		Date : 		7th June 2022
     7 D1:B199 -  -  -  -  ;		Reviewed :	No
-    8 D1:B199 -  -  -  -  ;		Purpose :	Repeat/Until command
+    8 D1:B199 -  -  -  -  ;		Purpose :	For/Next command
     9 D1:B199 -  -  -  -  ;
    10 D1:B199 -  -  -  -  ; ***************************************************************************************
    11 D1:B199 -  -  -  -  
@@ -3696,962 +3696,949 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
    17 D1:B199 -  -  -  -  
    18 D1:B199 -  -  -  -  Command_FOR: ;; [for]
    19 D1:B199 3E 39 -  -  			ld		a,STM_FOR 				; open the FOR frame
-   20 D1:B19B CD F6 B2 D1 			call 	StackOpenFrame
+   20 D1:B19B CD E5 B2 D1 			call 	StackOpenFrame
    21 D1:B19F -  -  -  -  			;
    22 D1:B19F -  -  -  -  			;		Variable Reference to increment
    23 D1:B19F -  -  -  -  			;
-   24 D1:B19F 3E FF -  -  			ld 		a,255 					; FOR can create
-   25 D1:B1A1 32 01 A9 D1 			ld 		(AllowAutoCreate),a
-   26 D1:B1A5 CD B0 AE D1 			call 	EvaluateTerm 			; get term
-   27 D1:B1A9 AF -  -  -  			xor 	a 						; autocreate off.
-   28 D1:B1AA 32 01 A9 D1 			ld 		(AllowAutoCreate),a
-   29 D1:B1AE -  -  -  -  
-   30 D1:B1AE -  -  -  -  			;
-   31 D1:B1AE CB 79 -  -  			bit 	CIsReference,c 			; must be an integer reference.
-   32 D1:B1B0 CA 58 AC D1 			jp 		z,SyntaxError
-   33 D1:B1B4 CB 41 -  -  			bit 	CIsString,c
-   34 D1:B1B6 C2 58 AC D1 			jp 		nz,SyntaxError
-   35 D1:B1BA EB -  -  -  			ex 		de,hl 					; put reference in DE.
-   36 D1:B1BB -  -  -  -  			;
-   37 D1:B1BB 2A D9 A8 D1 			ld 		hl,(BasicSP)			; point to Basic+6, where the reference goes.
-   38 D1:B1BF 01 06 00 00 			ld 		bc,6
-   39 D1:B1C3 09 -  -  -  			add 	hl,bc 
-   40 D1:B1C4 ED 1F 23 23 
+   24 D1:B19F DD E5 -  -  			push	ix 						; save start position
+   25 D1:B1A1 3E FF -  -  			ld 		a,255 					; FOR can create
+   26 D1:B1A3 32 01 A9 D1 			ld 		(AllowAutoCreate),a
+   27 D1:B1A7 CD B0 AE D1 			call 	EvaluateTerm 			; get term
+   28 D1:B1AB AF -  -  -  			xor 	a 						; autocreate off.
+   29 D1:B1AC 32 01 A9 D1 			ld 		(AllowAutoCreate),a
+   30 D1:B1B0 DD E1 -  -  			pop 	ix 						; get start position
+   31 D1:B1B2 E5 -  -  -  			push 	hl 						; save reference address.
+   32 D1:B1B3 -  -  -  -  			;
+   33 D1:B1B3 CB 41 -  -  			bit 	CIsString,c 			; check it is a string reference.
+   34 D1:B1B5 C2 58 AC D1 			jp 		nz,SyntaxError
+   35 D1:B1B9 EB -  -  -  			ex 		de,hl 					; put reference in DE.
+   36 D1:B1BA -  -  -  -  			;
+   37 D1:B1BA 2A D9 A8 D1 			ld 		hl,(BasicSP)			; point to Basic+6, where the reference goes.
+   38 D1:B1BE 01 06 00 00 			ld 		bc,6
+   39 D1:B1C2 09 -  -  -  			add 	hl,bc 
+   40 D1:B1C3 ED 1F 23 23 
               23 23 -  -  			st_de_hl_ind_incr 				; write and bump reference.
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
-   41 D1:B1CA EB -  -  -  			ex 		de,hl 					; put the FOR data pointer in DE.
-   42 D1:B1CB -  -  -  -  			;
-   43 D1:B1CB -  -  -  -  			;		=
-   44 D1:B1CB -  -  -  -  			;
-   45 D1:B1CB 3E 8F -  -  			ld 		a,KWD_EQUALS 			; should be FOR <var> = <a> TO <b>
-   46 D1:B1CD CD E2 AB D1 			call 	CheckNextA
-   47 D1:B1D1 -  -  -  -  			;
-   48 D1:B1D1 -  -  -  -  			; 		start
-   49 D1:B1D1 -  -  -  -  			;
-   50 D1:B1D1 D5 -  -  -  			push 	de 						; save write pos (Stack + 10)
-   51 D1:B1D2 CD 21 AE D1 			call 	EvaluateInteger 		; get start value in HL'HL
-   52 D1:B1D6 CD 3B B2 D1 			call 	_CRUpdateIndex 			; copy HL'HL to the index.
-   53 D1:B1DA D1 -  -  -  			pop 	de 						; restore write pos
-   54 D1:B1DB -  -  -  -  			; 		
-   55 D1:B1DB -  -  -  -  			; 		TO
-   56 D1:B1DB -  -  -  -  			;
-   57 D1:B1DB 3E B3 -  -  			ld 		a,KWD_TO 				; TO token
-   58 D1:B1DD CD E2 AB D1 			call 	CheckNextA
-   59 D1:B1E1 -  -  -  -  			;
-   60 D1:B1E1 -  -  -  -   			;		end
-   61 D1:B1E1 -  -  -  -  			;
-   62 D1:B1E1 CD 07 B2 D1 			call 	_CRWriteIntToDE 		; to value 
-   63 D1:B1E5 -  -  -  -  			;
-   64 D1:B1E5 -  -  -  -  			;		check step
-   65 D1:B1E5 -  -  -  -  			;
-   66 D1:B1E5 DD 7E 00 -  			ld 		a,(ix+0)				; followed by STEP ?
-   67 D1:B1E8 FE B4 -  -  			cp 		KWD_STEP
-   68 D1:B1EA 28 10 -  -  			jr 		z,_CRHasStep
-   69 D1:B1EC -  -  -  -  			;
-   70 D1:B1EC -  -  -  -  			;		No Step, use 1.
-   71 D1:B1EC -  -  -  -  			;
-   72 D1:B1EC 21 01 00 00 			ld 		hl,1 					; HL'HL is step
-   73 D1:B1F0 D9 -  -  -  			exx
-   74 D1:B1F1 21 00 00 00 			ld 		hl,0
-   75 D1:B1F5 D9 -  -  -  			exx
-   76 D1:B1F6 CD 0D B2 D1 			call 	_CRWriteHLHLToDE 		; write it and exit
-   77 D1:B1FA 18 06 -  -  			jr 		_CRExit
-   78 D1:B1FC -  -  -  -  			;
-   79 D1:B1FC -  -  -  -  			;		Step, get value
-   80 D1:B1FC -  -  -  -  			;
-   81 D1:B1FC DD 23 -  -  _CRHasStep:	inc 	ix 						; skip STEP
-   82 D1:B1FE CD 07 B2 D1 			call 	_CRWriteIntToDE 		; Step value			
-   83 D1:B202 -  -  -  -  			;
-   84 D1:B202 -  -  -  -  			;		Come back here.
-   85 D1:B202 -  -  -  -  			;
-   86 D1:B202 -  -  -  -  _CRExit:			
-   87 D1:B202 CD 34 B3 D1 			call 	StackSavePosition 		; save the loop position last of all.
-   88 D1:B206 C9 -  -  -  			ret
-   89 D1:B207 -  -  -  -  
-   90 D1:B207 -  -  -  -  ;
-   91 D1:B207 -  -  -  -  ;		Write an evaluate integer or HL'HL to address DE.
-   92 D1:B207 -  -  -  -  ;
-   93 D1:B207 -  -  -  -  _CRWriteIntToDE:
-   94 D1:B207 D5 -  -  -  			push 	de
-   95 D1:B208 CD 21 AE D1 			call 	EvaluateInteger
-   96 D1:B20C D1 -  -  -  			pop 	de
-   97 D1:B20D -  -  -  -  _CRWriteHLHLToDE:
-   98 D1:B20D EB -  -  -  			ex 		de,hl 					; write DE'DE to (HL)
-   99 D1:B20E D9 -  -  -  			exx
-  100 D1:B20F EB -  -  -  			ex 		de,hl
-  101 D1:B210 D9 -  -  -  			exx
-  102 D1:B211 -  -  -  -  
-  103 D1:B211 73 -  -  -  			ld 		(hl),e
-  104 D1:B212 23 -  -  -  			inc 	hl
-  105 D1:B213 72 -  -  -  			ld 		(hl),d
-  106 D1:B214 23 -  -  -  			inc 	hl
-  107 D1:B215 E5 -  -  -  			push 	hl
-  108 D1:B216 D9 -  -  -  			exx 	
-  109 D1:B217 E1 -  -  -  			pop 	hl
+   41 D1:B1C9 -  -  -  -  			;
+   42 D1:B1C9 -  -  -  -  			;		var = value
+   43 D1:B1C9 -  -  -  -  			;
+   44 D1:B1C9 CD 44 AA D1 			call 	Command_LET 			; so we do I = 1 or whatever.
+   45 D1:B1CD -  -  -  -  			; 		
+   46 D1:B1CD -  -  -  -  			; 		TO
+   47 D1:B1CD -  -  -  -  			;
+   48 D1:B1CD 3E B3 -  -  			ld 		a,KWD_TO 				; TO token
+   49 D1:B1CF CD E2 AB D1 			call 	CheckNextA
+   50 D1:B1D3 -  -  -  -  			;
+   51 D1:B1D3 -  -  -  -  			;		value
+   52 D1:B1D3 -  -  -  -  			;
+   53 D1:B1D3 CD 21 AE D1 			call 	EvaluateInteger  		; write the TO value to offset 10.
+   54 D1:B1D7 3E 0A -  -  			ld 		a,10
+   55 D1:B1D9 CD 14 B2 D1 			call 	CFWriteHLHLToA 
+   56 D1:B1DD -  -  -  -  			;
+   57 D1:B1DD -  -  -  -  			;		Check STEP ?
+   58 D1:B1DD -  -  -  -  			;
+   59 D1:B1DD 21 01 00 00 			ld 		hl,1 					; default STEP is 1.
+   60 D1:B1E1 D9 -  -  -  			exx
+   61 D1:B1E2 21 00 00 00 			ld 		hl,0
+   62 D1:B1E6 D9 -  -  -  			exx			
+   63 D1:B1E7 DD 7E 00 -  			ld 		a,(ix+0) 				; STEP provided ?
+   64 D1:B1EA FE B4 -  -  			cp 		KWD_STEP 				
+   65 D1:B1EC 20 06 -  -  			jr 		nz,_CFDefaultStep
+   66 D1:B1EE -  -  -  -  			;
+   67 D1:B1EE DD 23 -  -  			inc 	ix 						; get step
+   68 D1:B1F0 CD 21 AE D1 			call 	EvaluateInteger
+   69 D1:B1F4 -  -  -  -  _CFDefaultStep:			
+   70 D1:B1F4 3E 0E -  -  			ld 		a,14 					; write to STEP slot.
+   71 D1:B1F6 CD 14 B2 D1 			call 	CFWriteHLHLToA 
+   72 D1:B1FA CD 23 B3 D1 			call 	StackSavePosition 		; save loop address
+   73 D1:B1FE C9 -  -  -  			ret
+   74 D1:B1FF -  -  -  -  
+   75 D1:B1FF -  -  -  -  ; ***************************************************************************************
+   76 D1:B1FF -  -  -  -  ;
+   77 D1:B1FF -  -  -  -  ;								Read BasicStack+A to HL'HL
+   78 D1:B1FF -  -  -  -  ;
+   79 D1:B1FF -  -  -  -  ; ***************************************************************************************
+   80 D1:B1FF -  -  -  -  
+   81 D1:B1FF -  -  -  -  CFReadAToHLHL:
+   82 D1:B1FF 01 00 00 00 			ld 		bc,0 					; BC = 00|A
+   83 D1:B203 4F -  -  -  			ld 		c,a
+   84 D1:B204 2A D9 A8 D1 			ld 		hl,(BasicSP) 			; add stack base
+   85 D1:B208 09 -  -  -  			add 	hl,bc
+   86 D1:B209 -  -  -  -  
+   87 D1:B209 E5 -  -  -  			push 	hl
+   88 D1:B20A ED 27 -  -  			ld_ind_hl 						; get low word
+   89 D1:B20C D9 -  -  -  			exx
+   90 D1:B20D -  -  -  -  
+   91 D1:B20D E1 -  -  -  			pop 	hl 						; get high word
+   92 D1:B20E 23 -  -  -  			inc 	hl
+   93 D1:B20F 23 -  -  -  			inc 	hl
+   94 D1:B210 ED 27 -  -  			ld_ind_hl
+   95 D1:B212 D9 -  -  -  			exx
+   96 D1:B213 -  -  -  -  
+   97 D1:B213 C9 -  -  -  			ret
+   98 D1:B214 -  -  -  -  			
+   99 D1:B214 -  -  -  -  ; ***************************************************************************************
+  100 D1:B214 -  -  -  -  ;
+  101 D1:B214 -  -  -  -  ;								Write HL'HL to BasicStack+A
+  102 D1:B214 -  -  -  -  ;
+  103 D1:B214 -  -  -  -  ; ***************************************************************************************
+  104 D1:B214 -  -  -  -  
+  105 D1:B214 -  -  -  -  CFWriteHLHLToA:
+  106 D1:B214 EB -  -  -  			ex 		de,hl 					; copy HL'HL to DE
+  107 D1:B215 D9 -  -  -  			exx
+  108 D1:B216 EB -  -  -  			ex 		de,hl
+  109 D1:B217 D9 -  -  -  			exx
   110 D1:B218 -  -  -  -  
-  111 D1:B218 73 -  -  -  			ld 		(hl),e
-  112 D1:B219 23 -  -  -  			inc 	hl
-  113 D1:B21A 72 -  -  -  			ld 		(hl),d
-  114 D1:B21B 23 -  -  -  			inc 	hl
-  115 D1:B21C E5 -  -  -  			push 	hl
-  116 D1:B21D D9 -  -  -  			exx 	
-  117 D1:B21E E1 -  -  -  			pop 	hl
-  118 D1:B21F -  -  -  -  
-  119 D1:B21F EB -  -  -  			ex 		de,hl 					; put back so DE is the address.
-  120 D1:B220 D9 -  -  -  			exx
-  121 D1:B221 EB -  -  -  			ex 		de,hl
-  122 D1:B222 D9 -  -  -  			exx
-  123 D1:B223 C9 -  -  -  			ret
-  124 D1:B224 -  -  -  -  ;
-  125 D1:B224 -  -  -  -  ;			Read offset A into HL'HL
-  126 D1:B224 -  -  -  -  ;			
-  127 D1:B224 -  -  -  -  _CRReadAToHLHL:
-  128 D1:B224 C5 -  -  -  			push 	bc 						; HL = (BasicSP)+a
-  129 D1:B225 01 00 00 00 			ld 		bc,$000000
-  130 D1:B229 4F -  -  -  			ld 		c,a
-  131 D1:B22A 2A D9 A8 D1 			ld 		hl,(BasicSP)
-  132 D1:B22E 09 -  -  -  			add 	hl,bc
-  133 D1:B22F C1 -  -  -  			pop 	bc
-  134 D1:B230 -  -  -  -  ;
-  135 D1:B230 -  -  -  -  ;			Read (HL) to HL'HL
-  136 D1:B230 -  -  -  -  ;			
-  137 D1:B230 -  -  -  -  _CRReadHLToHLHL:
-  138 D1:B230 E5 -  -  -  			push 	hl
-  139 D1:B231 ED 27 -  -  			ld_ind_hl
-  140 D1:B233 D9 -  -  -  			exx
-  141 D1:B234 E1 -  -  -  			pop 	hl
-  142 D1:B235 23 -  -  -  			inc 	hl
-  143 D1:B236 23 -  -  -  			inc 	hl
-  144 D1:B237 ED 27 -  -  			ld_ind_hl
-  145 D1:B239 D9 -  -  -  			exx
-  146 D1:B23A C9 -  -  -  			ret
-  147 D1:B23B -  -  -  -  ;
-  148 D1:B23B -  -  -  -  ;			Copy HL'HL to the index
-  149 D1:B23B -  -  -  -  ;
-  150 D1:B23B -  -  -  -  _CRUpdateIndex
-  151 D1:B23B EB -  -  -  			ex 		de,hl 					; put index value in DE.
-  152 D1:B23C 2A D9 A8 D1 			ld 		hl,(BasicSP) 			; point HL to the reference address
-  153 D1:B240 01 06 00 00 			ld 		bc,6
-  154 D1:B244 09 -  -  -  			add 	hl,bc
-  155 D1:B245 ED 27 -  -  			ld_ind_hl 						; HL now contains the address of the variable
-  156 D1:B247 EB -  -  -  			ex 		de,hl 					; DE address HL'HL data
-  157 D1:B248 CD 0D B2 D1 			call 	_CRWriteHLHLToDE
-  158 D1:B24C C9 -  -  -  			ret
-  159 D1:B24D -  -  -  -  
-  160 D1:B24D -  -  -  -  ; ***************************************************************************************
-  161 D1:B24D -  -  -  -  ;
-  162 D1:B24D -  -  -  -  ;									Changes and Updates
-  163 D1:B24D -  -  -  -  ;
-  164 D1:B24D -  -  -  -  ; ***************************************************************************************
-  165 D1:B24D -  -  -  -  ;
-  166 D1:B24D -  -  -  -  ;		Date			Notes
-  167 D1:B24D -  -  -  -  ;		==== 			=====
-  168 D1:B24D -  -  -  -  ;
-  169 D1:B24D -  -  -  -  ; ***************************************************************************************
+  111 D1:B218 01 00 00 00 			ld 		bc,0 					; BC = 00|A
+  112 D1:B21C 4F -  -  -  			ld 		c,a
+  113 D1:B21D 2A D9 A8 D1 			ld 		hl,(BasicSP) 			; add stack base
+  114 D1:B221 09 -  -  -  			add 	hl,bc
+  115 D1:B222 -  -  -  -  
+  116 D1:B222 73 -  -  -  			ld 		(hl),e 					; write low word
+  117 D1:B223 23 -  -  -  			inc 	hl
+  118 D1:B224 72 -  -  -  			ld 		(hl),d
+  119 D1:B225 23 -  -  -  			inc 	hl
+  120 D1:B226 -  -  -  -  
+  121 D1:B226 E5 -  -  -  			push 	hl 						; write high word
+  122 D1:B227 D9 -  -  -  			exx
+  123 D1:B228 E1 -  -  -  			pop 	hl
+  124 D1:B229 73 -  -  -  			ld 		(hl),e
+  125 D1:B22A 23 -  -  -  			inc 	hl
+  126 D1:B22B 72 -  -  -  			ld 		(hl),d
+  127 D1:B22C D9 -  -  -  			exx
+  128 D1:B22D C9 -  -  -  			ret			
+  129 D1:B22E -  -  -  -  
+  130 D1:B22E -  -  -  -  ; ***************************************************************************************
+  131 D1:B22E -  -  -  -  ;
+  132 D1:B22E -  -  -  -  ;									Next Command
+  133 D1:B22E -  -  -  -  ;		  (only supports version w/o index variable, something I never liked)
+  134 D1:B22E -  -  -  -  ;
+  135 D1:B22E -  -  -  -  ; ***************************************************************************************
+  136 D1:B22E -  -  -  -  
+  137 D1:B22E -  -  -  -  Command_Next:	;; [next]
+  138 D1:B22E F5 3E 02 32 
+              FF FF FF F1 			debug
+  139 D1:B236 3E 39 -  -  			ld		a,STM_FOR 				; check in a FOR Loop.
+  140 D1:B238 CD 1D B3 D1 			call 	StackCheckFrame
+  141 D1:B23C -  -  -  -  
+  142 D1:B23C -  -  -  -  ; ***************************************************************************************
+  143 D1:B23C -  -  -  -  ;
+  144 D1:B23C -  -  -  -  ;									Changes and Updates
+  145 D1:B23C -  -  -  -  ;
+  146 D1:B23C -  -  -  -  ; ***************************************************************************************
+  147 D1:B23C -  -  -  -  ;
+  148 D1:B23C -  -  -  -  ;		Date			Notes
+  149 D1:B23C -  -  -  -  ;		==== 			=====
+  150 D1:B23C -  -  -  -  ;
+  151 D1:B23C -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   54 D1:B24D -  -  -  -  #include "core/structures/gosub.asm"
+   54 D1:B23C -  -  -  -  #include "core/structures/gosub.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/gosub.asm"
-    1 D1:B24D -  -  -  -  ; ***************************************************************************************
-    2 D1:B24D -  -  -  -  ; ***************************************************************************************
-    3 D1:B24D -  -  -  -  ;
-    4 D1:B24D -  -  -  -  ;		Name : 		gosub.asm
-    5 D1:B24D -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B24D -  -  -  -  ;		Date : 		7th June 2022
-    7 D1:B24D -  -  -  -  ;		Reviewed :	No
-    8 D1:B24D -  -  -  -  ;		Purpose :	Gosub/Return command
-    9 D1:B24D -  -  -  -  ;
-   10 D1:B24D -  -  -  -  ; ***************************************************************************************
-   11 D1:B24D -  -  -  -  
-   12 D1:B24D -  -  -  -  ; ***************************************************************************************
-   13 D1:B24D -  -  -  -  ;
-   14 D1:B24D -  -  -  -  ;									Gosub Command
-   15 D1:B24D -  -  -  -  ;
-   16 D1:B24D -  -  -  -  ; ***************************************************************************************
-   17 D1:B24D -  -  -  -  
-   18 D1:B24D -  -  -  -  Command_GOSUB: ;; [gosub]
-   19 D1:B24D 3E 13 -  -  			ld		a,STM_GOSUB
-   20 D1:B24F CD F6 B2 D1 			call 	StackOpenFrame
-   21 D1:B253 CD 82 B2 D1 			call 	GoGetLineNumber
-   22 D1:B257 E5 -  -  -  			push 	hl
-   23 D1:B258 CD 34 B3 D1 			call 	StackSavePosition
-   24 D1:B25C E1 -  -  -  			pop 	hl
-   25 D1:B25D CD 8F B2 D1 			call	TransferToLineHL
-   26 D1:B261 C9 -  -  -  			ret
-   27 D1:B262 -  -  -  -  
-   28 D1:B262 -  -  -  -  ; ***************************************************************************************
-   29 D1:B262 -  -  -  -  ;
-   30 D1:B262 -  -  -  -  ;									Return command
-   31 D1:B262 -  -  -  -  ;
-   32 D1:B262 -  -  -  -  ; ***************************************************************************************
-   33 D1:B262 -  -  -  -  
-   34 D1:B262 -  -  -  -  Command_Return: ;; [return]
-   35 D1:B262 3E 13 -  -  			ld		a,STM_GOSUB
-   36 D1:B264 CD 2E B3 D1 			call 	StackCheckFrame
-   37 D1:B268 20 09 -  -  			jr 		nz,_ReturnError
-   38 D1:B26A CD 4F B3 D1 			call 	StackLoadPosition
-   39 D1:B26E CD 1B B3 D1 			call 	StackCloseFrame
-   40 D1:B272 C9 -  -  -  			ret
-   41 D1:B273 -  -  -  -  _ReturnError:
-   42 D1:B273 3E 07 C3 EE 
+    1 D1:B23C -  -  -  -  ; ***************************************************************************************
+    2 D1:B23C -  -  -  -  ; ***************************************************************************************
+    3 D1:B23C -  -  -  -  ;
+    4 D1:B23C -  -  -  -  ;		Name : 		gosub.asm
+    5 D1:B23C -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B23C -  -  -  -  ;		Date : 		7th June 2022
+    7 D1:B23C -  -  -  -  ;		Reviewed :	No
+    8 D1:B23C -  -  -  -  ;		Purpose :	Gosub/Return command
+    9 D1:B23C -  -  -  -  ;
+   10 D1:B23C -  -  -  -  ; ***************************************************************************************
+   11 D1:B23C -  -  -  -  
+   12 D1:B23C -  -  -  -  ; ***************************************************************************************
+   13 D1:B23C -  -  -  -  ;
+   14 D1:B23C -  -  -  -  ;									Gosub Command
+   15 D1:B23C -  -  -  -  ;
+   16 D1:B23C -  -  -  -  ; ***************************************************************************************
+   17 D1:B23C -  -  -  -  
+   18 D1:B23C -  -  -  -  Command_GOSUB: ;; [gosub]
+   19 D1:B23C 3E 13 -  -  			ld		a,STM_GOSUB
+   20 D1:B23E CD E5 B2 D1 			call 	StackOpenFrame
+   21 D1:B242 CD 71 B2 D1 			call 	GoGetLineNumber
+   22 D1:B246 E5 -  -  -  			push 	hl
+   23 D1:B247 CD 23 B3 D1 			call 	StackSavePosition
+   24 D1:B24B E1 -  -  -  			pop 	hl
+   25 D1:B24C CD 7E B2 D1 			call	TransferToLineHL
+   26 D1:B250 C9 -  -  -  			ret
+   27 D1:B251 -  -  -  -  
+   28 D1:B251 -  -  -  -  ; ***************************************************************************************
+   29 D1:B251 -  -  -  -  ;
+   30 D1:B251 -  -  -  -  ;									Return command
+   31 D1:B251 -  -  -  -  ;
+   32 D1:B251 -  -  -  -  ; ***************************************************************************************
+   33 D1:B251 -  -  -  -  
+   34 D1:B251 -  -  -  -  Command_Return: ;; [return]
+   35 D1:B251 3E 13 -  -  			ld		a,STM_GOSUB
+   36 D1:B253 CD 1D B3 D1 			call 	StackCheckFrame
+   37 D1:B257 20 09 -  -  			jr 		nz,_ReturnError
+   38 D1:B259 CD 3E B3 D1 			call 	StackLoadPosition
+   39 D1:B25D CD 0A B3 D1 			call 	StackCloseFrame
+   40 D1:B261 C9 -  -  -  			ret
+   41 D1:B262 -  -  -  -  _ReturnError:
+   42 D1:B262 3E 07 C3 EE 
               AB D1 -  -  			ERR_GOSUB
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/gosub.asm"
-   43 D1:B279 -  -  -  -  
-   44 D1:B279 -  -  -  -  ; ***************************************************************************************
-   45 D1:B279 -  -  -  -  ;
-   46 D1:B279 -  -  -  -  ;									Changes and Updates
-   47 D1:B279 -  -  -  -  ;
-   48 D1:B279 -  -  -  -  ; ***************************************************************************************
-   49 D1:B279 -  -  -  -  ;
-   50 D1:B279 -  -  -  -  ;		Date			Notes
-   51 D1:B279 -  -  -  -  ;		==== 			=====
-   52 D1:B279 -  -  -  -  ;
-   53 D1:B279 -  -  -  -  ; ***************************************************************************************
+   43 D1:B268 -  -  -  -  
+   44 D1:B268 -  -  -  -  ; ***************************************************************************************
+   45 D1:B268 -  -  -  -  ;
+   46 D1:B268 -  -  -  -  ;									Changes and Updates
+   47 D1:B268 -  -  -  -  ;
+   48 D1:B268 -  -  -  -  ; ***************************************************************************************
+   49 D1:B268 -  -  -  -  ;
+   50 D1:B268 -  -  -  -  ;		Date			Notes
+   51 D1:B268 -  -  -  -  ;		==== 			=====
+   52 D1:B268 -  -  -  -  ;
+   53 D1:B268 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   55 D1:B279 -  -  -  -  #include "core/structures/goto.asm"
+   55 D1:B268 -  -  -  -  #include "core/structures/goto.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/goto.asm"
-    1 D1:B279 -  -  -  -  ; ***************************************************************************************
-    2 D1:B279 -  -  -  -  ; ***************************************************************************************
-    3 D1:B279 -  -  -  -  ;
-    4 D1:B279 -  -  -  -  ;		Name : 		goto.asm
-    5 D1:B279 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B279 -  -  -  -  ;		Date : 		6th June 2022
-    7 D1:B279 -  -  -  -  ;		Reviewed :	No
-    8 D1:B279 -  -  -  -  ;		Purpose :	Goto command
-    9 D1:B279 -  -  -  -  ;
-   10 D1:B279 -  -  -  -  ; ***************************************************************************************
-   11 D1:B279 -  -  -  -  
-   12 D1:B279 -  -  -  -  ; ***************************************************************************************
-   13 D1:B279 -  -  -  -  ;
-   14 D1:B279 -  -  -  -  ;									Goto Command
-   15 D1:B279 -  -  -  -  ;
-   16 D1:B279 -  -  -  -  ; ***************************************************************************************
-   17 D1:B279 -  -  -  -  
-   18 D1:B279 -  -  -  -  Command_GOTO: ;; [goto]
-   19 D1:B279 CD 82 B2 D1 			call 	GoGetLineNumber
-   20 D1:B27D CD 8F B2 D1 			call	TransferToLineHL
-   21 D1:B281 C9 -  -  -  			ret
-   22 D1:B282 -  -  -  -  
-   23 D1:B282 -  -  -  -  ; ***************************************************************************************
-   24 D1:B282 -  -  -  -  ;
-   25 D1:B282 -  -  -  -  ;							Get and validate a line number in HL
-   26 D1:B282 -  -  -  -  ;
-   27 D1:B282 -  -  -  -  ; ***************************************************************************************
-   28 D1:B282 -  -  -  -  
-   29 D1:B282 -  -  -  -  GoGetLineNumber:
-   30 D1:B282 CD 21 AE D1 			call 	EvaluateInteger
-   31 D1:B286 D9 -  -  -  			exx
-   32 D1:B287 7C -  -  -  			ld 		a,h
-   33 D1:B288 B5 -  -  -  			or 		l
-   34 D1:B289 D9 -  -  -  			exx
-   35 D1:B28A C8 -  -  -  			ret 	z
-   36 D1:B28B C3 52 AC D1 			jp 		BadValue
-   37 D1:B28F -  -  -  -  
-   38 D1:B28F -  -  -  -  ; ***************************************************************************************
-   39 D1:B28F -  -  -  -  ;
-   40 D1:B28F -  -  -  -  ;							Transfer to Line Number HL
-   41 D1:B28F -  -  -  -  ;
-   42 D1:B28F -  -  -  -  ; ***************************************************************************************
-   43 D1:B28F -  -  -  -  
-   44 D1:B28F -  -  -  -  TransferToLineHL:
-   45 D1:B28F EB -  -  -  			ex 		de,hl 					; put line number in DE
-   46 D1:B290 01 00 00 00 			ld 		bc,$000000 				; clear BC (for bumping)
-   47 D1:B294 DD 2A B9 A8 
+    1 D1:B268 -  -  -  -  ; ***************************************************************************************
+    2 D1:B268 -  -  -  -  ; ***************************************************************************************
+    3 D1:B268 -  -  -  -  ;
+    4 D1:B268 -  -  -  -  ;		Name : 		goto.asm
+    5 D1:B268 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B268 -  -  -  -  ;		Date : 		6th June 2022
+    7 D1:B268 -  -  -  -  ;		Reviewed :	No
+    8 D1:B268 -  -  -  -  ;		Purpose :	Goto command
+    9 D1:B268 -  -  -  -  ;
+   10 D1:B268 -  -  -  -  ; ***************************************************************************************
+   11 D1:B268 -  -  -  -  
+   12 D1:B268 -  -  -  -  ; ***************************************************************************************
+   13 D1:B268 -  -  -  -  ;
+   14 D1:B268 -  -  -  -  ;									Goto Command
+   15 D1:B268 -  -  -  -  ;
+   16 D1:B268 -  -  -  -  ; ***************************************************************************************
+   17 D1:B268 -  -  -  -  
+   18 D1:B268 -  -  -  -  Command_GOTO: ;; [goto]
+   19 D1:B268 CD 71 B2 D1 			call 	GoGetLineNumber
+   20 D1:B26C CD 7E B2 D1 			call	TransferToLineHL
+   21 D1:B270 C9 -  -  -  			ret
+   22 D1:B271 -  -  -  -  
+   23 D1:B271 -  -  -  -  ; ***************************************************************************************
+   24 D1:B271 -  -  -  -  ;
+   25 D1:B271 -  -  -  -  ;							Get and validate a line number in HL
+   26 D1:B271 -  -  -  -  ;
+   27 D1:B271 -  -  -  -  ; ***************************************************************************************
+   28 D1:B271 -  -  -  -  
+   29 D1:B271 -  -  -  -  GoGetLineNumber:
+   30 D1:B271 CD 21 AE D1 			call 	EvaluateInteger
+   31 D1:B275 D9 -  -  -  			exx
+   32 D1:B276 7C -  -  -  			ld 		a,h
+   33 D1:B277 B5 -  -  -  			or 		l
+   34 D1:B278 D9 -  -  -  			exx
+   35 D1:B279 C8 -  -  -  			ret 	z
+   36 D1:B27A C3 52 AC D1 			jp 		BadValue
+   37 D1:B27E -  -  -  -  
+   38 D1:B27E -  -  -  -  ; ***************************************************************************************
+   39 D1:B27E -  -  -  -  ;
+   40 D1:B27E -  -  -  -  ;							Transfer to Line Number HL
+   41 D1:B27E -  -  -  -  ;
+   42 D1:B27E -  -  -  -  ; ***************************************************************************************
+   43 D1:B27E -  -  -  -  
+   44 D1:B27E -  -  -  -  TransferToLineHL:
+   45 D1:B27E EB -  -  -  			ex 		de,hl 					; put line number in DE
+   46 D1:B27F 01 00 00 00 			ld 		bc,$000000 				; clear BC (for bumping)
+   47 D1:B283 DD 2A B9 A8 
               D1 -  -  -  			ld 		ix,(CodeAddress)
-   48 D1:B299 -  -  -  -  _TLSearch:	
-   49 D1:B299 DD 09 -  -  			add 	ix,bc 					; follow offset, initially 0
-   50 D1:B29B DD 7E 00 -  			ld 		a,(ix+0) 				; get link
-   51 D1:B29E B7 -  -  -  			or 		a 						; if zero
-   52 D1:B29F 28 19 -  -  			jr 		z,_TLNotFound 			; not found
-   53 D1:B2A1 4F -  -  -  			ld  	c,a 					; BC is the offset.
-   54 D1:B2A2 -  -  -  -  
-   55 D1:B2A2 7B -  -  -  			ld 		a,e						; compare line address
-   56 D1:B2A3 DD BE 01 -  			cp 		(ix+1)
-   57 D1:B2A6 20 F1 -  -  			jr 		nz,_TLSearch
-   58 D1:B2A8 7A -  -  -  			ld 		a,d
-   59 D1:B2A9 DD BE 02 -  			cp 		(ix+2)
-   60 D1:B2AC 20 EB -  -  			jr 		nz,_TLSearch
-   61 D1:B2AE -  -  -  -  			;
-   62 D1:B2AE DD 22 DD A8 
+   48 D1:B288 -  -  -  -  _TLSearch:	
+   49 D1:B288 DD 09 -  -  			add 	ix,bc 					; follow offset, initially 0
+   50 D1:B28A DD 7E 00 -  			ld 		a,(ix+0) 				; get link
+   51 D1:B28D B7 -  -  -  			or 		a 						; if zero
+   52 D1:B28E 28 19 -  -  			jr 		z,_TLNotFound 			; not found
+   53 D1:B290 4F -  -  -  			ld  	c,a 					; BC is the offset.
+   54 D1:B291 -  -  -  -  
+   55 D1:B291 7B -  -  -  			ld 		a,e						; compare line address
+   56 D1:B292 DD BE 01 -  			cp 		(ix+1)
+   57 D1:B295 20 F1 -  -  			jr 		nz,_TLSearch
+   58 D1:B297 7A -  -  -  			ld 		a,d
+   59 D1:B298 DD BE 02 -  			cp 		(ix+2)
+   60 D1:B29B 20 EB -  -  			jr 		nz,_TLSearch
+   61 D1:B29D -  -  -  -  			;
+   62 D1:B29D DD 22 DD A8 
               D1 -  -  -  			ld 		(CurrentLineStart),ix 	; set line start
-   63 D1:B2B3 DD 23 -  -  			inc 	ix 						; skip over offset / line#
-   64 D1:B2B5 DD 23 -  -  			inc 	ix
-   65 D1:B2B7 DD 23 -  -  			inc 	ix
-   66 D1:B2B9 -  -  -  -  
-   67 D1:B2B9 C9 -  -  -  			ret
-   68 D1:B2BA -  -  -  -  
-   69 D1:B2BA -  -  -  -  _TLNotFound:
-   70 D1:B2BA 3E 09 C3 EE 
+   63 D1:B2A2 DD 23 -  -  			inc 	ix 						; skip over offset / line#
+   64 D1:B2A4 DD 23 -  -  			inc 	ix
+   65 D1:B2A6 DD 23 -  -  			inc 	ix
+   66 D1:B2A8 -  -  -  -  
+   67 D1:B2A8 C9 -  -  -  			ret
+   68 D1:B2A9 -  -  -  -  
+   69 D1:B2A9 -  -  -  -  _TLNotFound:
+   70 D1:B2A9 3E 09 C3 EE 
               AB D1 -  -  			ERR_LINENO
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/goto.asm"
-   71 D1:B2C0 -  -  -  -  
-   72 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-   73 D1:B2C0 -  -  -  -  ;
-   74 D1:B2C0 -  -  -  -  ;									Changes and Updates
-   75 D1:B2C0 -  -  -  -  ;
-   76 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-   77 D1:B2C0 -  -  -  -  ;
-   78 D1:B2C0 -  -  -  -  ;		Date			Notes
-   79 D1:B2C0 -  -  -  -  ;		==== 			=====
-   80 D1:B2C0 -  -  -  -  ;
-   81 D1:B2C0 -  -  -  -  ; ***************************************************************************************
+   71 D1:B2AF -  -  -  -  
+   72 D1:B2AF -  -  -  -  ; ***************************************************************************************
+   73 D1:B2AF -  -  -  -  ;
+   74 D1:B2AF -  -  -  -  ;									Changes and Updates
+   75 D1:B2AF -  -  -  -  ;
+   76 D1:B2AF -  -  -  -  ; ***************************************************************************************
+   77 D1:B2AF -  -  -  -  ;
+   78 D1:B2AF -  -  -  -  ;		Date			Notes
+   79 D1:B2AF -  -  -  -  ;		==== 			=====
+   80 D1:B2AF -  -  -  -  ;
+   81 D1:B2AF -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   56 D1:B2C0 -  -  -  -  #include "core/structures/repeat.asm"
+   56 D1:B2AF -  -  -  -  #include "core/structures/repeat.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/repeat.asm"
-    1 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-    2 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-    3 D1:B2C0 -  -  -  -  ;
-    4 D1:B2C0 -  -  -  -  ;		Name : 		repeat.asm
-    5 D1:B2C0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B2C0 -  -  -  -  ;		Date : 		7th June 2022
-    7 D1:B2C0 -  -  -  -  ;		Reviewed :	No
-    8 D1:B2C0 -  -  -  -  ;		Purpose :	Repeat/Until command
-    9 D1:B2C0 -  -  -  -  ;
-   10 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-   11 D1:B2C0 -  -  -  -  
-   12 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-   13 D1:B2C0 -  -  -  -  ;
-   14 D1:B2C0 -  -  -  -  ;									Repeat Command
-   15 D1:B2C0 -  -  -  -  ;
-   16 D1:B2C0 -  -  -  -  ; ***************************************************************************************
-   17 D1:B2C0 -  -  -  -  
-   18 D1:B2C0 -  -  -  -  Command_REPEAT: ;; [repeat]
-   19 D1:B2C0 3E 23 -  -  			ld		a,STM_REPEAT
-   20 D1:B2C2 CD F6 B2 D1 			call 	StackOpenFrame
-   21 D1:B2C6 CD 34 B3 D1 			call 	StackSavePosition
-   22 D1:B2CA C9 -  -  -  			ret
-   23 D1:B2CB -  -  -  -  
-   24 D1:B2CB -  -  -  -  ; ***************************************************************************************
-   25 D1:B2CB -  -  -  -  ;
-   26 D1:B2CB -  -  -  -  ;									Until command
-   27 D1:B2CB -  -  -  -  ;
-   28 D1:B2CB -  -  -  -  ; ***************************************************************************************
-   29 D1:B2CB -  -  -  -  
-   30 D1:B2CB -  -  -  -  Command_Until: ;; [until]
-   31 D1:B2CB 3E 23 -  -  			ld		a,STM_REPEAT
-   32 D1:B2CD CD 2E B3 D1 			call 	StackCheckFrame
-   33 D1:B2D1 20 11 -  -  			jr 		nz,_UntilError
-   34 D1:B2D3 CD 21 AE D1 			call	EvaluateInteger 		; until what
-   35 D1:B2D7 CD 3F B9 D1 			call 	Int32Zero 				; check zero
-   36 D1:B2DB CA 4F B3 D1 			jp 		z,StackLoadPosition 	; if zero loop back
-   37 D1:B2DF CD 1B B3 D1 			call 	StackCloseFrame 		; otherwise end frame.
-   38 D1:B2E3 C9 -  -  -  			ret
-   39 D1:B2E4 -  -  -  -  _UntilError:
-   40 D1:B2E4 3E 11 C3 EE 
+    1 D1:B2AF -  -  -  -  ; ***************************************************************************************
+    2 D1:B2AF -  -  -  -  ; ***************************************************************************************
+    3 D1:B2AF -  -  -  -  ;
+    4 D1:B2AF -  -  -  -  ;		Name : 		repeat.asm
+    5 D1:B2AF -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B2AF -  -  -  -  ;		Date : 		7th June 2022
+    7 D1:B2AF -  -  -  -  ;		Reviewed :	No
+    8 D1:B2AF -  -  -  -  ;		Purpose :	Repeat/Until command
+    9 D1:B2AF -  -  -  -  ;
+   10 D1:B2AF -  -  -  -  ; ***************************************************************************************
+   11 D1:B2AF -  -  -  -  
+   12 D1:B2AF -  -  -  -  ; ***************************************************************************************
+   13 D1:B2AF -  -  -  -  ;
+   14 D1:B2AF -  -  -  -  ;									Repeat Command
+   15 D1:B2AF -  -  -  -  ;
+   16 D1:B2AF -  -  -  -  ; ***************************************************************************************
+   17 D1:B2AF -  -  -  -  
+   18 D1:B2AF -  -  -  -  Command_REPEAT: ;; [repeat]
+   19 D1:B2AF 3E 23 -  -  			ld		a,STM_REPEAT
+   20 D1:B2B1 CD E5 B2 D1 			call 	StackOpenFrame
+   21 D1:B2B5 CD 23 B3 D1 			call 	StackSavePosition
+   22 D1:B2B9 C9 -  -  -  			ret
+   23 D1:B2BA -  -  -  -  
+   24 D1:B2BA -  -  -  -  ; ***************************************************************************************
+   25 D1:B2BA -  -  -  -  ;
+   26 D1:B2BA -  -  -  -  ;									Until command
+   27 D1:B2BA -  -  -  -  ;
+   28 D1:B2BA -  -  -  -  ; ***************************************************************************************
+   29 D1:B2BA -  -  -  -  
+   30 D1:B2BA -  -  -  -  Command_Until: ;; [until]
+   31 D1:B2BA 3E 23 -  -  			ld		a,STM_REPEAT
+   32 D1:B2BC CD 1D B3 D1 			call 	StackCheckFrame
+   33 D1:B2C0 20 11 -  -  			jr 		nz,_UntilError
+   34 D1:B2C2 CD 21 AE D1 			call	EvaluateInteger 		; until what
+   35 D1:B2C6 CD 3F B9 D1 			call 	Int32Zero 				; check zero
+   36 D1:B2CA CA 3E B3 D1 			jp 		z,StackLoadPosition 	; if zero loop back
+   37 D1:B2CE CD 0A B3 D1 			call 	StackCloseFrame 		; otherwise end frame.
+   38 D1:B2D2 C9 -  -  -  			ret
+   39 D1:B2D3 -  -  -  -  _UntilError:
+   40 D1:B2D3 3E 11 C3 EE 
               AB D1 -  -  			ERR_REPEAT
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/repeat.asm"
-   41 D1:B2EA -  -  -  -  
-   42 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   43 D1:B2EA -  -  -  -  ;
-   44 D1:B2EA -  -  -  -  ;									Changes and Updates
-   45 D1:B2EA -  -  -  -  ;
-   46 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   47 D1:B2EA -  -  -  -  ;
-   48 D1:B2EA -  -  -  -  ;		Date			Notes
-   49 D1:B2EA -  -  -  -  ;		==== 			=====
-   50 D1:B2EA -  -  -  -  ;
-   51 D1:B2EA -  -  -  -  ; ***************************************************************************************
+   41 D1:B2D9 -  -  -  -  
+   42 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   43 D1:B2D9 -  -  -  -  ;
+   44 D1:B2D9 -  -  -  -  ;									Changes and Updates
+   45 D1:B2D9 -  -  -  -  ;
+   46 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   47 D1:B2D9 -  -  -  -  ;
+   48 D1:B2D9 -  -  -  -  ;		Date			Notes
+   49 D1:B2D9 -  -  -  -  ;		==== 			=====
+   50 D1:B2D9 -  -  -  -  ;
+   51 D1:B2D9 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   57 D1:B2EA -  -  -  -  #include "core/structures/stack.asm"
+   57 D1:B2D9 -  -  -  -  #include "core/structures/stack.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/stack.asm"
-    1 D1:B2EA -  -  -  -  ; ***************************************************************************************
-    2 D1:B2EA -  -  -  -  ; ***************************************************************************************
-    3 D1:B2EA -  -  -  -  ;
-    4 D1:B2EA -  -  -  -  ;		Name : 		stack.asm
-    5 D1:B2EA -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B2EA -  -  -  -  ;		Date : 		6th June 2022
-    7 D1:B2EA -  -  -  -  ;		Reviewed :	No
-    8 D1:B2EA -  -  -  -  ;		Purpose :	Rem / ' command
-    9 D1:B2EA -  -  -  -  ;
-   10 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   11 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   12 D1:B2EA -  -  -  -  ;
-   13 D1:B2EA -  -  -  -  ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
-   14 D1:B2EA -  -  -  -  ;		The low bytes (0..3) doubled is the size of the stack entry in bytes 
-   15 D1:B2EA -  -  -  -  ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
-   16 D1:B2EA -  -  -  -  ;
-   17 D1:B2EA -  -  -  -  ;		If a location in program is saved on the stack, it is at offset 1..4 (start of
-   18 D1:B2EA -  -  -  -  ;		line) and offset 5 (offset in line)
-   19 D1:B2EA -  -  -  -  ;
-   20 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   21 D1:B2EA -  -  -  -  ;
-   22 D1:B2EA -  -  -  -  ;								Clear the stack
-   23 D1:B2EA -  -  -  -  ;
-   24 D1:B2EA -  -  -  -  ; ***************************************************************************************
-   25 D1:B2EA -  -  -  -  
-   26 D1:B2EA -  -  -  -  StackReset:
-   27 D1:B2EA 2A BD A8 D1 		ld 		hl,(LanguageStack) 			; top of language stack
-   28 D1:B2EE 2B -  -  -  		dec 	hl 							; down to make space for end.
-   29 D1:B2EF 22 D9 A8 D1 		ld 		(BasicSP),hl 				; write out current position
-   30 D1:B2F3 36 F0 -  -  		ld 		(hl),$F0 					; Dummy top, as stack size cannot be 0.
-   31 D1:B2F5 C9 -  -  -  		ret
-   32 D1:B2F6 -  -  -  -  
-   33 D1:B2F6 -  -  -  -  ; ***************************************************************************************
-   34 D1:B2F6 -  -  -  -  ;
-   35 D1:B2F6 -  -  -  -  ;								Open a stack frame type A
-   36 D1:B2F6 -  -  -  -  ;
-   37 D1:B2F6 -  -  -  -  ; ***************************************************************************************
-   38 D1:B2F6 -  -  -  -  
-   39 D1:B2F6 -  -  -  -  StackOpenFrame:
-   40 D1:B2F6 F5 -  -  -  		push 	af 							; save frame type
-   41 D1:B2F7 E6 0F -  -  		and 	$0F 						; get size of frame
-   42 D1:B2F9 87 -  -  -  		add 	a,a 						; double it
-   43 D1:B2FA 11 00 00 00 		ld 		de,$0000 					; put in UDE
-   44 D1:B2FE 5F -  -  -  		ld 		e,a
-   45 D1:B2FF 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; get stack pointer
-   46 D1:B303 AF -  -  -  		xor 	a
-   47 D1:B304 ED 52 -  -  		sbc 	hl,de 						; subtract frame size and update
-   48 D1:B306 22 D9 A8 D1 		ld 		(BasicSP),hl
-   49 D1:B30A F1 -  -  -  		pop 	af 							; copy out frame type
-   50 D1:B30B 77 -  -  -  		ld 		(hl),a
-   51 D1:B30C ED 5B C1 A8 
+    1 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+    2 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+    3 D1:B2D9 -  -  -  -  ;
+    4 D1:B2D9 -  -  -  -  ;		Name : 		stack.asm
+    5 D1:B2D9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B2D9 -  -  -  -  ;		Date : 		6th June 2022
+    7 D1:B2D9 -  -  -  -  ;		Reviewed :	No
+    8 D1:B2D9 -  -  -  -  ;		Purpose :	Rem / ' command
+    9 D1:B2D9 -  -  -  -  ;
+   10 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   11 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   12 D1:B2D9 -  -  -  -  ;
+   13 D1:B2D9 -  -  -  -  ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
+   14 D1:B2D9 -  -  -  -  ;		The low bytes (0..3) doubled is the size of the stack entry in bytes 
+   15 D1:B2D9 -  -  -  -  ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
+   16 D1:B2D9 -  -  -  -  ;
+   17 D1:B2D9 -  -  -  -  ;		If a location in program is saved on the stack, it is at offset 1..4 (start of
+   18 D1:B2D9 -  -  -  -  ;		line) and offset 5 (offset in line)
+   19 D1:B2D9 -  -  -  -  ;
+   20 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   21 D1:B2D9 -  -  -  -  ;
+   22 D1:B2D9 -  -  -  -  ;								Clear the stack
+   23 D1:B2D9 -  -  -  -  ;
+   24 D1:B2D9 -  -  -  -  ; ***************************************************************************************
+   25 D1:B2D9 -  -  -  -  
+   26 D1:B2D9 -  -  -  -  StackReset:
+   27 D1:B2D9 2A BD A8 D1 		ld 		hl,(LanguageStack) 			; top of language stack
+   28 D1:B2DD 2B -  -  -  		dec 	hl 							; down to make space for end.
+   29 D1:B2DE 22 D9 A8 D1 		ld 		(BasicSP),hl 				; write out current position
+   30 D1:B2E2 36 F0 -  -  		ld 		(hl),$F0 					; Dummy top, as stack size cannot be 0.
+   31 D1:B2E4 C9 -  -  -  		ret
+   32 D1:B2E5 -  -  -  -  
+   33 D1:B2E5 -  -  -  -  ; ***************************************************************************************
+   34 D1:B2E5 -  -  -  -  ;
+   35 D1:B2E5 -  -  -  -  ;								Open a stack frame type A
+   36 D1:B2E5 -  -  -  -  ;
+   37 D1:B2E5 -  -  -  -  ; ***************************************************************************************
+   38 D1:B2E5 -  -  -  -  
+   39 D1:B2E5 -  -  -  -  StackOpenFrame:
+   40 D1:B2E5 F5 -  -  -  		push 	af 							; save frame type
+   41 D1:B2E6 E6 0F -  -  		and 	$0F 						; get size of frame
+   42 D1:B2E8 87 -  -  -  		add 	a,a 						; double it
+   43 D1:B2E9 11 00 00 00 		ld 		de,$0000 					; put in UDE
+   44 D1:B2ED 5F -  -  -  		ld 		e,a
+   45 D1:B2EE 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; get stack pointer
+   46 D1:B2F2 AF -  -  -  		xor 	a
+   47 D1:B2F3 ED 52 -  -  		sbc 	hl,de 						; subtract frame size and update
+   48 D1:B2F5 22 D9 A8 D1 		ld 		(BasicSP),hl
+   49 D1:B2F9 F1 -  -  -  		pop 	af 							; copy out frame type
+   50 D1:B2FA 77 -  -  -  		ld 		(hl),a
+   51 D1:B2FB ED 5B C1 A8 
               D1 -  -  -  		ld 		de,(LanguageStackEnd) 		; subtract stack end (e.g. lowest value)
-   52 D1:B311 AF -  -  -  		xor 	a
-   53 D1:B312 ED 52 -  -  		sbc 	hl,de
-   54 D1:B314 D0 -  -  -  		ret 	nc 							; ok if >= lowest value
-   55 D1:B315 3E 12 C3 EE 
+   52 D1:B300 AF -  -  -  		xor 	a
+   53 D1:B301 ED 52 -  -  		sbc 	hl,de
+   54 D1:B303 D0 -  -  -  		ret 	nc 							; ok if >= lowest value
+   55 D1:B304 3E 12 C3 EE 
               AB D1 -  -  		ERR_STACK
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/stack.asm"
-   56 D1:B31B -  -  -  -  
-   57 D1:B31B -  -  -  -  ; ***************************************************************************************
-   58 D1:B31B -  -  -  -  ;
-   59 D1:B31B -  -  -  -  ;								Close Stack Frame
-   60 D1:B31B -  -  -  -  ;
-   61 D1:B31B -  -  -  -  ; ***************************************************************************************
-   62 D1:B31B -  -  -  -  
-   63 D1:B31B -  -  -  -  StackCloseFrame:
-   64 D1:B31B 2A D9 A8 D1 		ld 		hl,(BasicSP)				; get stack frame
-   65 D1:B31F 7E -  -  -  		ld 		a,(hl) 						; get stack marker
-   66 D1:B320 E6 0F -  -  		and 	$0F 						; put into UDE
-   67 D1:B322 87 -  -  -  		add 	a,a 						; double it
-   68 D1:B323 11 00 00 00 		ld 		de,$000000
-   69 D1:B327 5F -  -  -  		ld 		e,a
-   70 D1:B328 19 -  -  -  		add 	hl,de 						; close it
-   71 D1:B329 22 D9 A8 D1 		ld 		(BasicSP),hl 				; write it back
-   72 D1:B32D C9 -  -  -  		ret
-   73 D1:B32E -  -  -  -  
-   74 D1:B32E -  -  -  -  ; ***************************************************************************************
-   75 D1:B32E -  -  -  -  ;
-   76 D1:B32E -  -  -  -  ;								Check Stack Frame against A, Z if okay
-   77 D1:B32E -  -  -  -  ;
-   78 D1:B32E -  -  -  -  ; ***************************************************************************************
-   79 D1:B32E -  -  -  -  
-   80 D1:B32E -  -  -  -  StackCheckFrame:
-   81 D1:B32E 2A D9 A8 D1 		ld 		hl,(BasicSP)				; get stack frame
-   82 D1:B332 BE -  -  -  		cp 		(hl) 						; get stack marker
-   83 D1:B333 C9 -  -  -  		ret
-   84 D1:B334 -  -  -  -  
-   85 D1:B334 -  -  -  -  ; ***************************************************************************************
-   86 D1:B334 -  -  -  -  ;
-   87 D1:B334 -  -  -  -  ;								Save position on stack
-   88 D1:B334 -  -  -  -  ;
-   89 D1:B334 -  -  -  -  ; ***************************************************************************************
-   90 D1:B334 -  -  -  -  
-   91 D1:B334 -  -  -  -  StackSavePosition:
-   92 D1:B334 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
-   93 D1:B338 23 -  -  -  		inc 	hl
-   94 D1:B339 ED 5B DD A8 
+   56 D1:B30A -  -  -  -  
+   57 D1:B30A -  -  -  -  ; ***************************************************************************************
+   58 D1:B30A -  -  -  -  ;
+   59 D1:B30A -  -  -  -  ;								Close Stack Frame
+   60 D1:B30A -  -  -  -  ;
+   61 D1:B30A -  -  -  -  ; ***************************************************************************************
+   62 D1:B30A -  -  -  -  
+   63 D1:B30A -  -  -  -  StackCloseFrame:
+   64 D1:B30A 2A D9 A8 D1 		ld 		hl,(BasicSP)				; get stack frame
+   65 D1:B30E 7E -  -  -  		ld 		a,(hl) 						; get stack marker
+   66 D1:B30F E6 0F -  -  		and 	$0F 						; put into UDE
+   67 D1:B311 87 -  -  -  		add 	a,a 						; double it
+   68 D1:B312 11 00 00 00 		ld 		de,$000000
+   69 D1:B316 5F -  -  -  		ld 		e,a
+   70 D1:B317 19 -  -  -  		add 	hl,de 						; close it
+   71 D1:B318 22 D9 A8 D1 		ld 		(BasicSP),hl 				; write it back
+   72 D1:B31C C9 -  -  -  		ret
+   73 D1:B31D -  -  -  -  
+   74 D1:B31D -  -  -  -  ; ***************************************************************************************
+   75 D1:B31D -  -  -  -  ;
+   76 D1:B31D -  -  -  -  ;								Check Stack Frame against A, Z if okay
+   77 D1:B31D -  -  -  -  ;
+   78 D1:B31D -  -  -  -  ; ***************************************************************************************
+   79 D1:B31D -  -  -  -  
+   80 D1:B31D -  -  -  -  StackCheckFrame:
+   81 D1:B31D 2A D9 A8 D1 		ld 		hl,(BasicSP)				; get stack frame
+   82 D1:B321 BE -  -  -  		cp 		(hl) 						; get stack marker
+   83 D1:B322 C9 -  -  -  		ret
+   84 D1:B323 -  -  -  -  
+   85 D1:B323 -  -  -  -  ; ***************************************************************************************
+   86 D1:B323 -  -  -  -  ;
+   87 D1:B323 -  -  -  -  ;								Save position on stack
+   88 D1:B323 -  -  -  -  ;
+   89 D1:B323 -  -  -  -  ; ***************************************************************************************
+   90 D1:B323 -  -  -  -  
+   91 D1:B323 -  -  -  -  StackSavePosition:
+   92 D1:B323 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
+   93 D1:B327 23 -  -  -  		inc 	hl
+   94 D1:B328 ED 5B DD A8 
               D1 -  -  -  		ld 		de,(CurrentLineStart) 		; work out current start line
-   95 D1:B33E ED 1F 23 23 
+   95 D1:B32D ED 1F 23 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write out that start line, increment by 4
-   96 D1:B344 -  -  -  -  		;
-   97 D1:B344 E5 -  -  -  		push 	hl 							; save HL, e.g. offset 5
-   98 D1:B345 DD E5 -  -  		push 	ix 							; HL = current position
-   99 D1:B347 E1 -  -  -  		pop 	hl
-  100 D1:B348 AF -  -  -  		xor 	a 							; calculate offset
-  101 D1:B349 ED 52 -  -  		sbc 	hl,de
-  102 D1:B34B 7D -  -  -  		ld 		a,l 						; into A
-  103 D1:B34C E1 -  -  -  		pop 	hl 							; restore offset 5 and save position
-  104 D1:B34D 77 -  -  -  		ld 		(hl),a
-  105 D1:B34E C9 -  -  -  		ret
-  106 D1:B34F -  -  -  -  
-  107 D1:B34F -  -  -  -  ; ***************************************************************************************
-  108 D1:B34F -  -  -  -  ;
-  109 D1:B34F -  -  -  -  ;								Load position off stack
-  110 D1:B34F -  -  -  -  ;
-  111 D1:B34F -  -  -  -  ; ***************************************************************************************
-  112 D1:B34F -  -  -  -  
-  113 D1:B34F -  -  -  -  StackLoadPosition:
-  114 D1:B34F 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
-  115 D1:B353 23 -  -  -  		inc 	hl
-  116 D1:B354 E5 -  -  -  		push 	hl 							; save on stack
-  117 D1:B355 ED 27 -  -  		ld_ind_hl 							; get start of line
-  118 D1:B357 22 DD A8 D1 		ld 		(CurrentLineStart),hl 		; write it back
-  119 D1:B35B D1 -  -  -  		pop 	de 							; get +1 off stack, advance to +5
-  120 D1:B35C 13 -  -  -  		inc 	de
-  121 D1:B35D 13 -  -  -  		inc 	de
-  122 D1:B35E 13 -  -  -  		inc 	de
-  123 D1:B35F 13 -  -  -  		inc 	de
-  124 D1:B360 1A -  -  -  		ld 		a,(de) 						; offset into UDE
-  125 D1:B361 11 00 00 00 		ld 		de,$000000
-  126 D1:B365 5F -  -  -  		ld 		e,a
-  127 D1:B366 19 -  -  -  		add 	hl,de 						; add to start => position
-  128 D1:B367 E5 -  -  -  		push 	hl 							; copy to IX and continue
-  129 D1:B368 DD E1 -  -  		pop 	ix
-  130 D1:B36A C9 -  -  -  		ret
-  131 D1:B36B -  -  -  -  
-  132 D1:B36B -  -  -  -  ; ***************************************************************************************
-  133 D1:B36B -  -  -  -  ;
-  134 D1:B36B -  -  -  -  ;									Changes and Updates
-  135 D1:B36B -  -  -  -  ;
-  136 D1:B36B -  -  -  -  ; ***************************************************************************************
-  137 D1:B36B -  -  -  -  ;
-  138 D1:B36B -  -  -  -  ;		Date			Notes
-  139 D1:B36B -  -  -  -  ;		==== 			=====
-  140 D1:B36B -  -  -  -  ;
-  141 D1:B36B -  -  -  -  ; ***************************************************************************************
+   96 D1:B333 -  -  -  -  		;
+   97 D1:B333 E5 -  -  -  		push 	hl 							; save HL, e.g. offset 5
+   98 D1:B334 DD E5 -  -  		push 	ix 							; HL = current position
+   99 D1:B336 E1 -  -  -  		pop 	hl
+  100 D1:B337 AF -  -  -  		xor 	a 							; calculate offset
+  101 D1:B338 ED 52 -  -  		sbc 	hl,de
+  102 D1:B33A 7D -  -  -  		ld 		a,l 						; into A
+  103 D1:B33B E1 -  -  -  		pop 	hl 							; restore offset 5 and save position
+  104 D1:B33C 77 -  -  -  		ld 		(hl),a
+  105 D1:B33D C9 -  -  -  		ret
+  106 D1:B33E -  -  -  -  
+  107 D1:B33E -  -  -  -  ; ***************************************************************************************
+  108 D1:B33E -  -  -  -  ;
+  109 D1:B33E -  -  -  -  ;								Load position off stack
+  110 D1:B33E -  -  -  -  ;
+  111 D1:B33E -  -  -  -  ; ***************************************************************************************
+  112 D1:B33E -  -  -  -  
+  113 D1:B33E -  -  -  -  StackLoadPosition:
+  114 D1:B33E 2A D9 A8 D1 		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
+  115 D1:B342 23 -  -  -  		inc 	hl
+  116 D1:B343 E5 -  -  -  		push 	hl 							; save on stack
+  117 D1:B344 ED 27 -  -  		ld_ind_hl 							; get start of line
+  118 D1:B346 22 DD A8 D1 		ld 		(CurrentLineStart),hl 		; write it back
+  119 D1:B34A D1 -  -  -  		pop 	de 							; get +1 off stack, advance to +5
+  120 D1:B34B 13 -  -  -  		inc 	de
+  121 D1:B34C 13 -  -  -  		inc 	de
+  122 D1:B34D 13 -  -  -  		inc 	de
+  123 D1:B34E 13 -  -  -  		inc 	de
+  124 D1:B34F 1A -  -  -  		ld 		a,(de) 						; offset into UDE
+  125 D1:B350 11 00 00 00 		ld 		de,$000000
+  126 D1:B354 5F -  -  -  		ld 		e,a
+  127 D1:B355 19 -  -  -  		add 	hl,de 						; add to start => position
+  128 D1:B356 E5 -  -  -  		push 	hl 							; copy to IX and continue
+  129 D1:B357 DD E1 -  -  		pop 	ix
+  130 D1:B359 C9 -  -  -  		ret
+  131 D1:B35A -  -  -  -  
+  132 D1:B35A -  -  -  -  ; ***************************************************************************************
+  133 D1:B35A -  -  -  -  ;
+  134 D1:B35A -  -  -  -  ;									Changes and Updates
+  135 D1:B35A -  -  -  -  ;
+  136 D1:B35A -  -  -  -  ; ***************************************************************************************
+  137 D1:B35A -  -  -  -  ;
+  138 D1:B35A -  -  -  -  ;		Date			Notes
+  139 D1:B35A -  -  -  -  ;		==== 			=====
+  140 D1:B35A -  -  -  -  ;
+  141 D1:B35A -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   58 D1:B36B -  -  -  -  #include "core/utility/utility.asm"
+   58 D1:B35A -  -  -  -  #include "core/utility/utility.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/utility/utility.asm"
-    1 D1:B36B -  -  -  -  ; ***************************************************************************************
-    2 D1:B36B -  -  -  -  ; ***************************************************************************************
-    3 D1:B36B -  -  -  -  ;
-    4 D1:B36B -  -  -  -  ;		Name : 		utility.asm
-    5 D1:B36B -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B36B -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:B36B -  -  -  -  ;		Reviewed :	No
-    8 D1:B36B -  -  -  -  ;		Purpose :	Utility routines
-    9 D1:B36B -  -  -  -  ;
-   10 D1:B36B -  -  -  -  ; ***************************************************************************************
-   11 D1:B36B -  -  -  -  ; ***************************************************************************************
-   12 D1:B36B -  -  -  -  
-   13 D1:B36B -  -  -  -  ; ***************************************************************************************
-   14 D1:B36B -  -  -  -  ;
-   15 D1:B36B -  -  -  -  ;							Print ASCII string at HL
-   16 D1:B36B -  -  -  -  ;
-   17 D1:B36B -  -  -  -  ; ***************************************************************************************
-   18 D1:B36B -  -  -  -  
-   19 D1:B36B -  -  -  -  PrintStringAtHL:
-   20 D1:B36B 7E -  -  -  		ld 		a,(hl)
-   21 D1:B36C FE 20 -  -  		cp 		$20		
-   22 D1:B36E D8 -  -  -  		ret 	c
-   23 D1:B36F CD FA B9 D1 		call 	SYSPrintChar
-   24 D1:B373 23 -  -  -  		inc 	hl
-   25 D1:B374 18 F5 -  -  		jr 		PrintStringAtHL
-   26 D1:B376 -  -  -  -  
-   27 D1:B376 -  -  -  -  ; ***************************************************************************************
-   28 D1:B376 -  -  -  -  ;
-   29 D1:B376 -  -  -  -  ;									Changes and Updates
-   30 D1:B376 -  -  -  -  ;
-   31 D1:B376 -  -  -  -  ; ***************************************************************************************
-   32 D1:B376 -  -  -  -  ;
-   33 D1:B376 -  -  -  -  ;		Date			Notes
-   34 D1:B376 -  -  -  -  ;		==== 			=====
-   35 D1:B376 -  -  -  -  ;
-   36 D1:B376 -  -  -  -  ; ***************************************************************************************
-   37 D1:B376 -  -  -  -  		
+    1 D1:B35A -  -  -  -  ; ***************************************************************************************
+    2 D1:B35A -  -  -  -  ; ***************************************************************************************
+    3 D1:B35A -  -  -  -  ;
+    4 D1:B35A -  -  -  -  ;		Name : 		utility.asm
+    5 D1:B35A -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B35A -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:B35A -  -  -  -  ;		Reviewed :	No
+    8 D1:B35A -  -  -  -  ;		Purpose :	Utility routines
+    9 D1:B35A -  -  -  -  ;
+   10 D1:B35A -  -  -  -  ; ***************************************************************************************
+   11 D1:B35A -  -  -  -  ; ***************************************************************************************
+   12 D1:B35A -  -  -  -  
+   13 D1:B35A -  -  -  -  ; ***************************************************************************************
+   14 D1:B35A -  -  -  -  ;
+   15 D1:B35A -  -  -  -  ;							Print ASCII string at HL
+   16 D1:B35A -  -  -  -  ;
+   17 D1:B35A -  -  -  -  ; ***************************************************************************************
+   18 D1:B35A -  -  -  -  
+   19 D1:B35A -  -  -  -  PrintStringAtHL:
+   20 D1:B35A 7E -  -  -  		ld 		a,(hl)
+   21 D1:B35B FE 20 -  -  		cp 		$20		
+   22 D1:B35D D8 -  -  -  		ret 	c
+   23 D1:B35E CD FA B9 D1 		call 	SYSPrintChar
+   24 D1:B362 23 -  -  -  		inc 	hl
+   25 D1:B363 18 F5 -  -  		jr 		PrintStringAtHL
+   26 D1:B365 -  -  -  -  
+   27 D1:B365 -  -  -  -  ; ***************************************************************************************
+   28 D1:B365 -  -  -  -  ;
+   29 D1:B365 -  -  -  -  ;									Changes and Updates
+   30 D1:B365 -  -  -  -  ;
+   31 D1:B365 -  -  -  -  ; ***************************************************************************************
+   32 D1:B365 -  -  -  -  ;
+   33 D1:B365 -  -  -  -  ;		Date			Notes
+   34 D1:B365 -  -  -  -  ;		==== 			=====
+   35 D1:B365 -  -  -  -  ;
+   36 D1:B365 -  -  -  -  ; ***************************************************************************************
+   37 D1:B365 -  -  -  -  		
 Listing for file "_build.asm"
-   59 D1:B376 -  -  -  -  #include "core/variables/create.asm"
+   59 D1:B365 -  -  -  -  #include "core/variables/create.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/create.asm"
-    1 D1:B376 -  -  -  -  ; ***************************************************************************************
-    2 D1:B376 -  -  -  -  ; ***************************************************************************************
-    3 D1:B376 -  -  -  -  ;
-    4 D1:B376 -  -  -  -  ;		Name : 		create.asm
-    5 D1:B376 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B376 -  -  -  -  ;		Date : 		4th June 2022
-    7 D1:B376 -  -  -  -  ;		Reviewed :	No
-    8 D1:B376 -  -  -  -  ;		Purpose :	Create a variable.
-    9 D1:B376 -  -  -  -  ;
-   10 D1:B376 -  -  -  -  ; ***************************************************************************************
-   11 D1:B376 -  -  -  -  ; ***************************************************************************************
-   12 D1:B376 -  -  -  -  
-   13 D1:B376 -  -  -  -  ; ***************************************************************************************
-   14 D1:B376 -  -  -  -  ;
-   15 D1:B376 -  -  -  -  ;		Create a variable as set up by VariableInformation. On entry HL contains the
-   16 D1:B376 -  -  -  -  ;		data size (e.g. the data for integer, and size+data for array) past offset 9.
-   17 D1:B376 -  -  -  -  ;
-   18 D1:B376 -  -  -  -  ; ***************************************************************************************
-   19 D1:B376 -  -  -  -  
-   20 D1:B376 -  -  -  -  VariableCreate:		
-   21 D1:B376 -  -  -  -  		;
-   22 D1:B376 -  -  -  -  		;		Work out bytes to allocate (HL+9) and allocate it
-   23 D1:B376 -  -  -  -  		;
-   24 D1:B376 11 09 00 00 		ld 		de,9 						; add 9 for the first collection of bytes.
-   25 D1:B37A 19 -  -  -  		add 	hl,de 						; actual # of bytes required.
-   26 D1:B37B E5 -  -  -  		push 	hl 							; save count.
-   27 D1:B37C CD 07 B1 D1 		call 	AllocateBytes 				; claim that many bytes
-   28 D1:B380 C1 -  -  -  		pop 	bc 							; restore count to BC
-   29 D1:B381 -  -  -  -  		;
-   30 D1:B381 -  -  -  -  		; 		Erase data - bytes to erase is in BC, data at HL.
-   31 D1:B381 -  -  -  -  		;
-   32 D1:B381 E5 -  -  -  		push	hl 							; save start address on stack
-   33 D1:B382 -  -  -  -  _VCClear:
-   34 D1:B382 36 00 -  -  		ld 		(hl),$00 					; erase the allocated memory.
-   35 D1:B384 23 -  -  -  		inc 	hl
-   36 D1:B385 0B -  -  -  		dec 	bc
-   37 D1:B386 78 -  -  -  		ld		a,b
-   38 D1:B387 B1 -  -  -  		or 		c
-   39 D1:B388 20 F8 -  -  		jr 		nz,_VCClear
-   40 D1:B38A E1 -  -  -  		pop 	hl							; restore start address
-   41 D1:B38B -  -  -  -  		;
-   42 D1:B38B -  -  -  -  		;		Now start to create the data.
-   43 D1:B38B -  -  -  -  		;
-   44 D1:B38B E5 -  -  -  		push 	hl 							; save start
-   45 D1:B38C -  -  -  -  		;
-   46 D1:B38C -  -  -  -  		;		Write hash to +0
-   47 D1:B38C -  -  -  -  		;
-   48 D1:B38C 3A 09 A9 D1 		ld 		a,(VarHash) 				; write Hash to +0
-   49 D1:B390 77 -  -  -  		ld 		(hl),a
-   50 D1:B391 23 -  -  -  		inc 	hl
-   51 D1:B392 -  -  -  -  		;
-   52 D1:B392 -  -  -  -  		;		Write list head to +1
-   53 D1:B392 -  -  -  -  		;
-   54 D1:B392 E5 -  -  -  		push 	hl 							; save write position
-   55 D1:B393 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; get the address of the list head
-   56 D1:B397 ED 27 -  -  		ld_ind_hl 							; get the list head
+    1 D1:B365 -  -  -  -  ; ***************************************************************************************
+    2 D1:B365 -  -  -  -  ; ***************************************************************************************
+    3 D1:B365 -  -  -  -  ;
+    4 D1:B365 -  -  -  -  ;		Name : 		create.asm
+    5 D1:B365 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B365 -  -  -  -  ;		Date : 		4th June 2022
+    7 D1:B365 -  -  -  -  ;		Reviewed :	No
+    8 D1:B365 -  -  -  -  ;		Purpose :	Create a variable.
+    9 D1:B365 -  -  -  -  ;
+   10 D1:B365 -  -  -  -  ; ***************************************************************************************
+   11 D1:B365 -  -  -  -  ; ***************************************************************************************
+   12 D1:B365 -  -  -  -  
+   13 D1:B365 -  -  -  -  ; ***************************************************************************************
+   14 D1:B365 -  -  -  -  ;
+   15 D1:B365 -  -  -  -  ;		Create a variable as set up by VariableInformation. On entry HL contains the
+   16 D1:B365 -  -  -  -  ;		data size (e.g. the data for integer, and size+data for array) past offset 9.
+   17 D1:B365 -  -  -  -  ;
+   18 D1:B365 -  -  -  -  ; ***************************************************************************************
+   19 D1:B365 -  -  -  -  
+   20 D1:B365 -  -  -  -  VariableCreate:		
+   21 D1:B365 -  -  -  -  		;
+   22 D1:B365 -  -  -  -  		;		Work out bytes to allocate (HL+9) and allocate it
+   23 D1:B365 -  -  -  -  		;
+   24 D1:B365 11 09 00 00 		ld 		de,9 						; add 9 for the first collection of bytes.
+   25 D1:B369 19 -  -  -  		add 	hl,de 						; actual # of bytes required.
+   26 D1:B36A E5 -  -  -  		push 	hl 							; save count.
+   27 D1:B36B CD 07 B1 D1 		call 	AllocateBytes 				; claim that many bytes
+   28 D1:B36F C1 -  -  -  		pop 	bc 							; restore count to BC
+   29 D1:B370 -  -  -  -  		;
+   30 D1:B370 -  -  -  -  		; 		Erase data - bytes to erase is in BC, data at HL.
+   31 D1:B370 -  -  -  -  		;
+   32 D1:B370 E5 -  -  -  		push	hl 							; save start address on stack
+   33 D1:B371 -  -  -  -  _VCClear:
+   34 D1:B371 36 00 -  -  		ld 		(hl),$00 					; erase the allocated memory.
+   35 D1:B373 23 -  -  -  		inc 	hl
+   36 D1:B374 0B -  -  -  		dec 	bc
+   37 D1:B375 78 -  -  -  		ld		a,b
+   38 D1:B376 B1 -  -  -  		or 		c
+   39 D1:B377 20 F8 -  -  		jr 		nz,_VCClear
+   40 D1:B379 E1 -  -  -  		pop 	hl							; restore start address
+   41 D1:B37A -  -  -  -  		;
+   42 D1:B37A -  -  -  -  		;		Now start to create the data.
+   43 D1:B37A -  -  -  -  		;
+   44 D1:B37A E5 -  -  -  		push 	hl 							; save start
+   45 D1:B37B -  -  -  -  		;
+   46 D1:B37B -  -  -  -  		;		Write hash to +0
+   47 D1:B37B -  -  -  -  		;
+   48 D1:B37B 3A 09 A9 D1 		ld 		a,(VarHash) 				; write Hash to +0
+   49 D1:B37F 77 -  -  -  		ld 		(hl),a
+   50 D1:B380 23 -  -  -  		inc 	hl
+   51 D1:B381 -  -  -  -  		;
+   52 D1:B381 -  -  -  -  		;		Write list head to +1
+   53 D1:B381 -  -  -  -  		;
+   54 D1:B381 E5 -  -  -  		push 	hl 							; save write position
+   55 D1:B382 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; get the address of the list head
+   56 D1:B386 ED 27 -  -  		ld_ind_hl 							; get the list head
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/create.asm"
-   57 D1:B399 EB -  -  -  		ex 		de,hl 						; put in list head in DE
-   58 D1:B39A E1 -  -  -  		pop 	hl 		 					; restore write position
-   59 D1:B39B ED 1F 23 23 
+   57 D1:B388 EB -  -  -  		ex 		de,hl 						; put in list head in DE
+   58 D1:B389 E1 -  -  -  		pop 	hl 		 					; restore write position
+   59 D1:B38A ED 1F 23 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and increment by 4.
-   60 D1:B3A1 -  -  -  -  		;
-   61 D1:B3A1 -  -  -  -  		;		Write variable name to +5
-   62 D1:B3A1 -  -  -  -  		;
-   63 D1:B3A1 ED 5B 05 A9 
+   60 D1:B390 -  -  -  -  		;
+   61 D1:B390 -  -  -  -  		;		Write variable name to +5
+   62 D1:B390 -  -  -  -  		;
+   63 D1:B390 ED 5B 05 A9 
               D1 -  -  -  		ld 		de,(VarNameStart)			; push start of variable name
-   64 D1:B3A6 ED 1F 23 23 
+   64 D1:B395 ED 1F 23 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and increment by 4.
-   65 D1:B3AC -  -  -  -  		;
-   66 D1:B3AC D1 -  -  -  		pop 	de 							; get the start address back
-   67 D1:B3AD 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; get the address of the list head
-   68 D1:B3B1 ED 1F 23 23 
+   65 D1:B39B -  -  -  -  		;
+   66 D1:B39B D1 -  -  -  		pop 	de 							; get the start address back
+   67 D1:B39C 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; get the address of the list head
+   68 D1:B3A0 ED 1F 23 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and patch into list head.
-   69 D1:B3B7 -  -  -  -  		;
-   70 D1:B3B7 EB -  -  -  		ex 		de,hl 						; start address into HL
-   71 D1:B3B8 C9 -  -  -  		ret
-   72 D1:B3B9 -  -  -  -  
-   73 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   74 D1:B3B9 -  -  -  -  ;
-   75 D1:B3B9 -  -  -  -  ;									Changes and Updates
-   76 D1:B3B9 -  -  -  -  ;
-   77 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   78 D1:B3B9 -  -  -  -  ;
-   79 D1:B3B9 -  -  -  -  ;		Date			Notes
-   80 D1:B3B9 -  -  -  -  ;		==== 			=====
-   81 D1:B3B9 -  -  -  -  ;
-   82 D1:B3B9 -  -  -  -  ; ***************************************************************************************
+   69 D1:B3A6 -  -  -  -  		;
+   70 D1:B3A6 EB -  -  -  		ex 		de,hl 						; start address into HL
+   71 D1:B3A7 C9 -  -  -  		ret
+   72 D1:B3A8 -  -  -  -  
+   73 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   74 D1:B3A8 -  -  -  -  ;
+   75 D1:B3A8 -  -  -  -  ;									Changes and Updates
+   76 D1:B3A8 -  -  -  -  ;
+   77 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   78 D1:B3A8 -  -  -  -  ;
+   79 D1:B3A8 -  -  -  -  ;		Date			Notes
+   80 D1:B3A8 -  -  -  -  ;		==== 			=====
+   81 D1:B3A8 -  -  -  -  ;
+   82 D1:B3A8 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   60 D1:B3B9 -  -  -  -  #include "core/variables/find.asm"
+   60 D1:B3A8 -  -  -  -  #include "core/variables/find.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
-    1 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-    2 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-    3 D1:B3B9 -  -  -  -  ;
-    4 D1:B3B9 -  -  -  -  ;		Name : 		find.asm
-    5 D1:B3B9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B3B9 -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:B3B9 -  -  -  -  ;		Reviewed :	No
-    8 D1:B3B9 -  -  -  -  ;		Purpose :	Find a variable.
-    9 D1:B3B9 -  -  -  -  ;
-   10 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   11 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   12 D1:B3B9 -  -  -  -  
-   13 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   14 D1:B3B9 -  -  -  -  ;
-   15 D1:B3B9 -  -  -  -  ;		Find variable. If found, return address in (U)HL, type in C and carry clear.
-   16 D1:B3B9 -  -  -  -  ; 		variable information at (IX)
-   17 D1:B3B9 -  -  -  -  ;
-   18 D1:B3B9 -  -  -  -  ;		If not found, create the variable and return as above, otherwise return CS.
-   19 D1:B3B9 -  -  -  -  ;		Don't autocreate arrays.
-   20 D1:B3B9 -  -  -  -  ;
-   21 D1:B3B9 -  -  -  -  ; ***************************************************************************************
-   22 D1:B3B9 -  -  -  -  
-   23 D1:B3B9 -  -  -  -  FindVariable:
-   24 D1:B3B9 DD 7E 00 -  		ld 		a,(ix+0)					; get first character
-   25 D1:B3BC FE 26 -  -  		cp 		IDENTIFIER_END 				; check it is an identifier reference.
-   26 D1:B3BE D2 58 AC D1 		jp 		nc,SyntaxError 		
-   27 D1:B3C2 -  -  -  -  
-   28 D1:B3C2 DD 7E 01 -  		ld 		a,(ix+1) 					; look at next character, if that is an
-   29 D1:B3C5 FE 26 -  -  		cp 		IDENTIFIER_END 				; integer_type then this is a single letter
-   30 D1:B3C7 38 17 -  -  		jr 		c,_FVNotSimple 				; integer.
-   31 D1:B3C9 FE 95 -  -  		cp 		KWD_LPAREN 					; could also be a(
-   32 D1:B3CB 28 13 -  -  		jr 		z,_FVNotSimple
-   33 D1:B3CD -  -  -  -  		;
-   34 D1:B3CD -  -  -  -  		; 		Code for A-Z fixed integers.
-   35 D1:B3CD -  -  -  -  		;
-   36 D1:B3CD 2A C5 A8 D1 		ld 		hl,(StandardIntegers) 		; point UHL to standard ints on 128 byte boundary
-   37 D1:B3D1 DD 7E 00 -  		ld 		a,(ix+0) 					; get the identifier ID
-   38 D1:B3D4 87 -  -  -  		add 	a,a 						; x4
-   39 D1:B3D5 87 -  -  -  		add 	a,a
-   40 D1:B3D6 B5 -  -  -  		or 		l 							; Or into address as on 128 byte boundary
-   41 D1:B3D7 6F -  -  -  		ld 		l,a 						; UHL now points to the variable.
-   42 D1:B3D8 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
-   43 D1:B3DA CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
-   44 D1:B3DC DD 23 -  -  		inc 	ix 							; skip over identifier 
-   45 D1:B3DE AF -  -  -  		xor 	a 							; clear carry and return
-   46 D1:B3DF C9 -  -  -  		ret
-   47 D1:B3E0 -  -  -  -  		;
-   48 D1:B3E0 -  -  -  -  		;		Not a standard simple variable.
-   49 D1:B3E0 -  -  -  -  		;
-   50 D1:B3E0 -  -  -  -  _FVNotSimple:
-   51 D1:B3E0 CD 46 B4 D1 		call 	VariableInformation 		; get information about the variable.
-   52 D1:B3E4 CD 82 B4 D1 		call 	VariableSearchList 			; search the linked list
-   53 D1:B3E8 38 14 -  -  		jr 		c,_FVNotFound  				
-   54 D1:B3EA -  -  -  -  		;
-   55 D1:B3EA -  -  -  -  		;		Found variable. Address of record is in HL.
-   56 D1:B3EA -  -  -  -  		;
-   57 D1:B3EA -  -  -  -  _FVExitReference:		
-   58 D1:B3EA 11 09 00 00 		ld 		de,9 						; point to the actual data.
-   59 D1:B3EE 19 -  -  -  		add 	hl,de 
-   60 D1:B3EF -  -  -  -  		;
-   61 D1:B3EF -  -  -  -  		; 		Check for arrays. IX points to token after identifier, HL to the array size.
-   62 D1:B3EF -  -  -  -  		;
-   63 D1:B3EF DD 7E 00 -  		ld 		a,(ix+0) 					; check next token
-   64 D1:B3F2 FE 95 -  -  		cp 		KWD_LPAREN 					; if (
-   65 D1:B3F4 CC 1D B4 D1 		call 	z,ArrayLookup 				; array access required.
-   66 D1:B3F8 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
-   67 D1:B3FA CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
-   68 D1:B3FC AF -  -  -  		xor 	a 							; clear carry and return
-   69 D1:B3FD C9 -  -  -  		ret
-   70 D1:B3FE -  -  -  -  		;
-   71 D1:B3FE -  -  -  -  		; 		Variable is not found, can we autocreate it ?
-   72 D1:B3FE -  -  -  -  		;
-   73 D1:B3FE -  -  -  -  _FVNotFound:		
-   74 D1:B3FE 3A 01 A9 D1 		ld 		a,(AllowAutoCreate) 		; is auto create on ?
-   75 D1:B402 B7 -  -  -  		or 		a
-   76 D1:B403 28 11 -  -  		jr 		z,_FVFail
-   77 D1:B405 DD 7E 00 -  		ld 		a,(ix+0) 					; not allowed for arrays.
-   78 D1:B408 FE 95 -  -  		cp 		KWD_LPAREN 		
-   79 D1:B40A 28 0A -  -  		jr 		z,_FVFail
-   80 D1:B40C 21 04 00 00 		ld 		hl,4 						; bytes to allocate for data.
-   81 D1:B410 CD 76 B3 D1 		call 	VariableCreate 				; create a new variable.
-   82 D1:B414 18 D4 -  -  		jr 		_FVExitReference 			; and exit with HL+9 as a reference
-   83 D1:B416 -  -  -  -  
-   84 D1:B416 -  -  -  -  _FVFail:
-   85 D1:B416 DD 2A 05 A9 
+    1 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+    2 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+    3 D1:B3A8 -  -  -  -  ;
+    4 D1:B3A8 -  -  -  -  ;		Name : 		find.asm
+    5 D1:B3A8 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B3A8 -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:B3A8 -  -  -  -  ;		Reviewed :	No
+    8 D1:B3A8 -  -  -  -  ;		Purpose :	Find a variable.
+    9 D1:B3A8 -  -  -  -  ;
+   10 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   11 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   12 D1:B3A8 -  -  -  -  
+   13 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   14 D1:B3A8 -  -  -  -  ;
+   15 D1:B3A8 -  -  -  -  ;		Find variable. If found, return address in (U)HL, type in C and carry clear.
+   16 D1:B3A8 -  -  -  -  ; 		variable information at (IX)
+   17 D1:B3A8 -  -  -  -  ;
+   18 D1:B3A8 -  -  -  -  ;		If not found, create the variable and return as above, otherwise return CS.
+   19 D1:B3A8 -  -  -  -  ;		Don't autocreate arrays.
+   20 D1:B3A8 -  -  -  -  ;
+   21 D1:B3A8 -  -  -  -  ; ***************************************************************************************
+   22 D1:B3A8 -  -  -  -  
+   23 D1:B3A8 -  -  -  -  FindVariable:
+   24 D1:B3A8 DD 7E 00 -  		ld 		a,(ix+0)					; get first character
+   25 D1:B3AB FE 26 -  -  		cp 		IDENTIFIER_END 				; check it is an identifier reference.
+   26 D1:B3AD D2 58 AC D1 		jp 		nc,SyntaxError 		
+   27 D1:B3B1 -  -  -  -  
+   28 D1:B3B1 DD 7E 01 -  		ld 		a,(ix+1) 					; look at next character, if that is an
+   29 D1:B3B4 FE 26 -  -  		cp 		IDENTIFIER_END 				; integer_type then this is a single letter
+   30 D1:B3B6 38 17 -  -  		jr 		c,_FVNotSimple 				; integer.
+   31 D1:B3B8 FE 95 -  -  		cp 		KWD_LPAREN 					; could also be a(
+   32 D1:B3BA 28 13 -  -  		jr 		z,_FVNotSimple
+   33 D1:B3BC -  -  -  -  		;
+   34 D1:B3BC -  -  -  -  		; 		Code for A-Z fixed integers.
+   35 D1:B3BC -  -  -  -  		;
+   36 D1:B3BC 2A C5 A8 D1 		ld 		hl,(StandardIntegers) 		; point UHL to standard ints on 128 byte boundary
+   37 D1:B3C0 DD 7E 00 -  		ld 		a,(ix+0) 					; get the identifier ID
+   38 D1:B3C3 87 -  -  -  		add 	a,a 						; x4
+   39 D1:B3C4 87 -  -  -  		add 	a,a
+   40 D1:B3C5 B5 -  -  -  		or 		l 							; Or into address as on 128 byte boundary
+   41 D1:B3C6 6F -  -  -  		ld 		l,a 						; UHL now points to the variable.
+   42 D1:B3C7 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
+   43 D1:B3C9 CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
+   44 D1:B3CB DD 23 -  -  		inc 	ix 							; skip over identifier 
+   45 D1:B3CD AF -  -  -  		xor 	a 							; clear carry and return
+   46 D1:B3CE C9 -  -  -  		ret
+   47 D1:B3CF -  -  -  -  		;
+   48 D1:B3CF -  -  -  -  		;		Not a standard simple variable.
+   49 D1:B3CF -  -  -  -  		;
+   50 D1:B3CF -  -  -  -  _FVNotSimple:
+   51 D1:B3CF CD 35 B4 D1 		call 	VariableInformation 		; get information about the variable.
+   52 D1:B3D3 CD 71 B4 D1 		call 	VariableSearchList 			; search the linked list
+   53 D1:B3D7 38 14 -  -  		jr 		c,_FVNotFound  				
+   54 D1:B3D9 -  -  -  -  		;
+   55 D1:B3D9 -  -  -  -  		;		Found variable. Address of record is in HL.
+   56 D1:B3D9 -  -  -  -  		;
+   57 D1:B3D9 -  -  -  -  _FVExitReference:		
+   58 D1:B3D9 11 09 00 00 		ld 		de,9 						; point to the actual data.
+   59 D1:B3DD 19 -  -  -  		add 	hl,de 
+   60 D1:B3DE -  -  -  -  		;
+   61 D1:B3DE -  -  -  -  		; 		Check for arrays. IX points to token after identifier, HL to the array size.
+   62 D1:B3DE -  -  -  -  		;
+   63 D1:B3DE DD 7E 00 -  		ld 		a,(ix+0) 					; check next token
+   64 D1:B3E1 FE 95 -  -  		cp 		KWD_LPAREN 					; if (
+   65 D1:B3E3 CC 0C B4 D1 		call 	z,ArrayLookup 				; array access required.
+   66 D1:B3E7 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
+   67 D1:B3E9 CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
+   68 D1:B3EB AF -  -  -  		xor 	a 							; clear carry and return
+   69 D1:B3EC C9 -  -  -  		ret
+   70 D1:B3ED -  -  -  -  		;
+   71 D1:B3ED -  -  -  -  		; 		Variable is not found, can we autocreate it ?
+   72 D1:B3ED -  -  -  -  		;
+   73 D1:B3ED -  -  -  -  _FVNotFound:		
+   74 D1:B3ED 3A 01 A9 D1 		ld 		a,(AllowAutoCreate) 		; is auto create on ?
+   75 D1:B3F1 B7 -  -  -  		or 		a
+   76 D1:B3F2 28 11 -  -  		jr 		z,_FVFail
+   77 D1:B3F4 DD 7E 00 -  		ld 		a,(ix+0) 					; not allowed for arrays.
+   78 D1:B3F7 FE 95 -  -  		cp 		KWD_LPAREN 		
+   79 D1:B3F9 28 0A -  -  		jr 		z,_FVFail
+   80 D1:B3FB 21 04 00 00 		ld 		hl,4 						; bytes to allocate for data.
+   81 D1:B3FF CD 65 B3 D1 		call 	VariableCreate 				; create a new variable.
+   82 D1:B403 18 D4 -  -  		jr 		_FVExitReference 			; and exit with HL+9 as a reference
+   83 D1:B405 -  -  -  -  
+   84 D1:B405 -  -  -  -  _FVFail:
+   85 D1:B405 DD 2A 05 A9 
               D1 -  -  -  		ld 		ix,(VarNameStart) 			; restore IX to start of variable name.
-   86 D1:B41B 37 -  -  -  		scf
-   87 D1:B41C C9 -  -  -  		ret
-   88 D1:B41D -  -  -  -  
-   89 D1:B41D -  -  -  -  ; ***************************************************************************************
-   90 D1:B41D -  -  -  -  ;
-   91 D1:B41D -  -  -  -  ;									 Array lookup
-   92 D1:B41D -  -  -  -  ;
-   93 D1:B41D -  -  -  -  ; ***************************************************************************************
-   94 D1:B41D -  -  -  -  
-   95 D1:B41D -  -  -  -  ArrayLookup:
-   96 D1:B41D E5 -  -  -  		push 	hl 							; save the array address on the stack.
-   97 D1:B41E CD FB AD D1 		call 	EvaluateIntegerTerm 		; evaluate the array index.
-   98 D1:B422 D9 -  -  -  		exx 								; check index in 0000-FFFF
-   99 D1:B423 7C -  -  -  		ld 		a,h
-  100 D1:B424 B5 -  -  -  		or 		l
-  101 D1:B425 D9 -  -  -  		exx
-  102 D1:B426 20 18 -  -  		jr 		nz,_ALBadValue  			; if so, it's a bad value
-  103 D1:B428 11 00 00 00 		ld 		de,$00 						; put HL into DE clearing UDE
-  104 D1:B42C 54 -  -  -  		ld 		d,h
-  105 D1:B42D 5D -  -  -  		ld 		e,l
-  106 D1:B42E E1 -  -  -  		pop 	hl 							; get the array base back
-  107 D1:B42F E5 -  -  -  		push 	hl
-  108 D1:B430 ED 27 -  -  		ld_ind_hl 							; read the array index maximum
+   86 D1:B40A 37 -  -  -  		scf
+   87 D1:B40B C9 -  -  -  		ret
+   88 D1:B40C -  -  -  -  
+   89 D1:B40C -  -  -  -  ; ***************************************************************************************
+   90 D1:B40C -  -  -  -  ;
+   91 D1:B40C -  -  -  -  ;									 Array lookup
+   92 D1:B40C -  -  -  -  ;
+   93 D1:B40C -  -  -  -  ; ***************************************************************************************
+   94 D1:B40C -  -  -  -  
+   95 D1:B40C -  -  -  -  ArrayLookup:
+   96 D1:B40C E5 -  -  -  		push 	hl 							; save the array address on the stack.
+   97 D1:B40D CD FB AD D1 		call 	EvaluateIntegerTerm 		; evaluate the array index.
+   98 D1:B411 D9 -  -  -  		exx 								; check index in 0000-FFFF
+   99 D1:B412 7C -  -  -  		ld 		a,h
+  100 D1:B413 B5 -  -  -  		or 		l
+  101 D1:B414 D9 -  -  -  		exx
+  102 D1:B415 20 18 -  -  		jr 		nz,_ALBadValue  			; if so, it's a bad value
+  103 D1:B417 11 00 00 00 		ld 		de,$00 						; put HL into DE clearing UDE
+  104 D1:B41B 54 -  -  -  		ld 		d,h
+  105 D1:B41C 5D -  -  -  		ld 		e,l
+  106 D1:B41D E1 -  -  -  		pop 	hl 							; get the array base back
+  107 D1:B41E E5 -  -  -  		push 	hl
+  108 D1:B41F ED 27 -  -  		ld_ind_hl 							; read the array index maximum
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
-  109 D1:B432 AF -  -  -  		xor  	a							; subtract maximum from index
-  110 D1:B433 ED 52 -  -  		sbc 	hl,de
-  111 D1:B435 DA 40 B4 D1 		jp 		c,_ALBadValue 				; if max < index then error
-  112 D1:B439 EB -  -  -  		ex 		de,hl 						; index back into HL
-  113 D1:B43A 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
-  114 D1:B43B 29 -  -  -  		add 	hl,hl 						; x 4
-  115 D1:B43C 29 -  -  -  		add 	hl,hl
-  116 D1:B43D D1 -  -  -  		pop 	de 							; get array base back
-  117 D1:B43E 19 -  -  -  		add 	hl,de 						; add offset to it
-  118 D1:B43F C9 -  -  -  		ret
-  119 D1:B440 -  -  -  -  
-  120 D1:B440 -  -  -  -  _ALBadValue:
-  121 D1:B440 3E 08 C3 EE 
+  109 D1:B421 AF -  -  -  		xor  	a							; subtract maximum from index
+  110 D1:B422 ED 52 -  -  		sbc 	hl,de
+  111 D1:B424 DA 2F B4 D1 		jp 		c,_ALBadValue 				; if max < index then error
+  112 D1:B428 EB -  -  -  		ex 		de,hl 						; index back into HL
+  113 D1:B429 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
+  114 D1:B42A 29 -  -  -  		add 	hl,hl 						; x 4
+  115 D1:B42B 29 -  -  -  		add 	hl,hl
+  116 D1:B42C D1 -  -  -  		pop 	de 							; get array base back
+  117 D1:B42D 19 -  -  -  		add 	hl,de 						; add offset to it
+  118 D1:B42E C9 -  -  -  		ret
+  119 D1:B42F -  -  -  -  
+  120 D1:B42F -  -  -  -  _ALBadValue:
+  121 D1:B42F 3E 08 C3 EE 
               AB D1 -  -  		ERR_INDEX
-  122 D1:B446 -  -  -  -  		
-  123 D1:B446 -  -  -  -  ; ***************************************************************************************
-  124 D1:B446 -  -  -  -  ;
-  125 D1:B446 -  -  -  -  ;									Changes and Updates
-  126 D1:B446 -  -  -  -  ;
-  127 D1:B446 -  -  -  -  ; ***************************************************************************************
-  128 D1:B446 -  -  -  -  ;
-  129 D1:B446 -  -  -  -  ;		Date			Notes
-  130 D1:B446 -  -  -  -  ;		==== 			=====
-  131 D1:B446 -  -  -  -  ;
-  132 D1:B446 -  -  -  -  ; ***************************************************************************************
+  122 D1:B435 -  -  -  -  		
+  123 D1:B435 -  -  -  -  ; ***************************************************************************************
+  124 D1:B435 -  -  -  -  ;
+  125 D1:B435 -  -  -  -  ;									Changes and Updates
+  126 D1:B435 -  -  -  -  ;
+  127 D1:B435 -  -  -  -  ; ***************************************************************************************
+  128 D1:B435 -  -  -  -  ;
+  129 D1:B435 -  -  -  -  ;		Date			Notes
+  130 D1:B435 -  -  -  -  ;		==== 			=====
+  131 D1:B435 -  -  -  -  ;
+  132 D1:B435 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   61 D1:B446 -  -  -  -  #include "core/variables/info.asm"
+   61 D1:B435 -  -  -  -  #include "core/variables/info.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/info.asm"
-    1 D1:B446 -  -  -  -  ; ***************************************************************************************
-    2 D1:B446 -  -  -  -  ; ***************************************************************************************
-    3 D1:B446 -  -  -  -  ;
-    4 D1:B446 -  -  -  -  ;		Name : 		info.asm
-    5 D1:B446 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B446 -  -  -  -  ;		Date : 		4th June 2022
-    7 D1:B446 -  -  -  -  ;		Reviewed :	No
-    8 D1:B446 -  -  -  -  ;		Purpose :	Get information about variable at IX
-    9 D1:B446 -  -  -  -  ;
-   10 D1:B446 -  -  -  -  ; ***************************************************************************************
-   11 D1:B446 -  -  -  -  ; ***************************************************************************************
-   12 D1:B446 -  -  -  -  
-   13 D1:B446 -  -  -  -  ; ***************************************************************************************
-   14 D1:B446 -  -  -  -  ;
-   15 D1:B446 -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
-   16 D1:B446 -  -  -  -  ; 		after the identifier.
-   17 D1:B446 -  -  -  -  ;
-   18 D1:B446 -  -  -  -  ; ***************************************************************************************
-   19 D1:B446 -  -  -  -  
-   20 D1:B446 -  -  -  -  VariableInformation:
-   21 D1:B446 DD 22 05 A9 
+    1 D1:B435 -  -  -  -  ; ***************************************************************************************
+    2 D1:B435 -  -  -  -  ; ***************************************************************************************
+    3 D1:B435 -  -  -  -  ;
+    4 D1:B435 -  -  -  -  ;		Name : 		info.asm
+    5 D1:B435 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B435 -  -  -  -  ;		Date : 		4th June 2022
+    7 D1:B435 -  -  -  -  ;		Reviewed :	No
+    8 D1:B435 -  -  -  -  ;		Purpose :	Get information about variable at IX
+    9 D1:B435 -  -  -  -  ;
+   10 D1:B435 -  -  -  -  ; ***************************************************************************************
+   11 D1:B435 -  -  -  -  ; ***************************************************************************************
+   12 D1:B435 -  -  -  -  
+   13 D1:B435 -  -  -  -  ; ***************************************************************************************
+   14 D1:B435 -  -  -  -  ;
+   15 D1:B435 -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
+   16 D1:B435 -  -  -  -  ; 		after the identifier.
+   17 D1:B435 -  -  -  -  ;
+   18 D1:B435 -  -  -  -  ; ***************************************************************************************
+   19 D1:B435 -  -  -  -  
+   20 D1:B435 -  -  -  -  VariableInformation:
+   21 D1:B435 DD 22 05 A9 
               D1 -  -  -  		ld 		(VarNameStart),ix 			; save start.
-   22 D1:B44B -  -  -  -  		;
-   23 D1:B44B -  -  -  -  		; 		Calculate hash, find end.
-   24 D1:B44B -  -  -  -  		;
-   25 D1:B44B 06 00 -  -  		ld 		b,0 						; build the hash in B.
-   26 D1:B44D -  -  -  -  _VICalculateHash:
-   27 D1:B44D DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
-   28 D1:B450 FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
-   29 D1:B452 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
-   30 D1:B454 80 -  -  -  		add 	a,b 						; add to hash
-   31 D1:B455 07 -  -  -  		rlca
-   32 D1:B456 07 -  -  -  		rlca
-   33 D1:B457 80 -  -  -  		add 	a,b
-   34 D1:B458 47 -  -  -  		ld 		b,a 						; update hash
-   35 D1:B459 DD 23 -  -  		inc 	ix 							; next character
-   36 D1:B45B 18 F0 -  -  		jr 		_VICalculateHash				
-   37 D1:B45D -  -  -  -  		;
-   38 D1:B45D -  -  -  -  _VIHashDone:
-   39 D1:B45D 78 -  -  -  		ld 		a,b 						; write hash byte out
-   40 D1:B45E -  -  -  -  		;
-   41 D1:B45E -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
-   42 D1:B45E -  -  -  -  		;
-   43 D1:B45E 32 09 A9 D1 		ld 		(VarHash),a
-   44 D1:B462 -  -  -  -  		;
-   45 D1:B462 -  -  -  -  		; 		Calculate the hash table address pointer.
-   46 D1:B462 -  -  -  -  		;		
-   47 D1:B462 E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
-   48 D1:B464 21 00 00 00 		ld 		hl,$0000 					; put in HL
-   49 D1:B468 6F -  -  -  		ld 		l,a
-   50 D1:B469 29 -  -  -  		add 	hl,hl 						; x 4
-   51 D1:B46A 29 -  -  -  		add 	hl,hl
-   52 D1:B46B -  -  -  -  		;
-   53 D1:B46B ED 5B C9 A8 
+   22 D1:B43A -  -  -  -  		;
+   23 D1:B43A -  -  -  -  		; 		Calculate hash, find end.
+   24 D1:B43A -  -  -  -  		;
+   25 D1:B43A 06 00 -  -  		ld 		b,0 						; build the hash in B.
+   26 D1:B43C -  -  -  -  _VICalculateHash:
+   27 D1:B43C DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
+   28 D1:B43F FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
+   29 D1:B441 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
+   30 D1:B443 80 -  -  -  		add 	a,b 						; add to hash
+   31 D1:B444 07 -  -  -  		rlca
+   32 D1:B445 07 -  -  -  		rlca
+   33 D1:B446 80 -  -  -  		add 	a,b
+   34 D1:B447 47 -  -  -  		ld 		b,a 						; update hash
+   35 D1:B448 DD 23 -  -  		inc 	ix 							; next character
+   36 D1:B44A 18 F0 -  -  		jr 		_VICalculateHash				
+   37 D1:B44C -  -  -  -  		;
+   38 D1:B44C -  -  -  -  _VIHashDone:
+   39 D1:B44C 78 -  -  -  		ld 		a,b 						; write hash byte out
+   40 D1:B44D -  -  -  -  		;
+   41 D1:B44D -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
+   42 D1:B44D -  -  -  -  		;
+   43 D1:B44D 32 09 A9 D1 		ld 		(VarHash),a
+   44 D1:B451 -  -  -  -  		;
+   45 D1:B451 -  -  -  -  		; 		Calculate the hash table address pointer.
+   46 D1:B451 -  -  -  -  		;		
+   47 D1:B451 E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
+   48 D1:B453 21 00 00 00 		ld 		hl,$0000 					; put in HL
+   49 D1:B457 6F -  -  -  		ld 		l,a
+   50 D1:B458 29 -  -  -  		add 	hl,hl 						; x 4
+   51 D1:B459 29 -  -  -  		add 	hl,hl
+   52 D1:B45A -  -  -  -  		;
+   53 D1:B45A ED 5B C9 A8 
               D1 -  -  -  		ld 		de,(HashTableBase) 			; add to hash table base.
-   54 D1:B470 19 -  -  -  		add 	hl,de
-   55 D1:B471 -  -  -  -  		;
-   56 D1:B471 DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
-   57 D1:B474 FE 95 -  -  		cp 		KWD_LPAREN 					; if so
-   58 D1:B476 20 05 -  -  		jr 		nz,_VINotArray 				; it's an array.
-   59 D1:B478 11 40 00 00 		ld 		de,HashTableSize * 4 		; so advance to the second block which is
-   60 D1:B47C 19 -  -  -  		add 	hl,de 						; for hash tables
-   61 D1:B47D -  -  -  -  _VINotArray:
-   62 D1:B47D 22 0B A9 D1 		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
-   63 D1:B481 C9 -  -  -  		ret
-   64 D1:B482 -  -  -  -  
-   65 D1:B482 -  -  -  -  ; ***************************************************************************************
-   66 D1:B482 -  -  -  -  ;
-   67 D1:B482 -  -  -  -  ;									Changes and Updates
-   68 D1:B482 -  -  -  -  ;
-   69 D1:B482 -  -  -  -  ; ***************************************************************************************
-   70 D1:B482 -  -  -  -  ;
-   71 D1:B482 -  -  -  -  ;		Date			Notes
-   72 D1:B482 -  -  -  -  ;		==== 			=====
-   73 D1:B482 -  -  -  -  ;
-   74 D1:B482 -  -  -  -  ; ***************************************************************************************
-   75 D1:B482 -  -  -  -  
+   54 D1:B45F 19 -  -  -  		add 	hl,de
+   55 D1:B460 -  -  -  -  		;
+   56 D1:B460 DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
+   57 D1:B463 FE 95 -  -  		cp 		KWD_LPAREN 					; if so
+   58 D1:B465 20 05 -  -  		jr 		nz,_VINotArray 				; it's an array.
+   59 D1:B467 11 40 00 00 		ld 		de,HashTableSize * 4 		; so advance to the second block which is
+   60 D1:B46B 19 -  -  -  		add 	hl,de 						; for hash tables
+   61 D1:B46C -  -  -  -  _VINotArray:
+   62 D1:B46C 22 0B A9 D1 		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
+   63 D1:B470 C9 -  -  -  		ret
+   64 D1:B471 -  -  -  -  
+   65 D1:B471 -  -  -  -  ; ***************************************************************************************
+   66 D1:B471 -  -  -  -  ;
+   67 D1:B471 -  -  -  -  ;									Changes and Updates
+   68 D1:B471 -  -  -  -  ;
+   69 D1:B471 -  -  -  -  ; ***************************************************************************************
+   70 D1:B471 -  -  -  -  ;
+   71 D1:B471 -  -  -  -  ;		Date			Notes
+   72 D1:B471 -  -  -  -  ;		==== 			=====
+   73 D1:B471 -  -  -  -  ;
+   74 D1:B471 -  -  -  -  ; ***************************************************************************************
+   75 D1:B471 -  -  -  -  
 Listing for file "_build.asm"
-   62 D1:B482 -  -  -  -  #include "core/variables/search.asm"
+   62 D1:B471 -  -  -  -  #include "core/variables/search.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-    1 D1:B482 -  -  -  -  ; ***************************************************************************************
-    2 D1:B482 -  -  -  -  ; ***************************************************************************************
-    3 D1:B482 -  -  -  -  ;
-    4 D1:B482 -  -  -  -  ;		Name : 		search.asm
-    5 D1:B482 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:B482 -  -  -  -  ;		Date : 		4th June 2022
-    7 D1:B482 -  -  -  -  ;		Reviewed :	No
-    8 D1:B482 -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
-    9 D1:B482 -  -  -  -  ;
-   10 D1:B482 -  -  -  -  ; ***************************************************************************************
-   11 D1:B482 -  -  -  -  ; ***************************************************************************************
-   12 D1:B482 -  -  -  -  
-   13 D1:B482 -  -  -  -  ; ***************************************************************************************
-   14 D1:B482 -  -  -  -  ;
-   15 D1:B482 -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
-   16 D1:B482 -  -  -  -  ;		CS if failed.
-   17 D1:B482 -  -  -  -  ;
-   18 D1:B482 -  -  -  -  ; ***************************************************************************************
-   19 D1:B482 -  -  -  -  
-   20 D1:B482 -  -  -  -  VariableSearchList:
-   21 D1:B482 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; first link.
-   22 D1:B486 -  -  -  -  		;
-   23 D1:B486 -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
-   24 D1:B486 -  -  -  -  		;		the address of the hash record
-   25 D1:B486 -  -  -  -  		;
-   26 D1:B486 -  -  -  -  _VSLLoop:
-   27 D1:B486 ED 27 -  -  		ld_ind_hl 							; follow link
+    1 D1:B471 -  -  -  -  ; ***************************************************************************************
+    2 D1:B471 -  -  -  -  ; ***************************************************************************************
+    3 D1:B471 -  -  -  -  ;
+    4 D1:B471 -  -  -  -  ;		Name : 		search.asm
+    5 D1:B471 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:B471 -  -  -  -  ;		Date : 		4th June 2022
+    7 D1:B471 -  -  -  -  ;		Reviewed :	No
+    8 D1:B471 -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
+    9 D1:B471 -  -  -  -  ;
+   10 D1:B471 -  -  -  -  ; ***************************************************************************************
+   11 D1:B471 -  -  -  -  ; ***************************************************************************************
+   12 D1:B471 -  -  -  -  
+   13 D1:B471 -  -  -  -  ; ***************************************************************************************
+   14 D1:B471 -  -  -  -  ;
+   15 D1:B471 -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
+   16 D1:B471 -  -  -  -  ;		CS if failed.
+   17 D1:B471 -  -  -  -  ;
+   18 D1:B471 -  -  -  -  ; ***************************************************************************************
+   19 D1:B471 -  -  -  -  
+   20 D1:B471 -  -  -  -  VariableSearchList:
+   21 D1:B471 2A 0B A9 D1 		ld 		hl,(VarHashListPtr)			; first link.
+   22 D1:B475 -  -  -  -  		;
+   23 D1:B475 -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
+   24 D1:B475 -  -  -  -  		;		the address of the hash record
+   25 D1:B475 -  -  -  -  		;
+   26 D1:B475 -  -  -  -  _VSLLoop:
+   27 D1:B475 ED 27 -  -  		ld_ind_hl 							; follow link
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-   28 D1:B488 -  -  -  -  		;
-   29 D1:B488 E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
-   30 D1:B489 AF -  -  -  		xor 	a
-   31 D1:B48A ED 6A -  -  		adc 	hl,hl
-   32 D1:B48C E1 -  -  -  		pop 	hl
-   33 D1:B48D 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
-   34 D1:B48F 37 -  -  -  		scf 								; otherwise return carry if zero.
-   35 D1:B490 C8 -  -  -  		ret 	z
-   36 D1:B491 -  -  -  -  _VSLRecord:
-   37 D1:B491 -  -  -  -  		;
-   38 D1:B491 -  -  -  -  		;		Check if they actually match. First do the hash.
-   39 D1:B491 -  -  -  -  		;
-   40 D1:B491 3A 09 A9 D1 		ld 		a,(VarHash) 				; get the hash value of the variable
-   41 D1:B495 BE -  -  -  		cp 		(hl) 						; check against HL
-   42 D1:B496 23 -  -  -  		inc 	hl 							; points to link back
-   43 D1:B497 20 ED -  -  		jr 		nz,_VSLLoop
-   44 D1:B499 -  -  -  -  		;
-   45 D1:B499 -  -  -  -  		;		Now check the name
-   46 D1:B499 -  -  -  -  		;
-   47 D1:B499 E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
-   48 D1:B49A 23 -  -  -  		inc 	hl 							; advance to the name address
-   49 D1:B49B 23 -  -  -  		inc 	hl
-   50 D1:B49C 23 -  -  -  		inc 	hl
-   51 D1:B49D 23 -  -  -  		inc 	hl
-   52 D1:B49E ED 27 -  -  		ld_ind_hl 							; HL now points to the record in program space.
-   53 D1:B4A0 ED 5B 05 A9 
+   28 D1:B477 -  -  -  -  		;
+   29 D1:B477 E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
+   30 D1:B478 AF -  -  -  		xor 	a
+   31 D1:B479 ED 6A -  -  		adc 	hl,hl
+   32 D1:B47B E1 -  -  -  		pop 	hl
+   33 D1:B47C 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
+   34 D1:B47E 37 -  -  -  		scf 								; otherwise return carry if zero.
+   35 D1:B47F C8 -  -  -  		ret 	z
+   36 D1:B480 -  -  -  -  _VSLRecord:
+   37 D1:B480 -  -  -  -  		;
+   38 D1:B480 -  -  -  -  		;		Check if they actually match. First do the hash.
+   39 D1:B480 -  -  -  -  		;
+   40 D1:B480 3A 09 A9 D1 		ld 		a,(VarHash) 				; get the hash value of the variable
+   41 D1:B484 BE -  -  -  		cp 		(hl) 						; check against HL
+   42 D1:B485 23 -  -  -  		inc 	hl 							; points to link back
+   43 D1:B486 20 ED -  -  		jr 		nz,_VSLLoop
+   44 D1:B488 -  -  -  -  		;
+   45 D1:B488 -  -  -  -  		;		Now check the name
+   46 D1:B488 -  -  -  -  		;
+   47 D1:B488 E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
+   48 D1:B489 23 -  -  -  		inc 	hl 							; advance to the name address
+   49 D1:B48A 23 -  -  -  		inc 	hl
+   50 D1:B48B 23 -  -  -  		inc 	hl
+   51 D1:B48C 23 -  -  -  		inc 	hl
+   52 D1:B48D ED 27 -  -  		ld_ind_hl 							; HL now points to the record in program space.
+   53 D1:B48F ED 5B 05 A9 
               D1 -  -  -  		ld 		de,(VarNameStart)			; and DE to the start of the name.
-   54 D1:B4A5 -  -  -  -  		;
-   55 D1:B4A5 -  -  -  -  		;		Check individual characters
-   56 D1:B4A5 -  -  -  -  		;
-   57 D1:B4A5 -  -  -  -  _VSLCharacter:
-   58 D1:B4A5 1A -  -  -  		ld 		a,(de) 						; get next character
-   59 D1:B4A6 FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
-   60 D1:B4A8 30 08 -  -  		jr 		nc,_VSLEndIdentifier
-   61 D1:B4AA BE -  -  -  		cp 		(hl) 						; compare them
-   62 D1:B4AB 23 -  -  -  		inc 	hl 							; bump both character pointers
-   63 D1:B4AC 13 -  -  -  		inc 	de
-   64 D1:B4AD 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
-   65 D1:B4AF -  -  -  -  		;
-   66 D1:B4AF -  -  -  -  _VSLFailed:
-   67 D1:B4AF E1 -  -  -  		pop 	hl 							; pop the +1 link
-   68 D1:B4B0 18 D4 -  -  		jr 		_VSLLoop 					; and loop round.
-   69 D1:B4B2 -  -  -  -  		;
-   70 D1:B4B2 -  -  -  -  		;		Found IDENTIFIER END at DE
-   71 D1:B4B2 -  -  -  -  		;		
-   72 D1:B4B2 -  -  -  -  _VSLEndIdentifier:
-   73 D1:B4B2 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
-   74 D1:B4B3 FE 26 -  -  		cp 		IDENTIFIER_END
-   75 D1:B4B5 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
-   76 D1:B4B7 -  -  -  -  		;
-   77 D1:B4B7 E1 -  -  -  		pop 	hl 							; get the +1 link
-   78 D1:B4B8 2B -  -  -  		dec 	hl 							; now start of record
-   79 D1:B4B9 AF -  -  -  		xor 	a 							; clear carry
-   80 D1:B4BA C9 -  -  -  		ret
-   81 D1:B4BB -  -  -  -  
-   82 D1:B4BB -  -  -  -  ; ***************************************************************************************
-   83 D1:B4BB -  -  -  -  ;
-   84 D1:B4BB -  -  -  -  ;									Changes and Updates
-   85 D1:B4BB -  -  -  -  ;
-   86 D1:B4BB -  -  -  -  ; ***************************************************************************************
-   87 D1:B4BB -  -  -  -  ;
-   88 D1:B4BB -  -  -  -  ;		Date			Notes
-   89 D1:B4BB -  -  -  -  ;		==== 			=====
-   90 D1:B4BB -  -  -  -  ;
-   91 D1:B4BB -  -  -  -  ; ***************************************************************************************
-   92 D1:B4BB -  -  -  -  		
+   54 D1:B494 -  -  -  -  		;
+   55 D1:B494 -  -  -  -  		;		Check individual characters
+   56 D1:B494 -  -  -  -  		;
+   57 D1:B494 -  -  -  -  _VSLCharacter:
+   58 D1:B494 1A -  -  -  		ld 		a,(de) 						; get next character
+   59 D1:B495 FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
+   60 D1:B497 30 08 -  -  		jr 		nc,_VSLEndIdentifier
+   61 D1:B499 BE -  -  -  		cp 		(hl) 						; compare them
+   62 D1:B49A 23 -  -  -  		inc 	hl 							; bump both character pointers
+   63 D1:B49B 13 -  -  -  		inc 	de
+   64 D1:B49C 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
+   65 D1:B49E -  -  -  -  		;
+   66 D1:B49E -  -  -  -  _VSLFailed:
+   67 D1:B49E E1 -  -  -  		pop 	hl 							; pop the +1 link
+   68 D1:B49F 18 D4 -  -  		jr 		_VSLLoop 					; and loop round.
+   69 D1:B4A1 -  -  -  -  		;
+   70 D1:B4A1 -  -  -  -  		;		Found IDENTIFIER END at DE
+   71 D1:B4A1 -  -  -  -  		;		
+   72 D1:B4A1 -  -  -  -  _VSLEndIdentifier:
+   73 D1:B4A1 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
+   74 D1:B4A2 FE 26 -  -  		cp 		IDENTIFIER_END
+   75 D1:B4A4 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
+   76 D1:B4A6 -  -  -  -  		;
+   77 D1:B4A6 E1 -  -  -  		pop 	hl 							; get the +1 link
+   78 D1:B4A7 2B -  -  -  		dec 	hl 							; now start of record
+   79 D1:B4A8 AF -  -  -  		xor 	a 							; clear carry
+   80 D1:B4A9 C9 -  -  -  		ret
+   81 D1:B4AA -  -  -  -  
+   82 D1:B4AA -  -  -  -  ; ***************************************************************************************
+   83 D1:B4AA -  -  -  -  ;
+   84 D1:B4AA -  -  -  -  ;									Changes and Updates
+   85 D1:B4AA -  -  -  -  ;
+   86 D1:B4AA -  -  -  -  ; ***************************************************************************************
+   87 D1:B4AA -  -  -  -  ;
+   88 D1:B4AA -  -  -  -  ;		Date			Notes
+   89 D1:B4AA -  -  -  -  ;		==== 			=====
+   90 D1:B4AA -  -  -  -  ;
+   91 D1:B4AA -  -  -  -  ; ***************************************************************************************
+   92 D1:B4AA -  -  -  -  		
 Listing for file "_build.asm"
-   63 D1:B4BB -  -  -  -  #include "generated/kwd_misc.asm"
+   63 D1:B4AA -  -  -  -  #include "generated/kwd_misc.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_misc.asm"
-    1 D1:B4BB -  -  -  -  ;
-    2 D1:B4BB -  -  -  -  ;	This file is automatically generated.
-    3 D1:B4BB -  -  -  -  ;
-    4 D1:B4BB 00 00 00 00 
-              00 -  -  -  	.block	$20-($ & $1F)
+    1 D1:B4AA -  -  -  -  ;
+    2 D1:B4AA -  -  -  -  ;	This file is automatically generated.
+    3 D1:B4AA -  -  -  -  ;
+    4 D1:B4AA 00 00 00 00 
+              00 00 00 00 
+              00 00 00 00 
+              00 00 00 00 
+              00 00 00 00 
+              00 00 -  -  	.block	$20-($ & $1F)
     5 D1:B4C0 -  -  -  -  PrecedenceTable:
     6 D1:B4C0 06 -  -  -  	.db	6	; $0083 !
     7 D1:B4C1 06 -  -  -  	.db	6	; $0084 ?
@@ -4880,21 +4867,21 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    47 D1:B738 A5 A8 D1 00 	addr(Unimplemented)              ; $00aa [
    48 D1:B73C A5 A8 D1 00 	addr(Unimplemented)              ; $00ab ]
    49 D1:B740 72 A9 D1 00 	addr(BadCmd_Comma)               ; $00ac ~
-   50 D1:B744 C0 B2 D1 00 	addr(Command_REPEAT)             ; $00ad repeat
-   51 D1:B748 CB B2 D1 00 	addr(Command_Until)              ; $00ae until
+   50 D1:B744 AF B2 D1 00 	addr(Command_REPEAT)             ; $00ad repeat
+   51 D1:B748 BA B2 D1 00 	addr(Command_Until)              ; $00ae until
    52 D1:B74C A5 A8 D1 00 	addr(Unimplemented)              ; $00af if
    53 D1:B750 72 A9 D1 00 	addr(BadCmd_Then)                ; $00b0 then
    54 D1:B754 A5 A8 D1 00 	addr(Unimplemented)              ; $00b1 else
    55 D1:B758 99 B1 D1 00 	addr(Command_FOR)                ; $00b2 for
    56 D1:B75C 72 A9 D1 00 	addr(BadCmd_To)                  ; $00b3 to
    57 D1:B760 A5 A8 D1 00 	addr(Unimplemented)              ; $00b4 step
-   58 D1:B764 A5 A8 D1 00 	addr(Unimplemented)              ; $00b5 next
+   58 D1:B764 2E B2 D1 00 	addr(Command_Next)               ; $00b5 next
    59 D1:B768 A5 A8 D1 00 	addr(Unimplemented)              ; $00b6 def
    60 D1:B76C A5 A8 D1 00 	addr(Unimplemented)              ; $00b7 proc
    61 D1:B770 A5 A8 D1 00 	addr(Unimplemented)              ; $00b8 endproc
-   62 D1:B774 4D B2 D1 00 	addr(Command_GOSUB)              ; $00b9 gosub
-   63 D1:B778 62 B2 D1 00 	addr(Command_Return)             ; $00ba return
-   64 D1:B77C 79 B2 D1 00 	addr(Command_GOTO)               ; $00bb goto
+   62 D1:B774 3C B2 D1 00 	addr(Command_GOSUB)              ; $00b9 gosub
+   63 D1:B778 51 B2 D1 00 	addr(Command_Return)             ; $00ba return
+   64 D1:B77C 68 B2 D1 00 	addr(Command_GOTO)               ; $00bb goto
    65 D1:B780 A5 A8 D1 00 	addr(Unimplemented)              ; $00bc local
    66 D1:B784 77 A9 D1 00 	addr(Command_DIM)                ; $00bd dim
    67 D1:B788 14 AB D1 00 	addr(Command_REM)                ; $00be rem
@@ -6021,13 +6008,13 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
     2 D1:BC00 -  -  -  -  ;	This code automatically generated.
     3 D1:BC00 -  -  -  -  ;
     4 D1:BC00 -  -  -  -  TestProgram:
-    5 D1:BC00 0B 01 00 B2 
+    5 D1:BC00 0D 01 00 B2 
               08 1B 8F 43 
-              B3 4B 80 07 
-              02 00 C1 08 
-              1B 80 07 03 
-              00 B5 08 1B 
-              80 00 -  -  	.db	$0b,$01,$00,$b2,$08,$1b,$8f,$43,$b3,$4b,$80,$07,$02,$00,$c1,$08,$1b,$80,$07,$03,$00,$b5,$08,$1b,$80,$00
+              B3 4B B4 42 
+              80 07 02 00 
+              C1 08 1B 80 
+              05 03 00 B5 
+              80 00 -  -  	.db	$0d,$01,$00,$b2,$08,$1b,$8f,$43,$b3,$4b,$b4,$42,$80,$07,$02,$00,$c1,$08,$1b,$80,$05,$03,$00,$b5,$80,$00
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
    16 D1:BC1A 00 00 00 00 
               00 00 00 00 
