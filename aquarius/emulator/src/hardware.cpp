@@ -64,7 +64,7 @@ BYTE8 HWReadPort(WORD16 addr) {
 	BYTE8 port = addr & 0xFF;
 
 	if (port < 4) {  							// 0-3 gets the 0,1,2 and 3rd byte of the time in ms.
-		int n = GFXTimer();
+		int n = GFXTimer()/10;
 		v = (n >> (port * 8)) & 0xFF;
 	}
 

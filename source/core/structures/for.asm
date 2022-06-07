@@ -37,6 +37,7 @@ Command_FOR: ;; [for]
 			ld 		hl,(BasicSP)			; point to Basic+6, where the reference goes.
 			ld 		bc,6
 			add 	hl,bc 
+			pop 	de 						; get reference.
 			st_de_hl_ind_incr 				; write and bump reference.
 			;
 			;		var = value
@@ -114,6 +115,7 @@ CFWriteHLHLToA:
 			ld 		hl,(BasicSP) 			; add stack base
 			add 	hl,bc
 
+CFWriteDEDEToHL:
 			ld 		(hl),e 					; write low word
 			inc 	hl
 			ld 		(hl),d
@@ -136,9 +138,72 @@ CFWriteHLHLToA:
 ; ***************************************************************************************
 
 Command_Next:	;; [next]
-			debug
 			ld		a,STM_FOR 				; check in a FOR Loop.
 			call 	StackCheckFrame
+			;
+			;		Get address of FOR variable
+			;
+			ld 		hl,(BasicSP)			; get the address of the variable in HL
+			ld 		bc,6
+			add 	hl,bc
+			ld_ind_hl
+			;
+			; 		Save reference, read value into DE.
+			;
+			push 	hl 						; save index address
+			call 	CFReadHLToHLHL 			; read the index value.
+
+			ex 		de,hl 					; copy current index value into DE.
+			exx
+			ex 		de,hl
+			exx
+			;
+			; 		Read step and Add
+			;
+			ld 		a,14 					; read step (offset 14)
+			call 	CFReadAToHLHL
+			exx 							; msb of step on stack
+			ld 		a,h
+			exx
+			push 	af
+			call 	Int32Add 				; add step to offset => HL'HL
+			;
+			;		Put result in DE and write back out
+			;
+			ex 		de,hl 					; new index value to DE
+			exx
+			ex 		de,hl
+			exx
+			pop 	af 						; get msb of step
+			pop 	hl 						; address of for variable in HL
+			push 	af 						; push msb of step back.
+			call 	CFWriteDEDEToHL 		; write value back to that variable
+			;
+			;		Get limit in DE and compare Limit-Index
+			;
+			ld 		a,10 					; load limit
+			call 	CFReadAToHLHL
+			call 	Int32Compare 			; compare limit to index.
+			pop 	bc 						; so the MSB of step should now be in B
+			or 		a 						; if zero, loop round as equal.
+			jr 		z,_CNXLoopBack
+			bit 	7,b 					; was step -ve
+			jr 		z,_CNXNotMStep
+			xor 	254 					; this is 1 XOR 255, so flips it round
+_CNXNotMStep:			
+			and 	$80						; if +ve then loop is incomplete
+			jr 		nz,_CNXLoopOver
+			;
+			;		For loop goes round again.
+			;
+_CNXLoopBack:			
+			jp 		StackLoadPosition
+			;
+			;		For loop completed
+			;
+_CNXLoopOver:
+			jp 		StackCloseFrame
+			debug
 
 ; ***************************************************************************************
 ;
