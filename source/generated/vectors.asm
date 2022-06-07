@@ -47,8 +47,8 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00aa [
 	addr(Unimplemented)              ; $00ab ]
 	addr(BadCmd_Comma)               ; $00ac ~
-	addr(Unimplemented)              ; $00ad repeat
-	addr(Unimplemented)              ; $00ae until
+	addr(Command_REPEAT)             ; $00ad repeat
+	addr(Command_Until)              ; $00ae until
 	addr(Unimplemented)              ; $00af if
 	addr(BadCmd_Then)                ; $00b0 then
 	addr(Unimplemented)              ; $00b1 else

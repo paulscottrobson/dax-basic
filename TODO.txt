@@ -1,6 +1,4 @@
 TODO:
-	GOSUB .. RETURN, open and close frame, read and write stack address.
-	REPEAT..UNTIL
 	IF...THEN/GOTO... ELSE
 	FOR..TO..STEP..NEXT
 	VDU (with semicolons)

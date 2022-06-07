@@ -52,6 +52,7 @@
 #include "core/setup/new.asm"
 #include "core/structures/gosub.asm"
 #include "core/structures/goto.asm"
+#include "core/structures/repeat.asm"
 #include "core/structures/stack.asm"
 #include "core/utility/utility.asm"
 #include "core/variables/create.asm"
