@@ -84,6 +84,7 @@ CFReadAToHLHL:
 			ld 		hl,(BasicSP) 			; add stack base
 			add 	hl,bc
 
+CFReadHLToHLHL:
 			push 	hl
 			ld_ind_hl 						; get low word
 			exx
@@ -95,7 +96,7 @@ CFReadAToHLHL:
 			exx
 
 			ret
-			
+
 ; ***************************************************************************************
 ;
 ;								Write HL'HL to BasicStack+A
