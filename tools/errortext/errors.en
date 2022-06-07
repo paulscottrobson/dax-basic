@@ -28,3 +28,7 @@ NotRef:		Cannot assign
 Dim: 		DIM Error
 Index: 		Bad Array Index
 LineNo:		Unknown line number.
+Gosub:		Return without Gosub
+Next:		Next without For
+Repeat:		Until without Repeat
+Stack:		Stack Space

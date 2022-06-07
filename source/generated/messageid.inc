@@ -50,84 +50,112 @@ ERRID_DIVZERO = 6
 	jp ErrorHandler
 #endmacro
 
-ERRID_INDEX = 7
+ERRID_GOSUB = 7
+
+#macro ERR_GOSUB
+	ld a,ERRID_GOSUB
+	jp ErrorHandler
+#endmacro
+
+ERRID_INDEX = 8
 
 #macro ERR_INDEX
 	ld a,ERRID_INDEX
 	jp ErrorHandler
 #endmacro
 
-ERRID_LINENO = 8
+ERRID_LINENO = 9
 
 #macro ERR_LINENO
 	ld a,ERRID_LINENO
 	jp ErrorHandler
 #endmacro
 
-ERRID_MEMORY = 9
+ERRID_MEMORY = 10
 
 #macro ERR_MEMORY
 	ld a,ERRID_MEMORY
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOCOMMA = 10
+ERRID_NEXT = 11
+
+#macro ERR_NEXT
+	ld a,ERRID_NEXT
+	jp ErrorHandler
+#endmacro
+
+ERRID_NOCOMMA = 12
 
 #macro ERR_NOCOMMA
 	ld a,ERRID_NOCOMMA
 	jp ErrorHandler
 #endmacro
 
-ERRID_NODOLLAR = 11
+ERRID_NODOLLAR = 13
 
 #macro ERR_NODOLLAR
 	ld a,ERRID_NODOLLAR
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOLBRACKET = 12
+ERRID_NOLBRACKET = 14
 
 #macro ERR_NOLBRACKET
 	ld a,ERRID_NOLBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 13
+ERRID_NORBRACKET = 15
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 14
+ERRID_NOTREF = 16
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 15
+ERRID_REPEAT = 17
+
+#macro ERR_REPEAT
+	ld a,ERRID_REPEAT
+	jp ErrorHandler
+#endmacro
+
+ERRID_STACK = 18
+
+#macro ERR_STACK
+	ld a,ERRID_STACK
+	jp ErrorHandler
+#endmacro
+
+ERRID_STOP = 19
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 16
+ERRID_SYNTAX = 20
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 17
+ERRID_TODO = 21
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 18
+ERRID_UNKNOWNVAR = 22
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR

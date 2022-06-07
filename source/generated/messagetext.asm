@@ -9,14 +9,18 @@ ErrorIDTable:
 	.dw	ErrText_dim & $FFFF,ErrText_dim >> 16
 	.dw	ErrText_disabled & $FFFF,ErrText_disabled >> 16
 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
+	.dw	ErrText_gosub & $FFFF,ErrText_gosub >> 16
 	.dw	ErrText_index & $FFFF,ErrText_index >> 16
 	.dw	ErrText_lineno & $FFFF,ErrText_lineno >> 16
 	.dw	ErrText_memory & $FFFF,ErrText_memory >> 16
+	.dw	ErrText_next & $FFFF,ErrText_next >> 16
 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
 	.dw	ErrText_nodollar & $FFFF,ErrText_nodollar >> 16
 	.dw	ErrText_nolbracket & $FFFF,ErrText_nolbracket >> 16
 	.dw	ErrText_norbracket & $FFFF,ErrText_norbracket >> 16
 	.dw	ErrText_notref & $FFFF,ErrText_notref >> 16
+	.dw	ErrText_repeat & $FFFF,ErrText_repeat >> 16
+	.dw	ErrText_stack & $FFFF,ErrText_stack >> 16
 	.dw	ErrText_stop & $FFFF,ErrText_stop >> 16
 	.dw	ErrText_syntax & $FFFF,ErrText_syntax >> 16
 	.dw	ErrText_todo & $FFFF,ErrText_todo >> 16
@@ -36,12 +40,16 @@ ErrText_disabled:
 	.db "Functionality not enabled",0
 ErrText_divzero:
 	.db "Division by Zero",0
+ErrText_gosub:
+	.db "Return without Gosub",0
 ErrText_index:
 	.db "Bad Array Index",0
 ErrText_lineno:
 	.db "Unknown line number.",0
 ErrText_memory:
 	.db "Out of memory",0
+ErrText_next:
+	.db "Next without For",0
 ErrText_nocomma:
 	.db "Missing Comma",0
 ErrText_nodollar:
@@ -52,6 +60,10 @@ ErrText_norbracket:
 	.db "Missing Right Bracket",0
 ErrText_notref:
 	.db "Cannot assign",0
+ErrText_repeat:
+	.db "Until without Repeat",0
+ErrText_stack:
+	.db "Stack Space",0
 ErrText_stop:
 	.db "Stop",0
 ErrText_syntax:

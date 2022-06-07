@@ -59,8 +59,8 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00b6 def
 	addr(Unimplemented)              ; $00b7 proc
 	addr(Unimplemented)              ; $00b8 endproc
-	addr(Unimplemented)              ; $00b9 gosub
-	addr(Unimplemented)              ; $00ba return
+	addr(Command_GOSUB)              ; $00b9 gosub
+	addr(Command_Return)             ; $00ba return
 	addr(Command_GOTO)               ; $00bb goto
 	addr(Unimplemented)              ; $00bc local
 	addr(Command_DIM)                ; $00bd dim
