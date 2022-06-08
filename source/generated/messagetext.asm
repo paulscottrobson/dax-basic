@@ -17,8 +17,11 @@ ErrorIDTable:
 	.dw	ErrText_nocomma & $FFFF,ErrText_nocomma >> 16
 	.dw	ErrText_nodollar & $FFFF,ErrText_nodollar >> 16
 	.dw	ErrText_nolbracket & $FFFF,ErrText_nolbracket >> 16
+	.dw	ErrText_noproc & $FFFF,ErrText_noproc >> 16
 	.dw	ErrText_norbracket & $FFFF,ErrText_norbracket >> 16
 	.dw	ErrText_notref & $FFFF,ErrText_notref >> 16
+	.dw	ErrText_param & $FFFF,ErrText_param >> 16
+	.dw	ErrText_proc & $FFFF,ErrText_proc >> 16
 	.dw	ErrText_repeat & $FFFF,ErrText_repeat >> 16
 	.dw	ErrText_stack & $FFFF,ErrText_stack >> 16
 	.dw	ErrText_stop & $FFFF,ErrText_stop >> 16
@@ -56,10 +59,16 @@ ErrText_nodollar:
 	.db "Missing $",0
 ErrText_nolbracket:
 	.db "Missing Left Bracket",0
+ErrText_noproc:
+	.db "EndProc without Proc",0
 ErrText_norbracket:
 	.db "Missing Right Bracket",0
 ErrText_notref:
 	.db "Cannot assign",0
+ErrText_param:
+	.db "Parameter Mismatch",0
+ErrText_proc:
+	.db "Unknown Procedure",0
 ErrText_repeat:
 	.db "Until without Repeat",0
 ErrText_stack:

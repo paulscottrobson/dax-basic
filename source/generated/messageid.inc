@@ -106,56 +106,77 @@ ERRID_NOLBRACKET = 14
 	jp ErrorHandler
 #endmacro
 
-ERRID_NORBRACKET = 15
+ERRID_NOPROC = 15
+
+#macro ERR_NOPROC
+	ld a,ERRID_NOPROC
+	jp ErrorHandler
+#endmacro
+
+ERRID_NORBRACKET = 16
 
 #macro ERR_NORBRACKET
 	ld a,ERRID_NORBRACKET
 	jp ErrorHandler
 #endmacro
 
-ERRID_NOTREF = 16
+ERRID_NOTREF = 17
 
 #macro ERR_NOTREF
 	ld a,ERRID_NOTREF
 	jp ErrorHandler
 #endmacro
 
-ERRID_REPEAT = 17
+ERRID_PARAM = 18
+
+#macro ERR_PARAM
+	ld a,ERRID_PARAM
+	jp ErrorHandler
+#endmacro
+
+ERRID_PROC = 19
+
+#macro ERR_PROC
+	ld a,ERRID_PROC
+	jp ErrorHandler
+#endmacro
+
+ERRID_REPEAT = 20
 
 #macro ERR_REPEAT
 	ld a,ERRID_REPEAT
 	jp ErrorHandler
 #endmacro
 
-ERRID_STACK = 18
+ERRID_STACK = 21
 
 #macro ERR_STACK
 	ld a,ERRID_STACK
 	jp ErrorHandler
 #endmacro
 
-ERRID_STOP = 19
+ERRID_STOP = 22
 
 #macro ERR_STOP
 	ld a,ERRID_STOP
 	jp ErrorHandler
 #endmacro
 
-ERRID_SYNTAX = 20
+ERRID_SYNTAX = 23
 
 #macro ERR_SYNTAX
 	ld a,ERRID_SYNTAX
 	jp ErrorHandler
 #endmacro
 
-ERRID_TODO = 21
+ERRID_TODO = 24
 
 #macro ERR_TODO
 	ld a,ERRID_TODO
 	jp ErrorHandler
 #endmacro
 
-ERRID_UNKNOWNVAR = 22
+ERRID_UNKNOWNVAR = 25
 
 #macro ERR_UNKNOWNVAR
 	ld a,ERRID_UNKNOWNVAR

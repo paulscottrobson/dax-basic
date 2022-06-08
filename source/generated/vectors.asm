@@ -57,8 +57,8 @@ VectorsSet0:
 	addr(BadCmd_Step)                ; $00b4 step
 	addr(Command_Next)               ; $00b5 next
 	addr(BadCmd_Def)                 ; $00b6 def
-	addr(Unimplemented)              ; $00b7 proc
-	addr(Unimplemented)              ; $00b8 endproc
+	addr(Command_PROC)               ; $00b7 proc
+	addr(Command_ENDPROC)            ; $00b8 endproc
 	addr(Command_GOSUB)              ; $00b9 gosub
 	addr(Command_Return)             ; $00ba return
 	addr(Command_GOTO)               ; $00bb goto
@@ -66,7 +66,7 @@ VectorsSet0:
 	addr(Command_DIM)                ; $00bd dim
 	addr(Command_REM)                ; $00be rem
 	addr(Command_LET)                ; $00bf let
-	addr(Unimplemented)              ; $00c0 vdu
+	addr(Command_VDU)                ; $00c0 vdu
 	addr(Command_PRINT)              ; $00c1 print
 	addr(Unimplemented)              ; $00c2 load
 	addr(Unimplemented)              ; $00c3 save

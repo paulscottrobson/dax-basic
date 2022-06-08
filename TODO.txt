@@ -1,8 +1,15 @@
 TODO:
-	VDU (with semicolons)
-	DEF PROC ... ENDPROC / LOCAL
+	Parameters.
+	LOCAL
 	READ/DATA/RESTORE
 	LIST
 
 Notes:	
 	call RESTORE in RUN when READ/DATA/RESTORE working.
+
+Export issues .. maybe I shouldn't have tokenised it. Whatever, fix in the export.
+
+	DEF PROC xxxx => DEF PROCxxxx
+	PROC xxxx => PROCxxxx
+	X => X% or / => DIV
+	DIM X[n] => DIM X n

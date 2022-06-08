@@ -31,4 +31,7 @@ LineNo:		Unknown line number.
 Gosub:		Return without Gosub
 Next:		Next without For
 Repeat:		Until without Repeat
+NoProc:		EndProc without Proc
 Stack:		Stack Space
+Proc:		Unknown Procedure
+Param:		Parameter Mismatch
