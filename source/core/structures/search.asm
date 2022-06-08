@@ -1,26 +1,39 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		badcommands.asm
+;		Name : 		search.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
-;		Date : 		3rd June 2022
+;		Date : 		8th June 2022
 ;		Reviewed :	No
-;		Purpose :	Commands that aren't allowed to be run, e.g. cause SN Error.
+;		Purpose :	Search forward for token
 ;
 ; ***************************************************************************************
+
+; ***************************************************************************************
+;
+;		Search forward for either B or C tokens. If found, return the token in A, 
+; 		and IX points to next byte.
+;		At EOL error if EOL is not one of the two tokens.							
+;
 ; ***************************************************************************************
 
-BadCmd_Def: 		;; [def]
-BadCmd_Then: 		;; [then]
-BadCmd_RBracket: 	;; [)]
-BadCmd_LSBracket: 	;; [[]
-BadCmd_RSBracket: 	;; []]
-BadCmd_Comma: 		;; [,]
-BadCmd_Comma: 		;; [~]
-BadCmd_SemiColon: 	;; [;]
-BadCmd_To: 			;; [to]
-BadCmd_Step: 		;; [step]
-		jp 		SyntaxError
+SearchForwardTokens:
+		ld 		a,(ix+0) 					; get token and skip it
+		inc 	ix
+		cp 		b 							; exit if either found.
+		ret 	z
+		cp 		c
+		ret 	z
+		;
+		cp 		STRING_MARKER 				; string constant is special skip
+		jr 		nz,SearchForwardTokens
+
+		ld 		de,0 						; put length into DE
+		ld 		e,(ix+0)
+		inc 	de 							; add 1 for length, 1 for terminator
+		inc 	de
+		add 	ix,de 						; jump forward
+		jr 		SearchForwardTokens
 
 ; ***************************************************************************************
 ;

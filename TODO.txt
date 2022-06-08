@@ -1,5 +1,4 @@
 TODO:
-	IF...THEN/GOTO... ELSE
 	VDU (with semicolons)
 	DEF PROC ... ENDPROC / LOCAL
 	READ/DATA/RESTORE

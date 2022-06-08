@@ -44,19 +44,19 @@ VectorsSet0:
 	addr(Command_Colon)              ; $00a7 :
 	addr(BadCmd_SemiColon)           ; $00a8 ;
 	addr(Command_REM2)               ; $00a9 '
-	addr(Unimplemented)              ; $00aa [
-	addr(Unimplemented)              ; $00ab ]
+	addr(BadCmd_LSBracket)           ; $00aa [
+	addr(BadCmd_RSBracket)           ; $00ab ]
 	addr(BadCmd_Comma)               ; $00ac ~
 	addr(Command_REPEAT)             ; $00ad repeat
 	addr(Command_Until)              ; $00ae until
-	addr(Unimplemented)              ; $00af if
+	addr(Command_IF)                 ; $00af if
 	addr(BadCmd_Then)                ; $00b0 then
-	addr(Unimplemented)              ; $00b1 else
+	addr(Command_Else)               ; $00b1 else
 	addr(Command_FOR)                ; $00b2 for
 	addr(BadCmd_To)                  ; $00b3 to
-	addr(Unimplemented)              ; $00b4 step
+	addr(BadCmd_Step)                ; $00b4 step
 	addr(Command_Next)               ; $00b5 next
-	addr(Unimplemented)              ; $00b6 def
+	addr(BadCmd_Def)                 ; $00b6 def
 	addr(Unimplemented)              ; $00b7 proc
 	addr(Unimplemented)              ; $00b8 endproc
 	addr(Command_GOSUB)              ; $00b9 gosub

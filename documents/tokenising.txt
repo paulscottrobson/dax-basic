@@ -9,7 +9,7 @@ Tokenising
 
 STRING_CONSTANT:
 3F 				String constant inline.
-				Format is <3F> <length> <string (20-7F)> 0D
+				Format is <3F> <length of string> <string (20-7F)> 0D
 			
 CONSTANT_SHIFT:
 40-7F 			Constant shift (6 bit)
