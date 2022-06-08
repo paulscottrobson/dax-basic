@@ -55,7 +55,33 @@ Command_PROC: 	;; [proc]
 ; ***************************************************************************************
 
 ProcDoParameterList:
-			debug			
+			ld 		a,(hl) 					; check (HL) = (DE) , at this point they
+			cp 		(ix+0) 					; should point to the same thing ( , or )
+			jr 		nz,_ParamError
+			;
+			inc 	ix 						; skip over it
+			inc 	hl
+			cp 		KWD_RPAREN 				; if it was ), then reached the end.
+			ret 	z
+			;
+			cp 		KWD_LPAREN 				; if it was ( or , it's okay.
+			jr 		z,_PDPFound
+			cp 		KWD_COMMA
+			jr 		nz,_ParamError 			; if not, there's an error.
+			;
+			;		at this point HL points to callee, IX to caller.
+			;
+_PDPFound:			
+			push 	hl 						; save callee on stack
+			call 	EvaluateInteger 		; get a parameter, integer only => HL'HL
+			ex 		(sp),ix 				; now IX points to callee, caller is on stack
+			call 	LocalCreateVariable 	; create variable at IX with start value HL'HL
+			ex 		(sp),ix 				; now IX is caller again 
+			pop 	hl 						; and HL the callee
+			jr 		ProcDoParameterList 	; both should point to ) or ,
+
+_ParamError:
+			ERR_PARAM
 
 ; ***************************************************************************************
 ;

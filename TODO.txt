@@ -1,6 +1,5 @@
 TODO:
-	Parameters.
-	LOCAL
+	LOCAL complete.
 	READ/DATA/RESTORE
 	LIST
 
