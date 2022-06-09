@@ -16,7 +16,7 @@ core  											# mandatory core files
 generated  										# auto generated files - keyword tables etc.
 int32 											# 32 bit integer code
 simplehardware  								# ultra simple hardware
-
+tokeniser  										# tokeniser, list and tables.
 
 #
 #		Must be last ?

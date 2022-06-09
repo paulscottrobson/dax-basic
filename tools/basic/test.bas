@@ -1,3 +1,4 @@
+10 LIST
 20 LET k=0
 25 DIM m(5)
 30 LET k=k+1
@@ -8,11 +9,8 @@
 48 next
 50 IF k<10000 THEN GOTO 30
 
-print "*************"
-print "*************"
-print "*************"
-print "*************"
-print "*************"
-
+600 DEF PROC test(a)
+605 a = &2A4:PRINT a
+610 ENDPROC
 
 700 RETURN

@@ -70,7 +70,7 @@ VectorsSet0:
 	addr(Command_PRINT)              ; $00c1 print
 	addr(Unimplemented)              ; $00c2 load
 	addr(Unimplemented)              ; $00c3 save
-	addr(Unimplemented)              ; $00c4 list
+	addr(Command_LIST)               ; $00c4 list
 	addr(Command_NEW)                ; $00c5 new
 	addr(Command_RUN)                ; $00c6 run
 	addr(Command_READ)               ; $00c7 read

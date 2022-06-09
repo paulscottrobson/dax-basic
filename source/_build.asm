@@ -79,5 +79,7 @@
 #include "simplehardware/_aquarius/aquarius_io.asm"
 #include "simplehardware/_dummy/dummy_io.asm"
 #include "simplehardware/_ti84/ti_84io.asm"
+#include "tokeniser/generated/kwd_keywords.asm"
+#include "tokeniser/list.asm"
 #include "testprogram/basic.asm"
 FinalAddress:
