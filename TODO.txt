@@ -1,11 +1,11 @@
 TODO:
-	LOCAL complete.
-	READ/DATA/RESTORE
+	MakeProgram generates binaries.
 	LIST
+	LOAD and SAVE ?
 
 Notes:	
-	call RESTORE in RUN when READ/DATA/RESTORE working.
-
+	Scanforward allow for shifts if do shifts ?
+	
 Export issues .. maybe I shouldn't have tokenised it. Whatever, fix in the export.
 
 	DEF PROC xxxx => DEF PROCxxxx

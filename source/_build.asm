@@ -23,6 +23,8 @@
 #include "core/commands/run.asm"
 #include "core/commands/stop.asm"
 #include "core/commands/vdu.asm"
+#include "core/data/read.asm"
+#include "core/data/restore.asm"
 #include "core/errors/charcheck.asm"
 #include "core/errors/errors.asm"
 #include "core/expression/binary/basicmath.asm"

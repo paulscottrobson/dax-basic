@@ -12,6 +12,24 @@
 
 ; ***************************************************************************************
 ;
+;									Locals command
+;
+; ***************************************************************************************
+
+Command_LOCAL:	;; [local]
+		ld 		hl,0 						; set HL'HL, the default value, to zero
+		exx
+		ld 		hl,0
+		exx
+		call 	LocalCreateVariable 		; create a variable
+		ld 		a,(ix+0) 					; followed by a comma ?
+		cp 		KWD_COMMA
+		ret 	nz 							; exit if not
+		inc 	ix 							; skip comma
+		jr 		Command_LOCAL 				; and go try the next one.
+		
+; ***************************************************************************************
+;
 ;			Create variable at IX, give it the initial value HL'HL
 ;						(used for parameters and locals)
 ;

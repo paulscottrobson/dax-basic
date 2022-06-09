@@ -70,6 +70,10 @@ _CCFClearHT:
 		;		Erase the stack
 		;
 		call 	StackReset 					; reset the basic stack to empty
+		;
+		;		Reset READ/DATA
+		;
+		call 	Command_RESTORE
 		ret
 
 ; ***************************************************************************************

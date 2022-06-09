@@ -38,7 +38,7 @@ class BasicProgram(object):
 	# 		Add a line, optional line number
 	#
 	def addLine(self,text,lineNumber = None):
-		print(lineNumber,text)
+		#print(lineNumber,text)
 		if text.find("//") >= 0:
 			text = text[:text.find("//")].strip()
 			if text == "":

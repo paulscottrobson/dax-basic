@@ -1,27 +1,29 @@
 ; ***************************************************************************************
 ; ***************************************************************************************
 ;
-;		Name : 		badcommands.asm
+;		Name : 		restore.asm
 ;		Author :	Paul Robson (paul@robsons.org.uk)
-;		Date : 		3rd June 2022
+;		Date : 		9th June 2022
 ;		Reviewed :	No
-;		Purpose :	Commands that aren't allowed to be run, e.g. cause SN Error.
+;		Purpose :	RESTORE command
 ;
 ; ***************************************************************************************
+
+; ***************************************************************************************
+;
+;									Restore Command
+;
 ; ***************************************************************************************
 
-BadCmd_Def: 		;; [def]
-BadCmd_Data: 		;; [data]
-BadCmd_Then: 		;; [then]
-BadCmd_RBracket: 	;; [)]
-BadCmd_LSBracket: 	;; [[]
-BadCmd_RSBracket: 	;; []]
-BadCmd_Comma: 		;; [,]
-BadCmd_Comma: 		;; [~]
-BadCmd_SemiColon: 	;; [;]
-BadCmd_To: 			;; [to]
-BadCmd_Step: 		;; [step]
-		jp 		SyntaxError
+Command_RESTORE: ;; [restore]
+			ld 		hl,(CodeAddress)		; HL+3 is the first token.
+			inc 	hl
+			inc 	hl
+			inc 	hl
+			ld 		(ReadDataPointer),hl 	; scan from here.
+			ld 		a,$FF 					; scan required first time out.
+			ld 		(DataScanRequired),a
+			ret 					
 
 ; ***************************************************************************************
 ;

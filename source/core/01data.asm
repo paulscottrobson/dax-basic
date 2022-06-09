@@ -96,6 +96,12 @@ AllowAutoCreate: 							; autocreate permission flag.
 PrintBase: 									; current base for PRINT
 		.dw 	0 
 
+ReadDataPointer: 							; pointer for READ/DATA.
+		.dw 	0,0
+
+DataScanRequired: 							; flag set when scan forward for DATA required.
+		.dw 	0		
+
 ; ***************************************************************************************
 ;
 ;									Variable Information

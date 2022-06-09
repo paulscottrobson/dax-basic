@@ -1,23 +1,6 @@
-n1 = -3
-c = -7
-PROC test1(4):PRINT "Next":PROC test1(8)
-PROC tex(-11,12)
-print c
-print n1
-PROC check(-999)
-print c
+for n1 = 1 to 6
+read v1:print v1
+next
 END
-
-DEF PROC check(c)
-print c
-ENDPROC
-
-DEF PROC tex(n1,abc)
-PRINT "tex",n1,abc
-PROC test1(n1*abc)
-PRINT "etex"
-ENDPROC
-
-DEF PROC test1(c)
-PRINT "test1 ";c
-ENDPROC
+DATA 42,99
+DATA 68,71,1,2

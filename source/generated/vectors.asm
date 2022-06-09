@@ -62,7 +62,7 @@ VectorsSet0:
 	addr(Command_GOSUB)              ; $00b9 gosub
 	addr(Command_Return)             ; $00ba return
 	addr(Command_GOTO)               ; $00bb goto
-	addr(Unimplemented)              ; $00bc local
+	addr(Command_LOCAL)              ; $00bc local
 	addr(Command_DIM)                ; $00bd dim
 	addr(Command_REM)                ; $00be rem
 	addr(Command_LET)                ; $00bf let
@@ -73,9 +73,9 @@ VectorsSet0:
 	addr(Unimplemented)              ; $00c4 list
 	addr(Command_NEW)                ; $00c5 new
 	addr(Command_RUN)                ; $00c6 run
-	addr(Unimplemented)              ; $00c7 read
-	addr(Unimplemented)              ; $00c8 data
-	addr(Unimplemented)              ; $00c9 restore
+	addr(Command_READ)               ; $00c7 read
+	addr(BadCmd_Data)                ; $00c8 data
+	addr(Command_RESTORE)            ; $00c9 restore
 	addr(Command_ASSERT)             ; $00ca assert
 	addr(Command_CLEAR)              ; $00cb clear
 	addr(Command_END)                ; $00cc end

@@ -6,6 +6,7 @@ ErrorIDTable:
 	.dw	ErrText_assert & $FFFF,ErrText_assert >> 16
 	.dw	ErrText_badtype & $FFFF,ErrText_badtype >> 16
 	.dw	ErrText_badvalue & $FFFF,ErrText_badvalue >> 16
+	.dw	ErrText_data & $FFFF,ErrText_data >> 16
 	.dw	ErrText_dim & $FFFF,ErrText_dim >> 16
 	.dw	ErrText_disabled & $FFFF,ErrText_disabled >> 16
 	.dw	ErrText_divzero & $FFFF,ErrText_divzero >> 16
@@ -37,6 +38,8 @@ ErrText_badtype:
 	.db "Type Mismatch",0
 ErrText_badvalue:
 	.db "Bad Value",0
+ErrText_data:
+	.db "Out of Data",0
 ErrText_dim:
 	.db "DIM Error",0
 ErrText_disabled:
