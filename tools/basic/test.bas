@@ -1,4 +1,5 @@
 10 LIST
+12 abc_123 = x:STOP
 20 LET k=0
 25 DIM m(5)
 30 LET k=k+1
@@ -8,7 +9,7 @@
 47 LET m(l) = a
 48 next
 50 IF k<10000 THEN GOTO 30
-
+60 PRINT "Hello world"
 600 DEF PROC test(a)
 605 a = &2A4:PRINT a
 610 ENDPROC

@@ -1,11 +1,12 @@
 TODO:
 	MakeProgram generates binaries.
-	LIST
+	LIST correct spacing.
 	LOAD and SAVE ?
 
 Notes:	
 	Scanforward allow for shifts if do shifts ?
-	
+	Also detokenising.
+
 Export issues .. maybe I shouldn't have tokenised it. Whatever, fix in the export.
 
 	DEF PROC xxxx => DEF PROCxxxx

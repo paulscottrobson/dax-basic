@@ -127,8 +127,20 @@ _USBuffer: 									; buffer space for STR$()
 _UCBuffer: 									; buffer space for CHR$()
 		.dw 	0
 
-ConvertBuffer: 								; general usage
-		.block 	64
+ConvertBuffer: 								; general usage for int/hex conversions.
+		.block 	16
+
+; ***************************************************************************************
+;
+;								Tokenising/Detokenising
+;
+; ***************************************************************************************
+
+TokenBuffer: 								; buffer to use
+		.block 	256
+
+TWPointer;
+		.dw 	0,0 						; next free slot.
 
 ; ***************************************************************************************
 ;

@@ -66,7 +66,7 @@ class Tokeniser(object):
 		#
 		#		Identifier or Token (alphanumeric)
 		#
-		if (s[0].upper() >= "A" and s[0].upper() <= "Z") or s[0] == "." or s[0] == "_":
+		if (s[0].upper() >= "A" and s[0].upper() <= "Z") or s[0] == "_":
 			m = re.match('^([A-Za-z0-9\\.\\_]+)\\s*(.*)$',s) 		
 			word = m.group(1).upper()
 			if not self.tryKeywords(word):
@@ -100,10 +100,8 @@ class Tokeniser(object):
 				self.code.append(ord(c)-ord('A'))
 			if c >= "0" and c <= "9":
 				self.code.append(ord(c)-ord('0')+26)
-			if c == '.':
-				self.code.append(36)
 			if c == "_":
-				self.code.append(37)
+				self.code.append(36)
 	#
 	# 		Tokenise one constant
 	#
