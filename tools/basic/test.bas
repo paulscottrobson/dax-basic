@@ -1,6 +1,4 @@
-for n1 = 1 to 6
-read v1:print v1
+print "begin"
+for k = 1 to 100000
 next
-END
-DATA 42,99
-DATA 68,71,1,2
+print "end"
