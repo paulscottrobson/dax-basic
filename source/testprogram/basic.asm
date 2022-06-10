@@ -12,7 +12,7 @@
 
 		.block 		$400-($ & $3FF)
 TestInstance:
-		#include 	"testprogram/testprogram.dat"
+		#import 	"testprogram/testprogram.dat"
 		.block 		4096
 EndTestInstance:
 		

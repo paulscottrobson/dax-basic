@@ -774,7 +774,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    43 00:4006 -  -  -  -  #endif
    44 00:4006 CD A4 52 -  		call 	SYSInitialise
    45 00:4009 11 00 58 -  		ld 		de,TestInstance
-   46 00:400C 21 A4 68 -  		ld 		hl,EndTestInstance
+   46 00:400C 21 B3 68 -  		ld 		hl,EndTestInstance
    47 00:400F CD 7C 4A -  		call 	SetCurrentInstance
    48 00:4012 -  -  -  -  
    49 00:4012 3E C3 -  -  		ld 		a,$C3 				; the code for JP
@@ -1222,7 +1222,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
    66 00:41FA DD E3 -  -  		ex 		(sp),ix 					; IX to TOS, start -> IX
    67 00:41FC 3E 01 -  -  		ld 		a,1 						; allow creation of the variable if required
    68 00:41FE 32 7C 40 -  		ld 		(AllowAutoCreate),a
-   69 00:4201 CD F2 4C -  		call 	FindVariable 				; find/create the variable appropriately.
+   69 00:4201 CD FC 4C -  		call 	FindVariable 				; find/create the variable appropriately.
    70 00:4204 CB 79 -  -  		bit 	CIsReference,c 				; check reference, and integer
    71 00:4206 28 EC -  -  		jr 		z,_CDError
    72 00:4208 CB 41 -  -  		bit 	CIsString,c
@@ -1278,8 +1278,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
   121 00:4247 DD E3 -  -  		ex 		(sp),ix 					; end position on stack, start in IX.
   122 00:4249 E5 -  -  -  		push 	hl 							; save dimension size on stack.		
   123 00:424A -  -  -  -  		;
-  124 00:424A CD 73 4D -  		call 	VariableInformation 		; get information about this array
-  125 00:424D CD A9 4D -  		call 	VariableSearchList 			; look to see if already present.
+  124 00:424A CD 7D 4D -  		call 	VariableInformation 		; get information about this array
+  125 00:424D CD B3 4D -  		call 	VariableSearchList 			; look to see if already present.
   126 00:4250 30 A2 -  -  		jr 		nc,_CDError 				; found, then error, can't redimension
   127 00:4252 -  -  -  -  		;
   128 00:4252 E1 -  -  -  		pop 	hl 							; get dimension size back
@@ -1288,7 +1288,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/dim.asm"
   131 00:4255 23 -  -  -  		inc 	hl 							; add one for size word.
   132 00:4256 29 -  -  -  		add 	hl,hl 						; x 4 = memory required
   133 00:4257 29 -  -  -  		add 	hl,hl
-  134 00:4258 CD B3 4C -  		call 	VariableCreate 				; create the array, completely blank.
+  134 00:4258 CD BD 4C -  		call 	VariableCreate 				; create the array, completely blank.
   135 00:425B -  -  -  -  		;
   136 00:425B D1 -  -  -  		pop 	de 							; get last index into DE
   137 00:425C 01 09 00 -  		ld 		bc,9 						; point HL to array offset 9 which is the array size
@@ -1555,7 +1555,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    51 00:430D -  -  -  -  		; 		Print text at HL.
    52 00:430D -  -  -  -  		;
    53 00:430D -  -  -  -  _CPRPrintHL:
-   54 00:430D CD A9 4C -  		call 	PrintStringAtHL 			; print string out
+   54 00:430D CD B3 4C -  		call 	PrintStringAtHL 			; print string out
    55 00:4310 18 CE -  -  		jr 		_CPRLoop 					; and loop back.		
    56 00:4312 -  -  -  -  		;
    57 00:4312 -  -  -  -  		;		Hex mode (~)
@@ -1882,7 +1882,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/data/read.asm"
    28 00:43F8 -  -  -  -  			;
    29 00:43F8 3E FF -  -  			ld 		a,$FF 					; we can autocreate READ variables
    30 00:43FA 32 7C 40 -  			ld 		(AllowAutoCreate),a
-   31 00:43FD CD F2 4C -  			call 	FindVariable 			; locate the variable, address in UHL now.
+   31 00:43FD CD FC 4C -  			call 	FindVariable 			; locate the variable, address in UHL now.
    32 00:4400 AF -  -  -  			xor 	a 						
    33 00:4401 32 7C 40 -  			ld 		(AllowAutoCreate),a
    34 00:4404 DD E5 -  -  			push 	ix 						; save position in program
@@ -2100,7 +2100,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    27 00:44AD 19 -  -  -  		add 	hl,de
    28 00:44AE 7E 23 66 6F 		ld_ind_hl 						; load hl,(hl) to get address in HL.
 Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
-   29 00:44B2 CD A9 4C -  		call 	PrintStringAtHL
+   29 00:44B2 CD B3 4C -  		call 	PrintStringAtHL
    30 00:44B5 -  -  -  -  		;
    31 00:44B5 F1 -  -  -  		pop 	af 						; restore error ID
    32 00:44B6 B7 -  -  -  		or 		a 						; no line # if error #zero (warmstart)
@@ -2112,7 +2112,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    38 00:44C1 28 1E -  -  		jr 		z,_EHExit
    39 00:44C3 -  -  -  -  
    40 00:44C3 21 E7 44 -  		ld 		hl,_EHAtText 			; print "at line"
-   41 00:44C6 CD A9 4C -  		call 	PrintStringAtHL 
+   41 00:44C6 CD B3 4C -  		call 	PrintStringAtHL 
    42 00:44C9 -  -  -  -  		
    43 00:44C9 D9 -  -  -  		exx								; HL'HL = line number
    44 00:44CA 21 00 00 -  		ld 		hl,$0000 		
@@ -2124,7 +2124,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    50 00:44D9 CD 5E 52 -  		call 	Int32ToString
    51 00:44DC C5 -  -  -  		push 	bc
    52 00:44DD E1 -  -  -  		pop 	hl
-   53 00:44DE CD A9 4C -  		call 	PrintStringAtHL			; print error line number.
+   53 00:44DE CD B3 4C -  		call 	PrintStringAtHL			; print error line number.
    54 00:44E1 -  -  -  -  _EHExit:		
    55 00:44E1 CD C8 52 -  		call 	SYSPrintCRLF 			; print carriage return
    56 00:44E4 C3 1A 40 -  		jp 		WarmStart
@@ -3038,7 +3038,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/term.asm
   143 00:4792 -  -  -  -  		; 		Found an identifier.
   144 00:4792 -  -  -  -  		;
   145 00:4792 -  -  -  -  _ETVariable:
-  146 00:4792 CD F2 4C -  		call 	FindVariable 				; find the variable.
+  146 00:4792 CD FC 4C -  		call 	FindVariable 				; find the variable.
   147 00:4795 D0 -  -  -  		ret 	nc 							; return if found.
   148 00:4796 3E 1A C3 A3 
               44 -  -  -  		ERR_UNKNOWNVAR 						; unknown variable
@@ -3776,11 +3776,11 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/locals.a
    43 00:48F8 -  -  -  -  
    44 00:48F8 3E FF -  -  		ld 		a,$FF 						; we can autocreate locals and parameters
    45 00:48FA 32 7C 40 -  		ld 		(AllowAutoCreate),a
-   46 00:48FD CD F2 4C -  		call 	FindVariable 				; locate the variable, address in UHL now.
+   46 00:48FD CD FC 4C -  		call 	FindVariable 				; locate the variable, address in UHL now.
    47 00:4900 E5 -  -  -  		push 	hl 							; save variable address.
    48 00:4901 -  -  -  -  
    49 00:4901 3E 65 -  -  		ld		a,STM_LOCAL 				; create a local stack frame 
-   50 00:4903 CD 40 4C -  		call 	StackOpenFrame
+   50 00:4903 CD 4A 4C -  		call 	StackOpenFrame
    51 00:4906 -  -  -  -  
    52 00:4906 2A 54 40 -  		ld 		hl,(BasicSP) 				; point to SP+1
    53 00:4909 23 -  -  -  		inc 	hl
@@ -3853,7 +3853,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/locals.a
   118 00:4941 -  -  -  -  
   119 00:4941 -  -  -  -  PopLocals:
   120 00:4941 3E 65 -  -  		ld 		a,STM_LOCAL 				; is there a LOCAL on the stack ?
-  121 00:4943 CD 70 4C -  		call 	StackCheckFrame
+  121 00:4943 CD 7A 4C -  		call 	StackCheckFrame
   122 00:4946 C0 -  -  -  		ret 	nz 							; no, we've popped this lot.
   123 00:4947 -  -  -  -  
   124 00:4947 2A 54 40 -  		ld 		hl,(BasicSP) 				; get SP+1, which is the address to write to.
@@ -3870,7 +3870,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/locals.a
   135 00:4956 CD 32 49 -  		call 	_LCVRead32HL 				; value into HL'HL
   136 00:4959 CD 22 49 -  		call 	_LCVWrite32HL 				; and write it out again to var address
   137 00:495C -  -  -  -  
-  138 00:495C CD 60 4C -  		call 	StackCloseFrame 			; remove the local/parameter
+  138 00:495C CD 6A 4C -  		call 	StackCloseFrame 			; remove the local/parameter
   139 00:495F 18 E0 -  -  		jr 		PopLocals 					; check any more ?
   140 00:4961 -  -  -  -  
   141 00:4961 -  -  -  -  ; ***************************************************************************************
@@ -3906,7 +3906,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/proc.asm
    18 00:4961 -  -  -  -  
    19 00:4961 -  -  -  -  Command_PROC: 	;; [proc]
    20 00:4961 3E 41 -  -  			ld		a,STM_PROC 				; open a PROC frame. This is an empty
-   21 00:4963 CD 40 4C -  			call 	StackOpenFrame 			; marker position.
+   21 00:4963 CD 4A 4C -  			call 	StackOpenFrame 			; marker position.
    22 00:4966 -  -  -  -  			;
    23 00:4966 DD 7E 00 -  			ld 		a,(ix+0) 				; check followed by identifier
    24 00:4969 FE 26 -  -  			cp 		IDENTIFIER_END
@@ -3924,8 +3924,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/proc.asm
    36 00:497A E5 -  -  -  			push 	hl 						; save start of new code, after PROC call
    37 00:497B -  -  -  -  			;
    38 00:497B 3E 53 -  -  			ld 		a,STM_PROCINFO 			; open a frame for the PROC data.
-   39 00:497D CD 40 4C -  			call 	StackOpenFrame 
-   40 00:4980 CD 75 4C -  			call 	StackSavePosition 		; and save the return address on the stack.
+   39 00:497D CD 4A 4C -  			call 	StackOpenFrame 
+   40 00:4980 CD 7F 4C -  			call 	StackSavePosition 		; and save the return address on the stack.
    41 00:4983 -  -  -  -  
    42 00:4983 DD E1 -  -  			pop 	ix 						; new position in code
    43 00:4985 E1 -  -  -  			pop 	hl 						; start of line
@@ -3982,16 +3982,16 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/procedures/proc.asm
    92 00:49B1 -  -  -  -  Command_ENDPROC: ;; [endproc]
    93 00:49B1 CD 41 49 -  			call 	PopLocals 				; restore any locals (declared using LOCAL)
    94 00:49B4 3E 53 -  -  			ld		a,STM_PROCINFO 			; check its a procedure information frame
-   95 00:49B6 CD 70 4C -  			call 	StackCheckFrame
+   95 00:49B6 CD 7A 4C -  			call 	StackCheckFrame
    96 00:49B9 20 14 -  -  			jr 		nz,_EndProcError
-   97 00:49BB CD 8E 4C -  			call 	StackLoadPosition 		; restore position into IX/SOL
-   98 00:49BE CD 60 4C -  			call 	StackCloseFrame 		
+   97 00:49BB CD 98 4C -  			call 	StackLoadPosition 		; restore position into IX/SOL
+   98 00:49BE CD 6A 4C -  			call 	StackCloseFrame 		
    99 00:49C1 -  -  -  -  
   100 00:49C1 CD 41 49 -  			call 	PopLocals 				; restore any locals (parameters)
   101 00:49C4 3E 41 -  -  			ld		a,STM_PROC 				; check its a procedure marker frame
-  102 00:49C6 CD 70 4C -  			call 	StackCheckFrame
+  102 00:49C6 CD 7A 4C -  			call 	StackCheckFrame
   103 00:49C9 20 04 -  -  			jr 		nz,_EndProcError
-  104 00:49CB CD 60 4C -  			call 	StackCloseFrame 		
+  104 00:49CB CD 6A 4C -  			call 	StackCloseFrame 		
   105 00:49CE C9 -  -  -  			ret
   106 00:49CF -  -  -  -  _EndProcError:
   107 00:49CF 3E 10 C3 A3 
@@ -4242,7 +4242,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/setup/clear.asm"
    69 00:4A75 -  -  -  -  		;
    70 00:4A75 -  -  -  -  		;		Erase the stack
    71 00:4A75 -  -  -  -  		;
-   72 00:4A75 CD 36 4C -  		call 	StackReset 					; reset the basic stack to empty
+   72 00:4A75 CD 40 4C -  		call 	StackReset 					; reset the basic stack to empty
    73 00:4A78 -  -  -  -  		;
    74 00:4A78 -  -  -  -  		;		Reset READ/DATA
    75 00:4A78 -  -  -  -  		;
@@ -4359,7 +4359,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
    17 00:4A95 -  -  -  -  
    18 00:4A95 -  -  -  -  Command_FOR: ;; [for]
    19 00:4A95 3E 39 -  -  			ld		a,STM_FOR 				; open the FOR frame
-   20 00:4A97 CD 40 4C -  			call 	StackOpenFrame
+   20 00:4A97 CD 4A 4C -  			call 	StackOpenFrame
    21 00:4A9A -  -  -  -  			;
    22 00:4A9A -  -  -  -  			;		Variable Reference to increment
    23 00:4A9A -  -  -  -  			;
@@ -4414,7 +4414,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
    70 00:4AE3 -  -  -  -  _CFDefaultStep:			
    71 00:4AE3 3E 0E -  -  			ld 		a,14 					; write to STEP slot.
    72 00:4AE5 CD 03 4B -  			call 	CFWriteHLHLToA 
-   73 00:4AE8 CD 75 4C -  			call 	StackSavePosition 		; save loop address
+   73 00:4AE8 CD 7F 4C -  			call 	StackSavePosition 		; save loop address
    74 00:4AEB C9 -  -  -  			ret
    75 00:4AEC -  -  -  -  
    76 00:4AEC -  -  -  -  ; ***************************************************************************************
@@ -4483,7 +4483,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
   139 00:4B1B -  -  -  -  
   140 00:4B1B -  -  -  -  Command_Next:	;; [next]
   141 00:4B1B 3E 39 -  -  			ld		a,STM_FOR 				; check in a FOR Loop.
-  142 00:4B1D CD 70 4C -  			call 	StackCheckFrame
+  142 00:4B1D CD 7A 4C -  			call 	StackCheckFrame
   143 00:4B20 -  -  -  -  			;
   144 00:4B20 -  -  -  -  			;		Get address of FOR variable
   145 00:4B20 -  -  -  -  			;
@@ -4541,12 +4541,12 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
   197 00:4B5F -  -  -  -  			;		For loop goes round again.
   198 00:4B5F -  -  -  -  			;
   199 00:4B5F -  -  -  -  _CNXLoopBack:			
-  200 00:4B5F C3 8E 4C -  			jp 		StackLoadPosition
+  200 00:4B5F C3 98 4C -  			jp 		StackLoadPosition
   201 00:4B62 -  -  -  -  			;
   202 00:4B62 -  -  -  -  			;		For loop completed
   203 00:4B62 -  -  -  -  			;
   204 00:4B62 -  -  -  -  _CNXLoopOver:
-  205 00:4B62 C3 60 4C -  			jp 		StackCloseFrame
+  205 00:4B62 C3 6A 4C -  			jp 		StackCloseFrame
   206 00:4B65 76 -  -  -  			debug
   207 00:4B66 -  -  -  -  
   208 00:4B66 -  -  -  -  ; ***************************************************************************************
@@ -4581,10 +4581,10 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/gosub.as
    17 00:4B66 -  -  -  -  
    18 00:4B66 -  -  -  -  Command_GOSUB: ;; [gosub]
    19 00:4B66 3E 13 -  -  			ld		a,STM_GOSUB
-   20 00:4B68 CD 40 4C -  			call 	StackOpenFrame
+   20 00:4B68 CD 4A 4C -  			call 	StackOpenFrame
    21 00:4B6B CD 91 4B -  			call 	GoGetLineNumber
    22 00:4B6E E5 -  -  -  			push 	hl
-   23 00:4B6F CD 75 4C -  			call 	StackSavePosition
+   23 00:4B6F CD 7F 4C -  			call 	StackSavePosition
    24 00:4B72 E1 -  -  -  			pop 	hl
    25 00:4B73 CD 9C 4B -  			call	TransferToLineHL
    26 00:4B76 C9 -  -  -  			ret
@@ -4597,10 +4597,10 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/gosub.as
    33 00:4B77 -  -  -  -  
    34 00:4B77 -  -  -  -  Command_Return: ;; [return]
    35 00:4B77 3E 13 -  -  			ld		a,STM_GOSUB
-   36 00:4B79 CD 70 4C -  			call 	StackCheckFrame
+   36 00:4B79 CD 7A 4C -  			call 	StackCheckFrame
    37 00:4B7C 20 07 -  -  			jr 		nz,_ReturnError
-   38 00:4B7E CD 8E 4C -  			call 	StackLoadPosition
-   39 00:4B81 CD 60 4C -  			call 	StackCloseFrame
+   38 00:4B7E CD 98 4C -  			call 	StackLoadPosition
+   39 00:4B81 CD 6A 4C -  			call 	StackCloseFrame
    40 00:4B84 C9 -  -  -  			ret
    41 00:4B85 -  -  -  -  _ReturnError:
    42 00:4B85 3E 08 C3 A3 
@@ -4793,8 +4793,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/repeat.a
    17 00:4BFB -  -  -  -  
    18 00:4BFB -  -  -  -  Command_REPEAT: ;; [repeat]
    19 00:4BFB 3E 23 -  -  			ld		a,STM_REPEAT
-   20 00:4BFD CD 40 4C -  			call 	StackOpenFrame
-   21 00:4C00 CD 75 4C -  			call 	StackSavePosition
+   20 00:4BFD CD 4A 4C -  			call 	StackOpenFrame
+   21 00:4C00 CD 7F 4C -  			call 	StackSavePosition
    22 00:4C03 C9 -  -  -  			ret
    23 00:4C04 -  -  -  -  
    24 00:4C04 -  -  -  -  ; ***************************************************************************************
@@ -4805,12 +4805,12 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/repeat.a
    29 00:4C04 -  -  -  -  
    30 00:4C04 -  -  -  -  Command_Until: ;; [until]
    31 00:4C04 3E 23 -  -  			ld		a,STM_REPEAT
-   32 00:4C06 CD 70 4C -  			call 	StackCheckFrame
+   32 00:4C06 CD 7A 4C -  			call 	StackCheckFrame
    33 00:4C09 20 0D -  -  			jr 		nz,_UntilError
    34 00:4C0B CD 88 46 -  			call	EvaluateInteger 		; until what
    35 00:4C0E CD 1D 52 -  			call 	Int32Zero 				; check zero
-   36 00:4C11 CA 8E 4C -  			jp 		z,StackLoadPosition 	; if zero loop back
-   37 00:4C14 CD 60 4C -  			call 	StackCloseFrame 		; otherwise end frame.
+   36 00:4C11 CA 98 4C -  			jp 		z,StackLoadPosition 	; if zero loop back
+   37 00:4C14 CD 6A 4C -  			call 	StackCloseFrame 		; otherwise end frame.
    38 00:4C17 C9 -  -  -  			ret
    39 00:4C18 -  -  -  -  _UntilError:
    40 00:4C18 3E 15 C3 A3 
@@ -4857,627 +4857,629 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/search.a
    25 00:4C24 B9 -  -  -  		cp 		c
    26 00:4C25 C8 -  -  -  		ret 	z
    27 00:4C26 -  -  -  -  		;
-   28 00:4C26 FE 3F -  -  		cp 		STRING_MARKER 				; string constant is special skip
-   29 00:4C28 20 F3 -  -  		jr 		nz,SearchForwardTokens
-   30 00:4C2A -  -  -  -  
-   31 00:4C2A 11 00 00 -  		ld 		de,0 						; put length into DE
-   32 00:4C2D DD 5E 00 -  		ld 		e,(ix+0)
-   33 00:4C30 13 -  -  -  		inc 	de 							; add 1 for length, 1 for terminator
-   34 00:4C31 13 -  -  -  		inc 	de
-   35 00:4C32 DD 19 -  -  		add 	ix,de 						; jump forward
-   36 00:4C34 18 E7 -  -  		jr 		SearchForwardTokens
-   37 00:4C36 -  -  -  -  
-   38 00:4C36 -  -  -  -  ; ***************************************************************************************
-   39 00:4C36 -  -  -  -  ;
-   40 00:4C36 -  -  -  -  ;									Changes and Updates
-   41 00:4C36 -  -  -  -  ;
-   42 00:4C36 -  -  -  -  ; ***************************************************************************************
-   43 00:4C36 -  -  -  -  ;
-   44 00:4C36 -  -  -  -  ;		Date			Notes
-   45 00:4C36 -  -  -  -  ;		==== 			=====
-   46 00:4C36 -  -  -  -  ;
-   47 00:4C36 -  -  -  -  ; ***************************************************************************************
+   28 00:4C26 FE 81 -  -  		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
+   29 00:4C28 CA F1 44 -  		jp 		z,NotImplemented
+   30 00:4C2B FE 82 -  -  		cp 		KWC_SHIFT_2
+   31 00:4C2D CA F1 44 -  		jp 		z,NotImplemented
+   32 00:4C30 -  -  -  -  		;
+   33 00:4C30 FE 3F -  -  		cp 		STRING_MARKER 				; string constant is special skip
+   34 00:4C32 20 E9 -  -  		jr 		nz,SearchForwardTokens
+   35 00:4C34 -  -  -  -  
+   36 00:4C34 11 00 00 -  		ld 		de,0 						; put length into DE
+   37 00:4C37 DD 5E 00 -  		ld 		e,(ix+0)
+   38 00:4C3A 13 -  -  -  		inc 	de 							; add 1 for length, 1 for terminator
+   39 00:4C3B 13 -  -  -  		inc 	de
+   40 00:4C3C DD 19 -  -  		add 	ix,de 						; jump forward
+   41 00:4C3E 18 DD -  -  		jr 		SearchForwardTokens
+   42 00:4C40 -  -  -  -  
+   43 00:4C40 -  -  -  -  ; ***************************************************************************************
+   44 00:4C40 -  -  -  -  ;
+   45 00:4C40 -  -  -  -  ;									Changes and Updates
+   46 00:4C40 -  -  -  -  ;
+   47 00:4C40 -  -  -  -  ; ***************************************************************************************
+   48 00:4C40 -  -  -  -  ;
+   49 00:4C40 -  -  -  -  ;		Date			Notes
+   50 00:4C40 -  -  -  -  ;		==== 			=====
+   51 00:4C40 -  -  -  -  ;
+   52 00:4C40 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   65 00:4C36 -  -  -  -  #include "core/structures/stack.asm"
+   65 00:4C40 -  -  -  -  #include "core/structures/stack.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/stack.asm"
-    1 00:4C36 -  -  -  -  ; ***************************************************************************************
-    2 00:4C36 -  -  -  -  ; ***************************************************************************************
-    3 00:4C36 -  -  -  -  ;
-    4 00:4C36 -  -  -  -  ;		Name : 		stack.asm
-    5 00:4C36 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4C36 -  -  -  -  ;		Date : 		6th June 2022
-    7 00:4C36 -  -  -  -  ;		Reviewed :	No
-    8 00:4C36 -  -  -  -  ;		Purpose :	Rem / ' command
-    9 00:4C36 -  -  -  -  ;
-   10 00:4C36 -  -  -  -  ; ***************************************************************************************
-   11 00:4C36 -  -  -  -  ; ***************************************************************************************
-   12 00:4C36 -  -  -  -  ;
-   13 00:4C36 -  -  -  -  ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
-   14 00:4C36 -  -  -  -  ;		The low bytes (0..3) doubled is the size of the stack entry in bytes 
-   15 00:4C36 -  -  -  -  ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
-   16 00:4C36 -  -  -  -  ;
-   17 00:4C36 -  -  -  -  ;		If a location in program is saved on the stack, it is at offset 1..4 (start of
-   18 00:4C36 -  -  -  -  ;		line) and offset 5 (offset in line)
-   19 00:4C36 -  -  -  -  ;
-   20 00:4C36 -  -  -  -  ; ***************************************************************************************
-   21 00:4C36 -  -  -  -  ;
-   22 00:4C36 -  -  -  -  ;								Clear the stack
-   23 00:4C36 -  -  -  -  ;
-   24 00:4C36 -  -  -  -  ; ***************************************************************************************
-   25 00:4C36 -  -  -  -  
-   26 00:4C36 -  -  -  -  StackReset:
-   27 00:4C36 2A 38 40 -  		ld 		hl,(LanguageStack) 			; top of language stack
-   28 00:4C39 2B -  -  -  		dec 	hl 							; down to make space for end.
-   29 00:4C3A 22 54 40 -  		ld 		(BasicSP),hl 				; write out current position
-   30 00:4C3D 36 F0 -  -  		ld 		(hl),$F0 					; Dummy top, as stack size cannot be 0.
-   31 00:4C3F C9 -  -  -  		ret
-   32 00:4C40 -  -  -  -  
-   33 00:4C40 -  -  -  -  ; ***************************************************************************************
-   34 00:4C40 -  -  -  -  ;
-   35 00:4C40 -  -  -  -  ;								Open a stack frame type A
-   36 00:4C40 -  -  -  -  ;
-   37 00:4C40 -  -  -  -  ; ***************************************************************************************
-   38 00:4C40 -  -  -  -  
-   39 00:4C40 -  -  -  -  StackOpenFrame:
-   40 00:4C40 F5 -  -  -  		push 	af 							; save frame type
-   41 00:4C41 E6 0F -  -  		and 	$0F 						; get size of frame
-   42 00:4C43 87 -  -  -  		add 	a,a 						; double it
-   43 00:4C44 11 00 00 -  		ld 		de,$0000 					; put in UDE
-   44 00:4C47 5F -  -  -  		ld 		e,a
-   45 00:4C48 2A 54 40 -  		ld 		hl,(BasicSP) 				; get stack pointer
-   46 00:4C4B AF -  -  -  		xor 	a
-   47 00:4C4C ED 52 -  -  		sbc 	hl,de 						; subtract frame size and update
-   48 00:4C4E 22 54 40 -  		ld 		(BasicSP),hl
-   49 00:4C51 F1 -  -  -  		pop 	af 							; copy out frame type
-   50 00:4C52 77 -  -  -  		ld 		(hl),a
-   51 00:4C53 ED 5B 3C 40 		ld 		de,(LanguageStackEnd) 		; subtract stack end (e.g. lowest value)
-   52 00:4C57 AF -  -  -  		xor 	a
-   53 00:4C58 ED 52 -  -  		sbc 	hl,de
-   54 00:4C5A D0 -  -  -  		ret 	nc 							; ok if >= lowest value
-   55 00:4C5B 3E 16 C3 A3 
+    1 00:4C40 -  -  -  -  ; ***************************************************************************************
+    2 00:4C40 -  -  -  -  ; ***************************************************************************************
+    3 00:4C40 -  -  -  -  ;
+    4 00:4C40 -  -  -  -  ;		Name : 		stack.asm
+    5 00:4C40 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:4C40 -  -  -  -  ;		Date : 		6th June 2022
+    7 00:4C40 -  -  -  -  ;		Reviewed :	No
+    8 00:4C40 -  -  -  -  ;		Purpose :	Rem / ' command
+    9 00:4C40 -  -  -  -  ;
+   10 00:4C40 -  -  -  -  ; ***************************************************************************************
+   11 00:4C40 -  -  -  -  ; ***************************************************************************************
+   12 00:4C40 -  -  -  -  ;
+   13 00:4C40 -  -  -  -  ;		The BASIC stack works downwards. Each entry has a first byte, offset 0
+   14 00:4C40 -  -  -  -  ;		The low bytes (0..3) doubled is the size of the stack entry in bytes 
+   15 00:4C40 -  -  -  -  ;		The high byte (4..7) identifies what the stack entry is (e.g. GOSUB, LOCAL)
+   16 00:4C40 -  -  -  -  ;
+   17 00:4C40 -  -  -  -  ;		If a location in program is saved on the stack, it is at offset 1..4 (start of
+   18 00:4C40 -  -  -  -  ;		line) and offset 5 (offset in line)
+   19 00:4C40 -  -  -  -  ;
+   20 00:4C40 -  -  -  -  ; ***************************************************************************************
+   21 00:4C40 -  -  -  -  ;
+   22 00:4C40 -  -  -  -  ;								Clear the stack
+   23 00:4C40 -  -  -  -  ;
+   24 00:4C40 -  -  -  -  ; ***************************************************************************************
+   25 00:4C40 -  -  -  -  
+   26 00:4C40 -  -  -  -  StackReset:
+   27 00:4C40 2A 38 40 -  		ld 		hl,(LanguageStack) 			; top of language stack
+   28 00:4C43 2B -  -  -  		dec 	hl 							; down to make space for end.
+   29 00:4C44 22 54 40 -  		ld 		(BasicSP),hl 				; write out current position
+   30 00:4C47 36 F0 -  -  		ld 		(hl),$F0 					; Dummy top, as stack size cannot be 0.
+   31 00:4C49 C9 -  -  -  		ret
+   32 00:4C4A -  -  -  -  
+   33 00:4C4A -  -  -  -  ; ***************************************************************************************
+   34 00:4C4A -  -  -  -  ;
+   35 00:4C4A -  -  -  -  ;								Open a stack frame type A
+   36 00:4C4A -  -  -  -  ;
+   37 00:4C4A -  -  -  -  ; ***************************************************************************************
+   38 00:4C4A -  -  -  -  
+   39 00:4C4A -  -  -  -  StackOpenFrame:
+   40 00:4C4A F5 -  -  -  		push 	af 							; save frame type
+   41 00:4C4B E6 0F -  -  		and 	$0F 						; get size of frame
+   42 00:4C4D 87 -  -  -  		add 	a,a 						; double it
+   43 00:4C4E 11 00 00 -  		ld 		de,$0000 					; put in UDE
+   44 00:4C51 5F -  -  -  		ld 		e,a
+   45 00:4C52 2A 54 40 -  		ld 		hl,(BasicSP) 				; get stack pointer
+   46 00:4C55 AF -  -  -  		xor 	a
+   47 00:4C56 ED 52 -  -  		sbc 	hl,de 						; subtract frame size and update
+   48 00:4C58 22 54 40 -  		ld 		(BasicSP),hl
+   49 00:4C5B F1 -  -  -  		pop 	af 							; copy out frame type
+   50 00:4C5C 77 -  -  -  		ld 		(hl),a
+   51 00:4C5D ED 5B 3C 40 		ld 		de,(LanguageStackEnd) 		; subtract stack end (e.g. lowest value)
+   52 00:4C61 AF -  -  -  		xor 	a
+   53 00:4C62 ED 52 -  -  		sbc 	hl,de
+   54 00:4C64 D0 -  -  -  		ret 	nc 							; ok if >= lowest value
+   55 00:4C65 3E 16 C3 A3 
               44 -  -  -  		ERR_STACK
 Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/stack.asm"
-   56 00:4C60 -  -  -  -  
-   57 00:4C60 -  -  -  -  ; ***************************************************************************************
-   58 00:4C60 -  -  -  -  ;
-   59 00:4C60 -  -  -  -  ;								Close Stack Frame
-   60 00:4C60 -  -  -  -  ;
-   61 00:4C60 -  -  -  -  ; ***************************************************************************************
-   62 00:4C60 -  -  -  -  
-   63 00:4C60 -  -  -  -  StackCloseFrame:
-   64 00:4C60 2A 54 40 -  		ld 		hl,(BasicSP)				; get stack frame
-   65 00:4C63 7E -  -  -  		ld 		a,(hl) 						; get stack marker
-   66 00:4C64 E6 0F -  -  		and 	$0F 						; put into UDE
-   67 00:4C66 87 -  -  -  		add 	a,a 						; double it
-   68 00:4C67 11 00 00 -  		ld 		de,$000000
-   69 00:4C6A 5F -  -  -  		ld 		e,a
-   70 00:4C6B 19 -  -  -  		add 	hl,de 						; close it
-   71 00:4C6C 22 54 40 -  		ld 		(BasicSP),hl 				; write it back
-   72 00:4C6F C9 -  -  -  		ret
-   73 00:4C70 -  -  -  -  
-   74 00:4C70 -  -  -  -  ; ***************************************************************************************
-   75 00:4C70 -  -  -  -  ;
-   76 00:4C70 -  -  -  -  ;								Check Stack Frame against A, Z if okay
-   77 00:4C70 -  -  -  -  ;
-   78 00:4C70 -  -  -  -  ; ***************************************************************************************
-   79 00:4C70 -  -  -  -  
-   80 00:4C70 -  -  -  -  StackCheckFrame:
-   81 00:4C70 2A 54 40 -  		ld 		hl,(BasicSP)				; get stack frame
-   82 00:4C73 BE -  -  -  		cp 		(hl) 						; get stack marker
-   83 00:4C74 C9 -  -  -  		ret
-   84 00:4C75 -  -  -  -  
-   85 00:4C75 -  -  -  -  ; ***************************************************************************************
-   86 00:4C75 -  -  -  -  ;
-   87 00:4C75 -  -  -  -  ;								Save position on stack
-   88 00:4C75 -  -  -  -  ;
-   89 00:4C75 -  -  -  -  ; ***************************************************************************************
-   90 00:4C75 -  -  -  -  
-   91 00:4C75 -  -  -  -  StackSavePosition:
-   92 00:4C75 2A 54 40 -  		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
-   93 00:4C78 23 -  -  -  		inc 	hl
-   94 00:4C79 ED 5B 58 40 		ld 		de,(CurrentLineStart) 		; work out current start line
-   95 00:4C7D 73 23 72 23 
+   56 00:4C6A -  -  -  -  
+   57 00:4C6A -  -  -  -  ; ***************************************************************************************
+   58 00:4C6A -  -  -  -  ;
+   59 00:4C6A -  -  -  -  ;								Close Stack Frame
+   60 00:4C6A -  -  -  -  ;
+   61 00:4C6A -  -  -  -  ; ***************************************************************************************
+   62 00:4C6A -  -  -  -  
+   63 00:4C6A -  -  -  -  StackCloseFrame:
+   64 00:4C6A 2A 54 40 -  		ld 		hl,(BasicSP)				; get stack frame
+   65 00:4C6D 7E -  -  -  		ld 		a,(hl) 						; get stack marker
+   66 00:4C6E E6 0F -  -  		and 	$0F 						; put into UDE
+   67 00:4C70 87 -  -  -  		add 	a,a 						; double it
+   68 00:4C71 11 00 00 -  		ld 		de,$000000
+   69 00:4C74 5F -  -  -  		ld 		e,a
+   70 00:4C75 19 -  -  -  		add 	hl,de 						; close it
+   71 00:4C76 22 54 40 -  		ld 		(BasicSP),hl 				; write it back
+   72 00:4C79 C9 -  -  -  		ret
+   73 00:4C7A -  -  -  -  
+   74 00:4C7A -  -  -  -  ; ***************************************************************************************
+   75 00:4C7A -  -  -  -  ;
+   76 00:4C7A -  -  -  -  ;								Check Stack Frame against A, Z if okay
+   77 00:4C7A -  -  -  -  ;
+   78 00:4C7A -  -  -  -  ; ***************************************************************************************
+   79 00:4C7A -  -  -  -  
+   80 00:4C7A -  -  -  -  StackCheckFrame:
+   81 00:4C7A 2A 54 40 -  		ld 		hl,(BasicSP)				; get stack frame
+   82 00:4C7D BE -  -  -  		cp 		(hl) 						; get stack marker
+   83 00:4C7E C9 -  -  -  		ret
+   84 00:4C7F -  -  -  -  
+   85 00:4C7F -  -  -  -  ; ***************************************************************************************
+   86 00:4C7F -  -  -  -  ;
+   87 00:4C7F -  -  -  -  ;								Save position on stack
+   88 00:4C7F -  -  -  -  ;
+   89 00:4C7F -  -  -  -  ; ***************************************************************************************
+   90 00:4C7F -  -  -  -  
+   91 00:4C7F -  -  -  -  StackSavePosition:
+   92 00:4C7F 2A 54 40 -  		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
+   93 00:4C82 23 -  -  -  		inc 	hl
+   94 00:4C83 ED 5B 58 40 		ld 		de,(CurrentLineStart) 		; work out current start line
+   95 00:4C87 73 23 72 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write out that start line, increment by 4
-   96 00:4C83 -  -  -  -  		;
-   97 00:4C83 E5 -  -  -  		push 	hl 							; save HL, e.g. offset 5
-   98 00:4C84 DD E5 -  -  		push 	ix 							; HL = current position
-   99 00:4C86 E1 -  -  -  		pop 	hl
-  100 00:4C87 AF -  -  -  		xor 	a 							; calculate offset
-  101 00:4C88 ED 52 -  -  		sbc 	hl,de
-  102 00:4C8A 7D -  -  -  		ld 		a,l 						; into A
-  103 00:4C8B E1 -  -  -  		pop 	hl 							; restore offset 5 and save position
-  104 00:4C8C 77 -  -  -  		ld 		(hl),a
-  105 00:4C8D C9 -  -  -  		ret
-  106 00:4C8E -  -  -  -  
-  107 00:4C8E -  -  -  -  ; ***************************************************************************************
-  108 00:4C8E -  -  -  -  ;
-  109 00:4C8E -  -  -  -  ;								Load position off stack
-  110 00:4C8E -  -  -  -  ;
-  111 00:4C8E -  -  -  -  ; ***************************************************************************************
-  112 00:4C8E -  -  -  -  
-  113 00:4C8E -  -  -  -  StackLoadPosition:
-  114 00:4C8E 2A 54 40 -  		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
-  115 00:4C91 23 -  -  -  		inc 	hl
-  116 00:4C92 E5 -  -  -  		push 	hl 							; save on stack
-  117 00:4C93 7E 23 66 6F 		ld_ind_hl 							; get start of line
-  118 00:4C97 22 58 40 -  		ld 		(CurrentLineStart),hl 		; write it back
-  119 00:4C9A D1 -  -  -  		pop 	de 							; get +1 off stack, advance to +5
-  120 00:4C9B 13 -  -  -  		inc 	de
-  121 00:4C9C 13 -  -  -  		inc 	de
-  122 00:4C9D 13 -  -  -  		inc 	de
-  123 00:4C9E 13 -  -  -  		inc 	de
-  124 00:4C9F 1A -  -  -  		ld 		a,(de) 						; offset into UDE
-  125 00:4CA0 11 00 00 -  		ld 		de,$000000
-  126 00:4CA3 5F -  -  -  		ld 		e,a
-  127 00:4CA4 19 -  -  -  		add 	hl,de 						; add to start => position
-  128 00:4CA5 E5 -  -  -  		push 	hl 							; copy to IX and continue
-  129 00:4CA6 DD E1 -  -  		pop 	ix
-  130 00:4CA8 C9 -  -  -  		ret
-  131 00:4CA9 -  -  -  -  
-  132 00:4CA9 -  -  -  -  ; ***************************************************************************************
-  133 00:4CA9 -  -  -  -  ;
-  134 00:4CA9 -  -  -  -  ;									Changes and Updates
-  135 00:4CA9 -  -  -  -  ;
-  136 00:4CA9 -  -  -  -  ; ***************************************************************************************
-  137 00:4CA9 -  -  -  -  ;
-  138 00:4CA9 -  -  -  -  ;		Date			Notes
-  139 00:4CA9 -  -  -  -  ;		==== 			=====
-  140 00:4CA9 -  -  -  -  ;
-  141 00:4CA9 -  -  -  -  ; ***************************************************************************************
+   96 00:4C8D -  -  -  -  		;
+   97 00:4C8D E5 -  -  -  		push 	hl 							; save HL, e.g. offset 5
+   98 00:4C8E DD E5 -  -  		push 	ix 							; HL = current position
+   99 00:4C90 E1 -  -  -  		pop 	hl
+  100 00:4C91 AF -  -  -  		xor 	a 							; calculate offset
+  101 00:4C92 ED 52 -  -  		sbc 	hl,de
+  102 00:4C94 7D -  -  -  		ld 		a,l 						; into A
+  103 00:4C95 E1 -  -  -  		pop 	hl 							; restore offset 5 and save position
+  104 00:4C96 77 -  -  -  		ld 		(hl),a
+  105 00:4C97 C9 -  -  -  		ret
+  106 00:4C98 -  -  -  -  
+  107 00:4C98 -  -  -  -  ; ***************************************************************************************
+  108 00:4C98 -  -  -  -  ;
+  109 00:4C98 -  -  -  -  ;								Load position off stack
+  110 00:4C98 -  -  -  -  ;
+  111 00:4C98 -  -  -  -  ; ***************************************************************************************
+  112 00:4C98 -  -  -  -  
+  113 00:4C98 -  -  -  -  StackLoadPosition:
+  114 00:4C98 2A 54 40 -  		ld 		hl,(BasicSP) 				; goes after marker at stack + 1
+  115 00:4C9B 23 -  -  -  		inc 	hl
+  116 00:4C9C E5 -  -  -  		push 	hl 							; save on stack
+  117 00:4C9D 7E 23 66 6F 		ld_ind_hl 							; get start of line
+  118 00:4CA1 22 58 40 -  		ld 		(CurrentLineStart),hl 		; write it back
+  119 00:4CA4 D1 -  -  -  		pop 	de 							; get +1 off stack, advance to +5
+  120 00:4CA5 13 -  -  -  		inc 	de
+  121 00:4CA6 13 -  -  -  		inc 	de
+  122 00:4CA7 13 -  -  -  		inc 	de
+  123 00:4CA8 13 -  -  -  		inc 	de
+  124 00:4CA9 1A -  -  -  		ld 		a,(de) 						; offset into UDE
+  125 00:4CAA 11 00 00 -  		ld 		de,$000000
+  126 00:4CAD 5F -  -  -  		ld 		e,a
+  127 00:4CAE 19 -  -  -  		add 	hl,de 						; add to start => position
+  128 00:4CAF E5 -  -  -  		push 	hl 							; copy to IX and continue
+  129 00:4CB0 DD E1 -  -  		pop 	ix
+  130 00:4CB2 C9 -  -  -  		ret
+  131 00:4CB3 -  -  -  -  
+  132 00:4CB3 -  -  -  -  ; ***************************************************************************************
+  133 00:4CB3 -  -  -  -  ;
+  134 00:4CB3 -  -  -  -  ;									Changes and Updates
+  135 00:4CB3 -  -  -  -  ;
+  136 00:4CB3 -  -  -  -  ; ***************************************************************************************
+  137 00:4CB3 -  -  -  -  ;
+  138 00:4CB3 -  -  -  -  ;		Date			Notes
+  139 00:4CB3 -  -  -  -  ;		==== 			=====
+  140 00:4CB3 -  -  -  -  ;
+  141 00:4CB3 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   66 00:4CA9 -  -  -  -  #include "core/utility/utility.asm"
+   66 00:4CB3 -  -  -  -  #include "core/utility/utility.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/utility/utility.asm"
-    1 00:4CA9 -  -  -  -  ; ***************************************************************************************
-    2 00:4CA9 -  -  -  -  ; ***************************************************************************************
-    3 00:4CA9 -  -  -  -  ;
-    4 00:4CA9 -  -  -  -  ;		Name : 		utility.asm
-    5 00:4CA9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4CA9 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:4CA9 -  -  -  -  ;		Reviewed :	No
-    8 00:4CA9 -  -  -  -  ;		Purpose :	Utility routines
-    9 00:4CA9 -  -  -  -  ;
-   10 00:4CA9 -  -  -  -  ; ***************************************************************************************
-   11 00:4CA9 -  -  -  -  ; ***************************************************************************************
-   12 00:4CA9 -  -  -  -  
-   13 00:4CA9 -  -  -  -  ; ***************************************************************************************
-   14 00:4CA9 -  -  -  -  ;
-   15 00:4CA9 -  -  -  -  ;							Print ASCII string at HL
-   16 00:4CA9 -  -  -  -  ;
-   17 00:4CA9 -  -  -  -  ; ***************************************************************************************
-   18 00:4CA9 -  -  -  -  
-   19 00:4CA9 -  -  -  -  PrintStringAtHL:
-   20 00:4CA9 7E -  -  -  		ld 		a,(hl)
-   21 00:4CAA FE 20 -  -  		cp 		$20		
-   22 00:4CAC D8 -  -  -  		ret 	c
-   23 00:4CAD CD AC 52 -  		call 	SYSPrintChar
-   24 00:4CB0 23 -  -  -  		inc 	hl
-   25 00:4CB1 18 F6 -  -  		jr 		PrintStringAtHL
-   26 00:4CB3 -  -  -  -  
-   27 00:4CB3 -  -  -  -  ; ***************************************************************************************
-   28 00:4CB3 -  -  -  -  ;
-   29 00:4CB3 -  -  -  -  ;									Changes and Updates
-   30 00:4CB3 -  -  -  -  ;
-   31 00:4CB3 -  -  -  -  ; ***************************************************************************************
-   32 00:4CB3 -  -  -  -  ;
-   33 00:4CB3 -  -  -  -  ;		Date			Notes
-   34 00:4CB3 -  -  -  -  ;		==== 			=====
-   35 00:4CB3 -  -  -  -  ;
-   36 00:4CB3 -  -  -  -  ; ***************************************************************************************
-   37 00:4CB3 -  -  -  -  		
-Listing for file "_build.asm"
-   67 00:4CB3 -  -  -  -  #include "core/variables/create.asm"
-Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/create.asm"
     1 00:4CB3 -  -  -  -  ; ***************************************************************************************
     2 00:4CB3 -  -  -  -  ; ***************************************************************************************
     3 00:4CB3 -  -  -  -  ;
-    4 00:4CB3 -  -  -  -  ;		Name : 		create.asm
+    4 00:4CB3 -  -  -  -  ;		Name : 		utility.asm
     5 00:4CB3 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4CB3 -  -  -  -  ;		Date : 		4th June 2022
+    6 00:4CB3 -  -  -  -  ;		Date : 		3rd June 2022
     7 00:4CB3 -  -  -  -  ;		Reviewed :	No
-    8 00:4CB3 -  -  -  -  ;		Purpose :	Create a variable.
+    8 00:4CB3 -  -  -  -  ;		Purpose :	Utility routines
     9 00:4CB3 -  -  -  -  ;
    10 00:4CB3 -  -  -  -  ; ***************************************************************************************
    11 00:4CB3 -  -  -  -  ; ***************************************************************************************
    12 00:4CB3 -  -  -  -  
    13 00:4CB3 -  -  -  -  ; ***************************************************************************************
    14 00:4CB3 -  -  -  -  ;
-   15 00:4CB3 -  -  -  -  ;		Create a variable as set up by VariableInformation. On entry HL contains the
-   16 00:4CB3 -  -  -  -  ;		data size (e.g. the data for integer, and size+data for array) past offset 9.
-   17 00:4CB3 -  -  -  -  ;
-   18 00:4CB3 -  -  -  -  ; ***************************************************************************************
-   19 00:4CB3 -  -  -  -  
-   20 00:4CB3 -  -  -  -  VariableCreate:		
-   21 00:4CB3 -  -  -  -  		;
-   22 00:4CB3 -  -  -  -  		;		Work out bytes to allocate (HL+9) and allocate it
-   23 00:4CB3 -  -  -  -  		;
-   24 00:4CB3 11 09 00 -  		ld 		de,9 						; add 9 for the first collection of bytes.
-   25 00:4CB6 19 -  -  -  		add 	hl,de 						; actual # of bytes required.
-   26 00:4CB7 E5 -  -  -  		push 	hl 							; save count.
-   27 00:4CB8 CD 1A 4A -  		call 	AllocateBytes 				; claim that many bytes
-   28 00:4CBB C1 -  -  -  		pop 	bc 							; restore count to BC
-   29 00:4CBC -  -  -  -  		;
-   30 00:4CBC -  -  -  -  		; 		Erase data - bytes to erase is in BC, data at HL.
-   31 00:4CBC -  -  -  -  		;
-   32 00:4CBC E5 -  -  -  		push	hl 							; save start address on stack
-   33 00:4CBD -  -  -  -  _VCClear:
-   34 00:4CBD 36 00 -  -  		ld 		(hl),$00 					; erase the allocated memory.
-   35 00:4CBF 23 -  -  -  		inc 	hl
-   36 00:4CC0 0B -  -  -  		dec 	bc
-   37 00:4CC1 78 -  -  -  		ld		a,b
-   38 00:4CC2 B1 -  -  -  		or 		c
-   39 00:4CC3 20 F8 -  -  		jr 		nz,_VCClear
-   40 00:4CC5 E1 -  -  -  		pop 	hl							; restore start address
-   41 00:4CC6 -  -  -  -  		;
-   42 00:4CC6 -  -  -  -  		;		Now start to create the data.
-   43 00:4CC6 -  -  -  -  		;
-   44 00:4CC6 E5 -  -  -  		push 	hl 							; save start
-   45 00:4CC7 -  -  -  -  		;
-   46 00:4CC7 -  -  -  -  		;		Write hash to +0
-   47 00:4CC7 -  -  -  -  		;
-   48 00:4CC7 3A 8A 40 -  		ld 		a,(VarHash) 				; write Hash to +0
-   49 00:4CCA 77 -  -  -  		ld 		(hl),a
-   50 00:4CCB 23 -  -  -  		inc 	hl
-   51 00:4CCC -  -  -  -  		;
-   52 00:4CCC -  -  -  -  		;		Write list head to +1
-   53 00:4CCC -  -  -  -  		;
-   54 00:4CCC E5 -  -  -  		push 	hl 							; save write position
-   55 00:4CCD 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; get the address of the list head
-   56 00:4CD0 7E 23 66 6F 		ld_ind_hl 							; get the list head
+   15 00:4CB3 -  -  -  -  ;							Print ASCII string at HL
+   16 00:4CB3 -  -  -  -  ;
+   17 00:4CB3 -  -  -  -  ; ***************************************************************************************
+   18 00:4CB3 -  -  -  -  
+   19 00:4CB3 -  -  -  -  PrintStringAtHL:
+   20 00:4CB3 7E -  -  -  		ld 		a,(hl)
+   21 00:4CB4 FE 20 -  -  		cp 		$20		
+   22 00:4CB6 D8 -  -  -  		ret 	c
+   23 00:4CB7 CD AC 52 -  		call 	SYSPrintChar
+   24 00:4CBA 23 -  -  -  		inc 	hl
+   25 00:4CBB 18 F6 -  -  		jr 		PrintStringAtHL
+   26 00:4CBD -  -  -  -  
+   27 00:4CBD -  -  -  -  ; ***************************************************************************************
+   28 00:4CBD -  -  -  -  ;
+   29 00:4CBD -  -  -  -  ;									Changes and Updates
+   30 00:4CBD -  -  -  -  ;
+   31 00:4CBD -  -  -  -  ; ***************************************************************************************
+   32 00:4CBD -  -  -  -  ;
+   33 00:4CBD -  -  -  -  ;		Date			Notes
+   34 00:4CBD -  -  -  -  ;		==== 			=====
+   35 00:4CBD -  -  -  -  ;
+   36 00:4CBD -  -  -  -  ; ***************************************************************************************
+   37 00:4CBD -  -  -  -  		
+Listing for file "_build.asm"
+   67 00:4CBD -  -  -  -  #include "core/variables/create.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/create.asm"
-   57 00:4CD4 EB -  -  -  		ex 		de,hl 						; put in list head in DE
-   58 00:4CD5 E1 -  -  -  		pop 	hl 		 					; restore write position
-   59 00:4CD6 73 23 72 23 
+    1 00:4CBD -  -  -  -  ; ***************************************************************************************
+    2 00:4CBD -  -  -  -  ; ***************************************************************************************
+    3 00:4CBD -  -  -  -  ;
+    4 00:4CBD -  -  -  -  ;		Name : 		create.asm
+    5 00:4CBD -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:4CBD -  -  -  -  ;		Date : 		4th June 2022
+    7 00:4CBD -  -  -  -  ;		Reviewed :	No
+    8 00:4CBD -  -  -  -  ;		Purpose :	Create a variable.
+    9 00:4CBD -  -  -  -  ;
+   10 00:4CBD -  -  -  -  ; ***************************************************************************************
+   11 00:4CBD -  -  -  -  ; ***************************************************************************************
+   12 00:4CBD -  -  -  -  
+   13 00:4CBD -  -  -  -  ; ***************************************************************************************
+   14 00:4CBD -  -  -  -  ;
+   15 00:4CBD -  -  -  -  ;		Create a variable as set up by VariableInformation. On entry HL contains the
+   16 00:4CBD -  -  -  -  ;		data size (e.g. the data for integer, and size+data for array) past offset 9.
+   17 00:4CBD -  -  -  -  ;
+   18 00:4CBD -  -  -  -  ; ***************************************************************************************
+   19 00:4CBD -  -  -  -  
+   20 00:4CBD -  -  -  -  VariableCreate:		
+   21 00:4CBD -  -  -  -  		;
+   22 00:4CBD -  -  -  -  		;		Work out bytes to allocate (HL+9) and allocate it
+   23 00:4CBD -  -  -  -  		;
+   24 00:4CBD 11 09 00 -  		ld 		de,9 						; add 9 for the first collection of bytes.
+   25 00:4CC0 19 -  -  -  		add 	hl,de 						; actual # of bytes required.
+   26 00:4CC1 E5 -  -  -  		push 	hl 							; save count.
+   27 00:4CC2 CD 1A 4A -  		call 	AllocateBytes 				; claim that many bytes
+   28 00:4CC5 C1 -  -  -  		pop 	bc 							; restore count to BC
+   29 00:4CC6 -  -  -  -  		;
+   30 00:4CC6 -  -  -  -  		; 		Erase data - bytes to erase is in BC, data at HL.
+   31 00:4CC6 -  -  -  -  		;
+   32 00:4CC6 E5 -  -  -  		push	hl 							; save start address on stack
+   33 00:4CC7 -  -  -  -  _VCClear:
+   34 00:4CC7 36 00 -  -  		ld 		(hl),$00 					; erase the allocated memory.
+   35 00:4CC9 23 -  -  -  		inc 	hl
+   36 00:4CCA 0B -  -  -  		dec 	bc
+   37 00:4CCB 78 -  -  -  		ld		a,b
+   38 00:4CCC B1 -  -  -  		or 		c
+   39 00:4CCD 20 F8 -  -  		jr 		nz,_VCClear
+   40 00:4CCF E1 -  -  -  		pop 	hl							; restore start address
+   41 00:4CD0 -  -  -  -  		;
+   42 00:4CD0 -  -  -  -  		;		Now start to create the data.
+   43 00:4CD0 -  -  -  -  		;
+   44 00:4CD0 E5 -  -  -  		push 	hl 							; save start
+   45 00:4CD1 -  -  -  -  		;
+   46 00:4CD1 -  -  -  -  		;		Write hash to +0
+   47 00:4CD1 -  -  -  -  		;
+   48 00:4CD1 3A 8A 40 -  		ld 		a,(VarHash) 				; write Hash to +0
+   49 00:4CD4 77 -  -  -  		ld 		(hl),a
+   50 00:4CD5 23 -  -  -  		inc 	hl
+   51 00:4CD6 -  -  -  -  		;
+   52 00:4CD6 -  -  -  -  		;		Write list head to +1
+   53 00:4CD6 -  -  -  -  		;
+   54 00:4CD6 E5 -  -  -  		push 	hl 							; save write position
+   55 00:4CD7 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; get the address of the list head
+   56 00:4CDA 7E 23 66 6F 		ld_ind_hl 							; get the list head
+Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/create.asm"
+   57 00:4CDE EB -  -  -  		ex 		de,hl 						; put in list head in DE
+   58 00:4CDF E1 -  -  -  		pop 	hl 		 					; restore write position
+   59 00:4CE0 73 23 72 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and increment by 4.
-   60 00:4CDC -  -  -  -  		;
-   61 00:4CDC -  -  -  -  		;		Write variable name to +5
-   62 00:4CDC -  -  -  -  		;
-   63 00:4CDC ED 5B 86 40 		ld 		de,(VarNameStart)			; push start of variable name
-   64 00:4CE0 73 23 72 23 
+   60 00:4CE6 -  -  -  -  		;
+   61 00:4CE6 -  -  -  -  		;		Write variable name to +5
+   62 00:4CE6 -  -  -  -  		;
+   63 00:4CE6 ED 5B 86 40 		ld 		de,(VarNameStart)			; push start of variable name
+   64 00:4CEA 73 23 72 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and increment by 4.
-   65 00:4CE6 -  -  -  -  		;
-   66 00:4CE6 D1 -  -  -  		pop 	de 							; get the start address back
-   67 00:4CE7 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; get the address of the list head
-   68 00:4CEA 73 23 72 23 
+   65 00:4CF0 -  -  -  -  		;
+   66 00:4CF0 D1 -  -  -  		pop 	de 							; get the start address back
+   67 00:4CF1 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; get the address of the list head
+   68 00:4CF4 73 23 72 23 
               23 23 -  -  		st_de_hl_ind_incr 					; write DE at HL and patch into list head.
-   69 00:4CF0 -  -  -  -  		;
-   70 00:4CF0 EB -  -  -  		ex 		de,hl 						; start address into HL
-   71 00:4CF1 C9 -  -  -  		ret
-   72 00:4CF2 -  -  -  -  
-   73 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   74 00:4CF2 -  -  -  -  ;
-   75 00:4CF2 -  -  -  -  ;									Changes and Updates
-   76 00:4CF2 -  -  -  -  ;
-   77 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   78 00:4CF2 -  -  -  -  ;
-   79 00:4CF2 -  -  -  -  ;		Date			Notes
-   80 00:4CF2 -  -  -  -  ;		==== 			=====
-   81 00:4CF2 -  -  -  -  ;
-   82 00:4CF2 -  -  -  -  ; ***************************************************************************************
+   69 00:4CFA -  -  -  -  		;
+   70 00:4CFA EB -  -  -  		ex 		de,hl 						; start address into HL
+   71 00:4CFB C9 -  -  -  		ret
+   72 00:4CFC -  -  -  -  
+   73 00:4CFC -  -  -  -  ; ***************************************************************************************
+   74 00:4CFC -  -  -  -  ;
+   75 00:4CFC -  -  -  -  ;									Changes and Updates
+   76 00:4CFC -  -  -  -  ;
+   77 00:4CFC -  -  -  -  ; ***************************************************************************************
+   78 00:4CFC -  -  -  -  ;
+   79 00:4CFC -  -  -  -  ;		Date			Notes
+   80 00:4CFC -  -  -  -  ;		==== 			=====
+   81 00:4CFC -  -  -  -  ;
+   82 00:4CFC -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   68 00:4CF2 -  -  -  -  #include "core/variables/find.asm"
+   68 00:4CFC -  -  -  -  #include "core/variables/find.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
-    1 00:4CF2 -  -  -  -  ; ***************************************************************************************
-    2 00:4CF2 -  -  -  -  ; ***************************************************************************************
-    3 00:4CF2 -  -  -  -  ;
-    4 00:4CF2 -  -  -  -  ;		Name : 		find.asm
-    5 00:4CF2 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4CF2 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:4CF2 -  -  -  -  ;		Reviewed :	No
-    8 00:4CF2 -  -  -  -  ;		Purpose :	Find a variable.
-    9 00:4CF2 -  -  -  -  ;
-   10 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   11 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   12 00:4CF2 -  -  -  -  
-   13 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   14 00:4CF2 -  -  -  -  ;
-   15 00:4CF2 -  -  -  -  ;		Find variable. If found, return address in (U)HL, type in C and carry clear.
-   16 00:4CF2 -  -  -  -  ; 		variable information at (IX)
-   17 00:4CF2 -  -  -  -  ;
-   18 00:4CF2 -  -  -  -  ;		If not found, create the variable and return as above, otherwise return CS.
-   19 00:4CF2 -  -  -  -  ;		Don't autocreate arrays.
-   20 00:4CF2 -  -  -  -  ;
-   21 00:4CF2 -  -  -  -  ; ***************************************************************************************
-   22 00:4CF2 -  -  -  -  
-   23 00:4CF2 -  -  -  -  FindVariable:
-   24 00:4CF2 DD 7E 00 -  		ld 		a,(ix+0)					; get first character
-   25 00:4CF5 FE 26 -  -  		cp 		IDENTIFIER_END 				; check it is an identifier reference.
-   26 00:4CF7 D2 00 45 -  		jp 		nc,SyntaxError 		
-   27 00:4CFA -  -  -  -  
-   28 00:4CFA DD 7E 01 -  		ld 		a,(ix+1) 					; look at next character, if that is an
-   29 00:4CFD FE 26 -  -  		cp 		IDENTIFIER_END 				; integer_type then this is a single letter
-   30 00:4CFF 38 16 -  -  		jr 		c,_FVNotSimple 				; integer.
-   31 00:4D01 FE 95 -  -  		cp 		KWD_LPAREN 					; could also be a(
-   32 00:4D03 28 12 -  -  		jr 		z,_FVNotSimple
-   33 00:4D05 -  -  -  -  		;
-   34 00:4D05 -  -  -  -  		; 		Code for A-Z fixed integers.
-   35 00:4D05 -  -  -  -  		;
-   36 00:4D05 2A 40 40 -  		ld 		hl,(StandardIntegers) 		; point UHL to standard ints on 128 byte boundary
-   37 00:4D08 DD 7E 00 -  		ld 		a,(ix+0) 					; get the identifier ID
-   38 00:4D0B 87 -  -  -  		add 	a,a 						; x4
-   39 00:4D0C 87 -  -  -  		add 	a,a
-   40 00:4D0D B5 -  -  -  		or 		l 							; Or into address as on 128 byte boundary
-   41 00:4D0E 6F -  -  -  		ld 		l,a 						; UHL now points to the variable.
-   42 00:4D0F 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
-   43 00:4D11 CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
-   44 00:4D13 DD 23 -  -  		inc 	ix 							; skip over identifier 
-   45 00:4D15 AF -  -  -  		xor 	a 							; clear carry and return
-   46 00:4D16 C9 -  -  -  		ret
-   47 00:4D17 -  -  -  -  		;
-   48 00:4D17 -  -  -  -  		;		Not a standard simple variable.
-   49 00:4D17 -  -  -  -  		;
-   50 00:4D17 -  -  -  -  _FVNotSimple:
-   51 00:4D17 CD 73 4D -  		call 	VariableInformation 		; get information about the variable.
-   52 00:4D1A CD A9 4D -  		call 	VariableSearchList 			; search the linked list
-   53 00:4D1D 38 12 -  -  		jr 		c,_FVNotFound  				
-   54 00:4D1F -  -  -  -  		;
-   55 00:4D1F -  -  -  -  		;		Found variable. Address of record is in HL.
-   56 00:4D1F -  -  -  -  		;
-   57 00:4D1F -  -  -  -  _FVExitReference:		
-   58 00:4D1F 11 09 00 -  		ld 		de,9 						; point to the actual data.
-   59 00:4D22 19 -  -  -  		add 	hl,de 
-   60 00:4D23 -  -  -  -  		;
-   61 00:4D23 -  -  -  -  		; 		Check for arrays. IX points to token after identifier, HL to the array size.
-   62 00:4D23 -  -  -  -  		;
-   63 00:4D23 DD 7E 00 -  		ld 		a,(ix+0) 					; check next token
-   64 00:4D26 FE 95 -  -  		cp 		KWD_LPAREN 					; if (
-   65 00:4D28 CC 4C 4D -  		call 	z,ArrayLookup 				; array access required.
-   66 00:4D2B 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
-   67 00:4D2D CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
-   68 00:4D2F AF -  -  -  		xor 	a 							; clear carry and return
-   69 00:4D30 C9 -  -  -  		ret
-   70 00:4D31 -  -  -  -  		;
-   71 00:4D31 -  -  -  -  		; 		Variable is not found, can we autocreate it ?
-   72 00:4D31 -  -  -  -  		;
-   73 00:4D31 -  -  -  -  _FVNotFound:		
-   74 00:4D31 3A 7C 40 -  		ld 		a,(AllowAutoCreate) 		; is auto create on ?
-   75 00:4D34 B7 -  -  -  		or 		a
-   76 00:4D35 28 0F -  -  		jr 		z,_FVFail
-   77 00:4D37 DD 7E 00 -  		ld 		a,(ix+0) 					; not allowed for arrays.
-   78 00:4D3A FE 95 -  -  		cp 		KWD_LPAREN 		
-   79 00:4D3C 28 08 -  -  		jr 		z,_FVFail
-   80 00:4D3E 21 04 00 -  		ld 		hl,4 						; bytes to allocate for data.
-   81 00:4D41 CD B3 4C -  		call 	VariableCreate 				; create a new variable.
-   82 00:4D44 18 D9 -  -  		jr 		_FVExitReference 			; and exit with HL+9 as a reference
-   83 00:4D46 -  -  -  -  
-   84 00:4D46 -  -  -  -  _FVFail:
-   85 00:4D46 DD 2A 86 40 		ld 		ix,(VarNameStart) 			; restore IX to start of variable name.
-   86 00:4D4A 37 -  -  -  		scf
-   87 00:4D4B C9 -  -  -  		ret
-   88 00:4D4C -  -  -  -  
-   89 00:4D4C -  -  -  -  ; ***************************************************************************************
-   90 00:4D4C -  -  -  -  ;
-   91 00:4D4C -  -  -  -  ;									 Array lookup
-   92 00:4D4C -  -  -  -  ;
-   93 00:4D4C -  -  -  -  ; ***************************************************************************************
-   94 00:4D4C -  -  -  -  
-   95 00:4D4C -  -  -  -  ArrayLookup:
-   96 00:4D4C E5 -  -  -  		push 	hl 							; save the array address on the stack.
-   97 00:4D4D CD 6A 46 -  		call 	EvaluateIntegerTerm 		; evaluate the array index.
-   98 00:4D50 D9 -  -  -  		exx 								; check index in 0000-FFFF
-   99 00:4D51 7C -  -  -  		ld 		a,h
-  100 00:4D52 B5 -  -  -  		or 		l
-  101 00:4D53 D9 -  -  -  		exx
-  102 00:4D54 20 18 -  -  		jr 		nz,_ALBadValue  			; if so, it's a bad value
-  103 00:4D56 11 00 00 -  		ld 		de,$00 						; put HL into DE clearing UDE
-  104 00:4D59 54 -  -  -  		ld 		d,h
-  105 00:4D5A 5D -  -  -  		ld 		e,l
-  106 00:4D5B E1 -  -  -  		pop 	hl 							; get the array base back
-  107 00:4D5C E5 -  -  -  		push 	hl
-  108 00:4D5D 7E 23 66 6F 		ld_ind_hl 							; read the array index maximum
+    1 00:4CFC -  -  -  -  ; ***************************************************************************************
+    2 00:4CFC -  -  -  -  ; ***************************************************************************************
+    3 00:4CFC -  -  -  -  ;
+    4 00:4CFC -  -  -  -  ;		Name : 		find.asm
+    5 00:4CFC -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:4CFC -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:4CFC -  -  -  -  ;		Reviewed :	No
+    8 00:4CFC -  -  -  -  ;		Purpose :	Find a variable.
+    9 00:4CFC -  -  -  -  ;
+   10 00:4CFC -  -  -  -  ; ***************************************************************************************
+   11 00:4CFC -  -  -  -  ; ***************************************************************************************
+   12 00:4CFC -  -  -  -  
+   13 00:4CFC -  -  -  -  ; ***************************************************************************************
+   14 00:4CFC -  -  -  -  ;
+   15 00:4CFC -  -  -  -  ;		Find variable. If found, return address in (U)HL, type in C and carry clear.
+   16 00:4CFC -  -  -  -  ; 		variable information at (IX)
+   17 00:4CFC -  -  -  -  ;
+   18 00:4CFC -  -  -  -  ;		If not found, create the variable and return as above, otherwise return CS.
+   19 00:4CFC -  -  -  -  ;		Don't autocreate arrays.
+   20 00:4CFC -  -  -  -  ;
+   21 00:4CFC -  -  -  -  ; ***************************************************************************************
+   22 00:4CFC -  -  -  -  
+   23 00:4CFC -  -  -  -  FindVariable:
+   24 00:4CFC DD 7E 00 -  		ld 		a,(ix+0)					; get first character
+   25 00:4CFF FE 26 -  -  		cp 		IDENTIFIER_END 				; check it is an identifier reference.
+   26 00:4D01 D2 00 45 -  		jp 		nc,SyntaxError 		
+   27 00:4D04 -  -  -  -  
+   28 00:4D04 DD 7E 01 -  		ld 		a,(ix+1) 					; look at next character, if that is an
+   29 00:4D07 FE 26 -  -  		cp 		IDENTIFIER_END 				; integer_type then this is a single letter
+   30 00:4D09 38 16 -  -  		jr 		c,_FVNotSimple 				; integer.
+   31 00:4D0B FE 95 -  -  		cp 		KWD_LPAREN 					; could also be a(
+   32 00:4D0D 28 12 -  -  		jr 		z,_FVNotSimple
+   33 00:4D0F -  -  -  -  		;
+   34 00:4D0F -  -  -  -  		; 		Code for A-Z fixed integers.
+   35 00:4D0F -  -  -  -  		;
+   36 00:4D0F 2A 40 40 -  		ld 		hl,(StandardIntegers) 		; point UHL to standard ints on 128 byte boundary
+   37 00:4D12 DD 7E 00 -  		ld 		a,(ix+0) 					; get the identifier ID
+   38 00:4D15 87 -  -  -  		add 	a,a 						; x4
+   39 00:4D16 87 -  -  -  		add 	a,a
+   40 00:4D17 B5 -  -  -  		or 		l 							; Or into address as on 128 byte boundary
+   41 00:4D18 6F -  -  -  		ld 		l,a 						; UHL now points to the variable.
+   42 00:4D19 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
+   43 00:4D1B CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
+   44 00:4D1D DD 23 -  -  		inc 	ix 							; skip over identifier 
+   45 00:4D1F AF -  -  -  		xor 	a 							; clear carry and return
+   46 00:4D20 C9 -  -  -  		ret
+   47 00:4D21 -  -  -  -  		;
+   48 00:4D21 -  -  -  -  		;		Not a standard simple variable.
+   49 00:4D21 -  -  -  -  		;
+   50 00:4D21 -  -  -  -  _FVNotSimple:
+   51 00:4D21 CD 7D 4D -  		call 	VariableInformation 		; get information about the variable.
+   52 00:4D24 CD B3 4D -  		call 	VariableSearchList 			; search the linked list
+   53 00:4D27 38 12 -  -  		jr 		c,_FVNotFound  				
+   54 00:4D29 -  -  -  -  		;
+   55 00:4D29 -  -  -  -  		;		Found variable. Address of record is in HL.
+   56 00:4D29 -  -  -  -  		;
+   57 00:4D29 -  -  -  -  _FVExitReference:		
+   58 00:4D29 11 09 00 -  		ld 		de,9 						; point to the actual data.
+   59 00:4D2C 19 -  -  -  		add 	hl,de 
+   60 00:4D2D -  -  -  -  		;
+   61 00:4D2D -  -  -  -  		; 		Check for arrays. IX points to token after identifier, HL to the array size.
+   62 00:4D2D -  -  -  -  		;
+   63 00:4D2D DD 7E 00 -  		ld 		a,(ix+0) 					; check next token
+   64 00:4D30 FE 95 -  -  		cp 		KWD_LPAREN 					; if (
+   65 00:4D32 CC 56 4D -  		call 	z,ArrayLookup 				; array access required.
+   66 00:4D35 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer
+   67 00:4D37 CB F9 -  -  		set 	CIsReference,c 				; it's an integer reference in UHL.
+   68 00:4D39 AF -  -  -  		xor 	a 							; clear carry and return
+   69 00:4D3A C9 -  -  -  		ret
+   70 00:4D3B -  -  -  -  		;
+   71 00:4D3B -  -  -  -  		; 		Variable is not found, can we autocreate it ?
+   72 00:4D3B -  -  -  -  		;
+   73 00:4D3B -  -  -  -  _FVNotFound:		
+   74 00:4D3B 3A 7C 40 -  		ld 		a,(AllowAutoCreate) 		; is auto create on ?
+   75 00:4D3E B7 -  -  -  		or 		a
+   76 00:4D3F 28 0F -  -  		jr 		z,_FVFail
+   77 00:4D41 DD 7E 00 -  		ld 		a,(ix+0) 					; not allowed for arrays.
+   78 00:4D44 FE 95 -  -  		cp 		KWD_LPAREN 		
+   79 00:4D46 28 08 -  -  		jr 		z,_FVFail
+   80 00:4D48 21 04 00 -  		ld 		hl,4 						; bytes to allocate for data.
+   81 00:4D4B CD BD 4C -  		call 	VariableCreate 				; create a new variable.
+   82 00:4D4E 18 D9 -  -  		jr 		_FVExitReference 			; and exit with HL+9 as a reference
+   83 00:4D50 -  -  -  -  
+   84 00:4D50 -  -  -  -  _FVFail:
+   85 00:4D50 DD 2A 86 40 		ld 		ix,(VarNameStart) 			; restore IX to start of variable name.
+   86 00:4D54 37 -  -  -  		scf
+   87 00:4D55 C9 -  -  -  		ret
+   88 00:4D56 -  -  -  -  
+   89 00:4D56 -  -  -  -  ; ***************************************************************************************
+   90 00:4D56 -  -  -  -  ;
+   91 00:4D56 -  -  -  -  ;									 Array lookup
+   92 00:4D56 -  -  -  -  ;
+   93 00:4D56 -  -  -  -  ; ***************************************************************************************
+   94 00:4D56 -  -  -  -  
+   95 00:4D56 -  -  -  -  ArrayLookup:
+   96 00:4D56 E5 -  -  -  		push 	hl 							; save the array address on the stack.
+   97 00:4D57 CD 6A 46 -  		call 	EvaluateIntegerTerm 		; evaluate the array index.
+   98 00:4D5A D9 -  -  -  		exx 								; check index in 0000-FFFF
+   99 00:4D5B 7C -  -  -  		ld 		a,h
+  100 00:4D5C B5 -  -  -  		or 		l
+  101 00:4D5D D9 -  -  -  		exx
+  102 00:4D5E 20 18 -  -  		jr 		nz,_ALBadValue  			; if so, it's a bad value
+  103 00:4D60 11 00 00 -  		ld 		de,$00 						; put HL into DE clearing UDE
+  104 00:4D63 54 -  -  -  		ld 		d,h
+  105 00:4D64 5D -  -  -  		ld 		e,l
+  106 00:4D65 E1 -  -  -  		pop 	hl 							; get the array base back
+  107 00:4D66 E5 -  -  -  		push 	hl
+  108 00:4D67 7E 23 66 6F 		ld_ind_hl 							; read the array index maximum
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/find.asm"
-  109 00:4D61 AF -  -  -  		xor  	a							; subtract maximum from index
-  110 00:4D62 ED 52 -  -  		sbc 	hl,de
-  111 00:4D64 DA 6E 4D -  		jp 		c,_ALBadValue 				; if max < index then error
-  112 00:4D67 EB -  -  -  		ex 		de,hl 						; index back into HL
-  113 00:4D68 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
-  114 00:4D69 29 -  -  -  		add 	hl,hl 						; x 4
-  115 00:4D6A 29 -  -  -  		add 	hl,hl
-  116 00:4D6B D1 -  -  -  		pop 	de 							; get array base back
-  117 00:4D6C 19 -  -  -  		add 	hl,de 						; add offset to it
-  118 00:4D6D C9 -  -  -  		ret
-  119 00:4D6E -  -  -  -  
-  120 00:4D6E -  -  -  -  _ALBadValue:
-  121 00:4D6E 3E 09 C3 A3 
+  109 00:4D6B AF -  -  -  		xor  	a							; subtract maximum from index
+  110 00:4D6C ED 52 -  -  		sbc 	hl,de
+  111 00:4D6E DA 78 4D -  		jp 		c,_ALBadValue 				; if max < index then error
+  112 00:4D71 EB -  -  -  		ex 		de,hl 						; index back into HL
+  113 00:4D72 23 -  -  -  		inc 	hl 							; add 1, to skip over index count
+  114 00:4D73 29 -  -  -  		add 	hl,hl 						; x 4
+  115 00:4D74 29 -  -  -  		add 	hl,hl
+  116 00:4D75 D1 -  -  -  		pop 	de 							; get array base back
+  117 00:4D76 19 -  -  -  		add 	hl,de 						; add offset to it
+  118 00:4D77 C9 -  -  -  		ret
+  119 00:4D78 -  -  -  -  
+  120 00:4D78 -  -  -  -  _ALBadValue:
+  121 00:4D78 3E 09 C3 A3 
               44 -  -  -  		ERR_INDEX
-  122 00:4D73 -  -  -  -  		
-  123 00:4D73 -  -  -  -  ; ***************************************************************************************
-  124 00:4D73 -  -  -  -  ;
-  125 00:4D73 -  -  -  -  ;									Changes and Updates
-  126 00:4D73 -  -  -  -  ;
-  127 00:4D73 -  -  -  -  ; ***************************************************************************************
-  128 00:4D73 -  -  -  -  ;
-  129 00:4D73 -  -  -  -  ;		Date			Notes
-  130 00:4D73 -  -  -  -  ;		==== 			=====
-  131 00:4D73 -  -  -  -  ;
-  132 00:4D73 -  -  -  -  ; ***************************************************************************************
+  122 00:4D7D -  -  -  -  		
+  123 00:4D7D -  -  -  -  ; ***************************************************************************************
+  124 00:4D7D -  -  -  -  ;
+  125 00:4D7D -  -  -  -  ;									Changes and Updates
+  126 00:4D7D -  -  -  -  ;
+  127 00:4D7D -  -  -  -  ; ***************************************************************************************
+  128 00:4D7D -  -  -  -  ;
+  129 00:4D7D -  -  -  -  ;		Date			Notes
+  130 00:4D7D -  -  -  -  ;		==== 			=====
+  131 00:4D7D -  -  -  -  ;
+  132 00:4D7D -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   69 00:4D73 -  -  -  -  #include "core/variables/info.asm"
+   69 00:4D7D -  -  -  -  #include "core/variables/info.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/info.asm"
-    1 00:4D73 -  -  -  -  ; ***************************************************************************************
-    2 00:4D73 -  -  -  -  ; ***************************************************************************************
-    3 00:4D73 -  -  -  -  ;
-    4 00:4D73 -  -  -  -  ;		Name : 		info.asm
-    5 00:4D73 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4D73 -  -  -  -  ;		Date : 		4th June 2022
-    7 00:4D73 -  -  -  -  ;		Reviewed :	No
-    8 00:4D73 -  -  -  -  ;		Purpose :	Get information about variable at IX
-    9 00:4D73 -  -  -  -  ;
-   10 00:4D73 -  -  -  -  ; ***************************************************************************************
-   11 00:4D73 -  -  -  -  ; ***************************************************************************************
-   12 00:4D73 -  -  -  -  
-   13 00:4D73 -  -  -  -  ; ***************************************************************************************
-   14 00:4D73 -  -  -  -  ;
-   15 00:4D73 -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
-   16 00:4D73 -  -  -  -  ; 		after the identifier.
-   17 00:4D73 -  -  -  -  ;
-   18 00:4D73 -  -  -  -  ; ***************************************************************************************
-   19 00:4D73 -  -  -  -  
-   20 00:4D73 -  -  -  -  VariableInformation:
-   21 00:4D73 DD 22 86 40 		ld 		(VarNameStart),ix 			; save start.
-   22 00:4D77 -  -  -  -  		;
-   23 00:4D77 -  -  -  -  		; 		Calculate hash, find end.
-   24 00:4D77 -  -  -  -  		;
-   25 00:4D77 06 00 -  -  		ld 		b,0 						; build the hash in B.
-   26 00:4D79 -  -  -  -  _VICalculateHash:
-   27 00:4D79 DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
-   28 00:4D7C FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
-   29 00:4D7E 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
-   30 00:4D80 80 -  -  -  		add 	a,b 						; add to hash
-   31 00:4D81 07 -  -  -  		rlca
-   32 00:4D82 07 -  -  -  		rlca
-   33 00:4D83 80 -  -  -  		add 	a,b
-   34 00:4D84 47 -  -  -  		ld 		b,a 						; update hash
-   35 00:4D85 DD 23 -  -  		inc 	ix 							; next character
-   36 00:4D87 18 F0 -  -  		jr 		_VICalculateHash				
-   37 00:4D89 -  -  -  -  		;
-   38 00:4D89 -  -  -  -  _VIHashDone:
-   39 00:4D89 78 -  -  -  		ld 		a,b 						; write hash byte out
-   40 00:4D8A -  -  -  -  		;
-   41 00:4D8A -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
-   42 00:4D8A -  -  -  -  		;
-   43 00:4D8A 32 8A 40 -  		ld 		(VarHash),a
-   44 00:4D8D -  -  -  -  		;
-   45 00:4D8D -  -  -  -  		; 		Calculate the hash table address pointer.
-   46 00:4D8D -  -  -  -  		;		
-   47 00:4D8D E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
-   48 00:4D8F 21 00 00 -  		ld 		hl,$0000 					; put in HL
-   49 00:4D92 6F -  -  -  		ld 		l,a
-   50 00:4D93 29 -  -  -  		add 	hl,hl 						; x 4
-   51 00:4D94 29 -  -  -  		add 	hl,hl
-   52 00:4D95 -  -  -  -  		;
-   53 00:4D95 ED 5B 44 40 		ld 		de,(HashTableBase) 			; add to hash table base.
-   54 00:4D99 19 -  -  -  		add 	hl,de
-   55 00:4D9A -  -  -  -  		;
-   56 00:4D9A DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
-   57 00:4D9D FE 95 -  -  		cp 		KWD_LPAREN 					; if so
-   58 00:4D9F 20 04 -  -  		jr 		nz,_VINotArray 				; it's an array.
-   59 00:4DA1 11 40 00 -  		ld 		de,HashTableSize * 4 		; so advance to the second block which is
-   60 00:4DA4 19 -  -  -  		add 	hl,de 						; for hash tables
-   61 00:4DA5 -  -  -  -  _VINotArray:
-   62 00:4DA5 22 8C 40 -  		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
-   63 00:4DA8 C9 -  -  -  		ret
-   64 00:4DA9 -  -  -  -  
-   65 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   66 00:4DA9 -  -  -  -  ;
-   67 00:4DA9 -  -  -  -  ;									Changes and Updates
-   68 00:4DA9 -  -  -  -  ;
-   69 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   70 00:4DA9 -  -  -  -  ;
-   71 00:4DA9 -  -  -  -  ;		Date			Notes
-   72 00:4DA9 -  -  -  -  ;		==== 			=====
-   73 00:4DA9 -  -  -  -  ;
-   74 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   75 00:4DA9 -  -  -  -  
+    1 00:4D7D -  -  -  -  ; ***************************************************************************************
+    2 00:4D7D -  -  -  -  ; ***************************************************************************************
+    3 00:4D7D -  -  -  -  ;
+    4 00:4D7D -  -  -  -  ;		Name : 		info.asm
+    5 00:4D7D -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:4D7D -  -  -  -  ;		Date : 		4th June 2022
+    7 00:4D7D -  -  -  -  ;		Reviewed :	No
+    8 00:4D7D -  -  -  -  ;		Purpose :	Get information about variable at IX
+    9 00:4D7D -  -  -  -  ;
+   10 00:4D7D -  -  -  -  ; ***************************************************************************************
+   11 00:4D7D -  -  -  -  ; ***************************************************************************************
+   12 00:4D7D -  -  -  -  
+   13 00:4D7D -  -  -  -  ; ***************************************************************************************
+   14 00:4D7D -  -  -  -  ;
+   15 00:4D7D -  -  -  -  ;		Get information about variable at IX. On exit IX points to the next character
+   16 00:4D7D -  -  -  -  ; 		after the identifier.
+   17 00:4D7D -  -  -  -  ;
+   18 00:4D7D -  -  -  -  ; ***************************************************************************************
+   19 00:4D7D -  -  -  -  
+   20 00:4D7D -  -  -  -  VariableInformation:
+   21 00:4D7D DD 22 86 40 		ld 		(VarNameStart),ix 			; save start.
+   22 00:4D81 -  -  -  -  		;
+   23 00:4D81 -  -  -  -  		; 		Calculate hash, find end.
+   24 00:4D81 -  -  -  -  		;
+   25 00:4D81 06 00 -  -  		ld 		b,0 						; build the hash in B.
+   26 00:4D83 -  -  -  -  _VICalculateHash:
+   27 00:4D83 DD 7E 00 -  		ld 		a,(ix+0) 					; look at character
+   28 00:4D86 FE 26 -  -  		cp 		IDENTIFIER_END 				; not an identifier character.
+   29 00:4D88 30 09 -  -  		jr 		nc,_VIHashDone 				; if so, reached the end.
+   30 00:4D8A 80 -  -  -  		add 	a,b 						; add to hash
+   31 00:4D8B 07 -  -  -  		rlca
+   32 00:4D8C 07 -  -  -  		rlca
+   33 00:4D8D 80 -  -  -  		add 	a,b
+   34 00:4D8E 47 -  -  -  		ld 		b,a 						; update hash
+   35 00:4D8F DD 23 -  -  		inc 	ix 							; next character
+   36 00:4D91 18 F0 -  -  		jr 		_VICalculateHash				
+   37 00:4D93 -  -  -  -  		;
+   38 00:4D93 -  -  -  -  _VIHashDone:
+   39 00:4D93 78 -  -  -  		ld 		a,b 						; write hash byte out
+   40 00:4D94 -  -  -  -  		;
+   41 00:4D94 -  -  -  -  		; xor 	a 							; hack to overload a list, put them all one one :)
+   42 00:4D94 -  -  -  -  		;
+   43 00:4D94 32 8A 40 -  		ld 		(VarHash),a
+   44 00:4D97 -  -  -  -  		;
+   45 00:4D97 -  -  -  -  		; 		Calculate the hash table address pointer.
+   46 00:4D97 -  -  -  -  		;		
+   47 00:4D97 E6 0F -  -  		and 	HashTableSize-1 			; put into range 0..HashTableSize-1
+   48 00:4D99 21 00 00 -  		ld 		hl,$0000 					; put in HL
+   49 00:4D9C 6F -  -  -  		ld 		l,a
+   50 00:4D9D 29 -  -  -  		add 	hl,hl 						; x 4
+   51 00:4D9E 29 -  -  -  		add 	hl,hl
+   52 00:4D9F -  -  -  -  		;
+   53 00:4D9F ED 5B 44 40 		ld 		de,(HashTableBase) 			; add to hash table base.
+   54 00:4DA3 19 -  -  -  		add 	hl,de
+   55 00:4DA4 -  -  -  -  		;
+   56 00:4DA4 DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a ( ?
+   57 00:4DA7 FE 95 -  -  		cp 		KWD_LPAREN 					; if so
+   58 00:4DA9 20 04 -  -  		jr 		nz,_VINotArray 				; it's an array.
+   59 00:4DAB 11 40 00 -  		ld 		de,HashTableSize * 4 		; so advance to the second block which is
+   60 00:4DAE 19 -  -  -  		add 	hl,de 						; for hash tables
+   61 00:4DAF -  -  -  -  _VINotArray:
+   62 00:4DAF 22 8C 40 -  		ld 		(VarHashListPtr),hl 		; this is the address of the first link in the list (or NULL)
+   63 00:4DB2 C9 -  -  -  		ret
+   64 00:4DB3 -  -  -  -  
+   65 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   66 00:4DB3 -  -  -  -  ;
+   67 00:4DB3 -  -  -  -  ;									Changes and Updates
+   68 00:4DB3 -  -  -  -  ;
+   69 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   70 00:4DB3 -  -  -  -  ;
+   71 00:4DB3 -  -  -  -  ;		Date			Notes
+   72 00:4DB3 -  -  -  -  ;		==== 			=====
+   73 00:4DB3 -  -  -  -  ;
+   74 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   75 00:4DB3 -  -  -  -  
 Listing for file "_build.asm"
-   70 00:4DA9 -  -  -  -  #include "core/variables/search.asm"
+   70 00:4DB3 -  -  -  -  #include "core/variables/search.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-    1 00:4DA9 -  -  -  -  ; ***************************************************************************************
-    2 00:4DA9 -  -  -  -  ; ***************************************************************************************
-    3 00:4DA9 -  -  -  -  ;
-    4 00:4DA9 -  -  -  -  ;		Name : 		search.asm
-    5 00:4DA9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:4DA9 -  -  -  -  ;		Date : 		4th June 2022
-    7 00:4DA9 -  -  -  -  ;		Reviewed :	No
-    8 00:4DA9 -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
-    9 00:4DA9 -  -  -  -  ;
-   10 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   11 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   12 00:4DA9 -  -  -  -  
-   13 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   14 00:4DA9 -  -  -  -  ;
-   15 00:4DA9 -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
-   16 00:4DA9 -  -  -  -  ;		CS if failed.
-   17 00:4DA9 -  -  -  -  ;
-   18 00:4DA9 -  -  -  -  ; ***************************************************************************************
-   19 00:4DA9 -  -  -  -  
-   20 00:4DA9 -  -  -  -  VariableSearchList:
-   21 00:4DA9 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; first link.
-   22 00:4DAC -  -  -  -  		;
-   23 00:4DAC -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
-   24 00:4DAC -  -  -  -  		;		the address of the hash record
-   25 00:4DAC -  -  -  -  		;
-   26 00:4DAC -  -  -  -  _VSLLoop:
-   27 00:4DAC 7E 23 66 6F 		ld_ind_hl 							; follow link
+    1 00:4DB3 -  -  -  -  ; ***************************************************************************************
+    2 00:4DB3 -  -  -  -  ; ***************************************************************************************
+    3 00:4DB3 -  -  -  -  ;
+    4 00:4DB3 -  -  -  -  ;		Name : 		search.asm
+    5 00:4DB3 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:4DB3 -  -  -  -  ;		Date : 		4th June 2022
+    7 00:4DB3 -  -  -  -  ;		Reviewed :	No
+    8 00:4DB3 -  -  -  -  ;		Purpose :	Search for a variable in the selected linked list.
+    9 00:4DB3 -  -  -  -  ;
+   10 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   11 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   12 00:4DB3 -  -  -  -  
+   13 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   14 00:4DB3 -  -  -  -  ;
+   15 00:4DB3 -  -  -  -  ;		Search for variable as set up by VariableInfo. Returns CC/UHL=Record success
+   16 00:4DB3 -  -  -  -  ;		CS if failed.
+   17 00:4DB3 -  -  -  -  ;
+   18 00:4DB3 -  -  -  -  ; ***************************************************************************************
+   19 00:4DB3 -  -  -  -  
+   20 00:4DB3 -  -  -  -  VariableSearchList:
+   21 00:4DB3 2A 8C 40 -  		ld 		hl,(VarHashListPtr)			; first link.
+   22 00:4DB6 -  -  -  -  		;
+   23 00:4DB6 -  -  -  -  		;		Follow pointer to next record, check if zero. First time round it is
+   24 00:4DB6 -  -  -  -  		;		the address of the hash record
+   25 00:4DB6 -  -  -  -  		;
+   26 00:4DB6 -  -  -  -  _VSLLoop:
+   27 00:4DB6 7E 23 66 6F 		ld_ind_hl 							; follow link
 Listing for file "/home/paulr/Projects/dax-basic/source/core/variables/search.asm"
-   28 00:4DB0 -  -  -  -  		;
-   29 00:4DB0 E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
-   30 00:4DB1 AF -  -  -  		xor 	a
-   31 00:4DB2 ED 6A -  -  		adc 	hl,hl
-   32 00:4DB4 E1 -  -  -  		pop 	hl
-   33 00:4DB5 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
-   34 00:4DB7 37 -  -  -  		scf 								; otherwise return carry if zero.
-   35 00:4DB8 C8 -  -  -  		ret 	z
-   36 00:4DB9 -  -  -  -  _VSLRecord:
-   37 00:4DB9 -  -  -  -  		;
-   38 00:4DB9 -  -  -  -  		;		Check if they actually match. First do the hash.
-   39 00:4DB9 -  -  -  -  		;
-   40 00:4DB9 3A 8A 40 -  		ld 		a,(VarHash) 				; get the hash value of the variable
-   41 00:4DBC BE -  -  -  		cp 		(hl) 						; check against HL
-   42 00:4DBD 23 -  -  -  		inc 	hl 							; points to link back
-   43 00:4DBE 20 EC -  -  		jr 		nz,_VSLLoop
-   44 00:4DC0 -  -  -  -  		;
-   45 00:4DC0 -  -  -  -  		;		Now check the name
-   46 00:4DC0 -  -  -  -  		;
-   47 00:4DC0 E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
-   48 00:4DC1 23 -  -  -  		inc 	hl 							; advance to the name address
-   49 00:4DC2 23 -  -  -  		inc 	hl
-   50 00:4DC3 23 -  -  -  		inc 	hl
-   51 00:4DC4 23 -  -  -  		inc 	hl
-   52 00:4DC5 7E 23 66 6F 		ld_ind_hl 							; HL now points to the record in program space.
-   53 00:4DC9 ED 5B 86 40 		ld 		de,(VarNameStart)			; and DE to the start of the name.
-   54 00:4DCD -  -  -  -  		;
-   55 00:4DCD -  -  -  -  		;		Check individual characters
-   56 00:4DCD -  -  -  -  		;
-   57 00:4DCD -  -  -  -  _VSLCharacter:
-   58 00:4DCD 1A -  -  -  		ld 		a,(de) 						; get next character
-   59 00:4DCE FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
-   60 00:4DD0 30 08 -  -  		jr 		nc,_VSLEndIdentifier
-   61 00:4DD2 BE -  -  -  		cp 		(hl) 						; compare them
-   62 00:4DD3 23 -  -  -  		inc 	hl 							; bump both character pointers
-   63 00:4DD4 13 -  -  -  		inc 	de
-   64 00:4DD5 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
-   65 00:4DD7 -  -  -  -  		;
-   66 00:4DD7 -  -  -  -  _VSLFailed:
-   67 00:4DD7 E1 -  -  -  		pop 	hl 							; pop the +1 link
-   68 00:4DD8 18 D2 -  -  		jr 		_VSLLoop 					; and loop round.
-   69 00:4DDA -  -  -  -  		;
-   70 00:4DDA -  -  -  -  		;		Found IDENTIFIER END at DE
-   71 00:4DDA -  -  -  -  		;		
-   72 00:4DDA -  -  -  -  _VSLEndIdentifier:
-   73 00:4DDA 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
-   74 00:4DDB FE 26 -  -  		cp 		IDENTIFIER_END
-   75 00:4DDD 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
-   76 00:4DDF -  -  -  -  		;
-   77 00:4DDF E1 -  -  -  		pop 	hl 							; get the +1 link
-   78 00:4DE0 2B -  -  -  		dec 	hl 							; now start of record
-   79 00:4DE1 AF -  -  -  		xor 	a 							; clear carry
-   80 00:4DE2 C9 -  -  -  		ret
-   81 00:4DE3 -  -  -  -  
-   82 00:4DE3 -  -  -  -  ; ***************************************************************************************
-   83 00:4DE3 -  -  -  -  ;
-   84 00:4DE3 -  -  -  -  ;									Changes and Updates
-   85 00:4DE3 -  -  -  -  ;
-   86 00:4DE3 -  -  -  -  ; ***************************************************************************************
-   87 00:4DE3 -  -  -  -  ;
-   88 00:4DE3 -  -  -  -  ;		Date			Notes
-   89 00:4DE3 -  -  -  -  ;		==== 			=====
-   90 00:4DE3 -  -  -  -  ;
-   91 00:4DE3 -  -  -  -  ; ***************************************************************************************
-   92 00:4DE3 -  -  -  -  		
+   28 00:4DBA -  -  -  -  		;
+   29 00:4DBA E5 -  -  -  		push 	hl 							; 24 bit check if zero ; requires NC and Z
+   30 00:4DBB AF -  -  -  		xor 	a
+   31 00:4DBC ED 6A -  -  		adc 	hl,hl
+   32 00:4DBE E1 -  -  -  		pop 	hl
+   33 00:4DBF 38 02 -  -  		jr 		c,_VSLRecord				; shifted out
+   34 00:4DC1 37 -  -  -  		scf 								; otherwise return carry if zero.
+   35 00:4DC2 C8 -  -  -  		ret 	z
+   36 00:4DC3 -  -  -  -  _VSLRecord:
+   37 00:4DC3 -  -  -  -  		;
+   38 00:4DC3 -  -  -  -  		;		Check if they actually match. First do the hash.
+   39 00:4DC3 -  -  -  -  		;
+   40 00:4DC3 3A 8A 40 -  		ld 		a,(VarHash) 				; get the hash value of the variable
+   41 00:4DC6 BE -  -  -  		cp 		(hl) 						; check against HL
+   42 00:4DC7 23 -  -  -  		inc 	hl 							; points to link back
+   43 00:4DC8 20 EC -  -  		jr 		nz,_VSLLoop
+   44 00:4DCA -  -  -  -  		;
+   45 00:4DCA -  -  -  -  		;		Now check the name
+   46 00:4DCA -  -  -  -  		;
+   47 00:4DCA E5 -  -  -  		push 	hl 							; save next link on stack (e.g. record offset 1)
+   48 00:4DCB 23 -  -  -  		inc 	hl 							; advance to the name address
+   49 00:4DCC 23 -  -  -  		inc 	hl
+   50 00:4DCD 23 -  -  -  		inc 	hl
+   51 00:4DCE 23 -  -  -  		inc 	hl
+   52 00:4DCF 7E 23 66 6F 		ld_ind_hl 							; HL now points to the record in program space.
+   53 00:4DD3 ED 5B 86 40 		ld 		de,(VarNameStart)			; and DE to the start of the name.
+   54 00:4DD7 -  -  -  -  		;
+   55 00:4DD7 -  -  -  -  		;		Check individual characters
+   56 00:4DD7 -  -  -  -  		;
+   57 00:4DD7 -  -  -  -  _VSLCharacter:
+   58 00:4DD7 1A -  -  -  		ld 		a,(de) 						; get next character
+   59 00:4DD8 FE 26 -  -  		cp 		IDENTIFIER_END 				; if end character check if both are.		
+   60 00:4DDA 30 08 -  -  		jr 		nc,_VSLEndIdentifier
+   61 00:4DDC BE -  -  -  		cp 		(hl) 						; compare them
+   62 00:4DDD 23 -  -  -  		inc 	hl 							; bump both character pointers
+   63 00:4DDE 13 -  -  -  		inc 	de
+   64 00:4DDF 28 F6 -  -  		jr 		z,_VSLCharacter 			; go back if match. If not
+   65 00:4DE1 -  -  -  -  		;
+   66 00:4DE1 -  -  -  -  _VSLFailed:
+   67 00:4DE1 E1 -  -  -  		pop 	hl 							; pop the +1 link
+   68 00:4DE2 18 D2 -  -  		jr 		_VSLLoop 					; and loop round.
+   69 00:4DE4 -  -  -  -  		;
+   70 00:4DE4 -  -  -  -  		;		Found IDENTIFIER END at DE
+   71 00:4DE4 -  -  -  -  		;		
+   72 00:4DE4 -  -  -  -  _VSLEndIdentifier:
+   73 00:4DE4 7E -  -  -  		ld 		a,(hl) 						; want non identifier character at HL too
+   74 00:4DE5 FE 26 -  -  		cp 		IDENTIFIER_END
+   75 00:4DE7 38 F8 -  -  		jr 		c,_VSLFailed 				; it's still an identifier, no match.
+   76 00:4DE9 -  -  -  -  		;
+   77 00:4DE9 E1 -  -  -  		pop 	hl 							; get the +1 link
+   78 00:4DEA 2B -  -  -  		dec 	hl 							; now start of record
+   79 00:4DEB AF -  -  -  		xor 	a 							; clear carry
+   80 00:4DEC C9 -  -  -  		ret
+   81 00:4DED -  -  -  -  
+   82 00:4DED -  -  -  -  ; ***************************************************************************************
+   83 00:4DED -  -  -  -  ;
+   84 00:4DED -  -  -  -  ;									Changes and Updates
+   85 00:4DED -  -  -  -  ;
+   86 00:4DED -  -  -  -  ; ***************************************************************************************
+   87 00:4DED -  -  -  -  ;
+   88 00:4DED -  -  -  -  ;		Date			Notes
+   89 00:4DED -  -  -  -  ;		==== 			=====
+   90 00:4DED -  -  -  -  ;
+   91 00:4DED -  -  -  -  ; ***************************************************************************************
+   92 00:4DED -  -  -  -  		
 Listing for file "_build.asm"
-   71 00:4DE3 -  -  -  -  #include "generated/kwd_misc.asm"
+   71 00:4DED -  -  -  -  #include "generated/kwd_misc.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_misc.asm"
-    1 00:4DE3 -  -  -  -  ;
-    2 00:4DE3 -  -  -  -  ;	This file is automatically generated.
-    3 00:4DE3 -  -  -  -  ;
-    4 00:4DE3 00 00 00 00 
+    1 00:4DED -  -  -  -  ;
+    2 00:4DED -  -  -  -  ;	This file is automatically generated.
+    3 00:4DED -  -  -  -  ;
+    4 00:4DED 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 -  -  -  	.block	$20-($ & $1F)
+              00 00 00 -  	.block	$20-($ & $1F)
     5 00:4E00 -  -  -  -  PrecedenceTable:
     6 00:4E00 06 -  -  -  	.db	6	; $0083 !
     7 00:4E01 06 -  -  -  	.db	6	; $0084 ?
@@ -6992,7 +6994,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/tokeniser/list.asm"
   125 00:548F -  -  -  -  CLPrintLine:
   126 00:548F CD 9C 54 -  		call 	CLExpandLine
   127 00:5492 21 B2 40 -  		ld 		hl,TokenBuffer
-  128 00:5495 CD A9 4C -  		call 	PrintStringAtHL 
+  128 00:5495 CD B3 4C -  		call 	PrintStringAtHL 
   129 00:5498 CD C8 52 -  		call 	SYSPrintCRLF
   130 00:549B C9 -  -  -  		ret
   131 00:549C -  -  -  -  
@@ -7008,207 +7010,275 @@ Listing for file "/home/paulr/Projects/dax-basic/source/tokeniser/list.asm"
   141 00:549E DD E5 -  -  		push 	ix
   142 00:54A0 21 B2 40 -  		ld 		hl,TokenBuffer 				; set the token buffer pointer
   143 00:54A3 22 B2 41 -  		ld 		(TWPointer),hl
-  144 00:54A6 CD 56 55 -  		call 	CLDecodeLineNumber
-  145 00:54A9 CD DE 54 -  		call 	CLPrintSpace
-  146 00:54AC DD 23 -  -  		inc 	ix 							; point to line star.
-  147 00:54AE DD 23 -  -  		inc 	ix
-  148 00:54B0 DD 23 -  -  		inc 	ix
-  149 00:54B2 -  -  -  -  _CLPLLoop		
-  150 00:54B2 DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
-  151 00:54B5 FE 80 -  -  		cp 		$80 						; EOL 
-  152 00:54B7 28 20 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
-  153 00:54B9 B7 -  -  -  		or 		a
-  154 00:54BA FC ED 54 -  		call 	m,CLDecodeKeyword
-  155 00:54BD -  -  -  -  
-  156 00:54BD 06 10 -  -  		ld 		b,16
-  157 00:54BF FE 94 -  -  		cp 		KWD_AMPERSAND
-  158 00:54C1 CC 4A 55 -  		call 	z,CLDecodeInteger
+  144 00:54A6 CD 77 55 -  		call 	CLDecodeLineNumber
+  145 00:54A9 -  -  -  -  _CLSpaceOut:		
+  146 00:54A9 CD E5 54 -  		call 	CLPrintSpace
+  147 00:54AC 3A B2 41 -  		ld 		a,(TWPointer)
+  148 00:54AF FE B8 -  -  		cp 		(6+TokenBuffer) & $FF
+  149 00:54B1 20 F6 -  -  		jr 		nz,_CLSpaceOut
+  150 00:54B3 DD 23 -  -  		inc 	ix 							; point to line star.
+  151 00:54B5 DD 23 -  -  		inc 	ix
+  152 00:54B7 DD 23 -  -  		inc 	ix
+  153 00:54B9 -  -  -  -  _CLPLLoop		
+  154 00:54B9 DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
+  155 00:54BC FE 80 -  -  		cp 		$80 						; EOL 
+  156 00:54BE 28 20 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
+  157 00:54C0 B7 -  -  -  		or 		a
+  158 00:54C1 FC F4 54 -  		call 	m,CLDecodeKeyword
   159 00:54C4 -  -  -  -  
-  160 00:54C4 FE 26 -  -  		cp 		IDENTIFIER_END
-  161 00:54C6 DC 0A 55 -  		call 	c,CLDecodeIdentifier
-  162 00:54C9 -  -  -  -  
-  163 00:54C9 FE 3F -  -  		cp 		STRING_MARKER
-  164 00:54CB CC 2B 55 -  		call 	z,CLDecodeString
-  165 00:54CE -  -  -  -  
-  166 00:54CE E6 C0 -  -  		and 	$C0
-  167 00:54D0 FE 40 -  -  		cp 		$40
-  168 00:54D2 06 0A -  -  		ld 		b,10
-  169 00:54D4 CC 4A 55 -  		call 	z,CLDecodeInteger
-  170 00:54D7 18 D9 -  -  		jr 		_CLPLLoop
-  171 00:54D9 -  -  -  -  
-  172 00:54D9 -  -  -  -  _CLPLLExit:		
-  173 00:54D9 DD E1 -  -  		pop 	ix
-  174 00:54DB D1 -  -  -  		pop 	de
-  175 00:54DC C1 -  -  -  		pop 	bc
-  176 00:54DD C9 -  -  -  		ret
-  177 00:54DE -  -  -  -  
-  178 00:54DE -  -  -  -  ; ***************************************************************************************
-  179 00:54DE -  -  -  -  ;
-  180 00:54DE -  -  -  -  ;								Print Space/A to output
-  181 00:54DE -  -  -  -  ;
-  182 00:54DE -  -  -  -  ; ***************************************************************************************
-  183 00:54DE -  -  -  -  
-  184 00:54DE -  -  -  -  CLPrintSpace:
-  185 00:54DE 3E 20 -  -  		ld 		a,' '
-  186 00:54E0 -  -  -  -  CLPrintA:
-  187 00:54E0 E5 -  -  -  		push 	hl
-  188 00:54E1 2A B2 41 -  		ld 		hl,(TWPointer)		
-  189 00:54E4 77 -  -  -  		ld 		(hl),a
-  190 00:54E5 23 -  -  -  		inc 	hl
-  191 00:54E6 22 B2 41 -  		ld 		(TWPointer),hl
-  192 00:54E9 36 00 -  -  		ld 		(hl),0
-  193 00:54EB E1 -  -  -  		pop 	hl
-  194 00:54EC C9 -  -  -  		ret
-  195 00:54ED -  -  -  -  
-  196 00:54ED -  -  -  -  ; ***************************************************************************************
-  197 00:54ED -  -  -  -  ;
-  198 00:54ED -  -  -  -  ;									Decode Keyword A
-  199 00:54ED -  -  -  -  ;
-  200 00:54ED -  -  -  -  ; ***************************************************************************************
-  201 00:54ED -  -  -  -  
-  202 00:54ED -  -  -  -  CLDecodeKeyword:
-  203 00:54ED F5 -  -  -  		push 	af
-  204 00:54EE DD 23 -  -  		inc 	ix 							; consume keyword
-  205 00:54F0 47 -  -  -  		ld 		b,a 						; put keyword # in B
-  206 00:54F1 21 E4 52 -  		ld 		hl,KeywordsSet0 			; start with set 0
-  207 00:54F4 -  -  -  -  _CLFindKeyword:
-  208 00:54F4 05 -  -  -  		dec 	b
-  209 00:54F5 F2 00 55 -  		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
-  210 00:54F8 11 00 00 -  		ld 		de,0 						; get length into DE
-  211 00:54FB 5E -  -  -  		ld 		e,(hl)
-  212 00:54FC 13 -  -  -  		inc 	de 							; +1 for the length
-  213 00:54FD 19 -  -  -  		add 	hl,de 						; go to next keyword		
-  214 00:54FE 18 F4 -  -  		jr 		_CLFindKeyword
-  215 00:5500 -  -  -  -  _CLFoundKeyword:
-  216 00:5500 46 -  -  -  		ld 		b,(hl) 						; get length into B
-  217 00:5501 -  -  -  -  _CLCopyKeyword:
-  218 00:5501 23 -  -  -  		inc 	hl 							; copy that many characters/
-  219 00:5502 7E -  -  -  		ld 		a,(hl)				
-  220 00:5503 CD E0 54 -  		call 	CLPrintA
-  221 00:5506 10 F9 -  -  		djnz 	_CLCopyKeyword
-  222 00:5508 F1 -  -  -  		pop 	af
-  223 00:5509 C9 -  -  -  		ret
-  224 00:550A -  -  -  -  
-  225 00:550A -  -  -  -  ; ***************************************************************************************
-  226 00:550A -  -  -  -  ;
-  227 00:550A -  -  -  -  ;								 Decode Identifier at IX
-  228 00:550A -  -  -  -  ;
-  229 00:550A -  -  -  -  ; ***************************************************************************************
-  230 00:550A -  -  -  -  
-  231 00:550A -  -  -  -  CLDecodeIdentifier:
-  232 00:550A F5 -  -  -  		push 	af
-  233 00:550B -  -  -  -  _CLDILoop:
-  234 00:550B DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
-  235 00:550E DD 23 -  -  		inc 	ix
-  236 00:5510 06 61 -  -  		ld 		b,97 
-  237 00:5512 FE 1A -  -  		cp 		26
-  238 00:5514 38 08 -  -  		jr 		c,_CLDIDoChar
-  239 00:5516 06 16 -  -  		ld 		b,48-26
-  240 00:5518 FE 24 -  -  		cp 		36
-  241 00:551A 38 02 -  -  		jr 		c,_CLDIDoChar
-  242 00:551C 06 3B -  -  		ld 		b,'_'-36
-  243 00:551E -  -  -  -  _CLDIDoChar:
-  244 00:551E 80 -  -  -  		add 	a,b
-  245 00:551F CD E0 54 -  		call 	CLPrintA		
-  246 00:5522 DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
-  247 00:5525 FE 26 -  -  		cp 		IDENTIFIER_END
-  248 00:5527 38 E2 -  -  		jr 		c,_CLDILoop
-  249 00:5529 F1 -  -  -  		pop 	af
-  250 00:552A C9 -  -  -  		ret
-  251 00:552B -  -  -  -  
-  252 00:552B -  -  -  -  ; ***************************************************************************************
-  253 00:552B -  -  -  -  ;
-  254 00:552B -  -  -  -  ;								 Decode String at IX
-  255 00:552B -  -  -  -  ;
-  256 00:552B -  -  -  -  ; ***************************************************************************************
-  257 00:552B -  -  -  -  
-  258 00:552B -  -  -  -  CLDecodeString:
-  259 00:552B F5 -  -  -  		push 	af
-  260 00:552C 3E 22 -  -  		ld	 	a,'"'
-  261 00:552E CD E0 54 -  		call 	CLPrintA
-  262 00:5531 DD 23 -  -  		inc 	ix
-  263 00:5533 DD 23 -  -  		inc 	ix
-  264 00:5535 -  -  -  -  _CLDSOut:
-  265 00:5535 DD 7E 00 -  		ld 		a,(ix+0)
-  266 00:5538 DD 23 -  -  		inc 	ix
-  267 00:553A FE 20 -  -  		cp 		' '	
-  268 00:553C 38 05 -  -  		jr 		c,_CLDSEnd
-  269 00:553E CD E0 54 -  		call 	CLPrintA
-  270 00:5541 18 F2 -  -  		jr 		_CLDSOut
-  271 00:5543 -  -  -  -  _CLDSEnd:		
-  272 00:5543 3E 22 -  -  		ld	 	a,'"'
-  273 00:5545 CD E0 54 -  		call 	CLPrintA
-  274 00:5548 F1 -  -  -  		pop 	af
-  275 00:5549 C9 -  -  -  		ret
-  276 00:554A -  -  -  -  
-  277 00:554A -  -  -  -  ; ***************************************************************************************
-  278 00:554A -  -  -  -  ;
-  279 00:554A -  -  -  -  ;								 Decode Integer at IX
-  280 00:554A -  -  -  -  ;
-  281 00:554A -  -  -  -  ; ***************************************************************************************
-  282 00:554A -  -  -  -  
-  283 00:554A -  -  -  -  CLDecodeInteger:
-  284 00:554A F5 -  -  -  		push 	af
-  285 00:554B C5 -  -  -  		push 	bc
-  286 00:554C CD 88 46 -  		call 	EvaluateInteger
-  287 00:554F C1 -  -  -  		pop 	bc
-  288 00:5550 78 -  -  -  		ld 		a,b
-  289 00:5551 CD 63 55 -  		call 	CLExpandInt32ToBuffer
-  290 00:5554 F1 -  -  -  		pop 	af
-  291 00:5555 C9 -  -  -  		ret
-  292 00:5556 -  -  -  -  
-  293 00:5556 -  -  -  -  ; ***************************************************************************************
-  294 00:5556 -  -  -  -  ;
-  295 00:5556 -  -  -  -  ;							 Decode Line Number into Token Buffer
-  296 00:5556 -  -  -  -  ;
-  297 00:5556 -  -  -  -  ; ***************************************************************************************
-  298 00:5556 -  -  -  -  
-  299 00:5556 -  -  -  -  CLDecodeLineNumber:
-  300 00:5556 DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
-  301 00:5559 DD 66 02 -  		ld 		h,(ix+2)
-  302 00:555C D9 -  -  -  		exx
-  303 00:555D 21 00 00 -  		ld 		hl,$000000
-  304 00:5560 D9 -  -  -  		exx
-  305 00:5561 3E 0A -  -  		ld 		a,10 						; base
-  306 00:5563 -  -  -  -  CLExpandInt32ToBuffer:
-  307 00:5563 ED 4B B2 41 		ld 		bc,(TWPointer) 				; where it goes.
-  308 00:5567 CD 5E 52 -  		call 	Int32ToString
-  309 00:556A -  -  -  -  _CLEI3End: 									; look for number end.
-  310 00:556A 0A -  -  -  		ld 		a,(bc)
-  311 00:556B ED 43 B2 41 		ld 		(TWPointer),bc
-  312 00:556F 03 -  -  -  		inc 	bc
-  313 00:5570 FE 20 -  -  		cp 		' '
-  314 00:5572 30 F6 -  -  		jr 		nc,_CLEI3End
-  315 00:5574 AF -  -  -  		xor 	a 							; add EOS
-  316 00:5575 02 -  -  -  		ld 		(bc),a				
-  317 00:5576 C9 -  -  -  		ret
-  318 00:5577 -  -  -  -  
-  319 00:5577 -  -  -  -  ; ***************************************************************************************
-  320 00:5577 -  -  -  -  ;
-  321 00:5577 -  -  -  -  ;									Changes and Updates
-  322 00:5577 -  -  -  -  ;
-  323 00:5577 -  -  -  -  ; ***************************************************************************************
-  324 00:5577 -  -  -  -  ;
-  325 00:5577 -  -  -  -  ;		Date			Notes
-  326 00:5577 -  -  -  -  ;		==== 			=====
-  327 00:5577 -  -  -  -  ;
-  328 00:5577 -  -  -  -  ; ***************************************************************************************
+  160 00:54C4 06 10 -  -  		ld 		b,16
+  161 00:54C6 FE 94 -  -  		cp 		KWD_AMPERSAND
+  162 00:54C8 CC 68 55 -  		call 	z,CLDecodeInteger
+  163 00:54CB -  -  -  -  
+  164 00:54CB FE 26 -  -  		cp 		IDENTIFIER_END
+  165 00:54CD DC 25 55 -  		call 	c,CLDecodeIdentifier
+  166 00:54D0 -  -  -  -  
+  167 00:54D0 FE 3F -  -  		cp 		STRING_MARKER
+  168 00:54D2 CC 49 55 -  		call 	z,CLDecodeString
+  169 00:54D5 -  -  -  -  
+  170 00:54D5 E6 C0 -  -  		and 	$C0
+  171 00:54D7 FE 40 -  -  		cp 		$40
+  172 00:54D9 06 0A -  -  		ld 		b,10
+  173 00:54DB CC 68 55 -  		call 	z,CLDecodeInteger
+  174 00:54DE 18 D9 -  -  		jr 		_CLPLLoop
+  175 00:54E0 -  -  -  -  
+  176 00:54E0 -  -  -  -  _CLPLLExit:		
+  177 00:54E0 DD E1 -  -  		pop 	ix
+  178 00:54E2 D1 -  -  -  		pop 	de
+  179 00:54E3 C1 -  -  -  		pop 	bc
+  180 00:54E4 C9 -  -  -  		ret
+  181 00:54E5 -  -  -  -  
+  182 00:54E5 -  -  -  -  ; ***************************************************************************************
+  183 00:54E5 -  -  -  -  ;
+  184 00:54E5 -  -  -  -  ;								Print Space/A to output
+  185 00:54E5 -  -  -  -  ;
+  186 00:54E5 -  -  -  -  ; ***************************************************************************************
+  187 00:54E5 -  -  -  -  
+  188 00:54E5 -  -  -  -  CLPrintSpace:
+  189 00:54E5 3E 20 -  -  		ld 		a,' '
+  190 00:54E7 -  -  -  -  CLPrintA:
+  191 00:54E7 E5 -  -  -  		push 	hl
+  192 00:54E8 2A B2 41 -  		ld 		hl,(TWPointer)		
+  193 00:54EB 77 -  -  -  		ld 		(hl),a
+  194 00:54EC 23 -  -  -  		inc 	hl
+  195 00:54ED 22 B2 41 -  		ld 		(TWPointer),hl
+  196 00:54F0 36 00 -  -  		ld 		(hl),0
+  197 00:54F2 E1 -  -  -  		pop 	hl
+  198 00:54F3 C9 -  -  -  		ret
+  199 00:54F4 -  -  -  -  
+  200 00:54F4 -  -  -  -  ; ***************************************************************************************
+  201 00:54F4 -  -  -  -  ;
+  202 00:54F4 -  -  -  -  ;									Decode Keyword A
+  203 00:54F4 -  -  -  -  ;
+  204 00:54F4 -  -  -  -  ; ***************************************************************************************
+  205 00:54F4 -  -  -  -  
+  206 00:54F4 -  -  -  -  CLDecodeKeyword:
+  207 00:54F4 F5 -  -  -  		push 	af
+  208 00:54F5 FE 81 -  -  		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
+  209 00:54F7 CA F1 44 -  		jp 		z,NotImplemented
+  210 00:54FA FE 82 -  -  		cp 		KWC_SHIFT_2
+  211 00:54FC CA F1 44 -  		jp 		z,NotImplemented
+  212 00:54FF -  -  -  -  
+  213 00:54FF DD 23 -  -  		inc 	ix 							; consume keyword
+  214 00:5501 47 -  -  -  		ld 		b,a 						; put keyword # in B
+  215 00:5502 21 E4 52 -  		ld 		hl,KeywordsSet0 			; start with set 0
+  216 00:5505 -  -  -  -  _CLFindKeyword:
+  217 00:5505 05 -  -  -  		dec 	b
+  218 00:5506 F2 11 55 -  		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
+  219 00:5509 11 00 00 -  		ld 		de,0 						; get length into DE
+  220 00:550C 5E -  -  -  		ld 		e,(hl)
+  221 00:550D 13 -  -  -  		inc 	de 							; +1 for the length
+  222 00:550E 19 -  -  -  		add 	hl,de 						; go to next keyword		
+  223 00:550F 18 F4 -  -  		jr 		_CLFindKeyword
+  224 00:5511 -  -  -  -  _CLFoundKeyword:
+  225 00:5511 46 -  -  -  		ld 		b,(hl) 						; get length into B
+  226 00:5512 23 -  -  -  		inc 	hl
+  227 00:5513 7E -  -  -  		ld 		a,(hl) 						; is first char identifier
+  228 00:5514 CD A8 55 -  		call 	CLGetCharacterType 			
+  229 00:5517 FE 01 -  -  		cp 		1 							; if so, space requied maybe ?
+  230 00:5519 CC 98 55 -  		call 	z,CLCheckLastIdentifier
+  231 00:551C -  -  -  -  _CLCopyKeyword:
+  232 00:551C 7E -  -  -  		ld 		a,(hl)						; copy that many characters			
+  233 00:551D 23 -  -  -  		inc 	hl 		
+  234 00:551E CD E7 54 -  		call 	CLPrintA
+  235 00:5521 10 F9 -  -  		djnz 	_CLCopyKeyword
+  236 00:5523 F1 -  -  -  		pop 	af
+  237 00:5524 C9 -  -  -  		ret
+  238 00:5525 -  -  -  -  
+  239 00:5525 -  -  -  -  ; ***************************************************************************************
+  240 00:5525 -  -  -  -  ;
+  241 00:5525 -  -  -  -  ;								 Decode Identifier at IX
+  242 00:5525 -  -  -  -  ;
+  243 00:5525 -  -  -  -  ; ***************************************************************************************
+  244 00:5525 -  -  -  -  
+  245 00:5525 -  -  -  -  CLDecodeIdentifier:
+  246 00:5525 F5 -  -  -  		push 	af
+  247 00:5526 CD 98 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
+  248 00:5529 -  -  -  -  _CLDILoop:
+  249 00:5529 DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
+  250 00:552C DD 23 -  -  		inc 	ix
+  251 00:552E 06 61 -  -  		ld 		b,97 
+  252 00:5530 FE 1A -  -  		cp 		26
+  253 00:5532 38 08 -  -  		jr 		c,_CLDIDoChar
+  254 00:5534 06 16 -  -  		ld 		b,48-26
+  255 00:5536 FE 24 -  -  		cp 		36
+  256 00:5538 38 02 -  -  		jr 		c,_CLDIDoChar
+  257 00:553A 06 3B -  -  		ld 		b,'_'-36
+  258 00:553C -  -  -  -  _CLDIDoChar:
+  259 00:553C 80 -  -  -  		add 	a,b
+  260 00:553D CD E7 54 -  		call 	CLPrintA		
+  261 00:5540 DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
+  262 00:5543 FE 26 -  -  		cp 		IDENTIFIER_END
+  263 00:5545 38 E2 -  -  		jr 		c,_CLDILoop
+  264 00:5547 F1 -  -  -  		pop 	af
+  265 00:5548 C9 -  -  -  		ret
+  266 00:5549 -  -  -  -  
+  267 00:5549 -  -  -  -  ; ***************************************************************************************
+  268 00:5549 -  -  -  -  ;
+  269 00:5549 -  -  -  -  ;								 Decode String at IX
+  270 00:5549 -  -  -  -  ;
+  271 00:5549 -  -  -  -  ; ***************************************************************************************
+  272 00:5549 -  -  -  -  
+  273 00:5549 -  -  -  -  CLDecodeString:
+  274 00:5549 F5 -  -  -  		push 	af
+  275 00:554A 3E 22 -  -  		ld	 	a,'"'
+  276 00:554C CD E7 54 -  		call 	CLPrintA
+  277 00:554F DD 23 -  -  		inc 	ix
+  278 00:5551 DD 23 -  -  		inc 	ix
+  279 00:5553 -  -  -  -  _CLDSOut:
+  280 00:5553 DD 7E 00 -  		ld 		a,(ix+0)
+  281 00:5556 DD 23 -  -  		inc 	ix
+  282 00:5558 FE 20 -  -  		cp 		' '	
+  283 00:555A 38 05 -  -  		jr 		c,_CLDSEnd
+  284 00:555C CD E7 54 -  		call 	CLPrintA
+  285 00:555F 18 F2 -  -  		jr 		_CLDSOut
+  286 00:5561 -  -  -  -  _CLDSEnd:		
+  287 00:5561 3E 22 -  -  		ld	 	a,'"'
+  288 00:5563 CD E7 54 -  		call 	CLPrintA
+  289 00:5566 F1 -  -  -  		pop 	af
+  290 00:5567 C9 -  -  -  		ret
+  291 00:5568 -  -  -  -  
+  292 00:5568 -  -  -  -  ; ***************************************************************************************
+  293 00:5568 -  -  -  -  ;
+  294 00:5568 -  -  -  -  ;							Decode Integer at IX, base B
+  295 00:5568 -  -  -  -  ;
+  296 00:5568 -  -  -  -  ; ***************************************************************************************
+  297 00:5568 -  -  -  -  
+  298 00:5568 -  -  -  -  CLDecodeInteger:
+  299 00:5568 F5 -  -  -  		push 	af
+  300 00:5569 C5 -  -  -  		push 	bc
+  301 00:556A CD 98 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
+  302 00:556D CD 6A 46 -  		call 	EvaluateIntegerTerm 		; get the number only
+  303 00:5570 C1 -  -  -  		pop 	bc
+  304 00:5571 78 -  -  -  		ld 		a,b 						; base
+  305 00:5572 CD 84 55 -  		call 	CLExpandInt32ToBuffer
+  306 00:5575 F1 -  -  -  		pop 	af
+  307 00:5576 C9 -  -  -  		ret
+  308 00:5577 -  -  -  -  
+  309 00:5577 -  -  -  -  ; ***************************************************************************************
+  310 00:5577 -  -  -  -  ;
+  311 00:5577 -  -  -  -  ;							 Decode Line Number into Token Buffer
+  312 00:5577 -  -  -  -  ;
+  313 00:5577 -  -  -  -  ; ***************************************************************************************
+  314 00:5577 -  -  -  -  
+  315 00:5577 -  -  -  -  CLDecodeLineNumber:
+  316 00:5577 DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
+  317 00:557A DD 66 02 -  		ld 		h,(ix+2)
+  318 00:557D D9 -  -  -  		exx
+  319 00:557E 21 00 00 -  		ld 		hl,$000000
+  320 00:5581 D9 -  -  -  		exx
+  321 00:5582 3E 0A -  -  		ld 		a,10 						; base
+  322 00:5584 -  -  -  -  CLExpandInt32ToBuffer:
+  323 00:5584 ED 4B B2 41 		ld 		bc,(TWPointer) 				; where it goes.
+  324 00:5588 CD 5E 52 -  		call 	Int32ToString
+  325 00:558B -  -  -  -  _CLEI3End: 									; look for number end.
+  326 00:558B 0A -  -  -  		ld 		a,(bc)
+  327 00:558C ED 43 B2 41 		ld 		(TWPointer),bc
+  328 00:5590 03 -  -  -  		inc 	bc
+  329 00:5591 FE 20 -  -  		cp 		' '
+  330 00:5593 30 F6 -  -  		jr 		nc,_CLEI3End
+  331 00:5595 AF -  -  -  		xor 	a 							; add EOS
+  332 00:5596 02 -  -  -  		ld 		(bc),a				
+  333 00:5597 C9 -  -  -  		ret
+  334 00:5598 -  -  -  -  
+  335 00:5598 -  -  -  -  ; ***************************************************************************************
+  336 00:5598 -  -  -  -  ;
+  337 00:5598 -  -  -  -  ;						Check if last was identifier, if so add space
+  338 00:5598 -  -  -  -  ;
+  339 00:5598 -  -  -  -  ; ***************************************************************************************
+  340 00:5598 -  -  -  -  
+  341 00:5598 -  -  -  -  CLCheckLastIdentifier:
+  342 00:5598 E5 -  -  -  		push	hl 							; get last character written
+  343 00:5599 2A B2 41 -  		ld 		hl,(TWPointer)
+  344 00:559C 2B -  -  -  		dec 	hl
+  345 00:559D 7E -  -  -  		ld 		a,(hl)
+  346 00:559E E1 -  -  -  		pop 	hl
+  347 00:559F CD A8 55 -  		call 	CLGetCharacterType 			; get type
+  348 00:55A2 FE 01 -  -  		cp 		1  							; if identifier (A-Z0-9_)
+  349 00:55A4 CC E5 54 -  		call 	z,CLPrintSpace 				; space needed
+  350 00:55A7 C9 -  -  -  		ret
+  351 00:55A8 -  -  -  -  
+  352 00:55A8 -  -  -  -  ; ***************************************************************************************
+  353 00:55A8 -  -  -  -  ;
+  354 00:55A8 -  -  -  -  ;								Get character type
+  355 00:55A8 -  -  -  -  ;						0 = Space, 1 = 0-9a-zA-Z_ 2 = the rest
+  356 00:55A8 -  -  -  -  ;
+  357 00:55A8 -  -  -  -  ; ***************************************************************************************
+  358 00:55A8 -  -  -  -  
+  359 00:55A8 -  -  -  -  CLGetCharacterType:
+  360 00:55A8 EE 20 -  -  		xor 	' ' 						; zero if space
+  361 00:55AA C8 -  -  -  		ret 	z
+  362 00:55AB EE 20 -  -  		xor 	' '							; get it back
+  363 00:55AD -  -  -  -  		;
+  364 00:55AD FE 5F -  -  		cp 		'_' 						; identifier if underscore.
+  365 00:55AF 28 16 -  -  		jr 		z,_CLIsIdentifier
+  366 00:55B1 -  -  -  -  		;
+  367 00:55B1 FE 30 -  -  		cp 		'0' 						; check 0-9
+  368 00:55B3 38 15 -  -  		jr 		c,_CLNotIdentifier
+  369 00:55B5 FE 3A -  -  		cp 		'9'+1
+  370 00:55B7 38 0E -  -  		jr 		c,_CLIsIdentifier
+  371 00:55B9 -  -  -  -  		;
+  372 00:55B9 FE 60 -  -  		cp 		96 							; shift l/c down
+  373 00:55BB 38 02 -  -  		jr 		c,_CLNotUpper
+  374 00:55BD D6 20 -  -  		sub 	a,32
+  375 00:55BF -  -  -  -  _CLNotUpper:
+  376 00:55BF FE 41 -  -  		cp 		'A'
+  377 00:55C1 38 07 -  -  		jr 		c,_CLNotIdentifier
+  378 00:55C3 FE 5B -  -  		cp 		'Z'+1
+  379 00:55C5 30 00 -  -  		jr 		nc,_CLIsIdentifier		
+  380 00:55C7 -  -  -  -  _CLIsIdentifier:
+  381 00:55C7 3E 01 -  -  		ld 		a,1
+  382 00:55C9 C9 -  -  -  		ret
+  383 00:55CA -  -  -  -  _CLNotIdentifier:
+  384 00:55CA 3E 02 -  -  		ld 		a,2
+  385 00:55CC C9 -  -  -  		ret
+  386 00:55CD -  -  -  -  
+  387 00:55CD -  -  -  -  ; ***************************************************************************************
+  388 00:55CD -  -  -  -  ;
+  389 00:55CD -  -  -  -  ;									Changes and Updates
+  390 00:55CD -  -  -  -  ;
+  391 00:55CD -  -  -  -  ; ***************************************************************************************
+  392 00:55CD -  -  -  -  ;
+  393 00:55CD -  -  -  -  ;		Date			Notes
+  394 00:55CD -  -  -  -  ;		==== 			=====
+  395 00:55CD -  -  -  -  ;
+  396 00:55CD -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   84 00:5577 -  -  -  -  #include "testprogram/basic.asm"
+   84 00:55CD -  -  -  -  #include "testprogram/basic.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-    1 00:5577 -  -  -  -  ; ***************************************************************************************
-    2 00:5577 -  -  -  -  ; ***************************************************************************************
-    3 00:5577 -  -  -  -  ;
-    4 00:5577 -  -  -  -  ;		Name : 		basic.asm
-    5 00:5577 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:5577 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:5577 -  -  -  -  ;		Reviewed :	No
-    8 00:5577 -  -  -  -  ;		Purpose :	Main program.
-    9 00:5577 -  -  -  -  ;
-   10 00:5577 -  -  -  -  ; ***************************************************************************************
-   11 00:5577 -  -  -  -  ; ***************************************************************************************
-   12 00:5577 -  -  -  -  
-   13 00:5577 00 00 00 00 
+    1 00:55CD -  -  -  -  ; ***************************************************************************************
+    2 00:55CD -  -  -  -  ; ***************************************************************************************
+    3 00:55CD -  -  -  -  ;
+    4 00:55CD -  -  -  -  ;		Name : 		basic.asm
+    5 00:55CD -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:55CD -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:55CD -  -  -  -  ;		Reviewed :	No
+    8 00:55CD -  -  -  -  ;		Purpose :	Main program.
+    9 00:55CD -  -  -  -  ;
+   10 00:55CD -  -  -  -  ; ***************************************************************************************
+   11 00:55CD -  -  -  -  ; ***************************************************************************************
+   12 00:55CD -  -  -  -  
+   13 00:55CD 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -7348,37 +7418,13 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 -  -  -  		.block 		$400-($ & $3FF)
+              00 00 00 -  		.block 		$400-($ & $3FF)
    14 00:5800 -  -  -  -  TestInstance:
-   15 00:5800 -  -  -  -  		#include 	"testprogram/testprogram.dat"
-Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.dat"
-    1 00:5800 -  -  -  -  ;
-    2 00:5800 -  -  -  -  ;	This code automatically generated.
-    3 00:5800 -  -  -  -  ;
-    4 00:5800 -  -  -  -  TestProgram:
-    5 00:5800 05 0A 00 C4 
+   15 00:5800 10 04 00 BF 
+              00 8F 0A 86 
+              42 85 43 89 
+              44 8A 45 80 
+              05 0A 00 C4 
               80 0F 0C 00 
               00 01 02 24 
               1B 1C 1D 8F 
@@ -7417,10 +7463,9 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
               00 8F 94 4A 
               64 A7 C1 00 
               80 05 62 02 
-              B8 80 05 BC 
-              02 BA 80 00 	.db	$05,$0a,$00,$c4,$80,$0f,$0c,$00,$00,$01,$02,$24,$1b,$1c,$1d,$8f,$17,$a7,$cd,$80,$08,$14,$00,$bf,$0a,$8f,$40,$80,$09,$19,$00,$bd,$0c,$95,$45,$a5,$80,$0a,$1e,$00,$bf,$0a,$8f,$0a,$89,$41,$80,$10,$28,$00,$bf,$00,$8f,$0a,$86,$42,$85,$43,$89,$44,$8a,$45,$80,$07,$2d,$00,$b9,$4a,$7c,$80,$0a,$2e,$00,$b2,$0b,$8f,$41,$b3,$45,$80,$0b,$2f,$00,$bf,$0c,$95,$0b,$a5,$8f,$00,$80,$05,$30,$00,$b5,$80,$0d,$32,$00,$af,$0a,$8e,$42,$5c,$50,$b0,$bb,$5e,$80,$13,$3c,$00,$c1,$3f,$0b,$48,$65,$6c,$6c,$6f,$20,$77,$6f,$72,$6c,$64,$0d,$80,$0d,$58,$02,$b6,$b7,$13,$04,$12,$13,$95,$00,$a5,$80,$0c,$5d,$02,$00,$8f,$94,$4a,$64,$a7,$c1,$00,$80,$05,$62,$02,$b8,$80,$05,$bc,$02,$ba,$80,$00
-Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-   16 00:58A4 00 00 00 00 
+              B8 80 05 AC 
+              58 BA 80 -  		#import 	"testprogram/testprogram.dat"
+   16 00:58B3 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -8444,17 +8489,17 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 		.block 		4096
-   17 00:68A4 -  -  -  -  EndTestInstance:
-   18 00:68A4 -  -  -  -  		
-   19 00:68A4 -  -  -  -  ; ***************************************************************************************
-   20 00:68A4 -  -  -  -  ;
-   21 00:68A4 -  -  -  -  ;									Changes and Updates
-   22 00:68A4 -  -  -  -  ;
-   23 00:68A4 -  -  -  -  ; ***************************************************************************************
-   24 00:68A4 -  -  -  -  ;
-   25 00:68A4 -  -  -  -  ;		Date			Notes
-   26 00:68A4 -  -  -  -  ;		==== 			=====
-   27 00:68A4 -  -  -  -  ;
-   28 00:68A4 -  -  -  -  ; ***************************************************************************************
+   17 00:68B3 -  -  -  -  EndTestInstance:
+   18 00:68B3 -  -  -  -  		
+   19 00:68B3 -  -  -  -  ; ***************************************************************************************
+   20 00:68B3 -  -  -  -  ;
+   21 00:68B3 -  -  -  -  ;									Changes and Updates
+   22 00:68B3 -  -  -  -  ;
+   23 00:68B3 -  -  -  -  ; ***************************************************************************************
+   24 00:68B3 -  -  -  -  ;
+   25 00:68B3 -  -  -  -  ;		Date			Notes
+   26 00:68B3 -  -  -  -  ;		==== 			=====
+   27 00:68B3 -  -  -  -  ;
+   28 00:68B3 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   85 00:68A4 -  -  -  -  FinalAddress:
+   85 00:68B3 -  -  -  -  FinalAddress:

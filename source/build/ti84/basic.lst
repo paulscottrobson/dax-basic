@@ -786,7 +786,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    43 D1:A881             #endif
    44 D1:A881 CD AA BD D1 		call 	SYSInitialise
    45 D1:A885 11 00 C4 D1 		ld 		de,TestInstance
-   46 D1:A889 21 A4 D4 D1 		ld 		hl,EndTestInstance
+   46 D1:A889 21 B3 D4 D1 		ld 		hl,EndTestInstance
    47 D1:A88D CD 6C B4 D1 		call 	SetCurrentInstance
    48 D1:A891 -  -  -  -  
    49 D1:A891 3E C3 -  -  		ld 		a,$C3 				; the code for JP
@@ -7067,230 +7067,272 @@ Listing for file "/home/paulr/Projects/dax-basic/source/tokeniser/list.asm"
   141 D1:BFF5 DD E5 -  -  		push 	ix
   142 D1:BFF7 21 37 A9 D1 		ld 		hl,TokenBuffer 				; set the token buffer pointer
   143 D1:BFFB 22 37 AA D1 		ld 		(TWPointer),hl
-  144 D1:BFFF CD C2 C0 D1 		call 	CLDecodeLineNumber
-  145 D1:C003 CD 3E C0 D1 		call 	CLPrintSpace
-  146 D1:C007 DD 23 -  -  		inc 	ix 							; point to line star.
-  147 D1:C009 DD 23 -  -  		inc 	ix
-  148 D1:C00B DD 23 -  -  		inc 	ix
-  149 D1:C00D -  -  -  -  _CLPLLoop		
-  150 D1:C00D DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
-  151 D1:C010 FE 80 -  -  		cp 		$80 						; EOL 
-  152 D1:C012 28 25 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
-  153 D1:C014 B7 -  -  -  		or 		a
-  154 D1:C015 FC 4F C0 D1 		call 	m,CLDecodeKeyword
-  155 D1:C019 -  -  -  -  
-  156 D1:C019 06 10 -  -  		ld 		b,16
-  157 D1:C01B FE 94 -  -  		cp 		KWD_AMPERSAND
-  158 D1:C01D CC B4 C0 D1 		call 	z,CLDecodeInteger
+  144 D1:BFFF CD DE C0 D1 		call 	CLDecodeLineNumber
+  145 D1:C003 -  -  -  -  _CLSpaceOut:		
+  146 D1:C003 CD 46 C0 D1 		call 	CLPrintSpace
+  147 D1:C007 3A 37 AA D1 		ld 		a,(TWPointer)
+  148 D1:C00B FE 3D -  -  		cp 		(6+TokenBuffer) & $FF
+  149 D1:C00D 20 F4 -  -  		jr 		nz,_CLSpaceOut
+  150 D1:C00F DD 23 -  -  		inc 	ix 							; point to line star.
+  151 D1:C011 DD 23 -  -  		inc 	ix
+  152 D1:C013 DD 23 -  -  		inc 	ix
+  153 D1:C015 -  -  -  -  _CLPLLoop		
+  154 D1:C015 DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
+  155 D1:C018 FE 80 -  -  		cp 		$80 						; EOL 
+  156 D1:C01A 28 25 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
+  157 D1:C01C B7 -  -  -  		or 		a
+  158 D1:C01D FC 57 C0 D1 		call 	m,CLDecodeKeyword
   159 D1:C021 -  -  -  -  
-  160 D1:C021 FE 26 -  -  		cp 		IDENTIFIER_END
-  161 D1:C023 DC 70 C0 D1 		call 	c,CLDecodeIdentifier
-  162 D1:C027 -  -  -  -  
-  163 D1:C027 FE 3F -  -  		cp 		STRING_MARKER
-  164 D1:C029 CC 92 C0 D1 		call 	z,CLDecodeString
-  165 D1:C02D -  -  -  -  
-  166 D1:C02D E6 C0 -  -  		and 	$C0
-  167 D1:C02F FE 40 -  -  		cp 		$40
-  168 D1:C031 06 0A -  -  		ld 		b,10
-  169 D1:C033 CC B4 C0 D1 		call 	z,CLDecodeInteger
-  170 D1:C037 18 D4 -  -  		jr 		_CLPLLoop
-  171 D1:C039 -  -  -  -  
-  172 D1:C039 -  -  -  -  _CLPLLExit:		
-  173 D1:C039 DD E1 -  -  		pop 	ix
-  174 D1:C03B D1 -  -  -  		pop 	de
-  175 D1:C03C C1 -  -  -  		pop 	bc
-  176 D1:C03D C9 -  -  -  		ret
-  177 D1:C03E -  -  -  -  
-  178 D1:C03E -  -  -  -  ; ***************************************************************************************
-  179 D1:C03E -  -  -  -  ;
-  180 D1:C03E -  -  -  -  ;								Print Space/A to output
-  181 D1:C03E -  -  -  -  ;
-  182 D1:C03E -  -  -  -  ; ***************************************************************************************
-  183 D1:C03E -  -  -  -  
-  184 D1:C03E -  -  -  -  CLPrintSpace:
-  185 D1:C03E 3E 20 -  -  		ld 		a,' '
-  186 D1:C040 -  -  -  -  CLPrintA:
-  187 D1:C040 E5 -  -  -  		push 	hl
-  188 D1:C041 2A 37 AA D1 		ld 		hl,(TWPointer)		
-  189 D1:C045 77 -  -  -  		ld 		(hl),a
-  190 D1:C046 23 -  -  -  		inc 	hl
-  191 D1:C047 22 37 AA D1 		ld 		(TWPointer),hl
-  192 D1:C04B 36 00 -  -  		ld 		(hl),0
-  193 D1:C04D E1 -  -  -  		pop 	hl
-  194 D1:C04E C9 -  -  -  		ret
-  195 D1:C04F -  -  -  -  
-  196 D1:C04F -  -  -  -  ; ***************************************************************************************
-  197 D1:C04F -  -  -  -  ;
-  198 D1:C04F -  -  -  -  ;									Decode Keyword A
-  199 D1:C04F -  -  -  -  ;
-  200 D1:C04F -  -  -  -  ; ***************************************************************************************
-  201 D1:C04F -  -  -  -  
-  202 D1:C04F -  -  -  -  CLDecodeKeyword:
-  203 D1:C04F F5 -  -  -  		push 	af
-  204 D1:C050 DD 23 -  -  		inc 	ix 							; consume keyword
-  205 D1:C052 47 -  -  -  		ld 		b,a 						; put keyword # in B
-  206 D1:C053 21 2B BE D1 		ld 		hl,KeywordsSet0 			; start with set 0
-  207 D1:C057 -  -  -  -  _CLFindKeyword:
-  208 D1:C057 05 -  -  -  		dec 	b
-  209 D1:C058 F2 65 C0 D1 		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
-  210 D1:C05C 11 00 00 00 		ld 		de,0 						; get length into DE
-  211 D1:C060 5E -  -  -  		ld 		e,(hl)
-  212 D1:C061 13 -  -  -  		inc 	de 							; +1 for the length
-  213 D1:C062 19 -  -  -  		add 	hl,de 						; go to next keyword		
-  214 D1:C063 18 F2 -  -  		jr 		_CLFindKeyword
-  215 D1:C065 -  -  -  -  _CLFoundKeyword:
-  216 D1:C065 46 -  -  -  		ld 		b,(hl) 						; get length into B
-  217 D1:C066 -  -  -  -  _CLCopyKeyword:
-  218 D1:C066 23 -  -  -  		inc 	hl 							; copy that many characters/
-  219 D1:C067 7E -  -  -  		ld 		a,(hl)				
-  220 D1:C068 CD 40 C0 D1 		call 	CLPrintA
-  221 D1:C06C 10 F8 -  -  		djnz 	_CLCopyKeyword
-  222 D1:C06E F1 -  -  -  		pop 	af
-  223 D1:C06F C9 -  -  -  		ret
-  224 D1:C070 -  -  -  -  
-  225 D1:C070 -  -  -  -  ; ***************************************************************************************
-  226 D1:C070 -  -  -  -  ;
-  227 D1:C070 -  -  -  -  ;								 Decode Identifier at IX
-  228 D1:C070 -  -  -  -  ;
-  229 D1:C070 -  -  -  -  ; ***************************************************************************************
-  230 D1:C070 -  -  -  -  
-  231 D1:C070 -  -  -  -  CLDecodeIdentifier:
-  232 D1:C070 F5 -  -  -  		push 	af
-  233 D1:C071 -  -  -  -  _CLDILoop:
-  234 D1:C071 DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
-  235 D1:C074 DD 23 -  -  		inc 	ix
-  236 D1:C076 06 61 -  -  		ld 		b,97 
-  237 D1:C078 FE 1A -  -  		cp 		26
-  238 D1:C07A 38 08 -  -  		jr 		c,_CLDIDoChar
-  239 D1:C07C 06 16 -  -  		ld 		b,48-26
-  240 D1:C07E FE 24 -  -  		cp 		36
-  241 D1:C080 38 02 -  -  		jr 		c,_CLDIDoChar
-  242 D1:C082 06 3B -  -  		ld 		b,'_'-36
-  243 D1:C084 -  -  -  -  _CLDIDoChar:
-  244 D1:C084 80 -  -  -  		add 	a,b
-  245 D1:C085 CD 40 C0 D1 		call 	CLPrintA		
-  246 D1:C089 DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
-  247 D1:C08C FE 26 -  -  		cp 		IDENTIFIER_END
-  248 D1:C08E 38 E1 -  -  		jr 		c,_CLDILoop
-  249 D1:C090 F1 -  -  -  		pop 	af
-  250 D1:C091 C9 -  -  -  		ret
-  251 D1:C092 -  -  -  -  
-  252 D1:C092 -  -  -  -  ; ***************************************************************************************
-  253 D1:C092 -  -  -  -  ;
-  254 D1:C092 -  -  -  -  ;								 Decode String at IX
-  255 D1:C092 -  -  -  -  ;
-  256 D1:C092 -  -  -  -  ; ***************************************************************************************
-  257 D1:C092 -  -  -  -  
-  258 D1:C092 -  -  -  -  CLDecodeString:
-  259 D1:C092 F5 -  -  -  		push 	af
-  260 D1:C093 3E 22 -  -  		ld	 	a,'"'
-  261 D1:C095 CD 40 C0 D1 		call 	CLPrintA
-  262 D1:C099 DD 23 -  -  		inc 	ix
-  263 D1:C09B DD 23 -  -  		inc 	ix
-  264 D1:C09D -  -  -  -  _CLDSOut:
-  265 D1:C09D DD 7E 00 -  		ld 		a,(ix+0)
-  266 D1:C0A0 DD 23 -  -  		inc 	ix
-  267 D1:C0A2 FE 20 -  -  		cp 		' '	
-  268 D1:C0A4 38 06 -  -  		jr 		c,_CLDSEnd
-  269 D1:C0A6 CD 40 C0 D1 		call 	CLPrintA
-  270 D1:C0AA 18 F1 -  -  		jr 		_CLDSOut
-  271 D1:C0AC -  -  -  -  _CLDSEnd:		
-  272 D1:C0AC 3E 22 -  -  		ld	 	a,'"'
-  273 D1:C0AE CD 40 C0 D1 		call 	CLPrintA
-  274 D1:C0B2 F1 -  -  -  		pop 	af
-  275 D1:C0B3 C9 -  -  -  		ret
-  276 D1:C0B4 -  -  -  -  
-  277 D1:C0B4 -  -  -  -  ; ***************************************************************************************
-  278 D1:C0B4 -  -  -  -  ;
-  279 D1:C0B4 -  -  -  -  ;								 Decode Integer at IX
-  280 D1:C0B4 -  -  -  -  ;
-  281 D1:C0B4 -  -  -  -  ; ***************************************************************************************
-  282 D1:C0B4 -  -  -  -  
-  283 D1:C0B4 -  -  -  -  CLDecodeInteger:
-  284 D1:C0B4 F5 -  -  -  		push 	af
-  285 D1:C0B5 C5 -  -  -  		push 	bc
-  286 D1:C0B6 CD B6 AF D1 		call 	EvaluateInteger
-  287 D1:C0BA C1 -  -  -  		pop 	bc
-  288 D1:C0BB 78 -  -  -  		ld 		a,b
-  289 D1:C0BC CD D0 C0 D1 		call 	CLExpandInt32ToBuffer
-  290 D1:C0C0 F1 -  -  -  		pop 	af
-  291 D1:C0C1 C9 -  -  -  		ret
-  292 D1:C0C2 -  -  -  -  
-  293 D1:C0C2 -  -  -  -  ; ***************************************************************************************
-  294 D1:C0C2 -  -  -  -  ;
-  295 D1:C0C2 -  -  -  -  ;							 Decode Line Number into Token Buffer
-  296 D1:C0C2 -  -  -  -  ;
-  297 D1:C0C2 -  -  -  -  ; ***************************************************************************************
-  298 D1:C0C2 -  -  -  -  
-  299 D1:C0C2 -  -  -  -  CLDecodeLineNumber:
-  300 D1:C0C2 DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
-  301 D1:C0C5 DD 66 02 -  		ld 		h,(ix+2)
-  302 D1:C0C8 D9 -  -  -  		exx
-  303 D1:C0C9 21 00 00 00 		ld 		hl,$000000
-  304 D1:C0CD D9 -  -  -  		exx
-  305 D1:C0CE 3E 0A -  -  		ld 		a,10 						; base
-  306 D1:C0D0 -  -  -  -  CLExpandInt32ToBuffer:
-  307 D1:C0D0 ED 4B 37 AA 
+  160 D1:C021 06 10 -  -  		ld 		b,16
+  161 D1:C023 FE 94 -  -  		cp 		KWD_AMPERSAND
+  162 D1:C025 CC CC C0 D1 		call 	z,CLDecodeInteger
+  163 D1:C029 -  -  -  -  
+  164 D1:C029 FE 26 -  -  		cp 		IDENTIFIER_END
+  165 D1:C02B DC 84 C0 D1 		call 	c,CLDecodeIdentifier
+  166 D1:C02F -  -  -  -  
+  167 D1:C02F FE 3F -  -  		cp 		STRING_MARKER
+  168 D1:C031 CC AA C0 D1 		call 	z,CLDecodeString
+  169 D1:C035 -  -  -  -  
+  170 D1:C035 E6 C0 -  -  		and 	$C0
+  171 D1:C037 FE 40 -  -  		cp 		$40
+  172 D1:C039 06 0A -  -  		ld 		b,10
+  173 D1:C03B CC CC C0 D1 		call 	z,CLDecodeInteger
+  174 D1:C03F 18 D4 -  -  		jr 		_CLPLLoop
+  175 D1:C041 -  -  -  -  
+  176 D1:C041 -  -  -  -  _CLPLLExit:		
+  177 D1:C041 DD E1 -  -  		pop 	ix
+  178 D1:C043 D1 -  -  -  		pop 	de
+  179 D1:C044 C1 -  -  -  		pop 	bc
+  180 D1:C045 C9 -  -  -  		ret
+  181 D1:C046 -  -  -  -  
+  182 D1:C046 -  -  -  -  ; ***************************************************************************************
+  183 D1:C046 -  -  -  -  ;
+  184 D1:C046 -  -  -  -  ;								Print Space/A to output
+  185 D1:C046 -  -  -  -  ;
+  186 D1:C046 -  -  -  -  ; ***************************************************************************************
+  187 D1:C046 -  -  -  -  
+  188 D1:C046 -  -  -  -  CLPrintSpace:
+  189 D1:C046 3E 20 -  -  		ld 		a,' '
+  190 D1:C048 -  -  -  -  CLPrintA:
+  191 D1:C048 E5 -  -  -  		push 	hl
+  192 D1:C049 2A 37 AA D1 		ld 		hl,(TWPointer)		
+  193 D1:C04D 77 -  -  -  		ld 		(hl),a
+  194 D1:C04E 23 -  -  -  		inc 	hl
+  195 D1:C04F 22 37 AA D1 		ld 		(TWPointer),hl
+  196 D1:C053 36 00 -  -  		ld 		(hl),0
+  197 D1:C055 E1 -  -  -  		pop 	hl
+  198 D1:C056 C9 -  -  -  		ret
+  199 D1:C057 -  -  -  -  
+  200 D1:C057 -  -  -  -  ; ***************************************************************************************
+  201 D1:C057 -  -  -  -  ;
+  202 D1:C057 -  -  -  -  ;									Decode Keyword A
+  203 D1:C057 -  -  -  -  ;
+  204 D1:C057 -  -  -  -  ; ***************************************************************************************
+  205 D1:C057 -  -  -  -  
+  206 D1:C057 -  -  -  -  CLDecodeKeyword:
+  207 D1:C057 F5 -  -  -  		push 	af
+  208 D1:C058 DD 23 -  -  		inc 	ix 							; consume keyword
+  209 D1:C05A 47 -  -  -  		ld 		b,a 						; put keyword # in B
+  210 D1:C05B 21 2B BE D1 		ld 		hl,KeywordsSet0 			; start with set 0
+  211 D1:C05F -  -  -  -  _CLFindKeyword:
+  212 D1:C05F 05 -  -  -  		dec 	b
+  213 D1:C060 F2 6D C0 D1 		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
+  214 D1:C064 11 00 00 00 		ld 		de,0 						; get length into DE
+  215 D1:C068 5E -  -  -  		ld 		e,(hl)
+  216 D1:C069 13 -  -  -  		inc 	de 							; +1 for the length
+  217 D1:C06A 19 -  -  -  		add 	hl,de 						; go to next keyword		
+  218 D1:C06B 18 F2 -  -  		jr 		_CLFindKeyword
+  219 D1:C06D -  -  -  -  _CLFoundKeyword:
+  220 D1:C06D 46 -  -  -  		ld 		b,(hl) 						; get length into B
+  221 D1:C06E 23 -  -  -  		inc 	hl
+  222 D1:C06F 7E -  -  -  		ld 		a,(hl) 						; is first char identifier
+  223 D1:C070 CD 16 C1 D1 		call 	CLGetCharacterType 			
+  224 D1:C074 FE 01 -  -  		cp 		1 							; if so, space requied maybe ?
+  225 D1:C076 CC 03 C1 D1 		call 	z,CLCheckLastIdentifier
+  226 D1:C07A -  -  -  -  _CLCopyKeyword:
+  227 D1:C07A 7E -  -  -  		ld 		a,(hl)						; copy that many characters			
+  228 D1:C07B 23 -  -  -  		inc 	hl 		
+  229 D1:C07C CD 48 C0 D1 		call 	CLPrintA
+  230 D1:C080 10 F8 -  -  		djnz 	_CLCopyKeyword
+  231 D1:C082 F1 -  -  -  		pop 	af
+  232 D1:C083 C9 -  -  -  		ret
+  233 D1:C084 -  -  -  -  
+  234 D1:C084 -  -  -  -  ; ***************************************************************************************
+  235 D1:C084 -  -  -  -  ;
+  236 D1:C084 -  -  -  -  ;								 Decode Identifier at IX
+  237 D1:C084 -  -  -  -  ;
+  238 D1:C084 -  -  -  -  ; ***************************************************************************************
+  239 D1:C084 -  -  -  -  
+  240 D1:C084 -  -  -  -  CLDecodeIdentifier:
+  241 D1:C084 F5 -  -  -  		push 	af
+  242 D1:C085 CD 03 C1 D1 		call 	CLCheckLastIdentifier 		; check if identifier
+  243 D1:C089 -  -  -  -  _CLDILoop:
+  244 D1:C089 DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
+  245 D1:C08C DD 23 -  -  		inc 	ix
+  246 D1:C08E 06 61 -  -  		ld 		b,97 
+  247 D1:C090 FE 1A -  -  		cp 		26
+  248 D1:C092 38 08 -  -  		jr 		c,_CLDIDoChar
+  249 D1:C094 06 16 -  -  		ld 		b,48-26
+  250 D1:C096 FE 24 -  -  		cp 		36
+  251 D1:C098 38 02 -  -  		jr 		c,_CLDIDoChar
+  252 D1:C09A 06 3B -  -  		ld 		b,'_'-36
+  253 D1:C09C -  -  -  -  _CLDIDoChar:
+  254 D1:C09C 80 -  -  -  		add 	a,b
+  255 D1:C09D CD 48 C0 D1 		call 	CLPrintA		
+  256 D1:C0A1 DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
+  257 D1:C0A4 FE 26 -  -  		cp 		IDENTIFIER_END
+  258 D1:C0A6 38 E1 -  -  		jr 		c,_CLDILoop
+  259 D1:C0A8 F1 -  -  -  		pop 	af
+  260 D1:C0A9 C9 -  -  -  		ret
+  261 D1:C0AA -  -  -  -  
+  262 D1:C0AA -  -  -  -  ; ***************************************************************************************
+  263 D1:C0AA -  -  -  -  ;
+  264 D1:C0AA -  -  -  -  ;								 Decode String at IX
+  265 D1:C0AA -  -  -  -  ;
+  266 D1:C0AA -  -  -  -  ; ***************************************************************************************
+  267 D1:C0AA -  -  -  -  
+  268 D1:C0AA -  -  -  -  CLDecodeString:
+  269 D1:C0AA F5 -  -  -  		push 	af
+  270 D1:C0AB 3E 22 -  -  		ld	 	a,'"'
+  271 D1:C0AD CD 48 C0 D1 		call 	CLPrintA
+  272 D1:C0B1 DD 23 -  -  		inc 	ix
+  273 D1:C0B3 DD 23 -  -  		inc 	ix
+  274 D1:C0B5 -  -  -  -  _CLDSOut:
+  275 D1:C0B5 DD 7E 00 -  		ld 		a,(ix+0)
+  276 D1:C0B8 DD 23 -  -  		inc 	ix
+  277 D1:C0BA FE 20 -  -  		cp 		' '	
+  278 D1:C0BC 38 06 -  -  		jr 		c,_CLDSEnd
+  279 D1:C0BE CD 48 C0 D1 		call 	CLPrintA
+  280 D1:C0C2 18 F1 -  -  		jr 		_CLDSOut
+  281 D1:C0C4 -  -  -  -  _CLDSEnd:		
+  282 D1:C0C4 3E 22 -  -  		ld	 	a,'"'
+  283 D1:C0C6 CD 48 C0 D1 		call 	CLPrintA
+  284 D1:C0CA F1 -  -  -  		pop 	af
+  285 D1:C0CB C9 -  -  -  		ret
+  286 D1:C0CC -  -  -  -  
+  287 D1:C0CC -  -  -  -  ; ***************************************************************************************
+  288 D1:C0CC -  -  -  -  ;
+  289 D1:C0CC -  -  -  -  ;							Decode Integer at IX, base B
+  290 D1:C0CC -  -  -  -  ;
+  291 D1:C0CC -  -  -  -  ; ***************************************************************************************
+  292 D1:C0CC -  -  -  -  
+  293 D1:C0CC -  -  -  -  CLDecodeInteger:
+  294 D1:C0CC F5 -  -  -  		push 	af
+  295 D1:C0CD C5 -  -  -  		push 	bc
+  296 D1:C0CE CD 03 C1 D1 		call 	CLCheckLastIdentifier 		; check if identifier
+  297 D1:C0D2 CD 90 AF D1 		call 	EvaluateIntegerTerm 		; get the number only
+  298 D1:C0D6 C1 -  -  -  		pop 	bc
+  299 D1:C0D7 78 -  -  -  		ld 		a,b 						; base
+  300 D1:C0D8 CD EC C0 D1 		call 	CLExpandInt32ToBuffer
+  301 D1:C0DC F1 -  -  -  		pop 	af
+  302 D1:C0DD C9 -  -  -  		ret
+  303 D1:C0DE -  -  -  -  
+  304 D1:C0DE -  -  -  -  ; ***************************************************************************************
+  305 D1:C0DE -  -  -  -  ;
+  306 D1:C0DE -  -  -  -  ;							 Decode Line Number into Token Buffer
+  307 D1:C0DE -  -  -  -  ;
+  308 D1:C0DE -  -  -  -  ; ***************************************************************************************
+  309 D1:C0DE -  -  -  -  
+  310 D1:C0DE -  -  -  -  CLDecodeLineNumber:
+  311 D1:C0DE DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
+  312 D1:C0E1 DD 66 02 -  		ld 		h,(ix+2)
+  313 D1:C0E4 D9 -  -  -  		exx
+  314 D1:C0E5 21 00 00 00 		ld 		hl,$000000
+  315 D1:C0E9 D9 -  -  -  		exx
+  316 D1:C0EA 3E 0A -  -  		ld 		a,10 						; base
+  317 D1:C0EC -  -  -  -  CLExpandInt32ToBuffer:
+  318 D1:C0EC ED 4B 37 AA 
               D1 -  -  -  		ld 		bc,(TWPointer) 				; where it goes.
-  308 D1:C0D5 CD 5D BD D1 		call 	Int32ToString
-  309 D1:C0D9 -  -  -  -  _CLEI3End: 									; look for number end.
-  310 D1:C0D9 0A -  -  -  		ld 		a,(bc)
-  311 D1:C0DA ED 43 37 AA 
+  319 D1:C0F1 CD 5D BD D1 		call 	Int32ToString
+  320 D1:C0F5 -  -  -  -  _CLEI3End: 									; look for number end.
+  321 D1:C0F5 0A -  -  -  		ld 		a,(bc)
+  322 D1:C0F6 ED 43 37 AA 
               D1 -  -  -  		ld 		(TWPointer),bc
-  312 D1:C0DF 03 -  -  -  		inc 	bc
-  313 D1:C0E0 FE 20 -  -  		cp 		' '
-  314 D1:C0E2 30 F5 -  -  		jr 		nc,_CLEI3End
-  315 D1:C0E4 AF -  -  -  		xor 	a 							; add EOS
-  316 D1:C0E5 02 -  -  -  		ld 		(bc),a				
-  317 D1:C0E6 C9 -  -  -  		ret
-  318 D1:C0E7 -  -  -  -  
-  319 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-  320 D1:C0E7 -  -  -  -  ;
-  321 D1:C0E7 -  -  -  -  ;									Changes and Updates
-  322 D1:C0E7 -  -  -  -  ;
-  323 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-  324 D1:C0E7 -  -  -  -  ;
-  325 D1:C0E7 -  -  -  -  ;		Date			Notes
-  326 D1:C0E7 -  -  -  -  ;		==== 			=====
-  327 D1:C0E7 -  -  -  -  ;
-  328 D1:C0E7 -  -  -  -  ; ***************************************************************************************
+  323 D1:C0FB 03 -  -  -  		inc 	bc
+  324 D1:C0FC FE 20 -  -  		cp 		' '
+  325 D1:C0FE 30 F5 -  -  		jr 		nc,_CLEI3End
+  326 D1:C100 AF -  -  -  		xor 	a 							; add EOS
+  327 D1:C101 02 -  -  -  		ld 		(bc),a				
+  328 D1:C102 C9 -  -  -  		ret
+  329 D1:C103 -  -  -  -  
+  330 D1:C103 -  -  -  -  ; ***************************************************************************************
+  331 D1:C103 -  -  -  -  ;
+  332 D1:C103 -  -  -  -  ;						Check if last was identifier, if so add space
+  333 D1:C103 -  -  -  -  ;
+  334 D1:C103 -  -  -  -  ; ***************************************************************************************
+  335 D1:C103 -  -  -  -  
+  336 D1:C103 -  -  -  -  CLCheckLastIdentifier:
+  337 D1:C103 E5 -  -  -  		push	hl 							; get last character written
+  338 D1:C104 2A 37 AA D1 		ld 		hl,(TWPointer)
+  339 D1:C108 2B -  -  -  		dec 	hl
+  340 D1:C109 7E -  -  -  		ld 		a,(hl)
+  341 D1:C10A E1 -  -  -  		pop 	hl
+  342 D1:C10B CD 16 C1 D1 		call 	CLGetCharacterType 			; get type
+  343 D1:C10F FE 01 -  -  		cp 		1  							; if identifier (A-Z0-9_)
+  344 D1:C111 CC 46 C0 D1 		call 	z,CLPrintSpace 				; space needed
+  345 D1:C115 C9 -  -  -  		ret
+  346 D1:C116 -  -  -  -  
+  347 D1:C116 -  -  -  -  ; ***************************************************************************************
+  348 D1:C116 -  -  -  -  ;
+  349 D1:C116 -  -  -  -  ;								Get character type
+  350 D1:C116 -  -  -  -  ;						0 = Space, 1 = 0-9a-zA-Z_ 2 = the rest
+  351 D1:C116 -  -  -  -  ;
+  352 D1:C116 -  -  -  -  ; ***************************************************************************************
+  353 D1:C116 -  -  -  -  
+  354 D1:C116 -  -  -  -  CLGetCharacterType:
+  355 D1:C116 EE 20 -  -  		xor 	' ' 						; zero if space
+  356 D1:C118 C8 -  -  -  		ret 	z
+  357 D1:C119 EE 20 -  -  		xor 	' '							; get it back
+  358 D1:C11B -  -  -  -  		;
+  359 D1:C11B FE 5F -  -  		cp 		'_' 						; identifier if underscore.
+  360 D1:C11D 28 16 -  -  		jr 		z,_CLIsIdentifier
+  361 D1:C11F -  -  -  -  		;
+  362 D1:C11F FE 30 -  -  		cp 		'0' 						; check 0-9
+  363 D1:C121 38 15 -  -  		jr 		c,_CLNotIdentifier
+  364 D1:C123 FE 3A -  -  		cp 		'9'+1
+  365 D1:C125 38 0E -  -  		jr 		c,_CLIsIdentifier
+  366 D1:C127 -  -  -  -  		;
+  367 D1:C127 FE 60 -  -  		cp 		96 							; shift l/c down
+  368 D1:C129 38 02 -  -  		jr 		c,_CLNotUpper
+  369 D1:C12B D6 20 -  -  		sub 	a,32
+  370 D1:C12D -  -  -  -  _CLNotUpper:
+  371 D1:C12D FE 41 -  -  		cp 		'A'
+  372 D1:C12F 38 07 -  -  		jr 		c,_CLNotIdentifier
+  373 D1:C131 FE 5B -  -  		cp 		'Z'+1
+  374 D1:C133 30 00 -  -  		jr 		nc,_CLIsIdentifier		
+  375 D1:C135 -  -  -  -  _CLIsIdentifier:
+  376 D1:C135 3E 01 -  -  		ld 		a,1
+  377 D1:C137 C9 -  -  -  		ret
+  378 D1:C138 -  -  -  -  _CLNotIdentifier:
+  379 D1:C138 3E 02 -  -  		ld 		a,2
+  380 D1:C13A C9 -  -  -  		ret
+  381 D1:C13B -  -  -  -  
+  382 D1:C13B -  -  -  -  ; ***************************************************************************************
+  383 D1:C13B -  -  -  -  ;
+  384 D1:C13B -  -  -  -  ;									Changes and Updates
+  385 D1:C13B -  -  -  -  ;
+  386 D1:C13B -  -  -  -  ; ***************************************************************************************
+  387 D1:C13B -  -  -  -  ;
+  388 D1:C13B -  -  -  -  ;		Date			Notes
+  389 D1:C13B -  -  -  -  ;		==== 			=====
+  390 D1:C13B -  -  -  -  ;
+  391 D1:C13B -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   84 D1:C0E7 -  -  -  -  #include "testprogram/basic.asm"
+   84 D1:C13B -  -  -  -  #include "testprogram/basic.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-    1 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-    2 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-    3 D1:C0E7 -  -  -  -  ;
-    4 D1:C0E7 -  -  -  -  ;		Name : 		basic.asm
-    5 D1:C0E7 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 D1:C0E7 -  -  -  -  ;		Date : 		3rd June 2022
-    7 D1:C0E7 -  -  -  -  ;		Reviewed :	No
-    8 D1:C0E7 -  -  -  -  ;		Purpose :	Main program.
-    9 D1:C0E7 -  -  -  -  ;
-   10 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-   11 D1:C0E7 -  -  -  -  ; ***************************************************************************************
-   12 D1:C0E7 -  -  -  -  
-   13 D1:C0E7 00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
+    1 D1:C13B -  -  -  -  ; ***************************************************************************************
+    2 D1:C13B -  -  -  -  ; ***************************************************************************************
+    3 D1:C13B -  -  -  -  ;
+    4 D1:C13B -  -  -  -  ;		Name : 		basic.asm
+    5 D1:C13B -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 D1:C13B -  -  -  -  ;		Date : 		3rd June 2022
+    7 D1:C13B -  -  -  -  ;		Reviewed :	No
+    8 D1:C13B -  -  -  -  ;		Purpose :	Main program.
+    9 D1:C13B -  -  -  -  ;
+   10 D1:C13B -  -  -  -  ; ***************************************************************************************
+   11 D1:C13B -  -  -  -  ; ***************************************************************************************
+   12 D1:C13B -  -  -  -  
+   13 D1:C13B 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -7469,13 +7511,11 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 -  -  -  		.block 		$400-($ & $3FF)
    14 D1:C400 -  -  -  -  TestInstance:
-   15 D1:C400 -  -  -  -  		#include 	"testprogram/testprogram.dat"
-Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.dat"
-    1 D1:C400 -  -  -  -  ;
-    2 D1:C400 -  -  -  -  ;	This code automatically generated.
-    3 D1:C400 -  -  -  -  ;
-    4 D1:C400 -  -  -  -  TestProgram:
-    5 D1:C400 05 0A 00 C4 
+   15 D1:C400 10 04 00 BF 
+              00 8F 0A 86 
+              42 85 43 89 
+              44 8A 45 80 
+              05 0A 00 C4 
               80 0F 0C 00 
               00 01 02 24 
               1B 1C 1D 8F 
@@ -7514,10 +7554,9 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/testprogram.
               00 8F 94 4A 
               64 A7 C1 00 
               80 05 62 02 
-              B8 80 05 BC 
-              02 BA 80 00 	.db	$05,$0a,$00,$c4,$80,$0f,$0c,$00,$00,$01,$02,$24,$1b,$1c,$1d,$8f,$17,$a7,$cd,$80,$08,$14,$00,$bf,$0a,$8f,$40,$80,$09,$19,$00,$bd,$0c,$95,$45,$a5,$80,$0a,$1e,$00,$bf,$0a,$8f,$0a,$89,$41,$80,$10,$28,$00,$bf,$00,$8f,$0a,$86,$42,$85,$43,$89,$44,$8a,$45,$80,$07,$2d,$00,$b9,$4a,$7c,$80,$0a,$2e,$00,$b2,$0b,$8f,$41,$b3,$45,$80,$0b,$2f,$00,$bf,$0c,$95,$0b,$a5,$8f,$00,$80,$05,$30,$00,$b5,$80,$0d,$32,$00,$af,$0a,$8e,$42,$5c,$50,$b0,$bb,$5e,$80,$13,$3c,$00,$c1,$3f,$0b,$48,$65,$6c,$6c,$6f,$20,$77,$6f,$72,$6c,$64,$0d,$80,$0d,$58,$02,$b6,$b7,$13,$04,$12,$13,$95,$00,$a5,$80,$0c,$5d,$02,$00,$8f,$94,$4a,$64,$a7,$c1,$00,$80,$05,$62,$02,$b8,$80,$05,$bc,$02,$ba,$80,$00
-Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-   16 D1:C4A4 00 00 00 00 
+              B8 80 05 AC 
+              58 BA 80 -  		#import 	"testprogram/testprogram.dat"
+   16 D1:C4B3 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -8541,17 +8580,17 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 		.block 		4096
-   17 D1:D4A4 -  -  -  -  EndTestInstance:
-   18 D1:D4A4 -  -  -  -  		
-   19 D1:D4A4 -  -  -  -  ; ***************************************************************************************
-   20 D1:D4A4 -  -  -  -  ;
-   21 D1:D4A4 -  -  -  -  ;									Changes and Updates
-   22 D1:D4A4 -  -  -  -  ;
-   23 D1:D4A4 -  -  -  -  ; ***************************************************************************************
-   24 D1:D4A4 -  -  -  -  ;
-   25 D1:D4A4 -  -  -  -  ;		Date			Notes
-   26 D1:D4A4 -  -  -  -  ;		==== 			=====
-   27 D1:D4A4 -  -  -  -  ;
-   28 D1:D4A4 -  -  -  -  ; ***************************************************************************************
+   17 D1:D4B3 -  -  -  -  EndTestInstance:
+   18 D1:D4B3 -  -  -  -  		
+   19 D1:D4B3 -  -  -  -  ; ***************************************************************************************
+   20 D1:D4B3 -  -  -  -  ;
+   21 D1:D4B3 -  -  -  -  ;									Changes and Updates
+   22 D1:D4B3 -  -  -  -  ;
+   23 D1:D4B3 -  -  -  -  ; ***************************************************************************************
+   24 D1:D4B3 -  -  -  -  ;
+   25 D1:D4B3 -  -  -  -  ;		Date			Notes
+   26 D1:D4B3 -  -  -  -  ;		==== 			=====
+   27 D1:D4B3 -  -  -  -  ;
+   28 D1:D4B3 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   85 D1:D4A4 -  -  -  -  FinalAddress:
+   85 D1:D4B3 -  -  -  -  FinalAddress:

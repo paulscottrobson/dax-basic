@@ -142,7 +142,11 @@ CLExpandLine:
 		ld 		hl,TokenBuffer 				; set the token buffer pointer
 		ld 		(TWPointer),hl
 		call 	CLDecodeLineNumber
+_CLSpaceOut:		
 		call 	CLPrintSpace
+		ld 		a,(TWPointer)
+		cp 		(6+TokenBuffer) & $FF
+		jr 		nz,_CLSpaceOut
 		inc 	ix 							; point to line star.
 		inc 	ix
 		inc 	ix
@@ -201,6 +205,11 @@ CLPrintA:
 
 CLDecodeKeyword:
 		push 	af
+		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
+		jp 		z,NotImplemented
+		cp 		KWC_SHIFT_2
+		jp 		z,NotImplemented
+
 		inc 	ix 							; consume keyword
 		ld 		b,a 						; put keyword # in B
 		ld 		hl,KeywordsSet0 			; start with set 0
@@ -214,9 +223,14 @@ _CLFindKeyword:
 		jr 		_CLFindKeyword
 _CLFoundKeyword:
 		ld 		b,(hl) 						; get length into B
+		inc 	hl
+		ld 		a,(hl) 						; is first char identifier
+		call 	CLGetCharacterType 			
+		cp 		1 							; if so, space requied maybe ?
+		call 	z,CLCheckLastIdentifier
 _CLCopyKeyword:
-		inc 	hl 							; copy that many characters/
-		ld 		a,(hl)				
+		ld 		a,(hl)						; copy that many characters			
+		inc 	hl 		
 		call 	CLPrintA
 		djnz 	_CLCopyKeyword
 		pop 	af
@@ -230,6 +244,7 @@ _CLCopyKeyword:
 
 CLDecodeIdentifier:
 		push 	af
+		call 	CLCheckLastIdentifier 		; check if identifier
 _CLDILoop:
 		ld 		a,(ix+0) 					; get identifier.
 		inc 	ix
@@ -276,16 +291,17 @@ _CLDSEnd:
 
 ; ***************************************************************************************
 ;
-;								 Decode Integer at IX
+;							Decode Integer at IX, base B
 ;
 ; ***************************************************************************************
 
 CLDecodeInteger:
 		push 	af
 		push 	bc
-		call 	EvaluateInteger
+		call 	CLCheckLastIdentifier 		; check if identifier
+		call 	EvaluateIntegerTerm 		; get the number only
 		pop 	bc
-		ld 		a,b
+		ld 		a,b 						; base
 		call 	CLExpandInt32ToBuffer
 		pop 	af
 		ret
@@ -314,6 +330,58 @@ _CLEI3End: 									; look for number end.
 		jr 		nc,_CLEI3End
 		xor 	a 							; add EOS
 		ld 		(bc),a				
+		ret
+
+; ***************************************************************************************
+;
+;						Check if last was identifier, if so add space
+;
+; ***************************************************************************************
+
+CLCheckLastIdentifier:
+		push	hl 							; get last character written
+		ld 		hl,(TWPointer)
+		dec 	hl
+		ld 		a,(hl)
+		pop 	hl
+		call 	CLGetCharacterType 			; get type
+		cp 		1  							; if identifier (A-Z0-9_)
+		call 	z,CLPrintSpace 				; space needed
+		ret
+
+; ***************************************************************************************
+;
+;								Get character type
+;						0 = Space, 1 = 0-9a-zA-Z_ 2 = the rest
+;
+; ***************************************************************************************
+
+CLGetCharacterType:
+		xor 	' ' 						; zero if space
+		ret 	z
+		xor 	' '							; get it back
+		;
+		cp 		'_' 						; identifier if underscore.
+		jr 		z,_CLIsIdentifier
+		;
+		cp 		'0' 						; check 0-9
+		jr 		c,_CLNotIdentifier
+		cp 		'9'+1
+		jr 		c,_CLIsIdentifier
+		;
+		cp 		96 							; shift l/c down
+		jr 		c,_CLNotUpper
+		sub 	a,32
+_CLNotUpper:
+		cp 		'A'
+		jr 		c,_CLNotIdentifier
+		cp 		'Z'+1
+		jr 		nc,_CLIsIdentifier		
+_CLIsIdentifier:
+		ld 		a,1
+		ret
+_CLNotIdentifier:
+		ld 		a,2
 		ret
 
 ; ***************************************************************************************

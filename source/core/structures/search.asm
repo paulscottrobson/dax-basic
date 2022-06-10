@@ -25,6 +25,11 @@ SearchForwardTokens:
 		cp 		c
 		ret 	z
 		;
+		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
+		jp 		z,NotImplemented
+		cp 		KWC_SHIFT_2
+		jp 		z,NotImplemented
+		;
 		cp 		STRING_MARKER 				; string constant is special skip
 		jr 		nz,SearchForwardTokens
 

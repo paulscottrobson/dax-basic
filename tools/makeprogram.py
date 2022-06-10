@@ -55,10 +55,8 @@ class BasicProgram(object):
 	#
 	def write(self,fileName = "testprogram.dat"):
 		f = ("../source/testprogram/"+fileName).replace("/",os.sep)
-		h = open(f,"w")
-		h.write(";\n;\tThis code automatically generated.\n;\n")
-		h.write("TestProgram:\n")
-		h.write("\t.db\t{0},$00\n".format(",".join(["${0:02x}".format(x) for x in self.code])))
+		h = open(f,"wb")
+		h.write(bytes(self.code))
 		h.close()
 
 if __name__ == "__main__":
