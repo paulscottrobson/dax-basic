@@ -1,7 +1,8 @@
 TODO:
 	Export to BBC Basic.
 	LOAD and SAVE ?
-
+	PLOT MOVE DRAW GCOL COLOUR
+	
 Export issues .. maybe I shouldn't have tokenised it. Whatever, fix in the export.
 
 	DEF PROC xxxx => DEF PROCxxxx

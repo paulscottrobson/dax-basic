@@ -7,29 +7,30 @@ endif
 SOURCE=..$(S)source$(S)
 BASCODE = basic/test.bas 
 TESTCODE = basic/_gen.bas
+TARGET = ../source/testprogram/testprogram.dax
 
 all: common 
-	python makeprogram.py $(BASCODE) 
+	python makeprogram.py $(BASCODE)  $(TARGET)
 
 intmath: common
 	python tests$(S)intmath.py >$(TESTCODE)
-	python makeprogram.py  $(TESTCODE)
+	python makeprogram.py  $(TESTCODE) $(TARGET)
 
 compare: common
 	python tests$(S)compare.py >$(TESTCODE)
-	python makeprogram.py  $(TESTCODE)
+	python makeprogram.py  $(TESTCODE) $(TARGET)
 
 unary: common
 	python tests$(S)unary.py >$(TESTCODE)
-	python makeprogram.py  $(TESTCODE)
+	python makeprogram.py  $(TESTCODE) $(TARGET)
 
 brackets: common
 	python tests$(S)brackets.py >$(TESTCODE)
-	python makeprogram.py  $(TESTCODE)
+	python makeprogram.py  $(TESTCODE) $(TARGET)
 	
 variables: common
 	python tests$(S)variables.py >$(TESTCODE)
-	python makeprogram.py  $(TESTCODE)
+	python makeprogram.py  $(TESTCODE) $(TARGET)
 	
 common:
 	python errorgen.py en

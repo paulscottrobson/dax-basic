@@ -80,6 +80,12 @@ VectorsSet0:
 	addr(Command_CLEAR)              ; $00cb clear
 	addr(Command_END)                ; $00cc end
 	addr(Command_STOP)               ; $00cd stop
+	addr(Unimplemented)              ; $00ce move
+	addr(Unimplemented)              ; $00cf draw
+	addr(Unimplemented)              ; $00d0 plot
+	addr(Unimplemented)              ; $00d1 mode
+	addr(Unimplemented)              ; $00d2 colour
+	addr(Unimplemented)              ; $00d3 gcol
 ;
 ;	Vectors for set 1
 ;

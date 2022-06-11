@@ -83,6 +83,12 @@ KeywordsSet0:
 	.db	5,"CLEAR"          ; $00cb
 	.db	3,"END"            ; $00cc
 	.db	4,"STOP"           ; $00cd
+	.db	4,"MOVE"           ; $00ce
+	.db	4,"DRAW"           ; $00cf
+	.db	4,"PLOT"           ; $00d0
+	.db	4,"MODE"           ; $00d1
+	.db	6,"COLOUR"         ; $00d2
+	.db	4,"GCOL"           ; $00d3
 	.db	0
 ;
 ;	Keywords for set 1

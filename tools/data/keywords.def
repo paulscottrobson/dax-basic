@@ -48,6 +48,7 @@
 		local 	dim 	rem 	let 	vdu 	print 	
 	 	load	save 	list 	new 	run 	read 	data 	restore	
 	 	assert 	clear 	end 	stop
+	 	move 	draw 	plot 	mode 	colour	gcol 	
 
 
 // *******************************************************************************************

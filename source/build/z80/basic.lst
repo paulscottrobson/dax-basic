@@ -451,6 +451,12 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/kwd_constants.
    84 00:0000 -  -  -  -  #define KWD_CLEAR                           	$00cb ; clear
    85 00:0000 -  -  -  -  #define KWD_END                             	$00cc ; end
    86 00:0000 -  -  -  -  #define KWD_STOP                            	$00cd ; stop
+   87 00:0000 -  -  -  -  #define KWD_MOVE                            	$00ce ; move
+   88 00:0000 -  -  -  -  #define KWD_DRAW                            	$00cf ; draw
+   89 00:0000 -  -  -  -  #define KWD_PLOT                            	$00d0 ; plot
+   90 00:0000 -  -  -  -  #define KWD_MODE                            	$00d1 ; mode
+   91 00:0000 -  -  -  -  #define KWD_COLOUR                          	$00d2 ; colour
+   92 00:0000 -  -  -  -  #define KWD_GCOL                            	$00d3 ; gcol
 Listing for file "_build.asm"
    10 00:0000 -  -  -  -  #include "generated/messageid.inc"
 Listing for file "/home/paulr/Projects/dax-basic/source/generated/messageid.inc"
@@ -772,7 +778,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    41 00:4006 -  -  -  -  #endif
    42 00:4006 -  -  -  -  
    43 00:4006 -  -  -  -  #endif
-   44 00:4006 CD A4 52 -  		call 	SYSInitialise
+   44 00:4006 CD B0 52 -  		call 	SYSInitialise
    45 00:4009 11 00 58 -  		ld 		de,TestInstance
    46 00:400C 21 B3 68 -  		ld 		hl,EndTestInstance
    47 00:400F CD 7C 4A -  		call 	SetCurrentInstance
@@ -784,8 +790,8 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/00main.asm"
    53 00:401A -  -  -  -  
    54 00:401A -  -  -  -  WarmStart:		
    55 00:401A 3E 2A -  -  		ld 		a,'*'
-   56 00:401C CD AC 52 -  		call 	SYSPrintChar
-   57 00:401F CD AA 52 -  		call 	SYSTerminate
+   56 00:401C CD B8 52 -  		call 	SYSPrintChar
+   57 00:401F CD B6 52 -  		call 	SYSTerminate
    58 00:4022 -  -  -  -  
    59 00:4022 -  -  -  -  Unimplemented:
    60 00:4022 3E 06 C3 A3 
@@ -1549,7 +1555,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    45 00:4305 -  -  -  -  _CPRPrintNumber:
    46 00:4305 01 A2 40 -  		ld  	bc,ConvertBuffer
    47 00:4308 C5 -  -  -  		push 	bc
-   48 00:4309 CD 5E 52 -  		call 	Int32ToString 				; convert to string
+   48 00:4309 CD 6A 52 -  		call 	Int32ToString 				; convert to string
    49 00:430C E1 -  -  -  		pop 	hl
    50 00:430D -  -  -  -  		;
    51 00:430D -  -  -  -  		; 		Print text at HL.
@@ -1569,14 +1575,14 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    65 00:431B -  -  -  -  		; 		New line (')
    66 00:431B -  -  -  -  		;
    67 00:431B -  -  -  -  _CPRNewLine:
-   68 00:431B CD C8 52 -  		call 	SYSPrintCRLF
+   68 00:431B CD D4 52 -  		call 	SYSPrintCRLF
    69 00:431E 18 0A -  -  		jr 		_CPRCheckNext
    70 00:4320 -  -  -  -  		;
    71 00:4320 -  -  -  -  		; 		Tab command (,)
    72 00:4320 -  -  -  -  		;
    73 00:4320 -  -  -  -  _CPRTab:
    74 00:4320 3E 09 -  -  		ld 		a,9  						; print CHR$(9), tab
-   75 00:4322 CD AC 52 -  		call 	SYSPrintChar
+   75 00:4322 CD B8 52 -  		call 	SYSPrintChar
    76 00:4325 -  -  -  -  		;
    77 00:4325 -  -  -  -  		;		Set to base 10 then check next character
    78 00:4325 -  -  -  -  		;
@@ -1598,7 +1604,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/print.asm"
    94 00:4337 -  -  -  -  		;		Found EOL or : not after ; ,
    95 00:4337 -  -  -  -  		;
    96 00:4337 -  -  -  -  _CPRExitNL:
-   97 00:4337 CD C8 52 -  		call 	SYSPrintCRLF 				; do CR/LF
+   97 00:4337 CD D4 52 -  		call 	SYSPrintCRLF 				; do CR/LF
    98 00:433A C9 -  -  -  		ret
 Listing for file "_build.asm"
    22 00:433B -  -  -  -  #include "core/commands/rem.asm"
@@ -1822,7 +1828,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/vdu.asm"
    31 00:43CE C2 FB 44 -  		jp  	nz,BadValue
    32 00:43D1 E5 -  -  -  		push 	hl 							; save on stack
    33 00:43D2 7D -  -  -  		ld 		a,l 						; do the LSB anyway
-   34 00:43D3 CD AC 52 -  		call 	SYSPrintChar
+   34 00:43D3 CD B8 52 -  		call 	SYSPrintChar
    35 00:43D6 E1 -  -  -  		pop 	hl 							; get upper back
    36 00:43D7 DD 7E 00 -  		ld 		a,(ix+0) 					; what follows ?
    37 00:43DA DD 23 -  -  		inc 	ix 
@@ -1835,7 +1841,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/commands/vdu.asm"
    44 00:43E8 -  -  -  -  
    45 00:43E8 -  -  -  -  _VDUUpper:
    46 00:43E8 7C -  -  -  		ld 		a,h 						; print MSB of expr.
-   47 00:43E9 CD AC 52 -  		call 	SYSPrintChar
+   47 00:43E9 CD B8 52 -  		call 	SYSPrintChar
    48 00:43EC 18 D0 -  -  		jr 		Command_VDU		
    49 00:43EE -  -  -  -  
    50 00:43EE -  -  -  -  ; ***************************************************************************************
@@ -2121,12 +2127,12 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/errors/errors.asm"
    47 00:44D1 DD 66 02 -  		ld 		h,(ix+2)
    48 00:44D4 3E 0A -  -  		ld 		a,10 					; convert in base 10
    49 00:44D6 01 A2 40 -  		ld 		bc,ConvertBuffer
-   50 00:44D9 CD 5E 52 -  		call 	Int32ToString
+   50 00:44D9 CD 6A 52 -  		call 	Int32ToString
    51 00:44DC C5 -  -  -  		push 	bc
    52 00:44DD E1 -  -  -  		pop 	hl
    53 00:44DE CD B3 4C -  		call 	PrintStringAtHL			; print error line number.
    54 00:44E1 -  -  -  -  _EHExit:		
-   55 00:44E1 CD C8 52 -  		call 	SYSPrintCRLF 			; print carriage return
+   55 00:44E1 CD D4 52 -  		call 	SYSPrintCRLF 			; print carriage return
    56 00:44E4 C3 1A 40 -  		jp 		WarmStart
    57 00:44E7 -  -  -  -  
    58 00:44E7 -  -  -  -  _EHAtText:
@@ -2181,7 +2187,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    19 00:4505 -  -  -  -  ALUAdd: 		;; [+]
    20 00:4505 CD F8 45 78 
               B1 C2 F6 44 
-              C3 EB 51 -  		IntegerDispatch(Int32Add)
+              C3 F7 51 -  		IntegerDispatch(Int32Add)
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/basicmath.asm"
    21 00:4510 -  -  -  -  
    22 00:4510 -  -  -  -  ; ***************************************************************************************
@@ -2193,7 +2199,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    28 00:4510 -  -  -  -  ALUSubtract: 	;; [-]
    29 00:4510 CD F8 45 78 
               B1 C2 F6 44 
-              C3 F1 51 -  		IntegerDispatch(Int32Subtract)
+              C3 FD 51 -  		IntegerDispatch(Int32Subtract)
    30 00:451B -  -  -  -  
    31 00:451B -  -  -  -  ; ***************************************************************************************
    32 00:451B -  -  -  -  ;
@@ -2204,7 +2210,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    37 00:451B -  -  -  -  ALUMultiply: 	;; [*]
    38 00:451B CD F8 45 78 
               B1 C2 F6 44 
-              C3 B5 51 -  		IntegerDispatch(Int32Multiply)
+              C3 C1 51 -  		IntegerDispatch(Int32Multiply)
    39 00:4526 -  -  -  -  
    40 00:4526 -  -  -  -  ; ***************************************************************************************
    41 00:4526 -  -  -  -  ;
@@ -2216,7 +2222,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    47 00:4526 -  -  -  -  ALUDivide2:	;; [div]
    48 00:4526 CD F8 45 78 
               B1 C2 F6 44 
-              C3 C6 50 -  		IntegerDispatch(Int32SDivide)
+              C3 D2 50 -  		IntegerDispatch(Int32SDivide)
    49 00:4531 -  -  -  -  
    50 00:4531 -  -  -  -  ; ***************************************************************************************
    51 00:4531 -  -  -  -  ;
@@ -2227,7 +2233,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    56 00:4531 -  -  -  -  ALUModulus: 	;; [mod]
    57 00:4531 CD F8 45 78 
               B1 C2 F6 44 
-              C3 C9 50 -  		IntegerDispatch(Int32Modulus)
+              C3 D5 50 -  		IntegerDispatch(Int32Modulus)
    58 00:453C -  -  -  -  
    59 00:453C -  -  -  -  ; ***************************************************************************************
    60 00:453C -  -  -  -  ;
@@ -2238,17 +2244,17 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
    65 00:453C -  -  -  -  ALUAnd: 		;; [and]
    66 00:453C CD F8 45 78 
               B1 C2 F6 44 
-              C3 F9 51 -  		IntegerDispatch(Int32And)
+              C3 05 52 -  		IntegerDispatch(Int32And)
    67 00:4547 -  -  -  -  
    68 00:4547 -  -  -  -  ALUOr: 			;; [or]
    69 00:4547 CD F8 45 78 
               B1 C2 F6 44 
-              C3 05 52 -  		IntegerDispatch(Int32Or)
+              C3 11 52 -  		IntegerDispatch(Int32Or)
    70 00:4552 -  -  -  -  
    71 00:4552 -  -  -  -  ALUXor: 		;; [eor]
    72 00:4552 CD F8 45 78 
               B1 C2 F6 44 
-              C3 11 52 -  		IntegerDispatch(Int32Xor)
+              C3 1D 52 -  		IntegerDispatch(Int32Xor)
    73 00:455D -  -  -  -  
    74 00:455D -  -  -  -  ; ***************************************************************************************
    75 00:455D -  -  -  -  ;
@@ -2298,7 +2304,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/b
               C3 76 45 -  		IntegerDispatch(_BRGAMain)
 Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/binrefs.asm"
    32 00:4576 -  -  -  -  _BRGAMain:		
-   33 00:4576 CD EB 51 -  		call 	Int32Add 					; address in HL'HL
+   33 00:4576 CD F7 51 -  		call 	Int32Add 					; address in HL'HL
    34 00:4579 CD E1 46 -  		call 	DRConvertHLHLtoAddress 		; make it a real physical address in UHL.
    35 00:457C C9 -  -  -  		ret
    36 00:457D -  -  -  -  
@@ -2422,7 +2428,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/c
    92 00:45CB 78 -  -  -  		ld 		a,b 						; check if either is string
    93 00:45CC B1 -  -  -  		or 		c
    94 00:45CD CB 47 -  -  		bit 	CIsString,a 
-   95 00:45CF CA 24 52 -  		jp 		z,Int32Compare 				; if not do as integer
+   95 00:45CF CA 30 52 -  		jp 		z,Int32Compare 				; if not do as integer
    96 00:45D2 -  -  -  -  
    97 00:45D2 3E 02 C3 A3 
               44 -  -  -  		ERR_BADTYPE 						; trying to do int<str>comparison
@@ -2519,7 +2525,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/binary/u
    53 00:460C C2 F6 44 -  			jp 		nz,TypeMismatch
    54 00:460F CB 79 -  -  			bit 	CIsReference,c 			; reference -> number.
    55 00:4611 C4 B3 46 -  			call 	nz,Dereference 			; if required.
-   56 00:4614 CD 4B 52 -  			call 	Int32Negate
+   56 00:4614 CD 57 52 -  			call 	Int32Negate
    57 00:4617 C9 -  -  -  			ret
 Listing for file "_build.asm"
    34 00:4618 -  -  -  -  #include "core/expression/expression.asm"
@@ -3376,7 +3382,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/rn
    31 00:4807 C9 -  -  -  		ret
    32 00:4808 -  -  -  -  _URDontSeed:		
    33 00:4808 -  -  -  -  
-   34 00:4808 CD 1D 52 -  		call	Int32Zero 					; RND(0) doesn't work, no floats.
+   34 00:4808 CD 29 52 -  		call	Int32Zero 					; RND(0) doesn't work, no floats.
    35 00:480B 28 19 -  -  		jr 		z,_URFail
    36 00:480D E5 -  -  -  		push 	hl 							; save range on stack.
    37 00:480E D9 -  -  -  		exx
@@ -3394,7 +3400,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/rn
    49 00:481D D9 -  -  -  		exx
    50 00:481E D1 -  -  -  		pop 	de
    51 00:481F -  -  -  -  		;
-   52 00:481F CD C9 50 -  		call 	Int32Modulus 				; now in range 0->n-1 so bump it.
+   52 00:481F CD D5 50 -  		call 	Int32Modulus 				; now in range 0->n-1 so bump it.
    53 00:4822 23 -  -  -  		inc 	hl 							; won't bother with MSB for this
    54 00:4823 0E 00 -  -  		ld		c,XTYPE_INTEGER
    55 00:4825 C9 -  -  -  		ret
@@ -3488,7 +3494,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/sg
    18 00:4871 -  -  -  -  
    19 00:4871 -  -  -  -  Unary_Sgn:	;; [sgn]
    20 00:4871 CD 6A 46 -  		call	EvaluateIntegerTerm 		; get value
-   21 00:4874 CD 1D 52 -  		call 	Int32Zero 					; integer sgn() code
+   21 00:4874 CD 29 52 -  		call 	Int32Zero 					; integer sgn() code
    22 00:4877 CA 81 45 -  		jp 		z,UnaryInt32False
    23 00:487A D9 -  -  -  		exx
    24 00:487B CB 7C -  -  		bit 	7,h
@@ -3592,7 +3598,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/st
    31 00:48AF 20 02 -  -  		jr 		nz,_USNotHex2
    32 00:48B1 3E 10 -  -  		ld 		a,16
    33 00:48B3 -  -  -  -  _USNotHex2:		
-   34 00:48B3 CD 5E 52 -  		call 	Int32ToString 				
+   34 00:48B3 CD 6A 52 -  		call 	Int32ToString 				
    35 00:48B6 21 90 40 -  		ld 		hl,_USBuffer 				; string address.
    36 00:48B9 0E 01 -  -  		ld 		c,XTYPE_STRING				; return string at physical address HL
    37 00:48BB C9 -  -  -  		ret
@@ -3629,7 +3635,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/ti
    17 00:48BC -  -  -  -  ; ***************************************************************************************
    18 00:48BC -  -  -  -  
    19 00:48BC -  -  -  -  Unary_Time:	;; [time]
-   20 00:48BC CD D5 52 -  			call 	SYSGetTimer
+   20 00:48BC CD E1 52 -  			call 	SYSGetTimer
    21 00:48BF 0E 00 -  -  			ld 		c,XTYPE_INTEGER 		; this makes it an integer.
    22 00:48C1 C9 -  -  -  			ret
    23 00:48C2 -  -  -  -  
@@ -3710,7 +3716,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/expression/unary/va
    21 00:48D0 E5 -  -  -  		push 	hl 							; copy to BC
    22 00:48D1 C1 -  -  -  		pop 	bc
    23 00:48D2 3E F6 -  -  		ld 		a,-10 						; base 10, signed.
-   24 00:48D4 CD 54 51 -  		call 	Int32FromString 			; get the integer part.
+   24 00:48D4 CD 60 51 -  		call 	Int32FromString 			; get the integer part.
    25 00:48D7 0E 00 -  -  		ld 		c,XTYPE_INTEGER 			; it's an integer 
    26 00:48D9 C8 -  -  -  		ret		z 							; okay
    27 00:48DA 3E 03 C3 A3 
@@ -4510,7 +4516,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
   166 00:4B39 7C -  -  -  			ld 		a,h
   167 00:4B3A D9 -  -  -  			exx
   168 00:4B3B F5 -  -  -  			push 	af
-  169 00:4B3C CD EB 51 -  			call 	Int32Add 				; add step to offset => HL'HL
+  169 00:4B3C CD F7 51 -  			call 	Int32Add 				; add step to offset => HL'HL
   170 00:4B3F -  -  -  -  			;
   171 00:4B3F -  -  -  -  			;		Put result in DE and write back out
   172 00:4B3F -  -  -  -  			;
@@ -4527,7 +4533,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/for.asm"
   183 00:4B49 -  -  -  -  			;
   184 00:4B49 3E 0A -  -  			ld 		a,10 					; load limit
   185 00:4B4B CD EC 4A -  			call 	CFReadAToHLHL
-  186 00:4B4E CD 24 52 -  			call 	Int32Compare 			; compare limit to index.
+  186 00:4B4E CD 30 52 -  			call 	Int32Compare 			; compare limit to index.
   187 00:4B51 C1 -  -  -  			pop 	bc 						; so the MSB of step should now be in B
   188 00:4B52 B7 -  -  -  			or 		a 						; if zero, loop round as equal.
   189 00:4B53 28 0A -  -  			jr 		z,_CNXLoopBack
@@ -4725,7 +4731,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/if.asm"
    17 00:4BC9 -  -  -  -  
    18 00:4BC9 -  -  -  -  Command_IF: ;; [if]
    19 00:4BC9 CD 88 46 -  		call 	EvaluateInteger 			; work out the test.
-   20 00:4BCC CD 1D 52 -  		call 	Int32Zero 					; test if zero
+   20 00:4BCC CD 29 52 -  		call 	Int32Zero 					; test if zero
    21 00:4BCF 28 1A -  -  		jr 		z,_IFFail
    22 00:4BD1 -  -  -  -  		;
    23 00:4BD1 -  -  -  -  		;	 	Passed
@@ -4808,7 +4814,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/structures/repeat.a
    32 00:4C06 CD 7A 4C -  			call 	StackCheckFrame
    33 00:4C09 20 0D -  -  			jr 		nz,_UntilError
    34 00:4C0B CD 88 46 -  			call	EvaluateInteger 		; until what
-   35 00:4C0E CD 1D 52 -  			call 	Int32Zero 				; check zero
+   35 00:4C0E CD 29 52 -  			call 	Int32Zero 				; check zero
    36 00:4C11 CA 98 4C -  			jp 		z,StackLoadPosition 	; if zero loop back
    37 00:4C14 CD 6A 4C -  			call 	StackCloseFrame 		; otherwise end frame.
    38 00:4C17 C9 -  -  -  			ret
@@ -5054,7 +5060,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/core/utility/utility.asm
    20 00:4CB3 7E -  -  -  		ld 		a,(hl)
    21 00:4CB4 FE 20 -  -  		cp 		$20		
    22 00:4CB6 D8 -  -  -  		ret 	c
-   23 00:4CB7 CD AC 52 -  		call 	SYSPrintChar
+   23 00:4CB7 CD B8 52 -  		call 	SYSPrintChar
    24 00:4CBA 23 -  -  -  		inc 	hl
    25 00:4CBB 18 F6 -  -  		jr 		PrintStringAtHL
    26 00:4CBD -  -  -  -  
@@ -5758,7 +5764,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    70 00:50A8 DB 42 -  -  	addr(Command_PRINT)              ; $00c1 print
    71 00:50AA 22 40 -  -  	addr(Unimplemented)              ; $00c2 load
    72 00:50AC 22 40 -  -  	addr(Unimplemented)              ; $00c3 save
-   73 00:50AE 17 54 -  -  	addr(Command_LIST)               ; $00c4 list
+   73 00:50AE 43 54 -  -  	addr(Command_LIST)               ; $00c4 list
    74 00:50B0 88 4A -  -  	addr(Command_NEW)                ; $00c5 new
    75 00:50B2 56 43 -  -  	addr(Command_RUN)                ; $00c6 run
    76 00:50B4 EE 43 -  -  	addr(Command_READ)               ; $00c7 read
@@ -5768,1528 +5774,1535 @@ Listing for file "/home/paulr/Projects/dax-basic/source/generated/vectors.asm"
    80 00:50BC 37 4A -  -  	addr(Command_CLEAR)              ; $00cb clear
    81 00:50BE 69 42 -  -  	addr(Command_END)                ; $00cc end
    82 00:50C0 B9 43 -  -  	addr(Command_STOP)               ; $00cd stop
-   83 00:50C2 -  -  -  -  ;
-   84 00:50C2 -  -  -  -  ;	Vectors for set 1
-   85 00:50C2 -  -  -  -  ;
-   86 00:50C2 -  -  -  -  VectorsSet1:
-   87 00:50C2 -  -  -  -  ;
-   88 00:50C2 -  -  -  -  ;	Vectors for set 2
-   89 00:50C2 -  -  -  -  ;
-   90 00:50C2 -  -  -  -  VectorsSet2:
+   83 00:50C2 22 40 -  -  	addr(Unimplemented)              ; $00ce move
+   84 00:50C4 22 40 -  -  	addr(Unimplemented)              ; $00cf draw
+   85 00:50C6 22 40 -  -  	addr(Unimplemented)              ; $00d0 plot
+   86 00:50C8 22 40 -  -  	addr(Unimplemented)              ; $00d1 mode
+   87 00:50CA 22 40 -  -  	addr(Unimplemented)              ; $00d2 colour
+   88 00:50CC 22 40 -  -  	addr(Unimplemented)              ; $00d3 gcol
+   89 00:50CE -  -  -  -  ;
+   90 00:50CE -  -  -  -  ;	Vectors for set 1
+   91 00:50CE -  -  -  -  ;
+   92 00:50CE -  -  -  -  VectorsSet1:
+   93 00:50CE -  -  -  -  ;
+   94 00:50CE -  -  -  -  ;	Vectors for set 2
+   95 00:50CE -  -  -  -  ;
+   96 00:50CE -  -  -  -  VectorsSet2:
 Listing for file "_build.asm"
-   74 00:50C2 -  -  -  -  #include "int32/idivide.asm"
+   74 00:50CE -  -  -  -  #include "int32/idivide.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/idivide.asm"
-    1 00:50C2 -  -  -  -  ; ***************************************************************************************
-    2 00:50C2 -  -  -  -  ; ***************************************************************************************
-    3 00:50C2 -  -  -  -  ;
-    4 00:50C2 -  -  -  -  ;		Name : 		idivide.asm
-    5 00:50C2 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:50C2 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:50C2 -  -  -  -  ;		Reviewed :	No
-    8 00:50C2 -  -  -  -  ;		Purpose :	Divide HL'HL by DE'DE and variants
-    9 00:50C2 -  -  -  -  ;
-   10 00:50C2 -  -  -  -  ; ***************************************************************************************
-   11 00:50C2 -  -  -  -  ; ***************************************************************************************
-   12 00:50C2 -  -  -  -  
-   13 00:50C2 -  -  -  -  ; ***************************************************************************************
-   14 00:50C2 -  -  -  -  ;
-   15 00:50C2 -  -  -  -  ;								Unsigned integer divide
-   16 00:50C2 -  -  -  -  ;
-   17 00:50C2 -  -  -  -  ; ***************************************************************************************
-   18 00:50C2 -  -  -  -  
-   19 00:50C2 -  -  -  -  Int32UDivide:
-   20 00:50C2 37 -  -  -  		scf
-   21 00:50C3 C3 01 51 -  		jp 		_I32UnsignedDivide		
-   22 00:50C6 -  -  -  -  
-   23 00:50C6 -  -  -  -  ; ***************************************************************************************
-   24 00:50C6 -  -  -  -  ;
-   25 00:50C6 -  -  -  -  ;							Signed integer divide/Modulus
-   26 00:50C6 -  -  -  -  ;
-   27 00:50C6 -  -  -  -  ; ***************************************************************************************
-   28 00:50C6 -  -  -  -  
-   29 00:50C6 -  -  -  -  Int32SDivide:
-   30 00:50C6 37 -  -  -  		scf
-   31 00:50C7 18 01 -  -  		jr 		_I32SDivide
-   32 00:50C9 -  -  -  -  Int32Modulus:
-   33 00:50C9 AF -  -  -  		xor 	a
-   34 00:50CA -  -  -  -  _I32SDivide:
-   35 00:50CA 08 -  -  -  		ex 		af,af' 						; push AF'
-   36 00:50CB F5 -  -  -  		push 	af
-   37 00:50CC 08 -  -  -  		ex 		af,af'
-   38 00:50CD -  -  -  -  
-   39 00:50CD D5 -  -  -  		push 	de 							; push DE'DE as we might remove sign
-   40 00:50CE D9 -  -  -  		exx
-   41 00:50CF D5 -  -  -  		push 	de
-   42 00:50D0 D9 -  -  -  		exx
-   43 00:50D1 -  -  -  -  
-   44 00:50D1 F5 -  -  -  		push 	af 							; save flag (CS Divide, CC Modulus) on stack.
-   45 00:50D2 AF -  -  -  		xor 	a 							; clear sign count.
-   46 00:50D3 CD EF 50 -  		call 	_I32CheckHLSignSwap
-   47 00:50D6 CD EF 50 -  		call 	_I32CheckHLSignSwap
-   48 00:50D9 08 -  -  -  		ex 		af,af' 						; save count in AF'
-   49 00:50DA F1 -  -  -  		pop 	af 							; get/save function flag
-   50 00:50DB F5 -  -  -  		push 	af
-   51 00:50DC CD 01 51 -  		call 	_I32UnsignedDivide 			; do the unsigned divide or modulus
-   52 00:50DF F1 -  -  -  		pop 	af 							; get function back
-   53 00:50E0 30 06 -  -  		jr 		nc,_I32SDExit 				; if modulus don't reapply the sign
-   54 00:50E2 08 -  -  -  		ex 	 	af,af' 						; get count
-   55 00:50E3 CB 47 -  -  		bit 	0,a 						; if even do not reapply sign
-   56 00:50E5 C4 4B 52 -  		call 	nz,Int32Negate 				; if odd, reapply sign.
-   57 00:50E8 -  -  -  -  _I32SDExit:
-   58 00:50E8 D9 -  -  -  		exx 								; restore DE'DE
-   59 00:50E9 D1 -  -  -  		pop 	de
-   60 00:50EA D9 -  -  -  		exx
-   61 00:50EB D1 -  -  -  		pop 	de
-   62 00:50EC F1 -  -  -  		pop 	af 							; restore AF'	
-   63 00:50ED 08 -  -  -  		ex 		af,af'
-   64 00:50EE C9 -  -  -  		ret
-   65 00:50EF -  -  -  -  
-   66 00:50EF -  -  -  -  
-   67 00:50EF -  -  -  -  _I32CheckHLSignSwap:
-   68 00:50EF D9 -  -  -  		exx 								; check if HL'HL is negative.
-   69 00:50F0 CB 7C -  -  		bit 	7,h
-   70 00:50F2 D9 -  -  -  		exx
-   71 00:50F3 28 07 -  -  		jr 		z,_I32CHSPositive 		
-   72 00:50F5 -  -  -  -  		;
-   73 00:50F5 C6 01 -  -  		add 	a,1 						; if so increment counter in A
-   74 00:50F7 F5 -  -  -  		push 	af  						; negate HL'HL preserving A
-   75 00:50F8 CD 4B 52 -  		call 	Int32Negate 				
-   76 00:50FB F1 -  -  -  		pop 	af
-   77 00:50FC -  -  -  -  _I32CHSPositive:
-   78 00:50FC D9 -  -  -  		exx 	 							; swap HL'HL and DE'DE
-   79 00:50FD EB -  -  -  		ex 		de,hl
-   80 00:50FE D9 -  -  -  		exx		
-   81 00:50FF EB -  -  -  		ex 		de,hl
-   82 00:5100 C9 -  -  -  		ret
-   83 00:5101 -  -  -  -  
-   84 00:5101 -  -  -  -  ; ***************************************************************************************
-   85 00:5101 -  -  -  -  ;
-   86 00:5101 -  -  -  -  ;		Divide HL'HL by DE'DE. Preserves BC'BC and DE'DE. If CS return carry else 
-   87 00:5101 -  -  -  -  ;		return the modulus. Always returns modulus LSB in A.
-   88 00:5101 -  -  -  -  ;
-   89 00:5101 -  -  -  -  ; ***************************************************************************************
-   90 00:5101 -  -  -  -  
-   91 00:5101 -  -  -  -  _I32UnsignedDivide:
-   92 00:5101 C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE
-   93 00:5102 D5 -  -  -  		push 	de
-   94 00:5103 D9 -  -  -  		exx
-   95 00:5104 C5 -  -  -  		push 	bc
-   96 00:5105 D5 -  -  -  		push 	de 							
-   97 00:5106 D9 -  -  -  		exx
-   98 00:5107 -  -  -  -  
-   99 00:5107 F5 -  -  -  		push 	af 							; save CS for exit check
-  100 00:5108 -  -  -  -  
-  101 00:5108 7A -  -  -  		ld 		a,d 						; check if DE = 0
-  102 00:5109 B3 -  -  -  		or 		e
-  103 00:510A D9 -  -  -  		exx
-  104 00:510B B2 -  -  -  		or 		d
-  105 00:510C B3 -  -  -  		or 		e
-  106 00:510D D9 -  -  -  		exx
-  107 00:510E CA 27 40 -  		jp 		z,Int32DivZeroHandler 		; if so, error.
-  108 00:5111 -  -  -  -  
-  109 00:5111 -  -  -  -  
-  110 00:5111 44 -  -  -  		ld 		b,h 						; put Q (divisor) in BC, clear A (result)
-  111 00:5112 4D -  -  -  		ld		c,l
-  112 00:5113 21 00 00 -  		ld 		hl,$0000
-  113 00:5116 D9 -  -  -  		exx
-  114 00:5117 44 -  -  -  		ld 		b,h
-  115 00:5118 4D -  -  -  		ld		c,l
-  116 00:5119 21 00 00 -  		ld 		hl,$0000
-  117 00:511C D9 -  -  -  		exx
-  118 00:511D -  -  -  -  
-  119 00:511D 3E 20 -  -  		ld 		a,32 						; loop counter
-  120 00:511F -  -  -  -  _I32DivideLoop:
-  121 00:511F F5 -  -  -  		push 	af
-  122 00:5120 -  -  -  -  
-  123 00:5120 CB 21 -  -  		sla 	c 							; shift AQ left : A = HL'HL Q = BC'BC
-  124 00:5122 CB 10 -  -  		rl 		b
-  125 00:5124 D9 -  -  -  		exx
-  126 00:5125 CB 11 -  -  		rl 		c
-  127 00:5127 CB 10 -  -  		rl 		b
-  128 00:5129 D9 -  -  -  		exx
-  129 00:512A CB 15 -  -  		rl 		l
-  130 00:512C CB 14 -  -  		rl 		h
-  131 00:512E D9 -  -  -  		exx
-  132 00:512F CB 15 -  -  		rl 		l
-  133 00:5131 CB 14 -  -  		rl 		h
-  134 00:5133 D9 -  -  -  		exx
-  135 00:5134 -  -  -  -  
-  136 00:5134 CD F1 51 -  		call 	Int32Subtract 				; A = A - M
-  137 00:5137 38 03 -  -  		jr 		c,_I32Borrow 				; borrow, failed to subtract.
-  138 00:5139 -  -  -  -  
-  139 00:5139 0C -  -  -  		inc 	c 							; set the low bit of BC'BC
-  140 00:513A 18 03 -  -  		jr 		_I32Next
-  141 00:513C -  -  -  -  
-  142 00:513C -  -  -  -  _I32Borrow:
-  143 00:513C CD EB 51 -  		call 	Int32Add 					; A = A + M
-  144 00:513F -  -  -  -  _I32Next:
-  145 00:513F F1 -  -  -  		pop 	af
-  146 00:5140 3D -  -  -  		dec 	a
-  147 00:5141 20 DC -  -  		jr 		nz,_I32DivideLoop		 	; result is in BC'BC, remainder in HL'HL
-  148 00:5143 -  -  -  -  
-  149 00:5143 F1 -  -  -  		pop 	af 							; CS if divide, CC if modulus
-  150 00:5144 -  -  -  -  
-  151 00:5144 7D -  -  -  		ld 		a,l 						; A has LSB of modulus.
-  152 00:5145 30 06 -  -  		jr 		nc,_I32Modulus1
-  153 00:5147 -  -  -  -  
-  154 00:5147 60 -  -  -  		ld  	h,b
-  155 00:5148 69 -  -  -  		ld 		l,c
-  156 00:5149 D9 -  -  -  		exx
-  157 00:514A 60 -  -  -  		ld  	h,b
-  158 00:514B 69 -  -  -  		ld 		l,c
-  159 00:514C D9 -  -  -  		exx
-  160 00:514D -  -  -  -  _I32Modulus1:		
-  161 00:514D D9 -  -  -  		exx 								; restore BC'BC and DE'DE
-  162 00:514E D1 -  -  -  		pop 	de
-  163 00:514F C1 -  -  -  		pop 	bc
-  164 00:5150 D9 -  -  -  		exx
-  165 00:5151 D1 -  -  -  		pop 	de
-  166 00:5152 C1 -  -  -  		pop 	bc
-  167 00:5153 C9 -  -  -  		ret
-  168 00:5154 -  -  -  -  
-  169 00:5154 -  -  -  -  ; ***************************************************************************************
-  170 00:5154 -  -  -  -  ;
-  171 00:5154 -  -  -  -  ;									Changes and Updates
-  172 00:5154 -  -  -  -  ;
-  173 00:5154 -  -  -  -  ; ***************************************************************************************
-  174 00:5154 -  -  -  -  ;
-  175 00:5154 -  -  -  -  ;		Date			Notes
-  176 00:5154 -  -  -  -  ;		==== 			=====
-  177 00:5154 -  -  -  -  ;
-  178 00:5154 -  -  -  -  ; ***************************************************************************************
-  179 00:5154 -  -  -  -  		
+    1 00:50CE -  -  -  -  ; ***************************************************************************************
+    2 00:50CE -  -  -  -  ; ***************************************************************************************
+    3 00:50CE -  -  -  -  ;
+    4 00:50CE -  -  -  -  ;		Name : 		idivide.asm
+    5 00:50CE -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:50CE -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:50CE -  -  -  -  ;		Reviewed :	No
+    8 00:50CE -  -  -  -  ;		Purpose :	Divide HL'HL by DE'DE and variants
+    9 00:50CE -  -  -  -  ;
+   10 00:50CE -  -  -  -  ; ***************************************************************************************
+   11 00:50CE -  -  -  -  ; ***************************************************************************************
+   12 00:50CE -  -  -  -  
+   13 00:50CE -  -  -  -  ; ***************************************************************************************
+   14 00:50CE -  -  -  -  ;
+   15 00:50CE -  -  -  -  ;								Unsigned integer divide
+   16 00:50CE -  -  -  -  ;
+   17 00:50CE -  -  -  -  ; ***************************************************************************************
+   18 00:50CE -  -  -  -  
+   19 00:50CE -  -  -  -  Int32UDivide:
+   20 00:50CE 37 -  -  -  		scf
+   21 00:50CF C3 0D 51 -  		jp 		_I32UnsignedDivide		
+   22 00:50D2 -  -  -  -  
+   23 00:50D2 -  -  -  -  ; ***************************************************************************************
+   24 00:50D2 -  -  -  -  ;
+   25 00:50D2 -  -  -  -  ;							Signed integer divide/Modulus
+   26 00:50D2 -  -  -  -  ;
+   27 00:50D2 -  -  -  -  ; ***************************************************************************************
+   28 00:50D2 -  -  -  -  
+   29 00:50D2 -  -  -  -  Int32SDivide:
+   30 00:50D2 37 -  -  -  		scf
+   31 00:50D3 18 01 -  -  		jr 		_I32SDivide
+   32 00:50D5 -  -  -  -  Int32Modulus:
+   33 00:50D5 AF -  -  -  		xor 	a
+   34 00:50D6 -  -  -  -  _I32SDivide:
+   35 00:50D6 08 -  -  -  		ex 		af,af' 						; push AF'
+   36 00:50D7 F5 -  -  -  		push 	af
+   37 00:50D8 08 -  -  -  		ex 		af,af'
+   38 00:50D9 -  -  -  -  
+   39 00:50D9 D5 -  -  -  		push 	de 							; push DE'DE as we might remove sign
+   40 00:50DA D9 -  -  -  		exx
+   41 00:50DB D5 -  -  -  		push 	de
+   42 00:50DC D9 -  -  -  		exx
+   43 00:50DD -  -  -  -  
+   44 00:50DD F5 -  -  -  		push 	af 							; save flag (CS Divide, CC Modulus) on stack.
+   45 00:50DE AF -  -  -  		xor 	a 							; clear sign count.
+   46 00:50DF CD FB 50 -  		call 	_I32CheckHLSignSwap
+   47 00:50E2 CD FB 50 -  		call 	_I32CheckHLSignSwap
+   48 00:50E5 08 -  -  -  		ex 		af,af' 						; save count in AF'
+   49 00:50E6 F1 -  -  -  		pop 	af 							; get/save function flag
+   50 00:50E7 F5 -  -  -  		push 	af
+   51 00:50E8 CD 0D 51 -  		call 	_I32UnsignedDivide 			; do the unsigned divide or modulus
+   52 00:50EB F1 -  -  -  		pop 	af 							; get function back
+   53 00:50EC 30 06 -  -  		jr 		nc,_I32SDExit 				; if modulus don't reapply the sign
+   54 00:50EE 08 -  -  -  		ex 	 	af,af' 						; get count
+   55 00:50EF CB 47 -  -  		bit 	0,a 						; if even do not reapply sign
+   56 00:50F1 C4 57 52 -  		call 	nz,Int32Negate 				; if odd, reapply sign.
+   57 00:50F4 -  -  -  -  _I32SDExit:
+   58 00:50F4 D9 -  -  -  		exx 								; restore DE'DE
+   59 00:50F5 D1 -  -  -  		pop 	de
+   60 00:50F6 D9 -  -  -  		exx
+   61 00:50F7 D1 -  -  -  		pop 	de
+   62 00:50F8 F1 -  -  -  		pop 	af 							; restore AF'	
+   63 00:50F9 08 -  -  -  		ex 		af,af'
+   64 00:50FA C9 -  -  -  		ret
+   65 00:50FB -  -  -  -  
+   66 00:50FB -  -  -  -  
+   67 00:50FB -  -  -  -  _I32CheckHLSignSwap:
+   68 00:50FB D9 -  -  -  		exx 								; check if HL'HL is negative.
+   69 00:50FC CB 7C -  -  		bit 	7,h
+   70 00:50FE D9 -  -  -  		exx
+   71 00:50FF 28 07 -  -  		jr 		z,_I32CHSPositive 		
+   72 00:5101 -  -  -  -  		;
+   73 00:5101 C6 01 -  -  		add 	a,1 						; if so increment counter in A
+   74 00:5103 F5 -  -  -  		push 	af  						; negate HL'HL preserving A
+   75 00:5104 CD 57 52 -  		call 	Int32Negate 				
+   76 00:5107 F1 -  -  -  		pop 	af
+   77 00:5108 -  -  -  -  _I32CHSPositive:
+   78 00:5108 D9 -  -  -  		exx 	 							; swap HL'HL and DE'DE
+   79 00:5109 EB -  -  -  		ex 		de,hl
+   80 00:510A D9 -  -  -  		exx		
+   81 00:510B EB -  -  -  		ex 		de,hl
+   82 00:510C C9 -  -  -  		ret
+   83 00:510D -  -  -  -  
+   84 00:510D -  -  -  -  ; ***************************************************************************************
+   85 00:510D -  -  -  -  ;
+   86 00:510D -  -  -  -  ;		Divide HL'HL by DE'DE. Preserves BC'BC and DE'DE. If CS return carry else 
+   87 00:510D -  -  -  -  ;		return the modulus. Always returns modulus LSB in A.
+   88 00:510D -  -  -  -  ;
+   89 00:510D -  -  -  -  ; ***************************************************************************************
+   90 00:510D -  -  -  -  
+   91 00:510D -  -  -  -  _I32UnsignedDivide:
+   92 00:510D C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE
+   93 00:510E D5 -  -  -  		push 	de
+   94 00:510F D9 -  -  -  		exx
+   95 00:5110 C5 -  -  -  		push 	bc
+   96 00:5111 D5 -  -  -  		push 	de 							
+   97 00:5112 D9 -  -  -  		exx
+   98 00:5113 -  -  -  -  
+   99 00:5113 F5 -  -  -  		push 	af 							; save CS for exit check
+  100 00:5114 -  -  -  -  
+  101 00:5114 7A -  -  -  		ld 		a,d 						; check if DE = 0
+  102 00:5115 B3 -  -  -  		or 		e
+  103 00:5116 D9 -  -  -  		exx
+  104 00:5117 B2 -  -  -  		or 		d
+  105 00:5118 B3 -  -  -  		or 		e
+  106 00:5119 D9 -  -  -  		exx
+  107 00:511A CA 27 40 -  		jp 		z,Int32DivZeroHandler 		; if so, error.
+  108 00:511D -  -  -  -  
+  109 00:511D -  -  -  -  
+  110 00:511D 44 -  -  -  		ld 		b,h 						; put Q (divisor) in BC, clear A (result)
+  111 00:511E 4D -  -  -  		ld		c,l
+  112 00:511F 21 00 00 -  		ld 		hl,$0000
+  113 00:5122 D9 -  -  -  		exx
+  114 00:5123 44 -  -  -  		ld 		b,h
+  115 00:5124 4D -  -  -  		ld		c,l
+  116 00:5125 21 00 00 -  		ld 		hl,$0000
+  117 00:5128 D9 -  -  -  		exx
+  118 00:5129 -  -  -  -  
+  119 00:5129 3E 20 -  -  		ld 		a,32 						; loop counter
+  120 00:512B -  -  -  -  _I32DivideLoop:
+  121 00:512B F5 -  -  -  		push 	af
+  122 00:512C -  -  -  -  
+  123 00:512C CB 21 -  -  		sla 	c 							; shift AQ left : A = HL'HL Q = BC'BC
+  124 00:512E CB 10 -  -  		rl 		b
+  125 00:5130 D9 -  -  -  		exx
+  126 00:5131 CB 11 -  -  		rl 		c
+  127 00:5133 CB 10 -  -  		rl 		b
+  128 00:5135 D9 -  -  -  		exx
+  129 00:5136 CB 15 -  -  		rl 		l
+  130 00:5138 CB 14 -  -  		rl 		h
+  131 00:513A D9 -  -  -  		exx
+  132 00:513B CB 15 -  -  		rl 		l
+  133 00:513D CB 14 -  -  		rl 		h
+  134 00:513F D9 -  -  -  		exx
+  135 00:5140 -  -  -  -  
+  136 00:5140 CD FD 51 -  		call 	Int32Subtract 				; A = A - M
+  137 00:5143 38 03 -  -  		jr 		c,_I32Borrow 				; borrow, failed to subtract.
+  138 00:5145 -  -  -  -  
+  139 00:5145 0C -  -  -  		inc 	c 							; set the low bit of BC'BC
+  140 00:5146 18 03 -  -  		jr 		_I32Next
+  141 00:5148 -  -  -  -  
+  142 00:5148 -  -  -  -  _I32Borrow:
+  143 00:5148 CD F7 51 -  		call 	Int32Add 					; A = A + M
+  144 00:514B -  -  -  -  _I32Next:
+  145 00:514B F1 -  -  -  		pop 	af
+  146 00:514C 3D -  -  -  		dec 	a
+  147 00:514D 20 DC -  -  		jr 		nz,_I32DivideLoop		 	; result is in BC'BC, remainder in HL'HL
+  148 00:514F -  -  -  -  
+  149 00:514F F1 -  -  -  		pop 	af 							; CS if divide, CC if modulus
+  150 00:5150 -  -  -  -  
+  151 00:5150 7D -  -  -  		ld 		a,l 						; A has LSB of modulus.
+  152 00:5151 30 06 -  -  		jr 		nc,_I32Modulus1
+  153 00:5153 -  -  -  -  
+  154 00:5153 60 -  -  -  		ld  	h,b
+  155 00:5154 69 -  -  -  		ld 		l,c
+  156 00:5155 D9 -  -  -  		exx
+  157 00:5156 60 -  -  -  		ld  	h,b
+  158 00:5157 69 -  -  -  		ld 		l,c
+  159 00:5158 D9 -  -  -  		exx
+  160 00:5159 -  -  -  -  _I32Modulus1:		
+  161 00:5159 D9 -  -  -  		exx 								; restore BC'BC and DE'DE
+  162 00:515A D1 -  -  -  		pop 	de
+  163 00:515B C1 -  -  -  		pop 	bc
+  164 00:515C D9 -  -  -  		exx
+  165 00:515D D1 -  -  -  		pop 	de
+  166 00:515E C1 -  -  -  		pop 	bc
+  167 00:515F C9 -  -  -  		ret
+  168 00:5160 -  -  -  -  
+  169 00:5160 -  -  -  -  ; ***************************************************************************************
+  170 00:5160 -  -  -  -  ;
+  171 00:5160 -  -  -  -  ;									Changes and Updates
+  172 00:5160 -  -  -  -  ;
+  173 00:5160 -  -  -  -  ; ***************************************************************************************
+  174 00:5160 -  -  -  -  ;
+  175 00:5160 -  -  -  -  ;		Date			Notes
+  176 00:5160 -  -  -  -  ;		==== 			=====
+  177 00:5160 -  -  -  -  ;
+  178 00:5160 -  -  -  -  ; ***************************************************************************************
+  179 00:5160 -  -  -  -  		
 Listing for file "_build.asm"
-   75 00:5154 -  -  -  -  #include "int32/ifromstring.asm"
+   75 00:5160 -  -  -  -  #include "int32/ifromstring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/ifromstring.asm"
-    1 00:5154 -  -  -  -  ; ***************************************************************************************
-    2 00:5154 -  -  -  -  ; ***************************************************************************************
-    3 00:5154 -  -  -  -  ;
-    4 00:5154 -  -  -  -  ;		Name : 		ifromstring.asm
-    5 00:5154 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:5154 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:5154 -  -  -  -  ;		Reviewed :	No
-    8 00:5154 -  -  -  -  ;		Purpose :	Convert string to integer.
-    9 00:5154 -  -  -  -  ;
-   10 00:5154 -  -  -  -  ; ***************************************************************************************
-   11 00:5154 -  -  -  -  ; ***************************************************************************************
-   12 00:5154 -  -  -  -  
-   13 00:5154 -  -  -  -  ; ***************************************************************************************
-   14 00:5154 -  -  -  -  ;
-   15 00:5154 -  -  -  -  ;			Convert string at (BC) base A (-ve = sign) to number at HL'HL
-   16 00:5154 -  -  -  -  ;			Return first 'bad' character in A, Z flag set if EOS.
-   17 00:5154 -  -  -  -  ;
-   18 00:5154 -  -  -  -  ; ***************************************************************************************
-   19 00:5154 -  -  -  -  
-   20 00:5154 -  -  -  -  Int32FromString:
-   21 00:5154 C5 -  -  -   		push 	bc 							; save BC on stack
-   22 00:5155 D9 -  -  -  		exx 								; push DE'DE on the stack
-   23 00:5156 D5 -  -  -  		push 	de
-   24 00:5157 D9 -  -  -  		exx
-   25 00:5158 D5 -  -  -  		push 	de
-   26 00:5159 -  -  -  -  
-   27 00:5159 21 00 00 -  		ld 		hl,$0000 					; zero HL'HL the result and the DE'DE
-   28 00:515C 11 00 00 -  		ld 		de,$0000
-   29 00:515F D9 -  -  -  		exx
-   30 00:5160 21 00 00 -  		ld 		hl,$0000
-   31 00:5163 11 00 00 -  		ld 		de,$0000
-   32 00:5166 D9 -  -  -  		exx
-   33 00:5167 -  -  -  -  
-   34 00:5167 5F -  -  -  		ld 		e,a 						; base in E
-   35 00:5168 CB 7F -  -  		bit 	7,a 						; base -ve e.g. do it signed
-   36 00:516A 28 0D -  -  		jr 		z,_I32FSNotSigned
-   37 00:516C ED 44 -  -  		neg 		 						; fix up the base
-   38 00:516E 5F -  -  -  		ld 		e,a 						; save in E.
-   39 00:516F -  -  -  -  		;
-   40 00:516F 0A -  -  -  		ld 		a,(bc) 						; push first character on the stack.
-   41 00:5170 F5 -  -  -  		push 	af
-   42 00:5171 FE 2D -  -  		cp 		'-' 						; is it a minus ?
-   43 00:5173 7B -  -  -  		ld 		a,e 						; restore base in A
-   44 00:5174 20 04 -  -  		jr 		nz,_I32FSMain 				; (the compare above)
-   45 00:5176 03 -  -  -  		inc 	bc 							; skip over it and start scanning
-   46 00:5177 18 01 -  -  		jr 		_I32FSMain
-   47 00:5179 -  -  -  -  _I32FSNotSigned:		
-   48 00:5179 E5 -  -  -  		push 	hl 							; this is a dummy first char, will be zero.
-   49 00:517A -  -  -  -  		;
-   50 00:517A -  -  -  -  		; 		Main conversion loop.
-   51 00:517A -  -  -  -  		; 		
-   52 00:517A -  -  -  -  _I32FSMain:		
-   53 00:517A 0A -  -  -  		ld 		a,(bc) 						; get next character
-   54 00:517B FE 60 -  -  		cp 		96 							; simple but sufficient L->U
-   55 00:517D 38 02 -  -  		jr 		c,_I32FSNotLower
-   56 00:517F D6 20 -  -  		sub 	32
-   57 00:5181 -  -  -  -  _I32FSNotLower:
-   58 00:5181 FE 30 -  -  		cp 		'0' 						; check in range
-   59 00:5183 38 21 -  -  		jr 		c,_I32FSExit
-   60 00:5185 FE 3A -  -  		cp 		'9'+1
-   61 00:5187 38 0A -  -  		jr 		c,_I32FSOkay
-   62 00:5189 FE 41 -  -  		cp 		'A'
-   63 00:518B 38 19 -  -  		jr 		c,_I32FSExit
-   64 00:518D FE 47 -  -  		cp 		'F'+1
-   65 00:518F 30 15 -  -  		jr 		nc,_I32FSExit
-   66 00:5191 D6 07 -  -  		sub 	7 							; hex->decimal mod.
-   67 00:5193 -  -  -  -  _I32FSOkay:
-   68 00:5193 D6 30 -  -  		sub 	'0' 						; now should be 0-15
-   69 00:5195 BB -  -  -  		cp 		e 							; fail if >= base
-   70 00:5196 30 0E -  -  		jr 		nc,_I32FSExit 
-   71 00:5198 03 -  -  -  		inc 	bc 							; consume character
-   72 00:5199 D5 -  -  -  		push 	de 							; save DE, containing base on stack.
-   73 00:519A F5 -  -  -  		push 	af 							; save additive on stack
-   74 00:519B CD B5 51 -  		call 	Int32Multiply 				; result *= base
-   75 00:519E F1 -  -  -  		pop 	af 							; additive in DE
-   76 00:519F 5F -  -  -  		ld 		e,a
-   77 00:51A0 CD EB 51 -  		call 	Int32Add 					; and add it.
-   78 00:51A3 D1 -  -  -  		pop 	de 							; restore DE containing base.
-   79 00:51A4 18 D4 -  -  		jr 		_I32FSMain 					; and go round the loop again.
-   80 00:51A6 -  -  -  -  
-   81 00:51A6 -  -  -  -  _I32FSExit:
-   82 00:51A6 F1 -  -  -  		pop 	af 							; get sign back
-   83 00:51A7 FE 2D -  -  		cp 		'-' 						; if -ve negate result
-   84 00:51A9 CC 4B 52 -  		call 	z,Int32Negate
-   85 00:51AC 0A -  -  -  		ld 		a,(bc) 						; get fail character
-   86 00:51AD D1 -  -  -  		pop 	de 							; restore DE'DE BC
-   87 00:51AE D9 -  -  -  		exx
-   88 00:51AF D1 -  -  -  		pop 	de
-   89 00:51B0 D9 -  -  -  		exx
-   90 00:51B1 C1 -  -  -  		pop 	bc
-   91 00:51B2 FE 0D -  -  		cp 		$0D 						; ends in CR ?
-   92 00:51B4 C9 -  -  -  		ret				
-   93 00:51B5 -  -  -  -  
-   94 00:51B5 -  -  -  -  ; ***************************************************************************************
-   95 00:51B5 -  -  -  -  ;
-   96 00:51B5 -  -  -  -  ;									Changes and Updates
-   97 00:51B5 -  -  -  -  ;
-   98 00:51B5 -  -  -  -  ; ***************************************************************************************
-   99 00:51B5 -  -  -  -  ;
-  100 00:51B5 -  -  -  -  ;		Date			Notes
-  101 00:51B5 -  -  -  -  ;		==== 			=====
-  102 00:51B5 -  -  -  -  ;
-  103 00:51B5 -  -  -  -  ; ***************************************************************************************
+    1 00:5160 -  -  -  -  ; ***************************************************************************************
+    2 00:5160 -  -  -  -  ; ***************************************************************************************
+    3 00:5160 -  -  -  -  ;
+    4 00:5160 -  -  -  -  ;		Name : 		ifromstring.asm
+    5 00:5160 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:5160 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:5160 -  -  -  -  ;		Reviewed :	No
+    8 00:5160 -  -  -  -  ;		Purpose :	Convert string to integer.
+    9 00:5160 -  -  -  -  ;
+   10 00:5160 -  -  -  -  ; ***************************************************************************************
+   11 00:5160 -  -  -  -  ; ***************************************************************************************
+   12 00:5160 -  -  -  -  
+   13 00:5160 -  -  -  -  ; ***************************************************************************************
+   14 00:5160 -  -  -  -  ;
+   15 00:5160 -  -  -  -  ;			Convert string at (BC) base A (-ve = sign) to number at HL'HL
+   16 00:5160 -  -  -  -  ;			Return first 'bad' character in A, Z flag set if EOS.
+   17 00:5160 -  -  -  -  ;
+   18 00:5160 -  -  -  -  ; ***************************************************************************************
+   19 00:5160 -  -  -  -  
+   20 00:5160 -  -  -  -  Int32FromString:
+   21 00:5160 C5 -  -  -   		push 	bc 							; save BC on stack
+   22 00:5161 D9 -  -  -  		exx 								; push DE'DE on the stack
+   23 00:5162 D5 -  -  -  		push 	de
+   24 00:5163 D9 -  -  -  		exx
+   25 00:5164 D5 -  -  -  		push 	de
+   26 00:5165 -  -  -  -  
+   27 00:5165 21 00 00 -  		ld 		hl,$0000 					; zero HL'HL the result and the DE'DE
+   28 00:5168 11 00 00 -  		ld 		de,$0000
+   29 00:516B D9 -  -  -  		exx
+   30 00:516C 21 00 00 -  		ld 		hl,$0000
+   31 00:516F 11 00 00 -  		ld 		de,$0000
+   32 00:5172 D9 -  -  -  		exx
+   33 00:5173 -  -  -  -  
+   34 00:5173 5F -  -  -  		ld 		e,a 						; base in E
+   35 00:5174 CB 7F -  -  		bit 	7,a 						; base -ve e.g. do it signed
+   36 00:5176 28 0D -  -  		jr 		z,_I32FSNotSigned
+   37 00:5178 ED 44 -  -  		neg 		 						; fix up the base
+   38 00:517A 5F -  -  -  		ld 		e,a 						; save in E.
+   39 00:517B -  -  -  -  		;
+   40 00:517B 0A -  -  -  		ld 		a,(bc) 						; push first character on the stack.
+   41 00:517C F5 -  -  -  		push 	af
+   42 00:517D FE 2D -  -  		cp 		'-' 						; is it a minus ?
+   43 00:517F 7B -  -  -  		ld 		a,e 						; restore base in A
+   44 00:5180 20 04 -  -  		jr 		nz,_I32FSMain 				; (the compare above)
+   45 00:5182 03 -  -  -  		inc 	bc 							; skip over it and start scanning
+   46 00:5183 18 01 -  -  		jr 		_I32FSMain
+   47 00:5185 -  -  -  -  _I32FSNotSigned:		
+   48 00:5185 E5 -  -  -  		push 	hl 							; this is a dummy first char, will be zero.
+   49 00:5186 -  -  -  -  		;
+   50 00:5186 -  -  -  -  		; 		Main conversion loop.
+   51 00:5186 -  -  -  -  		; 		
+   52 00:5186 -  -  -  -  _I32FSMain:		
+   53 00:5186 0A -  -  -  		ld 		a,(bc) 						; get next character
+   54 00:5187 FE 60 -  -  		cp 		96 							; simple but sufficient L->U
+   55 00:5189 38 02 -  -  		jr 		c,_I32FSNotLower
+   56 00:518B D6 20 -  -  		sub 	32
+   57 00:518D -  -  -  -  _I32FSNotLower:
+   58 00:518D FE 30 -  -  		cp 		'0' 						; check in range
+   59 00:518F 38 21 -  -  		jr 		c,_I32FSExit
+   60 00:5191 FE 3A -  -  		cp 		'9'+1
+   61 00:5193 38 0A -  -  		jr 		c,_I32FSOkay
+   62 00:5195 FE 41 -  -  		cp 		'A'
+   63 00:5197 38 19 -  -  		jr 		c,_I32FSExit
+   64 00:5199 FE 47 -  -  		cp 		'F'+1
+   65 00:519B 30 15 -  -  		jr 		nc,_I32FSExit
+   66 00:519D D6 07 -  -  		sub 	7 							; hex->decimal mod.
+   67 00:519F -  -  -  -  _I32FSOkay:
+   68 00:519F D6 30 -  -  		sub 	'0' 						; now should be 0-15
+   69 00:51A1 BB -  -  -  		cp 		e 							; fail if >= base
+   70 00:51A2 30 0E -  -  		jr 		nc,_I32FSExit 
+   71 00:51A4 03 -  -  -  		inc 	bc 							; consume character
+   72 00:51A5 D5 -  -  -  		push 	de 							; save DE, containing base on stack.
+   73 00:51A6 F5 -  -  -  		push 	af 							; save additive on stack
+   74 00:51A7 CD C1 51 -  		call 	Int32Multiply 				; result *= base
+   75 00:51AA F1 -  -  -  		pop 	af 							; additive in DE
+   76 00:51AB 5F -  -  -  		ld 		e,a
+   77 00:51AC CD F7 51 -  		call 	Int32Add 					; and add it.
+   78 00:51AF D1 -  -  -  		pop 	de 							; restore DE containing base.
+   79 00:51B0 18 D4 -  -  		jr 		_I32FSMain 					; and go round the loop again.
+   80 00:51B2 -  -  -  -  
+   81 00:51B2 -  -  -  -  _I32FSExit:
+   82 00:51B2 F1 -  -  -  		pop 	af 							; get sign back
+   83 00:51B3 FE 2D -  -  		cp 		'-' 						; if -ve negate result
+   84 00:51B5 CC 57 52 -  		call 	z,Int32Negate
+   85 00:51B8 0A -  -  -  		ld 		a,(bc) 						; get fail character
+   86 00:51B9 D1 -  -  -  		pop 	de 							; restore DE'DE BC
+   87 00:51BA D9 -  -  -  		exx
+   88 00:51BB D1 -  -  -  		pop 	de
+   89 00:51BC D9 -  -  -  		exx
+   90 00:51BD C1 -  -  -  		pop 	bc
+   91 00:51BE FE 0D -  -  		cp 		$0D 						; ends in CR ?
+   92 00:51C0 C9 -  -  -  		ret				
+   93 00:51C1 -  -  -  -  
+   94 00:51C1 -  -  -  -  ; ***************************************************************************************
+   95 00:51C1 -  -  -  -  ;
+   96 00:51C1 -  -  -  -  ;									Changes and Updates
+   97 00:51C1 -  -  -  -  ;
+   98 00:51C1 -  -  -  -  ; ***************************************************************************************
+   99 00:51C1 -  -  -  -  ;
+  100 00:51C1 -  -  -  -  ;		Date			Notes
+  101 00:51C1 -  -  -  -  ;		==== 			=====
+  102 00:51C1 -  -  -  -  ;
+  103 00:51C1 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   76 00:51B5 -  -  -  -  #include "int32/imultiply.asm"
+   76 00:51C1 -  -  -  -  #include "int32/imultiply.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/imultiply.asm"
-    1 00:51B5 -  -  -  -  ; ***************************************************************************************
-    2 00:51B5 -  -  -  -  ; ***************************************************************************************
-    3 00:51B5 -  -  -  -  ;
-    4 00:51B5 -  -  -  -  ;		Name : 		imultiply.asm
-    5 00:51B5 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:51B5 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:51B5 -  -  -  -  ;		Reviewed :	No
-    8 00:51B5 -  -  -  -  ;		Purpose :	Multiply HL'HL by DE'DE
-    9 00:51B5 -  -  -  -  ;
-   10 00:51B5 -  -  -  -  ; ***************************************************************************************
-   11 00:51B5 -  -  -  -  ; ***************************************************************************************
-   12 00:51B5 -  -  -  -  
-   13 00:51B5 -  -  -  -  Int32Multiply:
-   14 00:51B5 C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE, copy HL'HL to BC'BC and zero HL'HL
-   15 00:51B6 D5 -  -  -  		push 	de
-   16 00:51B7 44 -  -  -  		ld 		b,h
-   17 00:51B8 4D -  -  -  		ld 		c,l
-   18 00:51B9 21 00 00 -  		ld 		hl,$0000
-   19 00:51BC -  -  -  -  
-   20 00:51BC D9 -  -  -  		exx
-   21 00:51BD C5 -  -  -  		push 	bc
-   22 00:51BE D5 -  -  -  		push 	de
-   23 00:51BF 44 -  -  -  		ld 		b,h
-   24 00:51C0 4D -  -  -  		ld 		c,l
-   25 00:51C1 21 00 00 -  		ld 		hl,$0000		
-   26 00:51C4 D9 -  -  -  		exx
-   27 00:51C5 -  -  -  -  
-   28 00:51C5 -  -  -  -  _I32MultiplyLoop:
-   29 00:51C5 CB 41 -  -  		bit 	0,c 						; is bit 0 of BC'BC set ?
-   30 00:51C7 C4 EB 51 -  		call 	nz,Int32Add 				; add DE'DE to HL'HL
-   31 00:51CA -  -  -  -  		;
-   32 00:51CA D9 -  -  -  		exx 								; shift BC'BC right.
-   33 00:51CB CB 38 -  -  		srl 	b
-   34 00:51CD CB 19 -  -  		rr 		c
-   35 00:51CF D9 -  -  -  		exx
-   36 00:51D0 CB 18 -  -  		rr 		b
-   37 00:51D2 CB 19 -  -  		rr 		c
-   38 00:51D4 -  -  -  -  		;
-   39 00:51D4 CB 23 -  -  		sla 	e 							; shift DE'DE left.
-   40 00:51D6 CB 12 -  -  		rl 		d
-   41 00:51D8 D9 -  -  -  		exx
-   42 00:51D9 CB 13 -  -  		rl 		e
-   43 00:51DB CB 12 -  -  		rl 		d
-   44 00:51DD -  -  -  -  
-   45 00:51DD 78 -  -  -  		ld 		a,b 						; check BC is zero in last exx
-   46 00:51DE B1 -  -  -  		or 		c
-   47 00:51DF D9 -  -  -  		exx
-   48 00:51E0 B0 -  -  -  		or 		b
-   49 00:51E1 B1 -  -  -  		or 		c
-   50 00:51E2 20 E1 -  -  		jr 		nz,_I32MultiplyLoop
-   51 00:51E4 -  -  -  -  
-   52 00:51E4 D9 -  -  -  		exx  								; pop DE'DE and BC'BC
-   53 00:51E5 D1 -  -  -  		pop 	de
-   54 00:51E6 C1 -  -  -  		pop 	bc
-   55 00:51E7 D9 -  -  -  		exx
-   56 00:51E8 D1 -  -  -  		pop 	de
-   57 00:51E9 C1 -  -  -  		pop 	bc
-   58 00:51EA C9 -  -  -  		ret
-   59 00:51EB -  -  -  -  
-   60 00:51EB -  -  -  -  ; ***************************************************************************************
-   61 00:51EB -  -  -  -  ;
-   62 00:51EB -  -  -  -  ;									Changes and Updates
-   63 00:51EB -  -  -  -  ;
-   64 00:51EB -  -  -  -  ; ***************************************************************************************
-   65 00:51EB -  -  -  -  ;
-   66 00:51EB -  -  -  -  ;		Date			Notes
-   67 00:51EB -  -  -  -  ;		==== 			=====
-   68 00:51EB -  -  -  -  ;
-   69 00:51EB -  -  -  -  ; ***************************************************************************************
+    1 00:51C1 -  -  -  -  ; ***************************************************************************************
+    2 00:51C1 -  -  -  -  ; ***************************************************************************************
+    3 00:51C1 -  -  -  -  ;
+    4 00:51C1 -  -  -  -  ;		Name : 		imultiply.asm
+    5 00:51C1 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:51C1 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:51C1 -  -  -  -  ;		Reviewed :	No
+    8 00:51C1 -  -  -  -  ;		Purpose :	Multiply HL'HL by DE'DE
+    9 00:51C1 -  -  -  -  ;
+   10 00:51C1 -  -  -  -  ; ***************************************************************************************
+   11 00:51C1 -  -  -  -  ; ***************************************************************************************
+   12 00:51C1 -  -  -  -  
+   13 00:51C1 -  -  -  -  Int32Multiply:
+   14 00:51C1 C5 -  -  -  		push 	bc 							; save BC'BC and DE'DE, copy HL'HL to BC'BC and zero HL'HL
+   15 00:51C2 D5 -  -  -  		push 	de
+   16 00:51C3 44 -  -  -  		ld 		b,h
+   17 00:51C4 4D -  -  -  		ld 		c,l
+   18 00:51C5 21 00 00 -  		ld 		hl,$0000
+   19 00:51C8 -  -  -  -  
+   20 00:51C8 D9 -  -  -  		exx
+   21 00:51C9 C5 -  -  -  		push 	bc
+   22 00:51CA D5 -  -  -  		push 	de
+   23 00:51CB 44 -  -  -  		ld 		b,h
+   24 00:51CC 4D -  -  -  		ld 		c,l
+   25 00:51CD 21 00 00 -  		ld 		hl,$0000		
+   26 00:51D0 D9 -  -  -  		exx
+   27 00:51D1 -  -  -  -  
+   28 00:51D1 -  -  -  -  _I32MultiplyLoop:
+   29 00:51D1 CB 41 -  -  		bit 	0,c 						; is bit 0 of BC'BC set ?
+   30 00:51D3 C4 F7 51 -  		call 	nz,Int32Add 				; add DE'DE to HL'HL
+   31 00:51D6 -  -  -  -  		;
+   32 00:51D6 D9 -  -  -  		exx 								; shift BC'BC right.
+   33 00:51D7 CB 38 -  -  		srl 	b
+   34 00:51D9 CB 19 -  -  		rr 		c
+   35 00:51DB D9 -  -  -  		exx
+   36 00:51DC CB 18 -  -  		rr 		b
+   37 00:51DE CB 19 -  -  		rr 		c
+   38 00:51E0 -  -  -  -  		;
+   39 00:51E0 CB 23 -  -  		sla 	e 							; shift DE'DE left.
+   40 00:51E2 CB 12 -  -  		rl 		d
+   41 00:51E4 D9 -  -  -  		exx
+   42 00:51E5 CB 13 -  -  		rl 		e
+   43 00:51E7 CB 12 -  -  		rl 		d
+   44 00:51E9 -  -  -  -  
+   45 00:51E9 78 -  -  -  		ld 		a,b 						; check BC is zero in last exx
+   46 00:51EA B1 -  -  -  		or 		c
+   47 00:51EB D9 -  -  -  		exx
+   48 00:51EC B0 -  -  -  		or 		b
+   49 00:51ED B1 -  -  -  		or 		c
+   50 00:51EE 20 E1 -  -  		jr 		nz,_I32MultiplyLoop
+   51 00:51F0 -  -  -  -  
+   52 00:51F0 D9 -  -  -  		exx  								; pop DE'DE and BC'BC
+   53 00:51F1 D1 -  -  -  		pop 	de
+   54 00:51F2 C1 -  -  -  		pop 	bc
+   55 00:51F3 D9 -  -  -  		exx
+   56 00:51F4 D1 -  -  -  		pop 	de
+   57 00:51F5 C1 -  -  -  		pop 	bc
+   58 00:51F6 C9 -  -  -  		ret
+   59 00:51F7 -  -  -  -  
+   60 00:51F7 -  -  -  -  ; ***************************************************************************************
+   61 00:51F7 -  -  -  -  ;
+   62 00:51F7 -  -  -  -  ;									Changes and Updates
+   63 00:51F7 -  -  -  -  ;
+   64 00:51F7 -  -  -  -  ; ***************************************************************************************
+   65 00:51F7 -  -  -  -  ;
+   66 00:51F7 -  -  -  -  ;		Date			Notes
+   67 00:51F7 -  -  -  -  ;		==== 			=====
+   68 00:51F7 -  -  -  -  ;
+   69 00:51F7 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   77 00:51EB -  -  -  -  #include "int32/isimple.asm"
+   77 00:51F7 -  -  -  -  #include "int32/isimple.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
-    1 00:51EB -  -  -  -  ; ***************************************************************************************
-    2 00:51EB -  -  -  -  ; ***************************************************************************************
-    3 00:51EB -  -  -  -  ;
-    4 00:51EB -  -  -  -  ;		Name : 		isimple.asm
-    5 00:51EB -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:51EB -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:51EB -  -  -  -  ;		Reviewed :	No
-    8 00:51EB -  -  -  -  ;		Purpose :	Simple 32 bit operations
-    9 00:51EB -  -  -  -  ;
-   10 00:51EB -  -  -  -  ; ***************************************************************************************
-   11 00:51EB -  -  -  -  ; ***************************************************************************************
-   12 00:51EB -  -  -  -  
-   13 00:51EB -  -  -  -  ; ***************************************************************************************
-   14 00:51EB -  -  -  -  ;
-   15 00:51EB -  -  -  -  ;								Add DE'DE to HL'HL
-   16 00:51EB -  -  -  -  ;
-   17 00:51EB -  -  -  -  ; ***************************************************************************************
-   18 00:51EB -  -  -  -  
-   19 00:51EB -  -  -  -  Int32Add:
-   20 00:51EB 19 -  -  -  		zm_add_hlde_16 						; add DE to HL
+    1 00:51F7 -  -  -  -  ; ***************************************************************************************
+    2 00:51F7 -  -  -  -  ; ***************************************************************************************
+    3 00:51F7 -  -  -  -  ;
+    4 00:51F7 -  -  -  -  ;		Name : 		isimple.asm
+    5 00:51F7 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:51F7 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:51F7 -  -  -  -  ;		Reviewed :	No
+    8 00:51F7 -  -  -  -  ;		Purpose :	Simple 32 bit operations
+    9 00:51F7 -  -  -  -  ;
+   10 00:51F7 -  -  -  -  ; ***************************************************************************************
+   11 00:51F7 -  -  -  -  ; ***************************************************************************************
+   12 00:51F7 -  -  -  -  
+   13 00:51F7 -  -  -  -  ; ***************************************************************************************
+   14 00:51F7 -  -  -  -  ;
+   15 00:51F7 -  -  -  -  ;								Add DE'DE to HL'HL
+   16 00:51F7 -  -  -  -  ;
+   17 00:51F7 -  -  -  -  ; ***************************************************************************************
+   18 00:51F7 -  -  -  -  
+   19 00:51F7 -  -  -  -  Int32Add:
+   20 00:51F7 19 -  -  -  		zm_add_hlde_16 						; add DE to HL
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/isimple.asm"
-   21 00:51EC D9 -  -  -  		exx
-   22 00:51ED ED 5A -  -  		zm_adc_hlde_16 						; add DE' to HL'
-   23 00:51EF D9 -  -  -  		exx
-   24 00:51F0 C9 -  -  -  		ret
-   25 00:51F1 -  -  -  -  
-   26 00:51F1 -  -  -  -  ; ***************************************************************************************
-   27 00:51F1 -  -  -  -  ;
-   28 00:51F1 -  -  -  -  ;								Sub DE'DE from HL'HL
-   29 00:51F1 -  -  -  -  ;
-   30 00:51F1 -  -  -  -  ; ***************************************************************************************
-   31 00:51F1 -  -  -  -  
-   32 00:51F1 -  -  -  -  Int32Subtract:
-   33 00:51F1 AF -  -  -  		xor 	a 							; clear carry
-   34 00:51F2 ED 52 -  -  		zm_sbc_hlde_16  					; subtract DE from HL
-   35 00:51F4 D9 -  -  -  		exx
-   36 00:51F5 ED 52 -  -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
-   37 00:51F7 D9 -  -  -  		exx
-   38 00:51F8 C9 -  -  -  		ret
-   39 00:51F9 -  -  -  -  
-   40 00:51F9 -  -  -  -  ; ***************************************************************************************
-   41 00:51F9 -  -  -  -  ;
-   42 00:51F9 -  -  -  -  ;								And DE'DE into HL'HL
-   43 00:51F9 -  -  -  -  ;
-   44 00:51F9 -  -  -  -  ; ***************************************************************************************
-   45 00:51F9 -  -  -  -  
-   46 00:51F9 -  -  -  -  Int32And:
-   47 00:51F9 D9 -  -  -  		exx
-   48 00:51FA CD FE 51 -  		call 	_I32AndHLDE
-   49 00:51FD D9 -  -  -  		exx
-   50 00:51FE -  -  -  -  _I32AndHLDE:		
-   51 00:51FE 7C -  -  -  		ld 		a,h
-   52 00:51FF A2 -  -  -  		and 	d
-   53 00:5200 67 -  -  -  		ld 		h,a
-   54 00:5201 7D -  -  -  		ld 		a,l
-   55 00:5202 A3 -  -  -  		and 	e
-   56 00:5203 6F -  -  -  		ld 		l,a
-   57 00:5204 C9 -  -  -  		ret
-   58 00:5205 -  -  -  -  
-   59 00:5205 -  -  -  -  ; ***************************************************************************************
-   60 00:5205 -  -  -  -  ;
-   61 00:5205 -  -  -  -  ;								Or DE'DE into HL'HL
-   62 00:5205 -  -  -  -  ;
-   63 00:5205 -  -  -  -  ; ***************************************************************************************
-   64 00:5205 -  -  -  -  
-   65 00:5205 -  -  -  -  Int32Or:
-   66 00:5205 D9 -  -  -  		exx
-   67 00:5206 CD 0A 52 -  		call 	_I32OrHLDE
-   68 00:5209 D9 -  -  -  		exx
-   69 00:520A -  -  -  -  _I32OrHLDE:		
-   70 00:520A 7C -  -  -  		ld 		a,h
-   71 00:520B B2 -  -  -  		or 		d
-   72 00:520C 67 -  -  -  		ld 		h,a
-   73 00:520D 7D -  -  -  		ld 		a,l
-   74 00:520E B3 -  -  -  		or 		e
-   75 00:520F 6F -  -  -  		ld 		l,a
-   76 00:5210 C9 -  -  -  		ret
-   77 00:5211 -  -  -  -  
-   78 00:5211 -  -  -  -  ; ***************************************************************************************
-   79 00:5211 -  -  -  -  ;
-   80 00:5211 -  -  -  -  ;								Xor DE'DE into HL'HL
-   81 00:5211 -  -  -  -  ;
-   82 00:5211 -  -  -  -  ; ***************************************************************************************
-   83 00:5211 -  -  -  -  
-   84 00:5211 -  -  -  -  Int32Xor:
-   85 00:5211 D9 -  -  -  		exx
-   86 00:5212 CD 16 52 -  		call 	_I32XorHLDE
-   87 00:5215 D9 -  -  -  		exx
-   88 00:5216 -  -  -  -  _I32XorHLDE:		
-   89 00:5216 7C -  -  -  		ld 		a,h
-   90 00:5217 AA -  -  -  		xor 	d
-   91 00:5218 67 -  -  -  		ld 		h,a
-   92 00:5219 7D -  -  -  		ld 		a,l
-   93 00:521A AB -  -  -  		xor 	e
-   94 00:521B 6F -  -  -  		ld 		l,a
-   95 00:521C C9 -  -  -  		ret
-   96 00:521D -  -  -  -  
-   97 00:521D -  -  -  -  ; ***************************************************************************************
-   98 00:521D -  -  -  -  ;
-   99 00:521D -  -  -  -  ;								 Check if HL'HL zero
-  100 00:521D -  -  -  -  ;
-  101 00:521D -  -  -  -  ; ***************************************************************************************
-  102 00:521D -  -  -  -  
-  103 00:521D -  -  -  -  Int32Zero:
-  104 00:521D D9 -  -  -  		exx
-  105 00:521E 7D -  -  -  		ld 		a,l
-  106 00:521F B4 -  -  -  		or 		h
-  107 00:5220 D9 -  -  -  		exx
-  108 00:5221 B5 -  -  -  		or 		l
-  109 00:5222 B4 -  -  -  		or 		h
-  110 00:5223 C9 -  -  -  		ret
-  111 00:5224 -  -  -  -  
-  112 00:5224 -  -  -  -  ; ***************************************************************************************
-  113 00:5224 -  -  -  -  ;
-  114 00:5224 -  -  -  -  ;								Compare HL'HL vs DE'DE
-  115 00:5224 -  -  -  -  ;
-  116 00:5224 -  -  -  -  ; ***************************************************************************************
-  117 00:5224 -  -  -  -  
-  118 00:5224 -  -  -  -  Int32Compare:
-  119 00:5224 E5 -  -  -  		push 	hl 							; save HL
-  120 00:5225 AF -  -  -  		xor 	a 							; clear carry
-  121 00:5226 ED 52 -  -  		zm_sbc_hlde_16  					; subtract DE from HL
-  122 00:5228 D9 -  -  -  		exx
-  123 00:5229 E5 -  -  -  		push 	hl 							; save HL'
-  124 00:522A ED 52 -  -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
-  125 00:522C -  -  -  -  		;
-  126 00:522C 44 -  -  -  		ld 		b,h 						; save most significant byte in B
-  127 00:522D E2 34 52 -  		jp 		po,_I32CNoOverflow  		; on overflow flip B bit 7 (compare signed trick)
-  128 00:5230 78 -  -  -  		ld 		a,b
-  129 00:5231 EE 80 -  -  		xor 	$80
-  130 00:5233 47 -  -  -  		ld 		b,a
-  131 00:5234 -  -  -  -  _I32CNoOverflow:
-  132 00:5234 7C -  -  -  		ld 		a,h 						; work out if result is zero
-  133 00:5235 B5 -  -  -  		or 		l
-  134 00:5236 D9 -  -  -  		exx 
-  135 00:5237 B4 -  -  -  		or 		h
-  136 00:5238 B5 -  -  -  		or 		l
-  137 00:5239 28 0A -  -  		jr 		z,_I32NotPos 				; if zero, return zero.
-  138 00:523B -  -  -  -  		;
-  139 00:523B D9 -  -  -  		exx 								; is B' -ve 	
-  140 00:523C CB 78 -  -  		bit 	7,b
-  141 00:523E D9 -  -  -  		exx
-  142 00:523F 3E 01 -  -  		ld 		a,1 						; if B' +ve return 1.
-  143 00:5241 28 02 -  -  		jr 		z,_I32NotPos
-  144 00:5243 3E FF -  -  		ld 		a,$FF
-  145 00:5245 -  -  -  -  _I32NotPos:
-  146 00:5245 D9 -  -  -  		exx
-  147 00:5246 E1 -  -  -  		pop 	hl 							; restore HL'
-  148 00:5247 D9 -  -  -  		exx
-  149 00:5248 E1 -  -  -  		pop 	hl 							; restore HL
-  150 00:5249 B7 -  -  -  		or 		a 							; set flags and exit		
-  151 00:524A C9 -  -  -  		ret
-  152 00:524B -  -  -  -  
-  153 00:524B -  -  -  -  ; ***************************************************************************************
-  154 00:524B -  -  -  -  ;
-  155 00:524B -  -  -  -  ;										Negate HL'HL
-  156 00:524B -  -  -  -  ;
-  157 00:524B -  -  -  -  ; ***************************************************************************************
-  158 00:524B -  -  -  -  
-  159 00:524B -  -  -  -  Int32Negate:
-  160 00:524B AF -  -  -  		xor 	a
-  161 00:524C CD 55 52 -  		call 	_I32NSubtract
-  162 00:524F D9 -  -  -  		exx
-  163 00:5250 CD 55 52 -  		call 	_I32NSubtract
-  164 00:5253 D9 -  -  -  		exx
-  165 00:5254 C9 -  -  -  		ret
-  166 00:5255 -  -  -  -  _I32NSubtract:
-  167 00:5255 D5 -  -  -  		push 	de
-  168 00:5256 EB -  -  -  		ex 		de,hl
-  169 00:5257 21 00 00 -  		ld 		hl,$0000
-  170 00:525A ED 52 -  -  		zm_sbc_hlde_16		
-  171 00:525C D1 -  -  -  		pop 	de
-  172 00:525D C9 -  -  -  		ret
-  173 00:525E -  -  -  -  		
-  174 00:525E -  -  -  -  ; ***************************************************************************************
-  175 00:525E -  -  -  -  ;
-  176 00:525E -  -  -  -  ;									Changes and Updates
-  177 00:525E -  -  -  -  ;
-  178 00:525E -  -  -  -  ; ***************************************************************************************
-  179 00:525E -  -  -  -  ;
-  180 00:525E -  -  -  -  ;		Date			Notes
-  181 00:525E -  -  -  -  ;		==== 			=====
-  182 00:525E -  -  -  -  ;
-  183 00:525E -  -  -  -  ; ***************************************************************************************
-  184 00:525E -  -  -  -  		
+   21 00:51F8 D9 -  -  -  		exx
+   22 00:51F9 ED 5A -  -  		zm_adc_hlde_16 						; add DE' to HL'
+   23 00:51FB D9 -  -  -  		exx
+   24 00:51FC C9 -  -  -  		ret
+   25 00:51FD -  -  -  -  
+   26 00:51FD -  -  -  -  ; ***************************************************************************************
+   27 00:51FD -  -  -  -  ;
+   28 00:51FD -  -  -  -  ;								Sub DE'DE from HL'HL
+   29 00:51FD -  -  -  -  ;
+   30 00:51FD -  -  -  -  ; ***************************************************************************************
+   31 00:51FD -  -  -  -  
+   32 00:51FD -  -  -  -  Int32Subtract:
+   33 00:51FD AF -  -  -  		xor 	a 							; clear carry
+   34 00:51FE ED 52 -  -  		zm_sbc_hlde_16  					; subtract DE from HL
+   35 00:5200 D9 -  -  -  		exx
+   36 00:5201 ED 52 -  -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
+   37 00:5203 D9 -  -  -  		exx
+   38 00:5204 C9 -  -  -  		ret
+   39 00:5205 -  -  -  -  
+   40 00:5205 -  -  -  -  ; ***************************************************************************************
+   41 00:5205 -  -  -  -  ;
+   42 00:5205 -  -  -  -  ;								And DE'DE into HL'HL
+   43 00:5205 -  -  -  -  ;
+   44 00:5205 -  -  -  -  ; ***************************************************************************************
+   45 00:5205 -  -  -  -  
+   46 00:5205 -  -  -  -  Int32And:
+   47 00:5205 D9 -  -  -  		exx
+   48 00:5206 CD 0A 52 -  		call 	_I32AndHLDE
+   49 00:5209 D9 -  -  -  		exx
+   50 00:520A -  -  -  -  _I32AndHLDE:		
+   51 00:520A 7C -  -  -  		ld 		a,h
+   52 00:520B A2 -  -  -  		and 	d
+   53 00:520C 67 -  -  -  		ld 		h,a
+   54 00:520D 7D -  -  -  		ld 		a,l
+   55 00:520E A3 -  -  -  		and 	e
+   56 00:520F 6F -  -  -  		ld 		l,a
+   57 00:5210 C9 -  -  -  		ret
+   58 00:5211 -  -  -  -  
+   59 00:5211 -  -  -  -  ; ***************************************************************************************
+   60 00:5211 -  -  -  -  ;
+   61 00:5211 -  -  -  -  ;								Or DE'DE into HL'HL
+   62 00:5211 -  -  -  -  ;
+   63 00:5211 -  -  -  -  ; ***************************************************************************************
+   64 00:5211 -  -  -  -  
+   65 00:5211 -  -  -  -  Int32Or:
+   66 00:5211 D9 -  -  -  		exx
+   67 00:5212 CD 16 52 -  		call 	_I32OrHLDE
+   68 00:5215 D9 -  -  -  		exx
+   69 00:5216 -  -  -  -  _I32OrHLDE:		
+   70 00:5216 7C -  -  -  		ld 		a,h
+   71 00:5217 B2 -  -  -  		or 		d
+   72 00:5218 67 -  -  -  		ld 		h,a
+   73 00:5219 7D -  -  -  		ld 		a,l
+   74 00:521A B3 -  -  -  		or 		e
+   75 00:521B 6F -  -  -  		ld 		l,a
+   76 00:521C C9 -  -  -  		ret
+   77 00:521D -  -  -  -  
+   78 00:521D -  -  -  -  ; ***************************************************************************************
+   79 00:521D -  -  -  -  ;
+   80 00:521D -  -  -  -  ;								Xor DE'DE into HL'HL
+   81 00:521D -  -  -  -  ;
+   82 00:521D -  -  -  -  ; ***************************************************************************************
+   83 00:521D -  -  -  -  
+   84 00:521D -  -  -  -  Int32Xor:
+   85 00:521D D9 -  -  -  		exx
+   86 00:521E CD 22 52 -  		call 	_I32XorHLDE
+   87 00:5221 D9 -  -  -  		exx
+   88 00:5222 -  -  -  -  _I32XorHLDE:		
+   89 00:5222 7C -  -  -  		ld 		a,h
+   90 00:5223 AA -  -  -  		xor 	d
+   91 00:5224 67 -  -  -  		ld 		h,a
+   92 00:5225 7D -  -  -  		ld 		a,l
+   93 00:5226 AB -  -  -  		xor 	e
+   94 00:5227 6F -  -  -  		ld 		l,a
+   95 00:5228 C9 -  -  -  		ret
+   96 00:5229 -  -  -  -  
+   97 00:5229 -  -  -  -  ; ***************************************************************************************
+   98 00:5229 -  -  -  -  ;
+   99 00:5229 -  -  -  -  ;								 Check if HL'HL zero
+  100 00:5229 -  -  -  -  ;
+  101 00:5229 -  -  -  -  ; ***************************************************************************************
+  102 00:5229 -  -  -  -  
+  103 00:5229 -  -  -  -  Int32Zero:
+  104 00:5229 D9 -  -  -  		exx
+  105 00:522A 7D -  -  -  		ld 		a,l
+  106 00:522B B4 -  -  -  		or 		h
+  107 00:522C D9 -  -  -  		exx
+  108 00:522D B5 -  -  -  		or 		l
+  109 00:522E B4 -  -  -  		or 		h
+  110 00:522F C9 -  -  -  		ret
+  111 00:5230 -  -  -  -  
+  112 00:5230 -  -  -  -  ; ***************************************************************************************
+  113 00:5230 -  -  -  -  ;
+  114 00:5230 -  -  -  -  ;								Compare HL'HL vs DE'DE
+  115 00:5230 -  -  -  -  ;
+  116 00:5230 -  -  -  -  ; ***************************************************************************************
+  117 00:5230 -  -  -  -  
+  118 00:5230 -  -  -  -  Int32Compare:
+  119 00:5230 E5 -  -  -  		push 	hl 							; save HL
+  120 00:5231 AF -  -  -  		xor 	a 							; clear carry
+  121 00:5232 ED 52 -  -  		zm_sbc_hlde_16  					; subtract DE from HL
+  122 00:5234 D9 -  -  -  		exx
+  123 00:5235 E5 -  -  -  		push 	hl 							; save HL'
+  124 00:5236 ED 52 -  -  		zm_sbc_hlde_16 						; subtrace DE' from HL'
+  125 00:5238 -  -  -  -  		;
+  126 00:5238 44 -  -  -  		ld 		b,h 						; save most significant byte in B
+  127 00:5239 E2 40 52 -  		jp 		po,_I32CNoOverflow  		; on overflow flip B bit 7 (compare signed trick)
+  128 00:523C 78 -  -  -  		ld 		a,b
+  129 00:523D EE 80 -  -  		xor 	$80
+  130 00:523F 47 -  -  -  		ld 		b,a
+  131 00:5240 -  -  -  -  _I32CNoOverflow:
+  132 00:5240 7C -  -  -  		ld 		a,h 						; work out if result is zero
+  133 00:5241 B5 -  -  -  		or 		l
+  134 00:5242 D9 -  -  -  		exx 
+  135 00:5243 B4 -  -  -  		or 		h
+  136 00:5244 B5 -  -  -  		or 		l
+  137 00:5245 28 0A -  -  		jr 		z,_I32NotPos 				; if zero, return zero.
+  138 00:5247 -  -  -  -  		;
+  139 00:5247 D9 -  -  -  		exx 								; is B' -ve 	
+  140 00:5248 CB 78 -  -  		bit 	7,b
+  141 00:524A D9 -  -  -  		exx
+  142 00:524B 3E 01 -  -  		ld 		a,1 						; if B' +ve return 1.
+  143 00:524D 28 02 -  -  		jr 		z,_I32NotPos
+  144 00:524F 3E FF -  -  		ld 		a,$FF
+  145 00:5251 -  -  -  -  _I32NotPos:
+  146 00:5251 D9 -  -  -  		exx
+  147 00:5252 E1 -  -  -  		pop 	hl 							; restore HL'
+  148 00:5253 D9 -  -  -  		exx
+  149 00:5254 E1 -  -  -  		pop 	hl 							; restore HL
+  150 00:5255 B7 -  -  -  		or 		a 							; set flags and exit		
+  151 00:5256 C9 -  -  -  		ret
+  152 00:5257 -  -  -  -  
+  153 00:5257 -  -  -  -  ; ***************************************************************************************
+  154 00:5257 -  -  -  -  ;
+  155 00:5257 -  -  -  -  ;										Negate HL'HL
+  156 00:5257 -  -  -  -  ;
+  157 00:5257 -  -  -  -  ; ***************************************************************************************
+  158 00:5257 -  -  -  -  
+  159 00:5257 -  -  -  -  Int32Negate:
+  160 00:5257 AF -  -  -  		xor 	a
+  161 00:5258 CD 61 52 -  		call 	_I32NSubtract
+  162 00:525B D9 -  -  -  		exx
+  163 00:525C CD 61 52 -  		call 	_I32NSubtract
+  164 00:525F D9 -  -  -  		exx
+  165 00:5260 C9 -  -  -  		ret
+  166 00:5261 -  -  -  -  _I32NSubtract:
+  167 00:5261 D5 -  -  -  		push 	de
+  168 00:5262 EB -  -  -  		ex 		de,hl
+  169 00:5263 21 00 00 -  		ld 		hl,$0000
+  170 00:5266 ED 52 -  -  		zm_sbc_hlde_16		
+  171 00:5268 D1 -  -  -  		pop 	de
+  172 00:5269 C9 -  -  -  		ret
+  173 00:526A -  -  -  -  		
+  174 00:526A -  -  -  -  ; ***************************************************************************************
+  175 00:526A -  -  -  -  ;
+  176 00:526A -  -  -  -  ;									Changes and Updates
+  177 00:526A -  -  -  -  ;
+  178 00:526A -  -  -  -  ; ***************************************************************************************
+  179 00:526A -  -  -  -  ;
+  180 00:526A -  -  -  -  ;		Date			Notes
+  181 00:526A -  -  -  -  ;		==== 			=====
+  182 00:526A -  -  -  -  ;
+  183 00:526A -  -  -  -  ; ***************************************************************************************
+  184 00:526A -  -  -  -  		
 Listing for file "_build.asm"
-   78 00:525E -  -  -  -  #include "int32/itostring.asm"
+   78 00:526A -  -  -  -  #include "int32/itostring.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/int32/itostring.asm"
-    1 00:525E -  -  -  -  ; ***************************************************************************************
-    2 00:525E -  -  -  -  ; ***************************************************************************************
-    3 00:525E -  -  -  -  ;
-    4 00:525E -  -  -  -  ;		Name : 		itostring.asm
-    5 00:525E -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:525E -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:525E -  -  -  -  ;		Reviewed :	No
-    8 00:525E -  -  -  -  ;		Purpose :	Convert integer to string 
-    9 00:525E -  -  -  -  ;
-   10 00:525E -  -  -  -  ; ***************************************************************************************
-   11 00:525E -  -  -  -  ;
-   12 00:525E -  -  -  -  ; 			Convert HL'HL to ASCIIZ string at BC in base A. A = -ve => Signed
-   13 00:525E -  -  -  -  ;
-   14 00:525E -  -  -  -  ; ***************************************************************************************
-   15 00:525E -  -  -  -  
-   16 00:525E -  -  -  -  Int32ToString:
-   17 00:525E C5 -  -  -  		push 	bc 							; save string start
-   18 00:525F D5 -  -  -  		push 	de 							; save DE'DE and HL'HL, zero DE
-   19 00:5260 E5 -  -  -  		push 	hl
-   20 00:5261 11 00 00 -  		ld	 	de,$0000
-   21 00:5264 D9 -  -  -  		exx
-   22 00:5265 D5 -  -  -  		push 	de
-   23 00:5266 E5 -  -  -  		push 	hl
-   24 00:5267 11 00 00 -  		ld 		de,$000
-   25 00:526A D9 -  -  -  		exx
-   26 00:526B 5F -  -  -  		ld 		e,a 						; put base in E
-   27 00:526C -  -  -  -  		;
-   28 00:526C CB 7F -  -  		bit 	7,a 						; -ve base => signed
-   29 00:526E 28 10 -  -  		jr 		z,_I32TSNotNegative
-   30 00:5270 ED 44 -  -  		neg 								; negate base and put in E
-   31 00:5272 5F -  -  -  		ld 		e,a
-   32 00:5273 -  -  -  -  		;
-   33 00:5273 D9 -  -  -  		exx 								; is it -ve ?
-   34 00:5274 CB 7C -  -  		bit 	7,h
-   35 00:5276 D9 -  -  -  		exx
-   36 00:5277 28 07 -  -  		jr 		z,_I32TSNotNegative
-   37 00:5279 -  -  -  -  		;
-   38 00:5279 CD 4B 52 -  		call 	Int32Negate 				; yes, negate HL'HL
-   39 00:527C -  -  -  -  		;
-   40 00:527C 3E 2D -  -  		ld 		a,'-' 						; output a leading minus.
-   41 00:527E 02 -  -  -  		ld 		(bc),a
-   42 00:527F 03 -  -  -  		inc 	bc
-   43 00:5280 -  -  -  -  _I32TSNotNegative:	
-   44 00:5280 CD 8E 52 -  		call 	_I32RecursiveConvert 		; convert the integer to a string		
-   45 00:5283 -  -  -  -  _I32TSExit:
-   46 00:5283 3E 0D -  -  		ld 		a,13 						; write the end of string code
-   47 00:5285 02 -  -  -  		ld 		(bc),a 
-   48 00:5286 -  -  -  -  
-   49 00:5286 D9 -  -  -  		exx 								; restore registers and exit.
-   50 00:5287 E1 -  -  -  		pop 	hl
-   51 00:5288 D1 -  -  -  		pop 	de
-   52 00:5289 D9 -  -  -  		exx
-   53 00:528A E1 -  -  -  		pop 	hl
-   54 00:528B D1 -  -  -  		pop 	de
-   55 00:528C C1 -  -  -  		pop 	bc
-   56 00:528D C9 -  -  -  		ret
-   57 00:528E -  -  -  -  
-   58 00:528E -  -  -  -  _I32RecursiveConvert:
-   59 00:528E CD C2 50 -  		call 	Int32UDivide 				; unsigned divide. Mod is in A
-   60 00:5291 F5 -  -  -  		push 	af 							; save remainder
-   61 00:5292 CD 1D 52 -  		call 	Int32Zero		 			; check result is non zero
-   62 00:5295 C4 8E 52 -  		call 	nz,_I32RecursiveConvert 	; if non zero keep dividing
-   63 00:5298 F1 -  -  -  		pop 	af 							; restore remainder
-   64 00:5299 FE 0A -  -  		cp 		10 							; convert 10+ to hex
-   65 00:529B 38 02 -  -  		jr 		c,_I32NotHex
-   66 00:529D C6 07 -  -  		add 	a,7
-   67 00:529F -  -  -  -  _I32NotHex:
-   68 00:529F C6 30 -  -  		add 	a,48
-   69 00:52A1 02 -  -  -  		ld 		(bc),a 						; write out to buffer
-   70 00:52A2 03 -  -  -  		inc 	bc
-   71 00:52A3 C9 -  -  -  		ret		
-   72 00:52A4 -  -  -  -  
-   73 00:52A4 -  -  -  -  ; ***************************************************************************************
-   74 00:52A4 -  -  -  -  ;
-   75 00:52A4 -  -  -  -  ;									Changes and Updates
-   76 00:52A4 -  -  -  -  ;
-   77 00:52A4 -  -  -  -  ; ***************************************************************************************
-   78 00:52A4 -  -  -  -  ;
-   79 00:52A4 -  -  -  -  ;		Date			Notes
-   80 00:52A4 -  -  -  -  ;		==== 			=====
-   81 00:52A4 -  -  -  -  ;
-   82 00:52A4 -  -  -  -  ; ***************************************************************************************
+    1 00:526A -  -  -  -  ; ***************************************************************************************
+    2 00:526A -  -  -  -  ; ***************************************************************************************
+    3 00:526A -  -  -  -  ;
+    4 00:526A -  -  -  -  ;		Name : 		itostring.asm
+    5 00:526A -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:526A -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:526A -  -  -  -  ;		Reviewed :	No
+    8 00:526A -  -  -  -  ;		Purpose :	Convert integer to string 
+    9 00:526A -  -  -  -  ;
+   10 00:526A -  -  -  -  ; ***************************************************************************************
+   11 00:526A -  -  -  -  ;
+   12 00:526A -  -  -  -  ; 			Convert HL'HL to ASCIIZ string at BC in base A. A = -ve => Signed
+   13 00:526A -  -  -  -  ;
+   14 00:526A -  -  -  -  ; ***************************************************************************************
+   15 00:526A -  -  -  -  
+   16 00:526A -  -  -  -  Int32ToString:
+   17 00:526A C5 -  -  -  		push 	bc 							; save string start
+   18 00:526B D5 -  -  -  		push 	de 							; save DE'DE and HL'HL, zero DE
+   19 00:526C E5 -  -  -  		push 	hl
+   20 00:526D 11 00 00 -  		ld	 	de,$0000
+   21 00:5270 D9 -  -  -  		exx
+   22 00:5271 D5 -  -  -  		push 	de
+   23 00:5272 E5 -  -  -  		push 	hl
+   24 00:5273 11 00 00 -  		ld 		de,$000
+   25 00:5276 D9 -  -  -  		exx
+   26 00:5277 5F -  -  -  		ld 		e,a 						; put base in E
+   27 00:5278 -  -  -  -  		;
+   28 00:5278 CB 7F -  -  		bit 	7,a 						; -ve base => signed
+   29 00:527A 28 10 -  -  		jr 		z,_I32TSNotNegative
+   30 00:527C ED 44 -  -  		neg 								; negate base and put in E
+   31 00:527E 5F -  -  -  		ld 		e,a
+   32 00:527F -  -  -  -  		;
+   33 00:527F D9 -  -  -  		exx 								; is it -ve ?
+   34 00:5280 CB 7C -  -  		bit 	7,h
+   35 00:5282 D9 -  -  -  		exx
+   36 00:5283 28 07 -  -  		jr 		z,_I32TSNotNegative
+   37 00:5285 -  -  -  -  		;
+   38 00:5285 CD 57 52 -  		call 	Int32Negate 				; yes, negate HL'HL
+   39 00:5288 -  -  -  -  		;
+   40 00:5288 3E 2D -  -  		ld 		a,'-' 						; output a leading minus.
+   41 00:528A 02 -  -  -  		ld 		(bc),a
+   42 00:528B 03 -  -  -  		inc 	bc
+   43 00:528C -  -  -  -  _I32TSNotNegative:	
+   44 00:528C CD 9A 52 -  		call 	_I32RecursiveConvert 		; convert the integer to a string		
+   45 00:528F -  -  -  -  _I32TSExit:
+   46 00:528F 3E 0D -  -  		ld 		a,13 						; write the end of string code
+   47 00:5291 02 -  -  -  		ld 		(bc),a 
+   48 00:5292 -  -  -  -  
+   49 00:5292 D9 -  -  -  		exx 								; restore registers and exit.
+   50 00:5293 E1 -  -  -  		pop 	hl
+   51 00:5294 D1 -  -  -  		pop 	de
+   52 00:5295 D9 -  -  -  		exx
+   53 00:5296 E1 -  -  -  		pop 	hl
+   54 00:5297 D1 -  -  -  		pop 	de
+   55 00:5298 C1 -  -  -  		pop 	bc
+   56 00:5299 C9 -  -  -  		ret
+   57 00:529A -  -  -  -  
+   58 00:529A -  -  -  -  _I32RecursiveConvert:
+   59 00:529A CD CE 50 -  		call 	Int32UDivide 				; unsigned divide. Mod is in A
+   60 00:529D F5 -  -  -  		push 	af 							; save remainder
+   61 00:529E CD 29 52 -  		call 	Int32Zero		 			; check result is non zero
+   62 00:52A1 C4 9A 52 -  		call 	nz,_I32RecursiveConvert 	; if non zero keep dividing
+   63 00:52A4 F1 -  -  -  		pop 	af 							; restore remainder
+   64 00:52A5 FE 0A -  -  		cp 		10 							; convert 10+ to hex
+   65 00:52A7 38 02 -  -  		jr 		c,_I32NotHex
+   66 00:52A9 C6 07 -  -  		add 	a,7
+   67 00:52AB -  -  -  -  _I32NotHex:
+   68 00:52AB C6 30 -  -  		add 	a,48
+   69 00:52AD 02 -  -  -  		ld 		(bc),a 						; write out to buffer
+   70 00:52AE 03 -  -  -  		inc 	bc
+   71 00:52AF C9 -  -  -  		ret		
+   72 00:52B0 -  -  -  -  
+   73 00:52B0 -  -  -  -  ; ***************************************************************************************
+   74 00:52B0 -  -  -  -  ;
+   75 00:52B0 -  -  -  -  ;									Changes and Updates
+   76 00:52B0 -  -  -  -  ;
+   77 00:52B0 -  -  -  -  ; ***************************************************************************************
+   78 00:52B0 -  -  -  -  ;
+   79 00:52B0 -  -  -  -  ;		Date			Notes
+   80 00:52B0 -  -  -  -  ;		==== 			=====
+   81 00:52B0 -  -  -  -  ;
+   82 00:52B0 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   79 00:52A4 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
+   79 00:52B0 -  -  -  -  #include "simplehardware/_aquarius/aquarius_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_aquarius/aquarius_io.asm"
-    1 00:52A4 -  -  -  -  ; ***************************************************************************************
-    2 00:52A4 -  -  -  -  ; ***************************************************************************************
-    3 00:52A4 -  -  -  -  ;
-    4 00:52A4 -  -  -  -  ;		Name : 		aquarius_io.asm
-    5 00:52A4 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:52A4 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:52A4 -  -  -  -  ;		Reviewed :	No
-    8 00:52A4 -  -  -  -  ;		Purpose :	Aquarius specific code.
-    9 00:52A4 -  -  -  -  ;
-   10 00:52A4 -  -  -  -  ; ***************************************************************************************
-   11 00:52A4 -  -  -  -  ; ***************************************************************************************
-   12 00:52A4 -  -  -  -  
-   13 00:52A4 -  -  -  -  #ifdef AQUARIUS
-   14 00:52A4 -  -  -  -  
-   15 00:52A4 -  -  -  -  ; ***************************************************************************************
-   16 00:52A4 -  -  -  -  ;
-   17 00:52A4 -  -  -  -  ;								Initialise system stuff
-   18 00:52A4 -  -  -  -  ;
-   19 00:52A4 -  -  -  -  ; ***************************************************************************************
-   20 00:52A4 -  -  -  -  
-   21 00:52A4 -  -  -  -  SYSInitialise:
-   22 00:52A4 3E 0B -  -  	ld 		a,$0b 								; Aquarius clear screen
-   23 00:52A6 CD AC 52 -  	call 	SYSPrintChar
-   24 00:52A9 C9 -  -  -  	ret
-   25 00:52AA -  -  -  -  
-   26 00:52AA -  -  -  -  ; ***************************************************************************************
-   27 00:52AA -  -  -  -  ;
-   28 00:52AA -  -  -  -  ;								Terminate system stuff
-   29 00:52AA -  -  -  -  ;
-   30 00:52AA -  -  -  -  ; ***************************************************************************************
-   31 00:52AA -  -  -  -  
-   32 00:52AA -  -  -  -  SYSTerminate:
-   33 00:52AA 18 FE -  -  	jr 		SYSTerminate
-   34 00:52AC -  -  -  -  
-   35 00:52AC -  -  -  -  ; ***************************************************************************************
-   36 00:52AC -  -  -  -  ;
-   37 00:52AC -  -  -  -  ;						Print A character (note 13,10 required for CRLF)
-   38 00:52AC -  -  -  -  ;
-   39 00:52AC -  -  -  -  ; ***************************************************************************************
-   40 00:52AC -  -  -  -  
-   41 00:52AC -  -  -  -  SYSPrintChar:
-   42 00:52AC F5 -  -  -  	push 	af 									; we stack everything including alt registers
-   43 00:52AD C5 -  -  -  	push 	bc
-   44 00:52AE D5 -  -  -  	push 	de
-   45 00:52AF E5 -  -  -  	push 	hl
-   46 00:52B0 DD E5 -  -  	push 	ix
-   47 00:52B2 FD E5 -  -  	push 	iy
-   48 00:52B4 D9 -  -  -  	exx
-   49 00:52B5 C5 -  -  -  	push 	bc
-   50 00:52B6 D5 -  -  -  	push 	de
-   51 00:52B7 E5 -  -  -  	push 	hl
-   52 00:52B8 CD 94 1D -  	call 	$1D94 								; the Aquarius equivalent uses alt-registers to save.
-   53 00:52BB E1 -  -  -  	pop 	hl
-   54 00:52BC D1 -  -  -  	pop 	de
-   55 00:52BD C1 -  -  -  	pop 	bc
-   56 00:52BE D9 -  -  -  	exx
-   57 00:52BF FD E1 -  -  	pop 	iy
-   58 00:52C1 DD E1 -  -  	pop 	ix
-   59 00:52C3 E1 -  -  -  	pop 	hl
-   60 00:52C4 D1 -  -  -  	pop 	de
-   61 00:52C5 C1 -  -  -  	pop 	bc
-   62 00:52C6 F1 -  -  -  	pop 	af
-   63 00:52C7 C9 -  -  -  	ret		
-   64 00:52C8 -  -  -  -  
-   65 00:52C8 -  -  -  -  ; ***************************************************************************************
-   66 00:52C8 -  -  -  -  ;
-   67 00:52C8 -  -  -  -  ;									Print Newline
-   68 00:52C8 -  -  -  -  ;
-   69 00:52C8 -  -  -  -  ; ***************************************************************************************
-   70 00:52C8 -  -  -  -  
-   71 00:52C8 -  -  -  -  SYSPrintCRLF:
-   72 00:52C8 F5 -  -  -  	push 	af
-   73 00:52C9 3E 0D -  -  	ld 		a,13
-   74 00:52CB CD AC 52 -  	call 	SYSPrintChar
-   75 00:52CE 3E 0A -  -  	ld 		a,10
-   76 00:52D0 CD AC 52 -  	call 	SYSPrintChar
-   77 00:52D3 F1 -  -  -  	pop 	af
-   78 00:52D4 C9 -  -  -  	ret
-   79 00:52D5 -  -  -  -  
-   80 00:52D5 -  -  -  -  ; ***************************************************************************************
-   81 00:52D5 -  -  -  -  ;
-   82 00:52D5 -  -  -  -  ;									Get time into HL'HL
-   83 00:52D5 -  -  -  -  ;
-   84 00:52D5 -  -  -  -  ; ***************************************************************************************
-   85 00:52D5 -  -  -  -  
-   86 00:52D5 -  -  -  -  SYSGetTimer:
-   87 00:52D5 DB 00 -  -   	in 		a,($00)
-   88 00:52D7 6F -  -  -   	ld 		l,a
-   89 00:52D8 DB 01 -  -   	in 		a,($01)
-   90 00:52DA 67 -  -  -   	ld 		h,a
-   91 00:52DB D9 -  -  -   	exx
-   92 00:52DC DB 02 -  -   	in 		a,($02)
-   93 00:52DE 6F -  -  -   	ld 		l,a
-   94 00:52DF DB 03 -  -   	in 		a,($03)
-   95 00:52E1 67 -  -  -   	ld 		h,a
-   96 00:52E2 D9 -  -  -   	exx
-   97 00:52E3 C9 -  -  -  	ret 	
-   98 00:52E4 -  -  -  -  	
-   99 00:52E4 -  -  -  -  #endif
-  100 00:52E4 -  -  -  -  
-  101 00:52E4 -  -  -  -  ; ***************************************************************************************
-  102 00:52E4 -  -  -  -  ;
-  103 00:52E4 -  -  -  -  ;									Changes and Updates
-  104 00:52E4 -  -  -  -  ;
-  105 00:52E4 -  -  -  -  ; ***************************************************************************************
-  106 00:52E4 -  -  -  -  ;
-  107 00:52E4 -  -  -  -  ;		Date			Notes
-  108 00:52E4 -  -  -  -  ;		==== 			=====
-  109 00:52E4 -  -  -  -  ;
-  110 00:52E4 -  -  -  -  ; ***************************************************************************************
+    1 00:52B0 -  -  -  -  ; ***************************************************************************************
+    2 00:52B0 -  -  -  -  ; ***************************************************************************************
+    3 00:52B0 -  -  -  -  ;
+    4 00:52B0 -  -  -  -  ;		Name : 		aquarius_io.asm
+    5 00:52B0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:52B0 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:52B0 -  -  -  -  ;		Reviewed :	No
+    8 00:52B0 -  -  -  -  ;		Purpose :	Aquarius specific code.
+    9 00:52B0 -  -  -  -  ;
+   10 00:52B0 -  -  -  -  ; ***************************************************************************************
+   11 00:52B0 -  -  -  -  ; ***************************************************************************************
+   12 00:52B0 -  -  -  -  
+   13 00:52B0 -  -  -  -  #ifdef AQUARIUS
+   14 00:52B0 -  -  -  -  
+   15 00:52B0 -  -  -  -  ; ***************************************************************************************
+   16 00:52B0 -  -  -  -  ;
+   17 00:52B0 -  -  -  -  ;								Initialise system stuff
+   18 00:52B0 -  -  -  -  ;
+   19 00:52B0 -  -  -  -  ; ***************************************************************************************
+   20 00:52B0 -  -  -  -  
+   21 00:52B0 -  -  -  -  SYSInitialise:
+   22 00:52B0 3E 0B -  -  	ld 		a,$0b 								; Aquarius clear screen
+   23 00:52B2 CD B8 52 -  	call 	SYSPrintChar
+   24 00:52B5 C9 -  -  -  	ret
+   25 00:52B6 -  -  -  -  
+   26 00:52B6 -  -  -  -  ; ***************************************************************************************
+   27 00:52B6 -  -  -  -  ;
+   28 00:52B6 -  -  -  -  ;								Terminate system stuff
+   29 00:52B6 -  -  -  -  ;
+   30 00:52B6 -  -  -  -  ; ***************************************************************************************
+   31 00:52B6 -  -  -  -  
+   32 00:52B6 -  -  -  -  SYSTerminate:
+   33 00:52B6 18 FE -  -  	jr 		SYSTerminate
+   34 00:52B8 -  -  -  -  
+   35 00:52B8 -  -  -  -  ; ***************************************************************************************
+   36 00:52B8 -  -  -  -  ;
+   37 00:52B8 -  -  -  -  ;						Print A character (note 13,10 required for CRLF)
+   38 00:52B8 -  -  -  -  ;
+   39 00:52B8 -  -  -  -  ; ***************************************************************************************
+   40 00:52B8 -  -  -  -  
+   41 00:52B8 -  -  -  -  SYSPrintChar:
+   42 00:52B8 F5 -  -  -  	push 	af 									; we stack everything including alt registers
+   43 00:52B9 C5 -  -  -  	push 	bc
+   44 00:52BA D5 -  -  -  	push 	de
+   45 00:52BB E5 -  -  -  	push 	hl
+   46 00:52BC DD E5 -  -  	push 	ix
+   47 00:52BE FD E5 -  -  	push 	iy
+   48 00:52C0 D9 -  -  -  	exx
+   49 00:52C1 C5 -  -  -  	push 	bc
+   50 00:52C2 D5 -  -  -  	push 	de
+   51 00:52C3 E5 -  -  -  	push 	hl
+   52 00:52C4 CD 94 1D -  	call 	$1D94 								; the Aquarius equivalent uses alt-registers to save.
+   53 00:52C7 E1 -  -  -  	pop 	hl
+   54 00:52C8 D1 -  -  -  	pop 	de
+   55 00:52C9 C1 -  -  -  	pop 	bc
+   56 00:52CA D9 -  -  -  	exx
+   57 00:52CB FD E1 -  -  	pop 	iy
+   58 00:52CD DD E1 -  -  	pop 	ix
+   59 00:52CF E1 -  -  -  	pop 	hl
+   60 00:52D0 D1 -  -  -  	pop 	de
+   61 00:52D1 C1 -  -  -  	pop 	bc
+   62 00:52D2 F1 -  -  -  	pop 	af
+   63 00:52D3 C9 -  -  -  	ret		
+   64 00:52D4 -  -  -  -  
+   65 00:52D4 -  -  -  -  ; ***************************************************************************************
+   66 00:52D4 -  -  -  -  ;
+   67 00:52D4 -  -  -  -  ;									Print Newline
+   68 00:52D4 -  -  -  -  ;
+   69 00:52D4 -  -  -  -  ; ***************************************************************************************
+   70 00:52D4 -  -  -  -  
+   71 00:52D4 -  -  -  -  SYSPrintCRLF:
+   72 00:52D4 F5 -  -  -  	push 	af
+   73 00:52D5 3E 0D -  -  	ld 		a,13
+   74 00:52D7 CD B8 52 -  	call 	SYSPrintChar
+   75 00:52DA 3E 0A -  -  	ld 		a,10
+   76 00:52DC CD B8 52 -  	call 	SYSPrintChar
+   77 00:52DF F1 -  -  -  	pop 	af
+   78 00:52E0 C9 -  -  -  	ret
+   79 00:52E1 -  -  -  -  
+   80 00:52E1 -  -  -  -  ; ***************************************************************************************
+   81 00:52E1 -  -  -  -  ;
+   82 00:52E1 -  -  -  -  ;									Get time into HL'HL
+   83 00:52E1 -  -  -  -  ;
+   84 00:52E1 -  -  -  -  ; ***************************************************************************************
+   85 00:52E1 -  -  -  -  
+   86 00:52E1 -  -  -  -  SYSGetTimer:
+   87 00:52E1 DB 00 -  -   	in 		a,($00)
+   88 00:52E3 6F -  -  -   	ld 		l,a
+   89 00:52E4 DB 01 -  -   	in 		a,($01)
+   90 00:52E6 67 -  -  -   	ld 		h,a
+   91 00:52E7 D9 -  -  -   	exx
+   92 00:52E8 DB 02 -  -   	in 		a,($02)
+   93 00:52EA 6F -  -  -   	ld 		l,a
+   94 00:52EB DB 03 -  -   	in 		a,($03)
+   95 00:52ED 67 -  -  -   	ld 		h,a
+   96 00:52EE D9 -  -  -   	exx
+   97 00:52EF C9 -  -  -  	ret 	
+   98 00:52F0 -  -  -  -  	
+   99 00:52F0 -  -  -  -  #endif
+  100 00:52F0 -  -  -  -  
+  101 00:52F0 -  -  -  -  ; ***************************************************************************************
+  102 00:52F0 -  -  -  -  ;
+  103 00:52F0 -  -  -  -  ;									Changes and Updates
+  104 00:52F0 -  -  -  -  ;
+  105 00:52F0 -  -  -  -  ; ***************************************************************************************
+  106 00:52F0 -  -  -  -  ;
+  107 00:52F0 -  -  -  -  ;		Date			Notes
+  108 00:52F0 -  -  -  -  ;		==== 			=====
+  109 00:52F0 -  -  -  -  ;
+  110 00:52F0 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   80 00:52E4 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
+   80 00:52F0 -  -  -  -  #include "simplehardware/_dummy/dummy_io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_dummy/dummy_io.asm"
-    1 00:52E4 -  -  -  -  ; ***************************************************************************************
-    2 00:52E4 -  -  -  -  ; ***************************************************************************************
-    3 00:52E4 -  -  -  -  ;
-    4 00:52E4 -  -  -  -  ;		Name : 		dummy_io.asm
-    5 00:52E4 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:52E4 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:52E4 -  -  -  -  ;		Reviewed :	No
-    8 00:52E4 -  -  -  -  ;		Purpose :	eZ80 build System code.,a
-    9 00:52E4 -  -  -  -  ;
-   10 00:52E4 -  -  -  -  ; ***************************************************************************************
-   11 00:52E4 -  -  -  -  ; ***************************************************************************************
-   12 00:52E4 -  -  -  -  
-   13 00:52E4 -  -  -  -  #ifdef CLEANEZ80
-   14 00:52E4             
-   15 00:52E4             ; ***************************************************************************************
-   16 00:52E4             ;
-   17 00:52E4             ;								Initialise system stuff
-   18 00:52E4             ;
-   19 00:52E4             ; ***************************************************************************************
-   20 00:52E4             
-   21 00:52E4             SYSInitialise:
-   22 00:52E4             	ret
-   23 00:52E4             
-   24 00:52E4             ; ***************************************************************************************
-   25 00:52E4             ;
-   26 00:52E4             ;								Terminate system stuff
-   27 00:52E4             ;
-   28 00:52E4             ; ***************************************************************************************
-   29 00:52E4             
-   30 00:52E4             SYSTerminate:
-   31 00:52E4             	ret
-   32 00:52E4             
-   33 00:52E4             ; ***************************************************************************************
-   34 00:52E4             ;
-   35 00:52E4             ;								Print A character
-   36 00:52E4             ;
-   37 00:52E4             ; ***************************************************************************************
-   38 00:52E4             
-   39 00:52E4             SYSPrintChar:
-   40 00:52E4             	ret		
-   41 00:52E4             
-   42 00:52E4             ; ***************************************************************************************
-   43 00:52E4             ;
-   44 00:52E4             ;									Print Newline
-   45 00:52E4             ;
-   46 00:52E4             ; ***************************************************************************************
-   47 00:52E4             
-   48 00:52E4             SYSPrintCRLF:
-   49 00:52E4             	ret
-   50 00:52E4             
-   51 00:52E4             ; ***************************************************************************************
-   52 00:52E4             ;
-   53 00:52E4             ;									Get time into HL'HL
-   54 00:52E4             ;
-   55 00:52E4             ; ***************************************************************************************
-   56 00:52E4             
-   57 00:52E4             SYSGetTimer:
-   58 00:52E4             	ret
-   59 00:52E4             
-   60 00:52E4             #endif
-   61 00:52E4 -  -  -  -  
-   62 00:52E4 -  -  -  -  ; ***************************************************************************************
-   63 00:52E4 -  -  -  -  ;
-   64 00:52E4 -  -  -  -  ;									Changes and Updates
-   65 00:52E4 -  -  -  -  ;
-   66 00:52E4 -  -  -  -  ; ***************************************************************************************
-   67 00:52E4 -  -  -  -  ;
-   68 00:52E4 -  -  -  -  ;		Date			Notes
-   69 00:52E4 -  -  -  -  ;		==== 			=====
-   70 00:52E4 -  -  -  -  ;
-   71 00:52E4 -  -  -  -  ; ***************************************************************************************
+    1 00:52F0 -  -  -  -  ; ***************************************************************************************
+    2 00:52F0 -  -  -  -  ; ***************************************************************************************
+    3 00:52F0 -  -  -  -  ;
+    4 00:52F0 -  -  -  -  ;		Name : 		dummy_io.asm
+    5 00:52F0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:52F0 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:52F0 -  -  -  -  ;		Reviewed :	No
+    8 00:52F0 -  -  -  -  ;		Purpose :	eZ80 build System code.,a
+    9 00:52F0 -  -  -  -  ;
+   10 00:52F0 -  -  -  -  ; ***************************************************************************************
+   11 00:52F0 -  -  -  -  ; ***************************************************************************************
+   12 00:52F0 -  -  -  -  
+   13 00:52F0 -  -  -  -  #ifdef CLEANEZ80
+   14 00:52F0             
+   15 00:52F0             ; ***************************************************************************************
+   16 00:52F0             ;
+   17 00:52F0             ;								Initialise system stuff
+   18 00:52F0             ;
+   19 00:52F0             ; ***************************************************************************************
+   20 00:52F0             
+   21 00:52F0             SYSInitialise:
+   22 00:52F0             	ret
+   23 00:52F0             
+   24 00:52F0             ; ***************************************************************************************
+   25 00:52F0             ;
+   26 00:52F0             ;								Terminate system stuff
+   27 00:52F0             ;
+   28 00:52F0             ; ***************************************************************************************
+   29 00:52F0             
+   30 00:52F0             SYSTerminate:
+   31 00:52F0             	ret
+   32 00:52F0             
+   33 00:52F0             ; ***************************************************************************************
+   34 00:52F0             ;
+   35 00:52F0             ;								Print A character
+   36 00:52F0             ;
+   37 00:52F0             ; ***************************************************************************************
+   38 00:52F0             
+   39 00:52F0             SYSPrintChar:
+   40 00:52F0             	ret		
+   41 00:52F0             
+   42 00:52F0             ; ***************************************************************************************
+   43 00:52F0             ;
+   44 00:52F0             ;									Print Newline
+   45 00:52F0             ;
+   46 00:52F0             ; ***************************************************************************************
+   47 00:52F0             
+   48 00:52F0             SYSPrintCRLF:
+   49 00:52F0             	ret
+   50 00:52F0             
+   51 00:52F0             ; ***************************************************************************************
+   52 00:52F0             ;
+   53 00:52F0             ;									Get time into HL'HL
+   54 00:52F0             ;
+   55 00:52F0             ; ***************************************************************************************
+   56 00:52F0             
+   57 00:52F0             SYSGetTimer:
+   58 00:52F0             	ret
+   59 00:52F0             
+   60 00:52F0             #endif
+   61 00:52F0 -  -  -  -  
+   62 00:52F0 -  -  -  -  ; ***************************************************************************************
+   63 00:52F0 -  -  -  -  ;
+   64 00:52F0 -  -  -  -  ;									Changes and Updates
+   65 00:52F0 -  -  -  -  ;
+   66 00:52F0 -  -  -  -  ; ***************************************************************************************
+   67 00:52F0 -  -  -  -  ;
+   68 00:52F0 -  -  -  -  ;		Date			Notes
+   69 00:52F0 -  -  -  -  ;		==== 			=====
+   70 00:52F0 -  -  -  -  ;
+   71 00:52F0 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   81 00:52E4 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
+   81 00:52F0 -  -  -  -  #include "simplehardware/_ti84/ti_84io.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/simplehardware/_ti84/ti_84io.asm"
-    1 00:52E4 -  -  -  -  ; ***************************************************************************************
-    2 00:52E4 -  -  -  -  ; ***************************************************************************************
-    3 00:52E4 -  -  -  -  ;
-    4 00:52E4 -  -  -  -  ;		Name : 		ti84_io.asm
-    5 00:52E4 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:52E4 -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:52E4 -  -  -  -  ;		Reviewed :	No
-    8 00:52E4 -  -  -  -  ;		Purpose :	TI84 specific code
-    9 00:52E4 -  -  -  -  ;
-   10 00:52E4 -  -  -  -  ; ***************************************************************************************
-   11 00:52E4 -  -  -  -  ; ***************************************************************************************
-   12 00:52E4 -  -  -  -  
-   13 00:52E4 -  -  -  -  #ifdef TI84
-   14 00:52E4             
-   15 00:52E4             ; ***************************************************************************************
-   16 00:52E4             ;
-   17 00:52E4             ;								Initialise system stuff
-   18 00:52E4             ;
-   19 00:52E4             ; ***************************************************************************************
-   20 00:52E4             
-   21 00:52E4             SYSInitialise:
-   22 00:52E4             	di
-   23 00:52E4             	ld 		(_StackTemp84),sp 					; TI84 we preserve IY and SP.
-   24 00:52E4             	ld 		(_IYTemp84),iy
-   25 00:52E4             	ret
-   26 00:52E4             
-   27 00:52E4             ; ***************************************************************************************
-   28 00:52E4             ;
-   29 00:52E4             ;								Terminate system stuff
-   30 00:52E4             ;
-   31 00:52E4             ; ***************************************************************************************
-   32 00:52E4             
-   33 00:52E4             SYSTerminate:
-   34 00:52E4             	ld 		sp,(_StackTemp84) 					; TI84 restore SP
-   35 00:52E4             	pop 	iy 									; throw return address from SYSInitialise call
-   36 00:52E4             	ld 		iy,(_IYTemp84) 						; restore IY
-   37 00:52E4             	res 	donePrgm,(iy+doneFlags) 			; marks program as complete (task switching ?)
-   38 00:52E4             	ei
-   39 00:52E4             	ret 										; and exit.
-   40 00:52E4             
-   41 00:52E4             _StackTemp84:									; temp var for TI84 only.
-   42 00:52E4             	.dw 	0,0
-   43 00:52E4             _IYTemp84:
-   44 00:52E4             	.dw 	0,0		
-   45 00:52E4             
-   46 00:52E4             ; ***************************************************************************************
-   47 00:52E4             ;
-   48 00:52E4             ;								Print A character
-   49 00:52E4             ;
-   50 00:52E4             ; ***************************************************************************************
-   51 00:52E4             
-   52 00:52E4             SYSPrintChar:
-   53 00:52E4             	push 	af 									; we stack everything including alt registers
-   54 00:52E4             	push 	bc
-   55 00:52E4             	push 	de
-   56 00:52E4             	push 	hl
-   57 00:52E4             	push 	ix
-   58 00:52E4             	push 	iy
-   59 00:52E4             	exx
-   60 00:52E4             	push 	bc
-   61 00:52E4             	push 	de
-   62 00:52E4             	push 	hl
-   63 00:52E4             
-   64 00:52E4             	ld 		iy,(_IYTemp84)
-   65 00:52E4             	call 	_PutC 								; print A as character
-   66 00:52E4             	di
-   67 00:52E4             	ld 		(_IYTemp84),iy
-   68 00:52E4             
-   69 00:52E4             	pop 	hl
-   70 00:52E4             	pop 	de
-   71 00:52E4             	pop 	bc
-   72 00:52E4             	exx
-   73 00:52E4             	pop 	iy
-   74 00:52E4             	pop 	ix
-   75 00:52E4             	pop 	hl
-   76 00:52E4             	pop 	de
-   77 00:52E4             	pop 	bc
-   78 00:52E4             	pop 	af
-   79 00:52E4             	ret		
-   80 00:52E4             
-   81 00:52E4             ; ***************************************************************************************
-   82 00:52E4             ;
-   83 00:52E4             ;									Print Newline
-   84 00:52E4             ;
-   85 00:52E4             ; ***************************************************************************************
-   86 00:52E4             
-   87 00:52E4             SYSPrintCRLF:
-   88 00:52E4             	push 	af 									; we stack everything including alt registers
-   89 00:52E4             	push 	bc
-   90 00:52E4             	push 	de
-   91 00:52E4             	push 	hl
-   92 00:52E4             	push 	ix
-   93 00:52E4             	push 	iy
-   94 00:52E4             	exx
-   95 00:52E4             	push 	bc
-   96 00:52E4             	push 	de
-   97 00:52E4             	push 	hl
-   98 00:52E4             
-   99 00:52E4             	ld 		iy,(_IYTemp84)
-  100 00:52E4             	call 	_newline
-  101 00:52E4             	di
-  102 00:52E4             	ld 		(_IYTemp84),iy
-  103 00:52E4             
-  104 00:52E4             	pop 	hl
-  105 00:52E4             	pop 	de
-  106 00:52E4             	pop 	bc
-  107 00:52E4             	exx
-  108 00:52E4             	pop 	iy
-  109 00:52E4             	pop 	ix
-  110 00:52E4             	pop 	hl
-  111 00:52E4             	pop 	de
-  112 00:52E4             	pop 	bc
-  113 00:52E4             	pop 	af
-  114 00:52E4             	ret
-  115 00:52E4             
-  116 00:52E4             ; ***************************************************************************************
-  117 00:52E4             ;
-  118 00:52E4             ;									Get time into HL'HL
-  119 00:52E4             ;
-  120 00:52E4             ; ***************************************************************************************
-  121 00:52E4             
-  122 00:52E4             SYSGetTimer:
-  123 00:52E4             	ld 		hl,$1234
-  124 00:52E4             	exx
-  125 00:52E4             	ld 		hl,$5678
-  126 00:52E4             	exx
-  127 00:52E4             	ret
-  128 00:52E4             
-  129 00:52E4             #endif
-  130 00:52E4 -  -  -  -  
-  131 00:52E4 -  -  -  -  ; ***************************************************************************************
-  132 00:52E4 -  -  -  -  ;
-  133 00:52E4 -  -  -  -  ;									Changes and Updates
-  134 00:52E4 -  -  -  -  ;
-  135 00:52E4 -  -  -  -  ; ***************************************************************************************
-  136 00:52E4 -  -  -  -  ;
-  137 00:52E4 -  -  -  -  ;		Date			Notes
-  138 00:52E4 -  -  -  -  ;		==== 			=====
-  139 00:52E4 -  -  -  -  ;
-  140 00:52E4 -  -  -  -  ; ***************************************************************************************
+    1 00:52F0 -  -  -  -  ; ***************************************************************************************
+    2 00:52F0 -  -  -  -  ; ***************************************************************************************
+    3 00:52F0 -  -  -  -  ;
+    4 00:52F0 -  -  -  -  ;		Name : 		ti84_io.asm
+    5 00:52F0 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:52F0 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:52F0 -  -  -  -  ;		Reviewed :	No
+    8 00:52F0 -  -  -  -  ;		Purpose :	TI84 specific code
+    9 00:52F0 -  -  -  -  ;
+   10 00:52F0 -  -  -  -  ; ***************************************************************************************
+   11 00:52F0 -  -  -  -  ; ***************************************************************************************
+   12 00:52F0 -  -  -  -  
+   13 00:52F0 -  -  -  -  #ifdef TI84
+   14 00:52F0             
+   15 00:52F0             ; ***************************************************************************************
+   16 00:52F0             ;
+   17 00:52F0             ;								Initialise system stuff
+   18 00:52F0             ;
+   19 00:52F0             ; ***************************************************************************************
+   20 00:52F0             
+   21 00:52F0             SYSInitialise:
+   22 00:52F0             	di
+   23 00:52F0             	ld 		(_StackTemp84),sp 					; TI84 we preserve IY and SP.
+   24 00:52F0             	ld 		(_IYTemp84),iy
+   25 00:52F0             	ret
+   26 00:52F0             
+   27 00:52F0             ; ***************************************************************************************
+   28 00:52F0             ;
+   29 00:52F0             ;								Terminate system stuff
+   30 00:52F0             ;
+   31 00:52F0             ; ***************************************************************************************
+   32 00:52F0             
+   33 00:52F0             SYSTerminate:
+   34 00:52F0             	ld 		sp,(_StackTemp84) 					; TI84 restore SP
+   35 00:52F0             	pop 	iy 									; throw return address from SYSInitialise call
+   36 00:52F0             	ld 		iy,(_IYTemp84) 						; restore IY
+   37 00:52F0             	res 	donePrgm,(iy+doneFlags) 			; marks program as complete (task switching ?)
+   38 00:52F0             	ei
+   39 00:52F0             	ret 										; and exit.
+   40 00:52F0             
+   41 00:52F0             _StackTemp84:									; temp var for TI84 only.
+   42 00:52F0             	.dw 	0,0
+   43 00:52F0             _IYTemp84:
+   44 00:52F0             	.dw 	0,0		
+   45 00:52F0             
+   46 00:52F0             ; ***************************************************************************************
+   47 00:52F0             ;
+   48 00:52F0             ;								Print A character
+   49 00:52F0             ;
+   50 00:52F0             ; ***************************************************************************************
+   51 00:52F0             
+   52 00:52F0             SYSPrintChar:
+   53 00:52F0             	push 	af 									; we stack everything including alt registers
+   54 00:52F0             	push 	bc
+   55 00:52F0             	push 	de
+   56 00:52F0             	push 	hl
+   57 00:52F0             	push 	ix
+   58 00:52F0             	push 	iy
+   59 00:52F0             	exx
+   60 00:52F0             	push 	bc
+   61 00:52F0             	push 	de
+   62 00:52F0             	push 	hl
+   63 00:52F0             
+   64 00:52F0             	ld 		iy,(_IYTemp84)
+   65 00:52F0             	call 	_PutC 								; print A as character
+   66 00:52F0             	di
+   67 00:52F0             	ld 		(_IYTemp84),iy
+   68 00:52F0             
+   69 00:52F0             	pop 	hl
+   70 00:52F0             	pop 	de
+   71 00:52F0             	pop 	bc
+   72 00:52F0             	exx
+   73 00:52F0             	pop 	iy
+   74 00:52F0             	pop 	ix
+   75 00:52F0             	pop 	hl
+   76 00:52F0             	pop 	de
+   77 00:52F0             	pop 	bc
+   78 00:52F0             	pop 	af
+   79 00:52F0             	ret		
+   80 00:52F0             
+   81 00:52F0             ; ***************************************************************************************
+   82 00:52F0             ;
+   83 00:52F0             ;									Print Newline
+   84 00:52F0             ;
+   85 00:52F0             ; ***************************************************************************************
+   86 00:52F0             
+   87 00:52F0             SYSPrintCRLF:
+   88 00:52F0             	push 	af 									; we stack everything including alt registers
+   89 00:52F0             	push 	bc
+   90 00:52F0             	push 	de
+   91 00:52F0             	push 	hl
+   92 00:52F0             	push 	ix
+   93 00:52F0             	push 	iy
+   94 00:52F0             	exx
+   95 00:52F0             	push 	bc
+   96 00:52F0             	push 	de
+   97 00:52F0             	push 	hl
+   98 00:52F0             
+   99 00:52F0             	ld 		iy,(_IYTemp84)
+  100 00:52F0             	call 	_newline
+  101 00:52F0             	di
+  102 00:52F0             	ld 		(_IYTemp84),iy
+  103 00:52F0             
+  104 00:52F0             	pop 	hl
+  105 00:52F0             	pop 	de
+  106 00:52F0             	pop 	bc
+  107 00:52F0             	exx
+  108 00:52F0             	pop 	iy
+  109 00:52F0             	pop 	ix
+  110 00:52F0             	pop 	hl
+  111 00:52F0             	pop 	de
+  112 00:52F0             	pop 	bc
+  113 00:52F0             	pop 	af
+  114 00:52F0             	ret
+  115 00:52F0             
+  116 00:52F0             ; ***************************************************************************************
+  117 00:52F0             ;
+  118 00:52F0             ;									Get time into HL'HL
+  119 00:52F0             ;
+  120 00:52F0             ; ***************************************************************************************
+  121 00:52F0             
+  122 00:52F0             SYSGetTimer:
+  123 00:52F0             	ld 		hl,$1234
+  124 00:52F0             	exx
+  125 00:52F0             	ld 		hl,$5678
+  126 00:52F0             	exx
+  127 00:52F0             	ret
+  128 00:52F0             
+  129 00:52F0             #endif
+  130 00:52F0 -  -  -  -  
+  131 00:52F0 -  -  -  -  ; ***************************************************************************************
+  132 00:52F0 -  -  -  -  ;
+  133 00:52F0 -  -  -  -  ;									Changes and Updates
+  134 00:52F0 -  -  -  -  ;
+  135 00:52F0 -  -  -  -  ; ***************************************************************************************
+  136 00:52F0 -  -  -  -  ;
+  137 00:52F0 -  -  -  -  ;		Date			Notes
+  138 00:52F0 -  -  -  -  ;		==== 			=====
+  139 00:52F0 -  -  -  -  ;
+  140 00:52F0 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   82 00:52E4 -  -  -  -  #include "tokeniser/generated/kwd_keywords.asm"
+   82 00:52F0 -  -  -  -  #include "tokeniser/generated/kwd_keywords.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/tokeniser/generated/kwd_keywords.asm"
-    1 00:52E4 -  -  -  -  ;
-    2 00:52E4 -  -  -  -  ;	This file is automatically generated.
-    3 00:52E4 -  -  -  -  ;
-    4 00:52E4 -  -  -  -  ;
-    5 00:52E4 -  -  -  -  ;	Keywords for set 0
-    6 00:52E4 -  -  -  -  ;
-    7 00:52E4 -  -  -  -  KeywordsSet0:
-    8 00:52E4 01 20 -  -  	.db	1," "              ; $0080
-    9 00:52E6 01 20 -  -  	.db	1," "              ; $0081
-   10 00:52E8 01 20 -  -  	.db	1," "              ; $0082
-   11 00:52EA 01 21 -  -  	.db	1,"!"              ; $0083
-   12 00:52EC 01 3F -  -  	.db	1,"?"              ; $0084
-   13 00:52EE 01 2A -  -  	.db	1,"*"              ; $0085
-   14 00:52F0 01 2F -  -  	.db	1,"/"              ; $0086
-   15 00:52F2 03 4D 4F 44 	.db	3,"MOD"            ; $0087
-   16 00:52F6 03 44 49 56 	.db	3,"DIV"            ; $0088
-   17 00:52FA 01 2B -  -  	.db	1,"+"              ; $0089
-   18 00:52FC 01 2D -  -  	.db	1,"-"              ; $008a
-   19 00:52FE 02 3E 3D -  	.db	2,">="             ; $008b
-   20 00:5301 02 3C 3D -  	.db	2,"<="             ; $008c
-   21 00:5304 01 3E -  -  	.db	1,">"              ; $008d
-   22 00:5306 01 3C -  -  	.db	1,"<"              ; $008e
-   23 00:5308 01 3D -  -  	.db	1,"="              ; $008f
-   24 00:530A 02 3C 3E -  	.db	2,"<>"             ; $0090
-   25 00:530D 03 41 4E 44 	.db	3,"AND"            ; $0091
-   26 00:5311 02 4F 52 -  	.db	2,"OR"             ; $0092
-   27 00:5314 03 45 4F 52 	.db	3,"EOR"            ; $0093
-   28 00:5318 01 26 -  -  	.db	1,"&"              ; $0094
-   29 00:531A 01 28 -  -  	.db	1,"("              ; $0095
-   30 00:531C 01 24 -  -  	.db	1,"$"              ; $0096
-   31 00:531E 03 52 4E 44 	.db	3,"RND"            ; $0097
-   32 00:5322 03 4C 45 4E 	.db	3,"LEN"            ; $0098
-   33 00:5326 03 41 42 53 	.db	3,"ABS"            ; $0099
-   34 00:532A 03 53 47 4E 	.db	3,"SGN"            ; $009a
-   35 00:532E 03 53 54 52 	.db	3,"STR"            ; $009b
-   36 00:5332 03 43 48 52 	.db	3,"CHR"            ; $009c
-   37 00:5336 03 41 53 43 	.db	3,"ASC"            ; $009d
-   38 00:533A 03 4E 4F 54 	.db	3,"NOT"            ; $009e
-   39 00:533E 04 50 41 47 
+    1 00:52F0 -  -  -  -  ;
+    2 00:52F0 -  -  -  -  ;	This file is automatically generated.
+    3 00:52F0 -  -  -  -  ;
+    4 00:52F0 -  -  -  -  ;
+    5 00:52F0 -  -  -  -  ;	Keywords for set 0
+    6 00:52F0 -  -  -  -  ;
+    7 00:52F0 -  -  -  -  KeywordsSet0:
+    8 00:52F0 01 20 -  -  	.db	1," "              ; $0080
+    9 00:52F2 01 20 -  -  	.db	1," "              ; $0081
+   10 00:52F4 01 20 -  -  	.db	1," "              ; $0082
+   11 00:52F6 01 21 -  -  	.db	1,"!"              ; $0083
+   12 00:52F8 01 3F -  -  	.db	1,"?"              ; $0084
+   13 00:52FA 01 2A -  -  	.db	1,"*"              ; $0085
+   14 00:52FC 01 2F -  -  	.db	1,"/"              ; $0086
+   15 00:52FE 03 4D 4F 44 	.db	3,"MOD"            ; $0087
+   16 00:5302 03 44 49 56 	.db	3,"DIV"            ; $0088
+   17 00:5306 01 2B -  -  	.db	1,"+"              ; $0089
+   18 00:5308 01 2D -  -  	.db	1,"-"              ; $008a
+   19 00:530A 02 3E 3D -  	.db	2,">="             ; $008b
+   20 00:530D 02 3C 3D -  	.db	2,"<="             ; $008c
+   21 00:5310 01 3E -  -  	.db	1,">"              ; $008d
+   22 00:5312 01 3C -  -  	.db	1,"<"              ; $008e
+   23 00:5314 01 3D -  -  	.db	1,"="              ; $008f
+   24 00:5316 02 3C 3E -  	.db	2,"<>"             ; $0090
+   25 00:5319 03 41 4E 44 	.db	3,"AND"            ; $0091
+   26 00:531D 02 4F 52 -  	.db	2,"OR"             ; $0092
+   27 00:5320 03 45 4F 52 	.db	3,"EOR"            ; $0093
+   28 00:5324 01 26 -  -  	.db	1,"&"              ; $0094
+   29 00:5326 01 28 -  -  	.db	1,"("              ; $0095
+   30 00:5328 01 24 -  -  	.db	1,"$"              ; $0096
+   31 00:532A 03 52 4E 44 	.db	3,"RND"            ; $0097
+   32 00:532E 03 4C 45 4E 	.db	3,"LEN"            ; $0098
+   33 00:5332 03 41 42 53 	.db	3,"ABS"            ; $0099
+   34 00:5336 03 53 47 4E 	.db	3,"SGN"            ; $009a
+   35 00:533A 03 53 54 52 	.db	3,"STR"            ; $009b
+   36 00:533E 03 43 48 52 	.db	3,"CHR"            ; $009c
+   37 00:5342 03 41 53 43 	.db	3,"ASC"            ; $009d
+   38 00:5346 03 4E 4F 54 	.db	3,"NOT"            ; $009e
+   39 00:534A 04 50 41 47 
               45 -  -  -  	.db	4,"PAGE"           ; $009f
-   40 00:5343 04 54 49 4D 
+   40 00:534F 04 54 49 4D 
               45 -  -  -  	.db	4,"TIME"           ; $00a0
-   41 00:5348 03 54 4F 50 	.db	3,"TOP"            ; $00a1
-   42 00:534C 03 56 41 4C 	.db	3,"VAL"            ; $00a2
-   43 00:5350 04 54 52 55 
+   41 00:5354 03 54 4F 50 	.db	3,"TOP"            ; $00a1
+   42 00:5358 03 56 41 4C 	.db	3,"VAL"            ; $00a2
+   43 00:535C 04 54 52 55 
               45 -  -  -  	.db	4,"TRUE"           ; $00a3
-   44 00:5355 05 46 41 4C 
+   44 00:5361 05 46 41 4C 
               53 45 -  -  	.db	5,"FALSE"          ; $00a4
-   45 00:535B 01 29 -  -  	.db	1,")"              ; $00a5
-   46 00:535D 01 2C -  -  	.db	1,","              ; $00a6
-   47 00:535F 01 3A -  -  	.db	1,":"              ; $00a7
-   48 00:5361 01 3B -  -  	.db	1,";"              ; $00a8
-   49 00:5363 01 27 -  -  	.db	1,"'"              ; $00a9
-   50 00:5365 01 5B -  -  	.db	1,"["              ; $00aa
-   51 00:5367 01 5D -  -  	.db	1,"]"              ; $00ab
-   52 00:5369 01 7E -  -  	.db	1,"~"              ; $00ac
-   53 00:536B 06 52 45 50 
+   45 00:5367 01 29 -  -  	.db	1,")"              ; $00a5
+   46 00:5369 01 2C -  -  	.db	1,","              ; $00a6
+   47 00:536B 01 3A -  -  	.db	1,":"              ; $00a7
+   48 00:536D 01 3B -  -  	.db	1,";"              ; $00a8
+   49 00:536F 01 27 -  -  	.db	1,"'"              ; $00a9
+   50 00:5371 01 5B -  -  	.db	1,"["              ; $00aa
+   51 00:5373 01 5D -  -  	.db	1,"]"              ; $00ab
+   52 00:5375 01 7E -  -  	.db	1,"~"              ; $00ac
+   53 00:5377 06 52 45 50 
               45 41 54 -  	.db	6,"REPEAT"         ; $00ad
-   54 00:5372 05 55 4E 54 
+   54 00:537E 05 55 4E 54 
               49 4C -  -  	.db	5,"UNTIL"          ; $00ae
-   55 00:5378 02 49 46 -  	.db	2,"IF"             ; $00af
-   56 00:537B 04 54 48 45 
+   55 00:5384 02 49 46 -  	.db	2,"IF"             ; $00af
+   56 00:5387 04 54 48 45 
               4E -  -  -  	.db	4,"THEN"           ; $00b0
-   57 00:5380 04 45 4C 53 
+   57 00:538C 04 45 4C 53 
               45 -  -  -  	.db	4,"ELSE"           ; $00b1
-   58 00:5385 03 46 4F 52 	.db	3,"FOR"            ; $00b2
-   59 00:5389 02 54 4F -  	.db	2,"TO"             ; $00b3
-   60 00:538C 04 53 54 45 
+   58 00:5391 03 46 4F 52 	.db	3,"FOR"            ; $00b2
+   59 00:5395 02 54 4F -  	.db	2,"TO"             ; $00b3
+   60 00:5398 04 53 54 45 
               50 -  -  -  	.db	4,"STEP"           ; $00b4
-   61 00:5391 04 4E 45 58 
+   61 00:539D 04 4E 45 58 
               54 -  -  -  	.db	4,"NEXT"           ; $00b5
-   62 00:5396 03 44 45 46 	.db	3,"DEF"            ; $00b6
-   63 00:539A 04 50 52 4F 
+   62 00:53A2 03 44 45 46 	.db	3,"DEF"            ; $00b6
+   63 00:53A6 04 50 52 4F 
               43 -  -  -  	.db	4,"PROC"           ; $00b7
-   64 00:539F 07 45 4E 44 
+   64 00:53AB 07 45 4E 44 
               50 52 4F 43 	.db	7,"ENDPROC"        ; $00b8
-   65 00:53A7 05 47 4F 53 
+   65 00:53B3 05 47 4F 53 
               55 42 -  -  	.db	5,"GOSUB"          ; $00b9
-   66 00:53AD 06 52 45 54 
+   66 00:53B9 06 52 45 54 
               55 52 4E -  	.db	6,"RETURN"         ; $00ba
-   67 00:53B4 04 47 4F 54 
+   67 00:53C0 04 47 4F 54 
               4F -  -  -  	.db	4,"GOTO"           ; $00bb
-   68 00:53B9 05 4C 4F 43 
+   68 00:53C5 05 4C 4F 43 
               41 4C -  -  	.db	5,"LOCAL"          ; $00bc
-   69 00:53BF 03 44 49 4D 	.db	3,"DIM"            ; $00bd
-   70 00:53C3 03 52 45 4D 	.db	3,"REM"            ; $00be
-   71 00:53C7 03 4C 45 54 	.db	3,"LET"            ; $00bf
-   72 00:53CB 03 56 44 55 	.db	3,"VDU"            ; $00c0
-   73 00:53CF 05 50 52 49 
+   69 00:53CB 03 44 49 4D 	.db	3,"DIM"            ; $00bd
+   70 00:53CF 03 52 45 4D 	.db	3,"REM"            ; $00be
+   71 00:53D3 03 4C 45 54 	.db	3,"LET"            ; $00bf
+   72 00:53D7 03 56 44 55 	.db	3,"VDU"            ; $00c0
+   73 00:53DB 05 50 52 49 
               4E 54 -  -  	.db	5,"PRINT"          ; $00c1
-   74 00:53D5 04 4C 4F 41 
+   74 00:53E1 04 4C 4F 41 
               44 -  -  -  	.db	4,"LOAD"           ; $00c2
-   75 00:53DA 04 53 41 56 
+   75 00:53E6 04 53 41 56 
               45 -  -  -  	.db	4,"SAVE"           ; $00c3
-   76 00:53DF 04 4C 49 53 
+   76 00:53EB 04 4C 49 53 
               54 -  -  -  	.db	4,"LIST"           ; $00c4
-   77 00:53E4 03 4E 45 57 	.db	3,"NEW"            ; $00c5
-   78 00:53E8 03 52 55 4E 	.db	3,"RUN"            ; $00c6
-   79 00:53EC 04 52 45 41 
+   77 00:53F0 03 4E 45 57 	.db	3,"NEW"            ; $00c5
+   78 00:53F4 03 52 55 4E 	.db	3,"RUN"            ; $00c6
+   79 00:53F8 04 52 45 41 
               44 -  -  -  	.db	4,"READ"           ; $00c7
-   80 00:53F1 04 44 41 54 
+   80 00:53FD 04 44 41 54 
               41 -  -  -  	.db	4,"DATA"           ; $00c8
-   81 00:53F6 07 52 45 53 
+   81 00:5402 07 52 45 53 
               54 4F 52 45 	.db	7,"RESTORE"        ; $00c9
-   82 00:53FE 06 41 53 53 
+   82 00:540A 06 41 53 53 
               45 52 54 -  	.db	6,"ASSERT"         ; $00ca
-   83 00:5405 05 43 4C 45 
+   83 00:5411 05 43 4C 45 
               41 52 -  -  	.db	5,"CLEAR"          ; $00cb
-   84 00:540B 03 45 4E 44 	.db	3,"END"            ; $00cc
-   85 00:540F 04 53 54 4F 
+   84 00:5417 03 45 4E 44 	.db	3,"END"            ; $00cc
+   85 00:541B 04 53 54 4F 
               50 -  -  -  	.db	4,"STOP"           ; $00cd
-   86 00:5414 00 -  -  -  	.db	0
-   87 00:5415 -  -  -  -  ;
-   88 00:5415 -  -  -  -  ;	Keywords for set 1
-   89 00:5415 -  -  -  -  ;
-   90 00:5415 -  -  -  -  KeywordsSet1:
-   91 00:5415 00 -  -  -  	.db	0
-   92 00:5416 -  -  -  -  ;
-   93 00:5416 -  -  -  -  ;	Keywords for set 2
-   94 00:5416 -  -  -  -  ;
-   95 00:5416 -  -  -  -  KeywordsSet2:
-   96 00:5416 00 -  -  -  	.db	0
+   86 00:5420 04 4D 4F 56 
+              45 -  -  -  	.db	4,"MOVE"           ; $00ce
+   87 00:5425 04 44 52 41 
+              57 -  -  -  	.db	4,"DRAW"           ; $00cf
+   88 00:542A 04 50 4C 4F 
+              54 -  -  -  	.db	4,"PLOT"           ; $00d0
+   89 00:542F 04 4D 4F 44 
+              45 -  -  -  	.db	4,"MODE"           ; $00d1
+   90 00:5434 06 43 4F 4C 
+              4F 55 52 -  	.db	6,"COLOUR"         ; $00d2
+   91 00:543B 04 47 43 4F 
+              4C -  -  -  	.db	4,"GCOL"           ; $00d3
+   92 00:5440 00 -  -  -  	.db	0
+   93 00:5441 -  -  -  -  ;
+   94 00:5441 -  -  -  -  ;	Keywords for set 1
+   95 00:5441 -  -  -  -  ;
+   96 00:5441 -  -  -  -  KeywordsSet1:
+   97 00:5441 00 -  -  -  	.db	0
+   98 00:5442 -  -  -  -  ;
+   99 00:5442 -  -  -  -  ;	Keywords for set 2
+  100 00:5442 -  -  -  -  ;
+  101 00:5442 -  -  -  -  KeywordsSet2:
+  102 00:5442 00 -  -  -  	.db	0
 Listing for file "_build.asm"
-   83 00:5417 -  -  -  -  #include "tokeniser/list.asm"
+   83 00:5443 -  -  -  -  #include "tokeniser/list.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/tokeniser/list.asm"
-    1 00:5417 -  -  -  -  ; ***************************************************************************************
-    2 00:5417 -  -  -  -  ; ***************************************************************************************
-    3 00:5417 -  -  -  -  ;
-    4 00:5417 -  -  -  -  ;		Name : 		list.asm
-    5 00:5417 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:5417 -  -  -  -  ;		Date : 		9th June 2022
-    7 00:5417 -  -  -  -  ;		Reviewed :	No
-    8 00:5417 -  -  -  -  ;		Purpose :	Program listing.
-    9 00:5417 -  -  -  -  ;
-   10 00:5417 -  -  -  -  ; ***************************************************************************************
-   11 00:5417 -  -  -  -  ; ***************************************************************************************
-   12 00:5417 -  -  -  -  
-   13 00:5417 -  -  -  -  ; ***************************************************************************************
-   14 00:5417 -  -  -  -  ;
-   15 00:5417 -  -  -  -  ;										LIST a program
-   16 00:5417 -  -  -  -  ;
-   17 00:5417 -  -  -  -  ; ***************************************************************************************
-   18 00:5417 -  -  -  -  
-   19 00:5417 -  -  -  -  Command_LIST: 	;; [list]
-   20 00:5417 01 00 00 -  		ld 		bc,$0000 					; BC is the low value
-   21 00:541A 11 FF FF -  		ld 		de,$FFFF 					; DE is the high value
-   22 00:541D -  -  -  -  		;
-   23 00:541D -  -  -  -  		;		Unpack the command
-   24 00:541D -  -  -  -  		;		
-   25 00:541D DD 7E 00 -  		ld 		a,(ix+0) 					; what's there ?
-   26 00:5420 FE A6 -  -  		cp	 	KWD_COMMA 					; if , then do the second part
-   27 00:5422 28 16 -  -  		jr 		z,_CLUpperRange
-   28 00:5424 E6 C0 -  -  		and 	$C0 						; check number follows.
-   29 00:5426 FE 40 -  -  		cp 		$40
-   30 00:5428 20 20 -  -  		jr 		nz,_CLList 			
-   31 00:542A CD 80 54 -  		call 	_CLGetInteger 				; get a line number
-   32 00:542D 44 -  -  -  		ld  	b,h 						; put into BC
-   33 00:542E 4D -  -  -  		ld 		c,l
-   34 00:542F DD 7E 00 -  		ld 		a,(ix+0)					; , follows ?
-   35 00:5432 FE A6 -  -  		cp 		KWD_COMMA
-   36 00:5434 28 04 -  -  		jr 		z,_CLUpperRange
-   37 00:5436 54 -  -  -  		ld 		d,h 						; one number only, so in BC and DE
-   38 00:5437 5D -  -  -  		ld 		e,l
-   39 00:5438 18 10 -  -  		jr 		_CLList
-   40 00:543A -  -  -  -  		;
-   41 00:543A -  -  -  -  		;		Second number.
-   42 00:543A -  -  -  -  		;
-   43 00:543A -  -  -  -  _CLUpperRange:
-   44 00:543A DD 23 -  -  		inc 	ix 							; skip comma
-   45 00:543C DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a number
-   46 00:543F E6 C0 -  -  		and 	$C0
-   47 00:5441 FE 40 -  -  		cp 		$40
-   48 00:5443 20 05 -  -  		jr 		nz,_CLList 					; No listing done
-   49 00:5445 CD 80 54 -  		call 	_CLGetInteger 				; get a number
-   50 00:5448 54 -  -  -  		ld 		d,h 						; put into DE
-   51 00:5449 5D -  -  -  		ld 		e,l		
-   52 00:544A -  -  -  -  		;
-   53 00:544A -  -  -  -  		;		List from line no.s BC to DE.
-   54 00:544A -  -  -  -  		;
-   55 00:544A -  -  -  -  _CLList:		
-   56 00:544A DD 2A 34 40 		ld 		ix,(CodeAddress) 			; start of code.
-   57 00:544E -  -  -  -  		;
-   58 00:544E -  -  -  -  		;		List main loop
-   59 00:544E -  -  -  -  		;
-   60 00:544E -  -  -  -  _CLNextLine:		
-   61 00:544E DD 7E 00 -  		ld 		a,(ix+0) 					; offset = 0, then end.
-   62 00:5451 B7 -  -  -  		or 		a
-   63 00:5452 CA 69 42 -  		jp 		z,Command_END
-   64 00:5455 -  -  -  -  		;
-   65 00:5455 21 00 00 -  		ld 		hl,$0000 					; line number into HL
-   66 00:5458 DD 6E 01 -  		ld 		l,(ix+1) 						
-   67 00:545B DD 66 02 -  		ld 		h,(ix+2)
-   68 00:545E CD 70 54 -  		call 	CLCheckLineNumber
-   69 00:5461 D4 8F 54 -  		call 	nc,CLPrintLine
-   70 00:5464 -  -  -  -  		;
-   71 00:5464 C5 -  -  -  		push 	bc 							; go to next line
-   72 00:5465 01 00 00 -  		ld 		bc,0 						; BC is offset
-   73 00:5468 DD 4E 00 -  		ld 		c,(ix+0)
-   74 00:546B DD 09 -  -  		add 	ix,bc
-   75 00:546D C1 -  -  -  		pop 	bc
-   76 00:546E -  -  -  -  		;
-   77 00:546E 18 DE -  -  		jr 		_CLNextLine 				; go round again.
-   78 00:5470 -  -  -  -  
-   79 00:5470 -  -  -  -  ; ***************************************************************************************
-   80 00:5470 -  -  -  -  ;
-   81 00:5470 -  -  -  -  ;				Compare line number in HL vs BC/DE, NC if listable
-   82 00:5470 -  -  -  -  ;
-   83 00:5470 -  -  -  -  ; ***************************************************************************************
-   84 00:5470 -  -  -  -  
-   85 00:5470 -  -  -  -  CLCheckLineNumber:
-   86 00:5470 E5 -  -  -  		push 	hl 							; compare against BC
-   87 00:5471 AF -  -  -  		xor		a
-   88 00:5472 ED 42 -  -  		sbc 	hl,bc
-   89 00:5474 E1 -  -  -  		pop 	hl
-   90 00:5475 D8 -  -  -  		ret		c 							; if < BC then fail.
-   91 00:5476 ED 52 -  -  		sbc 	hl,de
-   92 00:5478 28 04 -  -  		jr 		z,_CLCLOkay 				; if <= DE then okay
-   93 00:547A 38 02 -  -  		jr 		c,_CLCLOkay
-   94 00:547C 37 -  -  -  		scf
-   95 00:547D C9 -  -  -  		ret
-   96 00:547E -  -  -  -  _CLCLOkay:
-   97 00:547E AF -  -  -  		xor 	a
-   98 00:547F C9 -  -  -  		ret
-   99 00:5480 -  -  -  -  
-  100 00:5480 -  -  -  -  ; ***************************************************************************************
-  101 00:5480 -  -  -  -  ;
-  102 00:5480 -  -  -  -  ;						Get 16 bit integer (for line numbers)
-  103 00:5480 -  -  -  -  ;
-  104 00:5480 -  -  -  -  ; ***************************************************************************************
-  105 00:5480 -  -  -  -  
-  106 00:5480 -  -  -  -  _CLGetInteger:
-  107 00:5480 C5 -  -  -  		push 	bc
-  108 00:5481 D5 -  -  -  		push 	de
-  109 00:5482 CD 88 46 -  		call 	EvaluateInteger
-  110 00:5485 D9 -  -  -  		exx
-  111 00:5486 7C -  -  -  		ld 		a,h
-  112 00:5487 B5 -  -  -  		or 		l
-  113 00:5488 D9 -  -  -  		exx
-  114 00:5489 CA FB 44 -  		jp 		z,BadValue
-  115 00:548C D1 -  -  -  		pop 	de
-  116 00:548D C1 -  -  -  		pop 	bc
-  117 00:548E C9 -  -  -  		ret
-  118 00:548F -  -  -  -  
-  119 00:548F -  -  -  -  ; ***************************************************************************************
-  120 00:548F -  -  -  -  ;
-  121 00:548F -  -  -  -  ;								Print line starting at IX
-  122 00:548F -  -  -  -  ;
-  123 00:548F -  -  -  -  ; ***************************************************************************************
-  124 00:548F -  -  -  -  
-  125 00:548F -  -  -  -  CLPrintLine:
-  126 00:548F CD 9C 54 -  		call 	CLExpandLine
-  127 00:5492 21 B2 40 -  		ld 		hl,TokenBuffer
-  128 00:5495 CD B3 4C -  		call 	PrintStringAtHL 
-  129 00:5498 CD C8 52 -  		call 	SYSPrintCRLF
-  130 00:549B C9 -  -  -  		ret
-  131 00:549C -  -  -  -  
-  132 00:549C -  -  -  -  ; ***************************************************************************************
-  133 00:549C -  -  -  -  ;
-  134 00:549C -  -  -  -  ;						 Expand line to buffer starting at IX
-  135 00:549C -  -  -  -  ;
-  136 00:549C -  -  -  -  ; ***************************************************************************************
-  137 00:549C -  -  -  -  
-  138 00:549C -  -  -  -  CLExpandLine:
-  139 00:549C C5 -  -  -  		push 	bc
-  140 00:549D D5 -  -  -  		push 	de
-  141 00:549E DD E5 -  -  		push 	ix
-  142 00:54A0 21 B2 40 -  		ld 		hl,TokenBuffer 				; set the token buffer pointer
-  143 00:54A3 22 B2 41 -  		ld 		(TWPointer),hl
-  144 00:54A6 CD 77 55 -  		call 	CLDecodeLineNumber
-  145 00:54A9 -  -  -  -  _CLSpaceOut:		
-  146 00:54A9 CD E5 54 -  		call 	CLPrintSpace
-  147 00:54AC 3A B2 41 -  		ld 		a,(TWPointer)
-  148 00:54AF FE B8 -  -  		cp 		(6+TokenBuffer) & $FF
-  149 00:54B1 20 F6 -  -  		jr 		nz,_CLSpaceOut
-  150 00:54B3 DD 23 -  -  		inc 	ix 							; point to line star.
-  151 00:54B5 DD 23 -  -  		inc 	ix
-  152 00:54B7 DD 23 -  -  		inc 	ix
-  153 00:54B9 -  -  -  -  _CLPLLoop		
-  154 00:54B9 DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
-  155 00:54BC FE 80 -  -  		cp 		$80 						; EOL 
-  156 00:54BE 28 20 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
-  157 00:54C0 B7 -  -  -  		or 		a
-  158 00:54C1 FC F4 54 -  		call 	m,CLDecodeKeyword
-  159 00:54C4 -  -  -  -  
-  160 00:54C4 06 10 -  -  		ld 		b,16
-  161 00:54C6 FE 94 -  -  		cp 		KWD_AMPERSAND
-  162 00:54C8 CC 68 55 -  		call 	z,CLDecodeInteger
-  163 00:54CB -  -  -  -  
-  164 00:54CB FE 26 -  -  		cp 		IDENTIFIER_END
-  165 00:54CD DC 25 55 -  		call 	c,CLDecodeIdentifier
-  166 00:54D0 -  -  -  -  
-  167 00:54D0 FE 3F -  -  		cp 		STRING_MARKER
-  168 00:54D2 CC 49 55 -  		call 	z,CLDecodeString
-  169 00:54D5 -  -  -  -  
-  170 00:54D5 E6 C0 -  -  		and 	$C0
-  171 00:54D7 FE 40 -  -  		cp 		$40
-  172 00:54D9 06 0A -  -  		ld 		b,10
-  173 00:54DB CC 68 55 -  		call 	z,CLDecodeInteger
-  174 00:54DE 18 D9 -  -  		jr 		_CLPLLoop
-  175 00:54E0 -  -  -  -  
-  176 00:54E0 -  -  -  -  _CLPLLExit:		
-  177 00:54E0 DD E1 -  -  		pop 	ix
-  178 00:54E2 D1 -  -  -  		pop 	de
-  179 00:54E3 C1 -  -  -  		pop 	bc
-  180 00:54E4 C9 -  -  -  		ret
-  181 00:54E5 -  -  -  -  
-  182 00:54E5 -  -  -  -  ; ***************************************************************************************
-  183 00:54E5 -  -  -  -  ;
-  184 00:54E5 -  -  -  -  ;								Print Space/A to output
-  185 00:54E5 -  -  -  -  ;
-  186 00:54E5 -  -  -  -  ; ***************************************************************************************
-  187 00:54E5 -  -  -  -  
-  188 00:54E5 -  -  -  -  CLPrintSpace:
-  189 00:54E5 3E 20 -  -  		ld 		a,' '
-  190 00:54E7 -  -  -  -  CLPrintA:
-  191 00:54E7 E5 -  -  -  		push 	hl
-  192 00:54E8 2A B2 41 -  		ld 		hl,(TWPointer)		
-  193 00:54EB 77 -  -  -  		ld 		(hl),a
-  194 00:54EC 23 -  -  -  		inc 	hl
-  195 00:54ED 22 B2 41 -  		ld 		(TWPointer),hl
-  196 00:54F0 36 00 -  -  		ld 		(hl),0
-  197 00:54F2 E1 -  -  -  		pop 	hl
-  198 00:54F3 C9 -  -  -  		ret
-  199 00:54F4 -  -  -  -  
-  200 00:54F4 -  -  -  -  ; ***************************************************************************************
-  201 00:54F4 -  -  -  -  ;
-  202 00:54F4 -  -  -  -  ;									Decode Keyword A
-  203 00:54F4 -  -  -  -  ;
-  204 00:54F4 -  -  -  -  ; ***************************************************************************************
-  205 00:54F4 -  -  -  -  
-  206 00:54F4 -  -  -  -  CLDecodeKeyword:
-  207 00:54F4 F5 -  -  -  		push 	af
-  208 00:54F5 FE 81 -  -  		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
-  209 00:54F7 CA F1 44 -  		jp 		z,NotImplemented
-  210 00:54FA FE 82 -  -  		cp 		KWC_SHIFT_2
-  211 00:54FC CA F1 44 -  		jp 		z,NotImplemented
-  212 00:54FF -  -  -  -  
-  213 00:54FF DD 23 -  -  		inc 	ix 							; consume keyword
-  214 00:5501 47 -  -  -  		ld 		b,a 						; put keyword # in B
-  215 00:5502 21 E4 52 -  		ld 		hl,KeywordsSet0 			; start with set 0
-  216 00:5505 -  -  -  -  _CLFindKeyword:
-  217 00:5505 05 -  -  -  		dec 	b
-  218 00:5506 F2 11 55 -  		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
-  219 00:5509 11 00 00 -  		ld 		de,0 						; get length into DE
-  220 00:550C 5E -  -  -  		ld 		e,(hl)
-  221 00:550D 13 -  -  -  		inc 	de 							; +1 for the length
-  222 00:550E 19 -  -  -  		add 	hl,de 						; go to next keyword		
-  223 00:550F 18 F4 -  -  		jr 		_CLFindKeyword
-  224 00:5511 -  -  -  -  _CLFoundKeyword:
-  225 00:5511 46 -  -  -  		ld 		b,(hl) 						; get length into B
-  226 00:5512 23 -  -  -  		inc 	hl
-  227 00:5513 7E -  -  -  		ld 		a,(hl) 						; is first char identifier
-  228 00:5514 CD A8 55 -  		call 	CLGetCharacterType 			
-  229 00:5517 FE 01 -  -  		cp 		1 							; if so, space requied maybe ?
-  230 00:5519 CC 98 55 -  		call 	z,CLCheckLastIdentifier
-  231 00:551C -  -  -  -  _CLCopyKeyword:
-  232 00:551C 7E -  -  -  		ld 		a,(hl)						; copy that many characters			
-  233 00:551D 23 -  -  -  		inc 	hl 		
-  234 00:551E CD E7 54 -  		call 	CLPrintA
-  235 00:5521 10 F9 -  -  		djnz 	_CLCopyKeyword
-  236 00:5523 F1 -  -  -  		pop 	af
-  237 00:5524 C9 -  -  -  		ret
-  238 00:5525 -  -  -  -  
-  239 00:5525 -  -  -  -  ; ***************************************************************************************
-  240 00:5525 -  -  -  -  ;
-  241 00:5525 -  -  -  -  ;								 Decode Identifier at IX
-  242 00:5525 -  -  -  -  ;
-  243 00:5525 -  -  -  -  ; ***************************************************************************************
-  244 00:5525 -  -  -  -  
-  245 00:5525 -  -  -  -  CLDecodeIdentifier:
-  246 00:5525 F5 -  -  -  		push 	af
-  247 00:5526 CD 98 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
-  248 00:5529 -  -  -  -  _CLDILoop:
-  249 00:5529 DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
-  250 00:552C DD 23 -  -  		inc 	ix
-  251 00:552E 06 61 -  -  		ld 		b,97 
-  252 00:5530 FE 1A -  -  		cp 		26
-  253 00:5532 38 08 -  -  		jr 		c,_CLDIDoChar
-  254 00:5534 06 16 -  -  		ld 		b,48-26
-  255 00:5536 FE 24 -  -  		cp 		36
-  256 00:5538 38 02 -  -  		jr 		c,_CLDIDoChar
-  257 00:553A 06 3B -  -  		ld 		b,'_'-36
-  258 00:553C -  -  -  -  _CLDIDoChar:
-  259 00:553C 80 -  -  -  		add 	a,b
-  260 00:553D CD E7 54 -  		call 	CLPrintA		
-  261 00:5540 DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
-  262 00:5543 FE 26 -  -  		cp 		IDENTIFIER_END
-  263 00:5545 38 E2 -  -  		jr 		c,_CLDILoop
-  264 00:5547 F1 -  -  -  		pop 	af
-  265 00:5548 C9 -  -  -  		ret
-  266 00:5549 -  -  -  -  
-  267 00:5549 -  -  -  -  ; ***************************************************************************************
-  268 00:5549 -  -  -  -  ;
-  269 00:5549 -  -  -  -  ;								 Decode String at IX
-  270 00:5549 -  -  -  -  ;
-  271 00:5549 -  -  -  -  ; ***************************************************************************************
-  272 00:5549 -  -  -  -  
-  273 00:5549 -  -  -  -  CLDecodeString:
-  274 00:5549 F5 -  -  -  		push 	af
-  275 00:554A 3E 22 -  -  		ld	 	a,'"'
-  276 00:554C CD E7 54 -  		call 	CLPrintA
-  277 00:554F DD 23 -  -  		inc 	ix
-  278 00:5551 DD 23 -  -  		inc 	ix
-  279 00:5553 -  -  -  -  _CLDSOut:
-  280 00:5553 DD 7E 00 -  		ld 		a,(ix+0)
-  281 00:5556 DD 23 -  -  		inc 	ix
-  282 00:5558 FE 20 -  -  		cp 		' '	
-  283 00:555A 38 05 -  -  		jr 		c,_CLDSEnd
-  284 00:555C CD E7 54 -  		call 	CLPrintA
-  285 00:555F 18 F2 -  -  		jr 		_CLDSOut
-  286 00:5561 -  -  -  -  _CLDSEnd:		
-  287 00:5561 3E 22 -  -  		ld	 	a,'"'
-  288 00:5563 CD E7 54 -  		call 	CLPrintA
-  289 00:5566 F1 -  -  -  		pop 	af
-  290 00:5567 C9 -  -  -  		ret
-  291 00:5568 -  -  -  -  
-  292 00:5568 -  -  -  -  ; ***************************************************************************************
-  293 00:5568 -  -  -  -  ;
-  294 00:5568 -  -  -  -  ;							Decode Integer at IX, base B
-  295 00:5568 -  -  -  -  ;
-  296 00:5568 -  -  -  -  ; ***************************************************************************************
-  297 00:5568 -  -  -  -  
-  298 00:5568 -  -  -  -  CLDecodeInteger:
-  299 00:5568 F5 -  -  -  		push 	af
-  300 00:5569 C5 -  -  -  		push 	bc
-  301 00:556A CD 98 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
-  302 00:556D CD 6A 46 -  		call 	EvaluateIntegerTerm 		; get the number only
-  303 00:5570 C1 -  -  -  		pop 	bc
-  304 00:5571 78 -  -  -  		ld 		a,b 						; base
-  305 00:5572 CD 84 55 -  		call 	CLExpandInt32ToBuffer
-  306 00:5575 F1 -  -  -  		pop 	af
-  307 00:5576 C9 -  -  -  		ret
-  308 00:5577 -  -  -  -  
-  309 00:5577 -  -  -  -  ; ***************************************************************************************
-  310 00:5577 -  -  -  -  ;
-  311 00:5577 -  -  -  -  ;							 Decode Line Number into Token Buffer
-  312 00:5577 -  -  -  -  ;
-  313 00:5577 -  -  -  -  ; ***************************************************************************************
-  314 00:5577 -  -  -  -  
-  315 00:5577 -  -  -  -  CLDecodeLineNumber:
-  316 00:5577 DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
-  317 00:557A DD 66 02 -  		ld 		h,(ix+2)
-  318 00:557D D9 -  -  -  		exx
-  319 00:557E 21 00 00 -  		ld 		hl,$000000
-  320 00:5581 D9 -  -  -  		exx
-  321 00:5582 3E 0A -  -  		ld 		a,10 						; base
-  322 00:5584 -  -  -  -  CLExpandInt32ToBuffer:
-  323 00:5584 ED 4B B2 41 		ld 		bc,(TWPointer) 				; where it goes.
-  324 00:5588 CD 5E 52 -  		call 	Int32ToString
-  325 00:558B -  -  -  -  _CLEI3End: 									; look for number end.
-  326 00:558B 0A -  -  -  		ld 		a,(bc)
-  327 00:558C ED 43 B2 41 		ld 		(TWPointer),bc
-  328 00:5590 03 -  -  -  		inc 	bc
-  329 00:5591 FE 20 -  -  		cp 		' '
-  330 00:5593 30 F6 -  -  		jr 		nc,_CLEI3End
-  331 00:5595 AF -  -  -  		xor 	a 							; add EOS
-  332 00:5596 02 -  -  -  		ld 		(bc),a				
-  333 00:5597 C9 -  -  -  		ret
-  334 00:5598 -  -  -  -  
-  335 00:5598 -  -  -  -  ; ***************************************************************************************
-  336 00:5598 -  -  -  -  ;
-  337 00:5598 -  -  -  -  ;						Check if last was identifier, if so add space
-  338 00:5598 -  -  -  -  ;
-  339 00:5598 -  -  -  -  ; ***************************************************************************************
-  340 00:5598 -  -  -  -  
-  341 00:5598 -  -  -  -  CLCheckLastIdentifier:
-  342 00:5598 E5 -  -  -  		push	hl 							; get last character written
-  343 00:5599 2A B2 41 -  		ld 		hl,(TWPointer)
-  344 00:559C 2B -  -  -  		dec 	hl
-  345 00:559D 7E -  -  -  		ld 		a,(hl)
-  346 00:559E E1 -  -  -  		pop 	hl
-  347 00:559F CD A8 55 -  		call 	CLGetCharacterType 			; get type
-  348 00:55A2 FE 01 -  -  		cp 		1  							; if identifier (A-Z0-9_)
-  349 00:55A4 CC E5 54 -  		call 	z,CLPrintSpace 				; space needed
-  350 00:55A7 C9 -  -  -  		ret
-  351 00:55A8 -  -  -  -  
-  352 00:55A8 -  -  -  -  ; ***************************************************************************************
-  353 00:55A8 -  -  -  -  ;
-  354 00:55A8 -  -  -  -  ;								Get character type
-  355 00:55A8 -  -  -  -  ;						0 = Space, 1 = 0-9a-zA-Z_ 2 = the rest
-  356 00:55A8 -  -  -  -  ;
-  357 00:55A8 -  -  -  -  ; ***************************************************************************************
-  358 00:55A8 -  -  -  -  
-  359 00:55A8 -  -  -  -  CLGetCharacterType:
-  360 00:55A8 EE 20 -  -  		xor 	' ' 						; zero if space
-  361 00:55AA C8 -  -  -  		ret 	z
-  362 00:55AB EE 20 -  -  		xor 	' '							; get it back
-  363 00:55AD -  -  -  -  		;
-  364 00:55AD FE 5F -  -  		cp 		'_' 						; identifier if underscore.
-  365 00:55AF 28 16 -  -  		jr 		z,_CLIsIdentifier
-  366 00:55B1 -  -  -  -  		;
-  367 00:55B1 FE 30 -  -  		cp 		'0' 						; check 0-9
-  368 00:55B3 38 15 -  -  		jr 		c,_CLNotIdentifier
-  369 00:55B5 FE 3A -  -  		cp 		'9'+1
-  370 00:55B7 38 0E -  -  		jr 		c,_CLIsIdentifier
-  371 00:55B9 -  -  -  -  		;
-  372 00:55B9 FE 60 -  -  		cp 		96 							; shift l/c down
-  373 00:55BB 38 02 -  -  		jr 		c,_CLNotUpper
-  374 00:55BD D6 20 -  -  		sub 	a,32
-  375 00:55BF -  -  -  -  _CLNotUpper:
-  376 00:55BF FE 41 -  -  		cp 		'A'
-  377 00:55C1 38 07 -  -  		jr 		c,_CLNotIdentifier
-  378 00:55C3 FE 5B -  -  		cp 		'Z'+1
-  379 00:55C5 30 00 -  -  		jr 		nc,_CLIsIdentifier		
-  380 00:55C7 -  -  -  -  _CLIsIdentifier:
-  381 00:55C7 3E 01 -  -  		ld 		a,1
-  382 00:55C9 C9 -  -  -  		ret
-  383 00:55CA -  -  -  -  _CLNotIdentifier:
-  384 00:55CA 3E 02 -  -  		ld 		a,2
-  385 00:55CC C9 -  -  -  		ret
-  386 00:55CD -  -  -  -  
-  387 00:55CD -  -  -  -  ; ***************************************************************************************
-  388 00:55CD -  -  -  -  ;
-  389 00:55CD -  -  -  -  ;									Changes and Updates
-  390 00:55CD -  -  -  -  ;
-  391 00:55CD -  -  -  -  ; ***************************************************************************************
-  392 00:55CD -  -  -  -  ;
-  393 00:55CD -  -  -  -  ;		Date			Notes
-  394 00:55CD -  -  -  -  ;		==== 			=====
-  395 00:55CD -  -  -  -  ;
-  396 00:55CD -  -  -  -  ; ***************************************************************************************
+    1 00:5443 -  -  -  -  ; ***************************************************************************************
+    2 00:5443 -  -  -  -  ; ***************************************************************************************
+    3 00:5443 -  -  -  -  ;
+    4 00:5443 -  -  -  -  ;		Name : 		list.asm
+    5 00:5443 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:5443 -  -  -  -  ;		Date : 		9th June 2022
+    7 00:5443 -  -  -  -  ;		Reviewed :	No
+    8 00:5443 -  -  -  -  ;		Purpose :	Program listing.
+    9 00:5443 -  -  -  -  ;
+   10 00:5443 -  -  -  -  ; ***************************************************************************************
+   11 00:5443 -  -  -  -  ; ***************************************************************************************
+   12 00:5443 -  -  -  -  
+   13 00:5443 -  -  -  -  ; ***************************************************************************************
+   14 00:5443 -  -  -  -  ;
+   15 00:5443 -  -  -  -  ;										LIST a program
+   16 00:5443 -  -  -  -  ;
+   17 00:5443 -  -  -  -  ; ***************************************************************************************
+   18 00:5443 -  -  -  -  
+   19 00:5443 -  -  -  -  Command_LIST: 	;; [list]
+   20 00:5443 01 00 00 -  		ld 		bc,$0000 					; BC is the low value
+   21 00:5446 11 FF FF -  		ld 		de,$FFFF 					; DE is the high value
+   22 00:5449 -  -  -  -  		;
+   23 00:5449 -  -  -  -  		;		Unpack the command
+   24 00:5449 -  -  -  -  		;		
+   25 00:5449 DD 7E 00 -  		ld 		a,(ix+0) 					; what's there ?
+   26 00:544C FE A6 -  -  		cp	 	KWD_COMMA 					; if , then do the second part
+   27 00:544E 28 16 -  -  		jr 		z,_CLUpperRange
+   28 00:5450 E6 C0 -  -  		and 	$C0 						; check number follows.
+   29 00:5452 FE 40 -  -  		cp 		$40
+   30 00:5454 20 20 -  -  		jr 		nz,_CLList 			
+   31 00:5456 CD AC 54 -  		call 	_CLGetInteger 				; get a line number
+   32 00:5459 44 -  -  -  		ld  	b,h 						; put into BC
+   33 00:545A 4D -  -  -  		ld 		c,l
+   34 00:545B DD 7E 00 -  		ld 		a,(ix+0)					; , follows ?
+   35 00:545E FE A6 -  -  		cp 		KWD_COMMA
+   36 00:5460 28 04 -  -  		jr 		z,_CLUpperRange
+   37 00:5462 54 -  -  -  		ld 		d,h 						; one number only, so in BC and DE
+   38 00:5463 5D -  -  -  		ld 		e,l
+   39 00:5464 18 10 -  -  		jr 		_CLList
+   40 00:5466 -  -  -  -  		;
+   41 00:5466 -  -  -  -  		;		Second number.
+   42 00:5466 -  -  -  -  		;
+   43 00:5466 -  -  -  -  _CLUpperRange:
+   44 00:5466 DD 23 -  -  		inc 	ix 							; skip comma
+   45 00:5468 DD 7E 00 -  		ld 		a,(ix+0) 					; followed by a number
+   46 00:546B E6 C0 -  -  		and 	$C0
+   47 00:546D FE 40 -  -  		cp 		$40
+   48 00:546F 20 05 -  -  		jr 		nz,_CLList 					; No listing done
+   49 00:5471 CD AC 54 -  		call 	_CLGetInteger 				; get a number
+   50 00:5474 54 -  -  -  		ld 		d,h 						; put into DE
+   51 00:5475 5D -  -  -  		ld 		e,l		
+   52 00:5476 -  -  -  -  		;
+   53 00:5476 -  -  -  -  		;		List from line no.s BC to DE.
+   54 00:5476 -  -  -  -  		;
+   55 00:5476 -  -  -  -  _CLList:		
+   56 00:5476 DD 2A 34 40 		ld 		ix,(CodeAddress) 			; start of code.
+   57 00:547A -  -  -  -  		;
+   58 00:547A -  -  -  -  		;		List main loop
+   59 00:547A -  -  -  -  		;
+   60 00:547A -  -  -  -  _CLNextLine:		
+   61 00:547A DD 7E 00 -  		ld 		a,(ix+0) 					; offset = 0, then end.
+   62 00:547D B7 -  -  -  		or 		a
+   63 00:547E CA 69 42 -  		jp 		z,Command_END
+   64 00:5481 -  -  -  -  		;
+   65 00:5481 21 00 00 -  		ld 		hl,$0000 					; line number into HL
+   66 00:5484 DD 6E 01 -  		ld 		l,(ix+1) 						
+   67 00:5487 DD 66 02 -  		ld 		h,(ix+2)
+   68 00:548A CD 9C 54 -  		call 	CLCheckLineNumber
+   69 00:548D D4 BB 54 -  		call 	nc,CLPrintLine
+   70 00:5490 -  -  -  -  		;
+   71 00:5490 C5 -  -  -  		push 	bc 							; go to next line
+   72 00:5491 01 00 00 -  		ld 		bc,0 						; BC is offset
+   73 00:5494 DD 4E 00 -  		ld 		c,(ix+0)
+   74 00:5497 DD 09 -  -  		add 	ix,bc
+   75 00:5499 C1 -  -  -  		pop 	bc
+   76 00:549A -  -  -  -  		;
+   77 00:549A 18 DE -  -  		jr 		_CLNextLine 				; go round again.
+   78 00:549C -  -  -  -  
+   79 00:549C -  -  -  -  ; ***************************************************************************************
+   80 00:549C -  -  -  -  ;
+   81 00:549C -  -  -  -  ;				Compare line number in HL vs BC/DE, NC if listable
+   82 00:549C -  -  -  -  ;
+   83 00:549C -  -  -  -  ; ***************************************************************************************
+   84 00:549C -  -  -  -  
+   85 00:549C -  -  -  -  CLCheckLineNumber:
+   86 00:549C E5 -  -  -  		push 	hl 							; compare against BC
+   87 00:549D AF -  -  -  		xor		a
+   88 00:549E ED 42 -  -  		sbc 	hl,bc
+   89 00:54A0 E1 -  -  -  		pop 	hl
+   90 00:54A1 D8 -  -  -  		ret		c 							; if < BC then fail.
+   91 00:54A2 ED 52 -  -  		sbc 	hl,de
+   92 00:54A4 28 04 -  -  		jr 		z,_CLCLOkay 				; if <= DE then okay
+   93 00:54A6 38 02 -  -  		jr 		c,_CLCLOkay
+   94 00:54A8 37 -  -  -  		scf
+   95 00:54A9 C9 -  -  -  		ret
+   96 00:54AA -  -  -  -  _CLCLOkay:
+   97 00:54AA AF -  -  -  		xor 	a
+   98 00:54AB C9 -  -  -  		ret
+   99 00:54AC -  -  -  -  
+  100 00:54AC -  -  -  -  ; ***************************************************************************************
+  101 00:54AC -  -  -  -  ;
+  102 00:54AC -  -  -  -  ;						Get 16 bit integer (for line numbers)
+  103 00:54AC -  -  -  -  ;
+  104 00:54AC -  -  -  -  ; ***************************************************************************************
+  105 00:54AC -  -  -  -  
+  106 00:54AC -  -  -  -  _CLGetInteger:
+  107 00:54AC C5 -  -  -  		push 	bc
+  108 00:54AD D5 -  -  -  		push 	de
+  109 00:54AE CD 88 46 -  		call 	EvaluateInteger
+  110 00:54B1 D9 -  -  -  		exx
+  111 00:54B2 7C -  -  -  		ld 		a,h
+  112 00:54B3 B5 -  -  -  		or 		l
+  113 00:54B4 D9 -  -  -  		exx
+  114 00:54B5 CA FB 44 -  		jp 		z,BadValue
+  115 00:54B8 D1 -  -  -  		pop 	de
+  116 00:54B9 C1 -  -  -  		pop 	bc
+  117 00:54BA C9 -  -  -  		ret
+  118 00:54BB -  -  -  -  
+  119 00:54BB -  -  -  -  ; ***************************************************************************************
+  120 00:54BB -  -  -  -  ;
+  121 00:54BB -  -  -  -  ;								Print line starting at IX
+  122 00:54BB -  -  -  -  ;
+  123 00:54BB -  -  -  -  ; ***************************************************************************************
+  124 00:54BB -  -  -  -  
+  125 00:54BB -  -  -  -  CLPrintLine:
+  126 00:54BB CD C8 54 -  		call 	CLExpandLine
+  127 00:54BE 21 B2 40 -  		ld 		hl,TokenBuffer
+  128 00:54C1 CD B3 4C -  		call 	PrintStringAtHL 
+  129 00:54C4 CD D4 52 -  		call 	SYSPrintCRLF
+  130 00:54C7 C9 -  -  -  		ret
+  131 00:54C8 -  -  -  -  
+  132 00:54C8 -  -  -  -  ; ***************************************************************************************
+  133 00:54C8 -  -  -  -  ;
+  134 00:54C8 -  -  -  -  ;						 Expand line to buffer starting at IX
+  135 00:54C8 -  -  -  -  ;
+  136 00:54C8 -  -  -  -  ; ***************************************************************************************
+  137 00:54C8 -  -  -  -  
+  138 00:54C8 -  -  -  -  CLExpandLine:
+  139 00:54C8 C5 -  -  -  		push 	bc
+  140 00:54C9 D5 -  -  -  		push 	de
+  141 00:54CA DD E5 -  -  		push 	ix
+  142 00:54CC 21 B2 40 -  		ld 		hl,TokenBuffer 				; set the token buffer pointer
+  143 00:54CF 22 B2 41 -  		ld 		(TWPointer),hl
+  144 00:54D2 CD A3 55 -  		call 	CLDecodeLineNumber
+  145 00:54D5 -  -  -  -  _CLSpaceOut:		
+  146 00:54D5 CD 11 55 -  		call 	CLPrintSpace
+  147 00:54D8 3A B2 41 -  		ld 		a,(TWPointer)
+  148 00:54DB FE B8 -  -  		cp 		(6+TokenBuffer) & $FF
+  149 00:54DD 20 F6 -  -  		jr 		nz,_CLSpaceOut
+  150 00:54DF DD 23 -  -  		inc 	ix 							; point to line star.
+  151 00:54E1 DD 23 -  -  		inc 	ix
+  152 00:54E3 DD 23 -  -  		inc 	ix
+  153 00:54E5 -  -  -  -  _CLPLLoop		
+  154 00:54E5 DD 7E 00 -  		ld 		a,(ix+0) 					; next token.
+  155 00:54E8 FE 80 -  -  		cp 		$80 						; EOL 
+  156 00:54EA 28 20 -  -  		jr 		z,_CLPLLExit 				; if so, exit.
+  157 00:54EC B7 -  -  -  		or 		a
+  158 00:54ED FC 20 55 -  		call 	m,CLDecodeKeyword
+  159 00:54F0 -  -  -  -  
+  160 00:54F0 06 10 -  -  		ld 		b,16
+  161 00:54F2 FE 94 -  -  		cp 		KWD_AMPERSAND
+  162 00:54F4 CC 94 55 -  		call 	z,CLDecodeInteger
+  163 00:54F7 -  -  -  -  
+  164 00:54F7 FE 26 -  -  		cp 		IDENTIFIER_END
+  165 00:54F9 DC 51 55 -  		call 	c,CLDecodeIdentifier
+  166 00:54FC -  -  -  -  
+  167 00:54FC FE 3F -  -  		cp 		STRING_MARKER
+  168 00:54FE CC 75 55 -  		call 	z,CLDecodeString
+  169 00:5501 -  -  -  -  
+  170 00:5501 E6 C0 -  -  		and 	$C0
+  171 00:5503 FE 40 -  -  		cp 		$40
+  172 00:5505 06 0A -  -  		ld 		b,10
+  173 00:5507 CC 94 55 -  		call 	z,CLDecodeInteger
+  174 00:550A 18 D9 -  -  		jr 		_CLPLLoop
+  175 00:550C -  -  -  -  
+  176 00:550C -  -  -  -  _CLPLLExit:		
+  177 00:550C DD E1 -  -  		pop 	ix
+  178 00:550E D1 -  -  -  		pop 	de
+  179 00:550F C1 -  -  -  		pop 	bc
+  180 00:5510 C9 -  -  -  		ret
+  181 00:5511 -  -  -  -  
+  182 00:5511 -  -  -  -  ; ***************************************************************************************
+  183 00:5511 -  -  -  -  ;
+  184 00:5511 -  -  -  -  ;								Print Space/A to output
+  185 00:5511 -  -  -  -  ;
+  186 00:5511 -  -  -  -  ; ***************************************************************************************
+  187 00:5511 -  -  -  -  
+  188 00:5511 -  -  -  -  CLPrintSpace:
+  189 00:5511 3E 20 -  -  		ld 		a,' '
+  190 00:5513 -  -  -  -  CLPrintA:
+  191 00:5513 E5 -  -  -  		push 	hl
+  192 00:5514 2A B2 41 -  		ld 		hl,(TWPointer)		
+  193 00:5517 77 -  -  -  		ld 		(hl),a
+  194 00:5518 23 -  -  -  		inc 	hl
+  195 00:5519 22 B2 41 -  		ld 		(TWPointer),hl
+  196 00:551C 36 00 -  -  		ld 		(hl),0
+  197 00:551E E1 -  -  -  		pop 	hl
+  198 00:551F C9 -  -  -  		ret
+  199 00:5520 -  -  -  -  
+  200 00:5520 -  -  -  -  ; ***************************************************************************************
+  201 00:5520 -  -  -  -  ;
+  202 00:5520 -  -  -  -  ;									Decode Keyword A
+  203 00:5520 -  -  -  -  ;
+  204 00:5520 -  -  -  -  ; ***************************************************************************************
+  205 00:5520 -  -  -  -  
+  206 00:5520 -  -  -  -  CLDecodeKeyword:
+  207 00:5520 F5 -  -  -  		push 	af
+  208 00:5521 FE 81 -  -  		cp 		KWC_SHIFT_1 				; needs fixing if shift keywords added.
+  209 00:5523 CA F1 44 -  		jp 		z,NotImplemented
+  210 00:5526 FE 82 -  -  		cp 		KWC_SHIFT_2
+  211 00:5528 CA F1 44 -  		jp 		z,NotImplemented
+  212 00:552B -  -  -  -  
+  213 00:552B DD 23 -  -  		inc 	ix 							; consume keyword
+  214 00:552D 47 -  -  -  		ld 		b,a 						; put keyword # in B
+  215 00:552E 21 F0 52 -  		ld 		hl,KeywordsSet0 			; start with set 0
+  216 00:5531 -  -  -  -  _CLFindKeyword:
+  217 00:5531 05 -  -  -  		dec 	b
+  218 00:5532 F2 3D 55 -  		jp 		p,_CLFoundKeyword 			; if $7F have found keyword.
+  219 00:5535 11 00 00 -  		ld 		de,0 						; get length into DE
+  220 00:5538 5E -  -  -  		ld 		e,(hl)
+  221 00:5539 13 -  -  -  		inc 	de 							; +1 for the length
+  222 00:553A 19 -  -  -  		add 	hl,de 						; go to next keyword		
+  223 00:553B 18 F4 -  -  		jr 		_CLFindKeyword
+  224 00:553D -  -  -  -  _CLFoundKeyword:
+  225 00:553D 46 -  -  -  		ld 		b,(hl) 						; get length into B
+  226 00:553E 23 -  -  -  		inc 	hl
+  227 00:553F 7E -  -  -  		ld 		a,(hl) 						; is first char identifier
+  228 00:5540 CD D4 55 -  		call 	CLGetCharacterType 			
+  229 00:5543 FE 01 -  -  		cp 		1 							; if so, space requied maybe ?
+  230 00:5545 CC C4 55 -  		call 	z,CLCheckLastIdentifier
+  231 00:5548 -  -  -  -  _CLCopyKeyword:
+  232 00:5548 7E -  -  -  		ld 		a,(hl)						; copy that many characters			
+  233 00:5549 23 -  -  -  		inc 	hl 		
+  234 00:554A CD 13 55 -  		call 	CLPrintA
+  235 00:554D 10 F9 -  -  		djnz 	_CLCopyKeyword
+  236 00:554F F1 -  -  -  		pop 	af
+  237 00:5550 C9 -  -  -  		ret
+  238 00:5551 -  -  -  -  
+  239 00:5551 -  -  -  -  ; ***************************************************************************************
+  240 00:5551 -  -  -  -  ;
+  241 00:5551 -  -  -  -  ;								 Decode Identifier at IX
+  242 00:5551 -  -  -  -  ;
+  243 00:5551 -  -  -  -  ; ***************************************************************************************
+  244 00:5551 -  -  -  -  
+  245 00:5551 -  -  -  -  CLDecodeIdentifier:
+  246 00:5551 F5 -  -  -  		push 	af
+  247 00:5552 CD C4 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
+  248 00:5555 -  -  -  -  _CLDILoop:
+  249 00:5555 DD 7E 00 -  		ld 		a,(ix+0) 					; get identifier.
+  250 00:5558 DD 23 -  -  		inc 	ix
+  251 00:555A 06 61 -  -  		ld 		b,97 
+  252 00:555C FE 1A -  -  		cp 		26
+  253 00:555E 38 08 -  -  		jr 		c,_CLDIDoChar
+  254 00:5560 06 16 -  -  		ld 		b,48-26
+  255 00:5562 FE 24 -  -  		cp 		36
+  256 00:5564 38 02 -  -  		jr 		c,_CLDIDoChar
+  257 00:5566 06 3B -  -  		ld 		b,'_'-36
+  258 00:5568 -  -  -  -  _CLDIDoChar:
+  259 00:5568 80 -  -  -  		add 	a,b
+  260 00:5569 CD 13 55 -  		call 	CLPrintA		
+  261 00:556C DD 7E 00 -  		ld 		a,(ix+0) 					; check next is identifier
+  262 00:556F FE 26 -  -  		cp 		IDENTIFIER_END
+  263 00:5571 38 E2 -  -  		jr 		c,_CLDILoop
+  264 00:5573 F1 -  -  -  		pop 	af
+  265 00:5574 C9 -  -  -  		ret
+  266 00:5575 -  -  -  -  
+  267 00:5575 -  -  -  -  ; ***************************************************************************************
+  268 00:5575 -  -  -  -  ;
+  269 00:5575 -  -  -  -  ;								 Decode String at IX
+  270 00:5575 -  -  -  -  ;
+  271 00:5575 -  -  -  -  ; ***************************************************************************************
+  272 00:5575 -  -  -  -  
+  273 00:5575 -  -  -  -  CLDecodeString:
+  274 00:5575 F5 -  -  -  		push 	af
+  275 00:5576 3E 22 -  -  		ld	 	a,'"'
+  276 00:5578 CD 13 55 -  		call 	CLPrintA
+  277 00:557B DD 23 -  -  		inc 	ix
+  278 00:557D DD 23 -  -  		inc 	ix
+  279 00:557F -  -  -  -  _CLDSOut:
+  280 00:557F DD 7E 00 -  		ld 		a,(ix+0)
+  281 00:5582 DD 23 -  -  		inc 	ix
+  282 00:5584 FE 20 -  -  		cp 		' '	
+  283 00:5586 38 05 -  -  		jr 		c,_CLDSEnd
+  284 00:5588 CD 13 55 -  		call 	CLPrintA
+  285 00:558B 18 F2 -  -  		jr 		_CLDSOut
+  286 00:558D -  -  -  -  _CLDSEnd:		
+  287 00:558D 3E 22 -  -  		ld	 	a,'"'
+  288 00:558F CD 13 55 -  		call 	CLPrintA
+  289 00:5592 F1 -  -  -  		pop 	af
+  290 00:5593 C9 -  -  -  		ret
+  291 00:5594 -  -  -  -  
+  292 00:5594 -  -  -  -  ; ***************************************************************************************
+  293 00:5594 -  -  -  -  ;
+  294 00:5594 -  -  -  -  ;							Decode Integer at IX, base B
+  295 00:5594 -  -  -  -  ;
+  296 00:5594 -  -  -  -  ; ***************************************************************************************
+  297 00:5594 -  -  -  -  
+  298 00:5594 -  -  -  -  CLDecodeInteger:
+  299 00:5594 F5 -  -  -  		push 	af
+  300 00:5595 C5 -  -  -  		push 	bc
+  301 00:5596 CD C4 55 -  		call 	CLCheckLastIdentifier 		; check if identifier
+  302 00:5599 CD 6A 46 -  		call 	EvaluateIntegerTerm 		; get the number only
+  303 00:559C C1 -  -  -  		pop 	bc
+  304 00:559D 78 -  -  -  		ld 		a,b 						; base
+  305 00:559E CD B0 55 -  		call 	CLExpandInt32ToBuffer
+  306 00:55A1 F1 -  -  -  		pop 	af
+  307 00:55A2 C9 -  -  -  		ret
+  308 00:55A3 -  -  -  -  
+  309 00:55A3 -  -  -  -  ; ***************************************************************************************
+  310 00:55A3 -  -  -  -  ;
+  311 00:55A3 -  -  -  -  ;							 Decode Line Number into Token Buffer
+  312 00:55A3 -  -  -  -  ;
+  313 00:55A3 -  -  -  -  ; ***************************************************************************************
+  314 00:55A3 -  -  -  -  
+  315 00:55A3 -  -  -  -  CLDecodeLineNumber:
+  316 00:55A3 DD 6E 01 -  		ld 		l,(ix+1)					; get line# to HL'HL
+  317 00:55A6 DD 66 02 -  		ld 		h,(ix+2)
+  318 00:55A9 D9 -  -  -  		exx
+  319 00:55AA 21 00 00 -  		ld 		hl,$000000
+  320 00:55AD D9 -  -  -  		exx
+  321 00:55AE 3E 0A -  -  		ld 		a,10 						; base
+  322 00:55B0 -  -  -  -  CLExpandInt32ToBuffer:
+  323 00:55B0 ED 4B B2 41 		ld 		bc,(TWPointer) 				; where it goes.
+  324 00:55B4 CD 6A 52 -  		call 	Int32ToString
+  325 00:55B7 -  -  -  -  _CLEI3End: 									; look for number end.
+  326 00:55B7 0A -  -  -  		ld 		a,(bc)
+  327 00:55B8 ED 43 B2 41 		ld 		(TWPointer),bc
+  328 00:55BC 03 -  -  -  		inc 	bc
+  329 00:55BD FE 20 -  -  		cp 		' '
+  330 00:55BF 30 F6 -  -  		jr 		nc,_CLEI3End
+  331 00:55C1 AF -  -  -  		xor 	a 							; add EOS
+  332 00:55C2 02 -  -  -  		ld 		(bc),a				
+  333 00:55C3 C9 -  -  -  		ret
+  334 00:55C4 -  -  -  -  
+  335 00:55C4 -  -  -  -  ; ***************************************************************************************
+  336 00:55C4 -  -  -  -  ;
+  337 00:55C4 -  -  -  -  ;						Check if last was identifier, if so add space
+  338 00:55C4 -  -  -  -  ;
+  339 00:55C4 -  -  -  -  ; ***************************************************************************************
+  340 00:55C4 -  -  -  -  
+  341 00:55C4 -  -  -  -  CLCheckLastIdentifier:
+  342 00:55C4 E5 -  -  -  		push	hl 							; get last character written
+  343 00:55C5 2A B2 41 -  		ld 		hl,(TWPointer)
+  344 00:55C8 2B -  -  -  		dec 	hl
+  345 00:55C9 7E -  -  -  		ld 		a,(hl)
+  346 00:55CA E1 -  -  -  		pop 	hl
+  347 00:55CB CD D4 55 -  		call 	CLGetCharacterType 			; get type
+  348 00:55CE FE 01 -  -  		cp 		1  							; if identifier (A-Z0-9_)
+  349 00:55D0 CC 11 55 -  		call 	z,CLPrintSpace 				; space needed
+  350 00:55D3 C9 -  -  -  		ret
+  351 00:55D4 -  -  -  -  
+  352 00:55D4 -  -  -  -  ; ***************************************************************************************
+  353 00:55D4 -  -  -  -  ;
+  354 00:55D4 -  -  -  -  ;								Get character type
+  355 00:55D4 -  -  -  -  ;						0 = Space, 1 = 0-9a-zA-Z_ 2 = the rest
+  356 00:55D4 -  -  -  -  ;
+  357 00:55D4 -  -  -  -  ; ***************************************************************************************
+  358 00:55D4 -  -  -  -  
+  359 00:55D4 -  -  -  -  CLGetCharacterType:
+  360 00:55D4 EE 20 -  -  		xor 	' ' 						; zero if space
+  361 00:55D6 C8 -  -  -  		ret 	z
+  362 00:55D7 EE 20 -  -  		xor 	' '							; get it back
+  363 00:55D9 -  -  -  -  		;
+  364 00:55D9 FE 5F -  -  		cp 		'_' 						; identifier if underscore.
+  365 00:55DB 28 16 -  -  		jr 		z,_CLIsIdentifier
+  366 00:55DD -  -  -  -  		;
+  367 00:55DD FE 30 -  -  		cp 		'0' 						; check 0-9
+  368 00:55DF 38 15 -  -  		jr 		c,_CLNotIdentifier
+  369 00:55E1 FE 3A -  -  		cp 		'9'+1
+  370 00:55E3 38 0E -  -  		jr 		c,_CLIsIdentifier
+  371 00:55E5 -  -  -  -  		;
+  372 00:55E5 FE 60 -  -  		cp 		96 							; shift l/c down
+  373 00:55E7 38 02 -  -  		jr 		c,_CLNotUpper
+  374 00:55E9 D6 20 -  -  		sub 	a,32
+  375 00:55EB -  -  -  -  _CLNotUpper:
+  376 00:55EB FE 41 -  -  		cp 		'A'
+  377 00:55ED 38 07 -  -  		jr 		c,_CLNotIdentifier
+  378 00:55EF FE 5B -  -  		cp 		'Z'+1
+  379 00:55F1 30 00 -  -  		jr 		nc,_CLIsIdentifier		
+  380 00:55F3 -  -  -  -  _CLIsIdentifier:
+  381 00:55F3 3E 01 -  -  		ld 		a,1
+  382 00:55F5 C9 -  -  -  		ret
+  383 00:55F6 -  -  -  -  _CLNotIdentifier:
+  384 00:55F6 3E 02 -  -  		ld 		a,2
+  385 00:55F8 C9 -  -  -  		ret
+  386 00:55F9 -  -  -  -  
+  387 00:55F9 -  -  -  -  ; ***************************************************************************************
+  388 00:55F9 -  -  -  -  ;
+  389 00:55F9 -  -  -  -  ;									Changes and Updates
+  390 00:55F9 -  -  -  -  ;
+  391 00:55F9 -  -  -  -  ; ***************************************************************************************
+  392 00:55F9 -  -  -  -  ;
+  393 00:55F9 -  -  -  -  ;		Date			Notes
+  394 00:55F9 -  -  -  -  ;		==== 			=====
+  395 00:55F9 -  -  -  -  ;
+  396 00:55F9 -  -  -  -  ; ***************************************************************************************
 Listing for file "_build.asm"
-   84 00:55CD -  -  -  -  #include "testprogram/basic.asm"
+   84 00:55F9 -  -  -  -  #include "testprogram/basic.asm"
 Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
-    1 00:55CD -  -  -  -  ; ***************************************************************************************
-    2 00:55CD -  -  -  -  ; ***************************************************************************************
-    3 00:55CD -  -  -  -  ;
-    4 00:55CD -  -  -  -  ;		Name : 		basic.asm
-    5 00:55CD -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
-    6 00:55CD -  -  -  -  ;		Date : 		3rd June 2022
-    7 00:55CD -  -  -  -  ;		Reviewed :	No
-    8 00:55CD -  -  -  -  ;		Purpose :	Main program.
-    9 00:55CD -  -  -  -  ;
-   10 00:55CD -  -  -  -  ; ***************************************************************************************
-   11 00:55CD -  -  -  -  ; ***************************************************************************************
-   12 00:55CD -  -  -  -  
-   13 00:55CD 00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
-              00 00 00 00 
+    1 00:55F9 -  -  -  -  ; ***************************************************************************************
+    2 00:55F9 -  -  -  -  ; ***************************************************************************************
+    3 00:55F9 -  -  -  -  ;
+    4 00:55F9 -  -  -  -  ;		Name : 		basic.asm
+    5 00:55F9 -  -  -  -  ;		Author :	Paul Robson (paul@robsons.org.uk)
+    6 00:55F9 -  -  -  -  ;		Date : 		3rd June 2022
+    7 00:55F9 -  -  -  -  ;		Reviewed :	No
+    8 00:55F9 -  -  -  -  ;		Purpose :	Main program.
+    9 00:55F9 -  -  -  -  ;
+   10 00:55F9 -  -  -  -  ; ***************************************************************************************
+   11 00:55F9 -  -  -  -  ; ***************************************************************************************
+   12 00:55F9 -  -  -  -  
+   13 00:55F9 00 00 00 00 
               00 00 00 00 
               00 00 00 00 
               00 00 00 00 
@@ -7464,7 +7477,7 @@ Listing for file "/home/paulr/Projects/dax-basic/source/testprogram/basic.asm"
               64 A7 C1 00 
               80 05 62 02 
               B8 80 05 AC 
-              58 BA 80 -  		#import 	"testprogram/testprogram.dat"
+              58 BA 80 -  		#import 	"testprogram/testprogram.dax"
    16 00:58B3 00 00 00 00 
               00 00 00 00 
               00 00 00 00 

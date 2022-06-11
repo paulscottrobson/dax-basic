@@ -53,14 +53,14 @@ class BasicProgram(object):
 	#
 	# 		Write output file 
 	#
-	def write(self,fileName = "testprogram.dat"):
-		f = ("../source/testprogram/"+fileName).replace("/",os.sep)
+	def write(self,fileName):
+		f = fileName.replace("/",os.sep)
 		h = open(f,"wb")
 		h.write(bytes(self.code))
 		h.close()
 
 if __name__ == "__main__":
-	if len(sys.argv) != 2:
-		assert "Bad makeprogram.py invocation"
-	b = BasicProgram(sys.argv[-1].replace("/",os.sep))
-	b.write()		
+	if len(sys.argv) != 3:
+		assert "Bad makeprogram.py invocation <src> <dax>"
+	b = BasicProgram(sys.argv[1].replace("/",os.sep))
+	b.write(sys.argv[2])		

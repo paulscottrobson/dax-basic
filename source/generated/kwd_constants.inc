@@ -84,3 +84,9 @@
 #define KWD_CLEAR                           	$00cb ; clear
 #define KWD_END                             	$00cc ; end
 #define KWD_STOP                            	$00cd ; stop
+#define KWD_MOVE                            	$00ce ; move
+#define KWD_DRAW                            	$00cf ; draw
+#define KWD_PLOT                            	$00d0 ; plot
+#define KWD_MODE                            	$00d1 ; mode
+#define KWD_COLOUR                          	$00d2 ; colour
+#define KWD_GCOL                            	$00d3 ; gcol

@@ -12,7 +12,7 @@
 
 		.block 		$400-($ & $3FF)
 TestInstance:
-		#import 	"testprogram/testprogram.dat"
+		#import 	"testprogram/testprogram.dax"
 		.block 		4096
 EndTestInstance:
 		
